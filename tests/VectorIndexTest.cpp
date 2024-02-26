@@ -284,8 +284,6 @@ struct VectorIndexTester
     int abort_sec;
     int check_build_canceled_sec;
     bool abort_sec_set{false};
-
-    std::vector<std::string> backtrace_logger_names;
 #ifdef ENABLE_SCANN
     std::shared_ptr<DiskIOManager> io_manager{nullptr};
 #endif
@@ -939,9 +937,6 @@ int main(int argc, char * argv[])
         .default_value(0)
         .help("number of threads for building the index")
         .scan<'i', int>();
-    program.add_argument("--bt_loggers")
-        .nargs(argparse::nargs_pattern::any)
-        .help("backtrace loggers to analyze");
     program.add_argument("--filter_out_mod")
         .default_value(0)
         .help("filter out every Nth data point")
@@ -1095,8 +1090,6 @@ int main(int argc, char * argv[])
     tester.abort_sec = program.get<int>("--abort_sec");
     tester.check_build_canceled_sec
         = program.get<int>("--check_build_canceled_sec");
-    tester.backtrace_logger_names
-        = program.get<std::vector<std::string>>("--bt_loggers");
     auto abort_sec_stage = program.get<int>("--abort_sec_stage");
     auto index_str_vec = program.get<std::vector<std::string>>("--index_types");
 
