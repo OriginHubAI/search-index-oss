@@ -5,7 +5,6 @@
 #include <shared_mutex>
 #include <sstream>
 #include <thread>
-#include <SearchIndex/Common/BacktraceLogger.h>
 #include <SearchIndex/Common/DenseBitmap.h>
 #include <SearchIndex/IndexDataFileIO.h>
 #include <SearchIndex/VectorSearch.h>
@@ -551,9 +550,6 @@ struct VectorIndexTester
 
         if (flags & VectorTestActions::BUILD)
         {
-            for (auto & n : backtrace_logger_names)
-                BacktraceLogger::resetLogger(n, 4);
-
             SI_LOG_INFO(
                 "Building vector index {}, progress {} num_build_threads {}",
                 index->getName(),
@@ -583,13 +579,6 @@ struct VectorIndexTester
                 index->maxDataPoints(),
                 index->numData(),
                 build_time.count() / 1000);
-
-            if (!backtrace_logger_names.empty())
-            {
-                SI_LOG_INFO("Print backtraces for BUILD");
-                for (auto & n : backtrace_logger_names)
-                    BacktraceLogger::printLogger(n);
-            }
         }
 
         if (flags & VectorTestActions::SAVE)
@@ -636,9 +625,6 @@ struct VectorIndexTester
 
         if (flags & VectorTestActions::SEARCH)
         {
-            for (auto & n : backtrace_logger_names)
-                BacktraceLogger::resetLogger(n, 4);
-
             SI_LOG_INFO("Constructing queries");
             int i0 = 9;
             int i1 = 18;
@@ -768,13 +754,6 @@ struct VectorIndexTester
                     "num_incorrect_top1 {} max_errors {}",
                     num_incorrect_top1,
                     max_errors);
-            }
-
-            if (!backtrace_logger_names.empty())
-            {
-                SI_LOG_INFO("Print backtraces for SEARCH");
-                for (auto & n : backtrace_logger_names)
-                    BacktraceLogger::printLogger(n);
             }
         }
         printMemoryUsage();
@@ -1140,7 +1119,7 @@ int main(int argc, char * argv[])
 
     if (metric_str == "Hamming" || metric_str == "Jaccard")
     {
-        for (auto index_type : BINARY_VECTOR_INDEX_TYPES)
+        for (auto index_type : BINARY_VECTOR_INDEX_TEST_TYPES)
         {
             auto index_str = enumToString(index_type);
             // skip if the index_types argument is not empty and doesn't contain the index

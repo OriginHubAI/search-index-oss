@@ -1,4 +1,3 @@
-#include <SearchIndex/MSTGIndex.h>
 #include <SearchIndex/VectorIndex.h>
 
 namespace Search

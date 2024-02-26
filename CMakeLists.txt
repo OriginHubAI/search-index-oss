@@ -110,14 +110,14 @@ find_package(BLAS REQUIRED)
 # list utility libraries for linking
 set(VECTOR_INDEX_UTIL_LIBS OpenMP::OpenMP_CXX ${BLAS_LIBRARIES})
 
-# configure backward-cpp for stacktrace inspection
-option(ENABLE_BACKTRACE "Enable backtrace debugging" OFF)
-if (ENABLE_BACKTRACE)
-    message(STATUS "Enable backtrace debugging")
-    include(contrib/backward-cpp/BackwardConfig.cmake)
-    message(STATUS "Backward libraries: ${BACKWARD_LIBRARIES}")
-    list(APPEND VECTOR_INDEX_UTIL_LIBS Backward::Backward)
-endif()
+# # configure backward-cpp for stacktrace inspection
+# option(ENABLE_BACKTRACE "Enable backtrace debugging" OFF)
+# if (ENABLE_BACKTRACE)
+#     message(STATUS "Enable backtrace debugging")
+#     include(contrib/backward-cpp/BackwardConfig.cmake)
+#     message(STATUS "Backward libraries: ${BACKWARD_LIBRARIES}")
+#     list(APPEND VECTOR_INDEX_UTIL_LIBS Backward::Backward)
+# endif()
 
 SET(VECTOR_INDEX_LINK_LIBS ${VECTOR_INDEX_UTIL_LIBS})
 
