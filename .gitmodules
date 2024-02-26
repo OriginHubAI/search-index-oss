@@ -1,0 +1,3 @@
+[submodule "contrib/faiss"]
+	path = contrib/faiss
+	url = https://github.com/myscale/faiss.git
