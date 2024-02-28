@@ -26,14 +26,10 @@ enum class IndexType
     HNSWFLAT,
     HNSWPQ,
     HNSWSQ,
-    VAMANA,
-    DISKANN,
-    MSTG,
-    MultiPartMSTG,
+    SCANN,
     BinaryIVF,
     BinaryHNSW,
     BinaryFLAT,
-    BinaryMSTG
 };
 
 enum class Metric

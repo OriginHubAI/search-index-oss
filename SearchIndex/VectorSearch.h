@@ -3,17 +3,12 @@
 #include <SearchIndex/Config.h>
 #include <SearchIndex/LocalDiskFileStore.h>
 #include <SearchIndex/VectorIndex.h>
-#ifdef ENABLE_DISKANN
-#    include <SearchIndex/DiskANNIndex.h>
-#endif
 #ifdef ENABLE_FAISS
 #    include <SearchIndex/FaissIndex.h>
 #endif
 #ifdef ENABLE_SCANN
-#    include <SearchIndex/MSTGIndex.h>
-#    include <SearchIndex/MultiPartMSTGIndex.h>
+#    include <SearchIndex/ScaNNIndex.h>
 #endif
-
 namespace Search
 {
 
@@ -46,13 +41,8 @@ inline static const std::vector<IndexType> FLOAT_VECTOR_INDEX_TEST_TYPES = {
     IndexType::HNSWPQ,
     IndexType::HNSWSQ,
 #endif
-#ifdef ENABLE_DISKANN
-    IndexType::VAMANA,
-    IndexType::DISKANN,
-#endif
 #ifdef ENABLE_SCANN
-    IndexType::MSTG,
-    IndexType::MultiPartMSTG
+    IndexType::SCANN,
 #endif
 };
 
@@ -104,80 +94,12 @@ std::shared_ptr<VectorIndex<IS, OS, IDS, dataType>> createVectorIndex(
             return std::make_shared<FaissHNSWIndex<IS, OS, IDS, dataType>>(
                 name, index_type, metric, data_dim, max_points, params);
 #endif
-#ifdef ENABLE_DISKANN
-        case IndexType::VAMANA:
-            return std::make_shared<DiskANNMemoryIndex<IS, OS, IDS, dataType>>(
-                name, metric, data_dim, max_points, params);
-        case IndexType::DISKANN: {
-            std::shared_ptr<FileStore<IS, OS>> file_store
-                = std::make_shared<LocalDiskFileStore<IS, OS>>(
-                    file_store_prefix, use_file_checksum);
-            return std::make_shared<DiskANNFlashIndex<IS, OS, IDS, dataType>>(
-                name,
-                metric,
-                data_dim,
-                max_points,
-                file_store,
-                load_diskann_after_build,
-                params);
-        }
-#endif
 #ifdef ENABLE_SCANN
-        case IndexType::MSTG: {
-            bool disk_mode = params.getParam<int>(
-                "disk_mode",
-                MSTGIndex<IS, OS, IDS, dataType>::DEFAULT_DISK_MODE);
-            // NOTE: we always use checksum in MSTG
-            auto file_store = disk_mode > 0
-                ? std::make_shared<LocalDiskFileStore<IS, OS>>(
-                    file_store_prefix, use_file_checksum, manage_cache_folder)
-                : nullptr;
-
+        case IndexType::SCANN: {
             if constexpr (dataType == DataType::FloatVector)
             {
-                return std::make_shared<MSTGIndex<IS, OS, IDS, dataType>>(
-                    name,
-                    metric,
-                    data_dim,
-                    max_points,
-                    file_store,
-                    io_manager,
-                    params);
-            }
-        }
-        case IndexType::BinaryMSTG: {
-            if constexpr (dataType == DataType::BinaryVector)
-            {
-                return std::make_shared<MSTGBinaryIndex<IS, OS, IDS>>(
-                    name,
-                    IndexType::BinaryIVF,
-                    metric,
-                    data_dim,
-                    max_points,
-                    params);
-            }
-        }
-        case IndexType::MultiPartMSTG: {
-            bool disk_mode = params.getParam<int>(
-                "disk_mode",
-                MSTGIndex<IS, OS, IDS, dataType>::DEFAULT_DISK_MODE);
-            // NOTE: we always use checksum in MSTG
-            auto file_store = disk_mode > 0
-                ? std::make_shared<LocalDiskFileStore<IS, OS>>(
-                    file_store_prefix, use_file_checksum, manage_cache_folder)
-                : nullptr;
-
-            if constexpr (dataType == DataType::FloatVector)
-            {
-                return std::make_shared<
-                    MultiPartMSTGIndex<IS, OS, IDS, dataType>>(
-                    name,
-                    metric,
-                    data_dim,
-                    max_points,
-                    file_store,
-                    io_manager,
-                    params);
+                return std::make_shared<ScaNNIndex<IS, OS, IDS, dataType>>(
+                    name, metric, data_dim, max_points, params);
             }
         }
 #endif

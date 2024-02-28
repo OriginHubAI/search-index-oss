@@ -12,15 +12,6 @@ int VectorIndex<IS, OS, IDS, dataType>::computeFirstStageNumCandidates(
     int32_t topK,
     Parameters params)
 {
-#ifdef ENABLE_SCANN
-    if (index_type == IndexType::MSTG)
-    {
-        auto search_params
-            = MSTGIndex<IS, OS, IDS, dataType>::extractSearchParams(
-                topK, params, disk_mode, data_dim, num_data);
-        return search_params.num_reorder;
-    }
-#endif
     SI_THROW_FMT(
         ErrorCode::BAD_ARGUMENTS,
         "Unsupported index type for computing num_candidates: %s",

@@ -138,38 +138,37 @@ if(ENABLE_FAISS)
     list(APPEND VECTOR_INDEX_LINK_LIBS faiss)
 endif()
 
-# # ScaNN module
-# option(ENABLE_SCANN "Enable ScaNN for MyScaleSearchIndex" ON)
-# if(ENABLE_SCANN)
-#     message(STATUS "Enable ScaNN")
-#     set(SCANN_PBYIND OFF)
-#     add_subdirectory(contrib/google-research/scann)
-#     include_directories(contrib/google-research/scann)
-#     link_directories(${CMAKE_CURRENT_BINARY_DIR}/contrib/google-research/scann/build)
-#     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/google-research/scann/contrib/tensorflow/include)
-#     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/google-research/scann/contrib/tensorflow/include/src)
-#     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/google-research/scann/contrib/usr/local/include)
-#     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/google-research/scann/contrib/abseil-cpp)
-#     list(APPEND VECTOR_INDEX_LINK_LIBS scann_s)
-# else()
-#     # remove SCANN/MSTG related files
-#     file(GLOB MSTG_FILES "SearchIndex/DiskIOManager*" "SearchIndex/MSTGIndex*" "SearchIndex/MultiPartMSTGIndex*")
-#     foreach(f ${MSTG_FILES})
-#         list(REMOVE_ITEM SOURCE_FILES ${f})
-#     endforeach()
-# endif()
-# message(STATUS "SOURCE_FILES: ${SOURCE_FILES}")
+# ScaNN module
+option(ENABLE_SCANN "Enable ScaNN for MyScaleSearchIndex" ON)
+if(ENABLE_SCANN)
+    message(STATUS "Enable ScaNN")
+    set(SCANN_PBYIND OFF)
+    add_subdirectory(contrib/scann)
+    include_directories(contrib/scann)
+    link_directories(${CMAKE_CURRENT_BINARY_DIR}/contrib/scann/build)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/scann/contrib/tensorflow/include)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/scann/contrib/tensorflow/include/src)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/scann/contrib/usr/local/include)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/scann/contrib/abseil-cpp)
+    list(APPEND VECTOR_INDEX_LINK_LIBS scann_s)
+else()
+    # Remove SCANN related source files
+    list(FILTER SOURCE_FILES EXCLUDE REGEX "SearchIndex/ScaNNIndex.*")
+endif()
+message(STATUS "SOURCE_FILES: ${SOURCE_FILES}")
 
 message(STATUS "VECTOR_INDEX_LINK_LIBS: ${VECTOR_INDEX_LINK_LIBS}")
 
 add_library(search_index OBJECT ${SOURCE_FILES})
 set_target_properties(search_index PROPERTIES LINKER_LANGUAGE CXX)
-if (ENABLE_BACKTRACE)
-    # link BacktraceLogger.cpp to Backward to print backtraces
-    target_link_libraries(search_index PUBLIC Backward::Backward)
-endif()
+# if (ENABLE_BACKTRACE)
+#     # link BacktraceLogger.cpp to Backward to print backtraces
+#     target_link_libraries(search_index PUBLIC Backward::Backward)
+# endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SearchIndex/Config.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/SearchIndex/Config.h)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/SearchIndex/Config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/include/SearchIndex/Config.h)
 
 # build shared & static libraries
 add_library(${PROJECT_NAME}_static STATIC $<TARGET_OBJECTS:search_index>)

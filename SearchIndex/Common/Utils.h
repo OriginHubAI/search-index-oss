@@ -53,6 +53,32 @@ struct SIConfiguration
 namespace Search
 {
 
+/// @brief Manage memory of ostream by AccessibleStringBuf, used in
+/// protobuf serialization.
+class AccessibleStringBuf : public std::stringbuf
+{
+public:
+    /// @brief Access the internal buffer without copying.
+    const char * get_internal_buffer() const { return pbase(); }
+
+    /// @brief Return the size of the internal buffer.
+    std::size_t get_internal_buffer_size() const { return pptr() - pbase(); }
+};
+
+/// @brief Compute hash value of a pair.
+struct pair_hash
+{
+    template <class T1, class T2>
+    std::size_t operator()(const std::pair<T1, T2> & p) const
+    {
+        auto h1 = std::hash<T1>{}(p.first);
+        auto h2 = std::hash<T2>{}(p.second);
+
+        // Combine the hashes using xor
+        return h1 ^ h2;
+    }
+};
+
 using idx_t = int64_t;
 using json = nlohmann::json;
 

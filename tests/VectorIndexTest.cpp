@@ -261,7 +261,6 @@ struct VectorIndexTester
     size_t data_dim;
     size_t data_dim_num_copy;
     size_t max_points;
-    int disk_mode;
     int fp16_storage;
     int num_build_threads;
     int filter_out_mod;
@@ -284,9 +283,6 @@ struct VectorIndexTester
     int abort_sec;
     int check_build_canceled_sec;
     bool abort_sec_set{false};
-#ifdef ENABLE_SCANN
-    std::shared_ptr<DiskIOManager> io_manager{nullptr};
-#endif
 
     VectorIndexTester() { }
 
@@ -346,13 +342,6 @@ struct VectorIndexTester
     template <typename T, DataType DATA_TYPE>
     void testVectorIndexImpl(IndexType index_type, int flags)
     {
-#ifdef ENABLE_SCANN
-        if (disk_mode > 0 && !io_manager)
-        {
-            SI_LOG_INFO("VectorIndexTester creating DiskIOManager");
-            io_manager = std::make_shared<DiskIOManager>();
-        }
-#endif
         using namespace boost::ut;
         auto index_type_str = enumToString(index_type);
         Parameters index_params;
@@ -378,15 +367,12 @@ struct VectorIndexTester
             index_params.setParam("max_mem_cache_ratio", 0.2f);
             index_params.setParam("load_cache_mem_ratio", 0.1f);
         }
-        if (index_type == IndexType::MSTG
-            || index_type == IndexType::MultiPartMSTG)
+        if (index_type == IndexType::SCANN)
         {
-            index_params.setParam("disk_mode", disk_mode);
-
             index_params.setParam("fp16_storage", fp16_storage);
 
             if (use_default_params)
-                SI_LOG_INFO("Using default parameters for MSTG");
+                SI_LOG_INFO("Using default parameters for vector index");
             else
             {
                 index_params.setParam(
@@ -446,8 +432,6 @@ struct VectorIndexTester
             index;
         SI_LOG_INFO("{}: index_type {}", __func__, enumToString(index_type));
         size_t num_train = std::min(max_points, 100 * 1000UL);
-        // FIXME VAMANA doesn't handle empty data well (causing double free error)
-        // size_t empty_data = index_type == IndexType::VAMANA ? 0 : 10;
         size_t empty_data = max_points >= 2000 ? 10 : 0;
         size_t id_offset = 1000;
         size_t seed = rand_seed;
@@ -925,10 +909,6 @@ int main(int argc, char * argv[])
     program.add_argument("--index_types")
         .nargs(argparse::nargs_pattern::any)
         .help("Index types to run tests. Run all tests if not specified");
-    program.add_argument("--disk_mode")
-        .default_value(0)
-        .help("whether to use disk_mode for index")
-        .scan<'i', int>();
     program.add_argument("--fp16_storage")
         .default_value(0)
         .help("whether to use fp16_storage for index")
@@ -1077,7 +1057,6 @@ int main(int argc, char * argv[])
     tester.mstg_aq_threshold = program.get<float>("--mstg_aq_threshold");
     tester.mstg_build_hashed_dataset_by_token
         = program.get<int>("--mstg_build_hashed_dataset_by_token");
-    tester.disk_mode = program.get<int>("--disk_mode");
     tester.fp16_storage = program.get<int>("--fp16_storage");
     tester.num_build_threads = program.get<int>("--num_build_threads");
     tester.filter_out_mod = program.get<int>("--filter_out_mod");

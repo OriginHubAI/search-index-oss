@@ -82,7 +82,7 @@ public:
             queries->dimension() == this->data_dim,
             ErrorCode::LOGICAL_ERROR,
             "search vector dimension don't match");
-        if (metric == Metric::Cosine && index_type != IndexType::MultiPartMSTG)
+        if (metric == Metric::Cosine)
             queries = queries->normalize();
         RECORD_MEMORY_USAGE("before search");
         auto res = searchImpl(
@@ -90,10 +90,6 @@ public:
         RECORD_MEMORY_USAGE("after search");
         for (size_t i = 0; i < res->numQueries(); ++i)
         {
-            // MultiPartMSTG has done these transformations internally in the index parts
-            if (index_type == IndexType::MultiPartMSTG)
-                continue;
-
             // transform from internal IP similarity to cosine distance
             if (metric == Metric::Cosine)
                 for (auto & elem : res->getResultDistances(i))
@@ -133,7 +129,10 @@ public:
     }
 
     /// @brief Dimension of data vectors.
-    size_t dataDimension() const { return data_dim; }
+    size_t dataDimension() const
+    {
+        return data_dim;
+    }
 
     /// @brief Byte size of each data vector.
     size_t vectorSize()
@@ -154,7 +153,10 @@ public:
     }
 
     /// @brief Whehter the vector index supports two stage search.
-    virtual bool supportTwoStageSearch() const { return false; }
+    virtual bool supportTwoStageSearch() const
+    {
+        return false;
+    }
 
     /**
      * @brief Compute number of candidates for first stage search.
