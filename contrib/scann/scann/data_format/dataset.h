@@ -37,7 +37,7 @@
 #include "tensorflow/core/platform/prefetch.h"
 
 #include <SearchIndex/Common/DenseDataLayer.h>
-#include <SearchIndex/Common/BacktraceLogger.h>
+// #include <SearchIndex/Common/BacktraceLogger.h>
 
 namespace research_scann {
 
@@ -846,7 +846,7 @@ DatapointPtr<T> DenseDataset<T>::operator[](size_t i) const {
 
 template <typename T>
 void DenseDataset<T>::Prefetch(size_t i) const {
-  BacktraceLogger::log("dataset_prefetch", "sz" + std::to_string(data_.size()));
+  // BacktraceLogger::log("dataset_prefetch", "sz" + std::to_string(data_.size()));
   DCHECK_LT(i, this->size());
   ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_NTA>(
       reinterpret_cast<const char*>(data_.getDataPtr(i, stride_)));

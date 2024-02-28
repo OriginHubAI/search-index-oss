@@ -16,3 +16,6 @@
 [submodule "contrib/scann/contrib/cnpy"]
 	path = contrib/scann/contrib/cnpy
 	url = https://github.com/rogersce/cnpy.git
+[submodule "contrib/thread-pool"]
+	path = contrib/thread-pool
+	url = https://github.com/bshoshany/thread-pool.git

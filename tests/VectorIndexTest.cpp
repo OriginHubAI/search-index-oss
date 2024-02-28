@@ -359,14 +359,6 @@ struct VectorIndexTester
             index_params.setParam("ncentroids", int(4 * sqrt(max_points)));
             search_params.setParam("nprobe", 8);
         }
-        if (index_type == IndexType::DISKANN)
-        {
-            // it's a small dataset, use the original data size as the memory budget
-            index_params.setParam("build_mem_ratio", 1.0f);
-            index_params.setParam("use_mem_cache", true);
-            index_params.setParam("max_mem_cache_ratio", 0.2f);
-            index_params.setParam("load_cache_mem_ratio", 0.1f);
-        }
         if (index_type == IndexType::SCANN)
         {
             index_params.setParam("fp16_storage", fp16_storage);
@@ -415,18 +407,6 @@ struct VectorIndexTester
             // override default l_search_ratio
             if (mstg_l_search_ratio > 0)
                 search_params.setParam("l_search_ratio", mstg_l_search_ratio);
-
-            // MultiPartMSTG related settings
-            if (index_type == IndexType::MultiPartMSTG)
-            {
-                if (mstg_part_sizes.empty())
-                {
-                    auto h = std::to_string(max_points / 2);
-                    mstg_part_sizes = h + "_" + h;
-                }
-                index_params.setParam("part_max_points", mstg_part_sizes);
-                search_params.setParam("two_stage_search", mstg_two_stage);
-            }
         }
         std::shared_ptr<VectorIndex<IStream, OStream, DenseBitmap, DATA_TYPE>>
             index;
@@ -445,11 +425,7 @@ struct VectorIndexTester
                 data_dim,
                 max_points,
                 index_params,
-                /* load_diskann_after_build */ true,
                 /* file_store_prefix */ "test_vector_index_",
-#ifdef ENABLE_SCANN
-                io_manager,
-#endif
                 /* use_file_checksum */ true);
             expect(index.get() != nullptr);
         }
@@ -620,40 +596,13 @@ struct VectorIndexTester
 
             QueryStats stats;
             std::shared_ptr<SearchResult> res;
-            if (mstg_two_stage && index_type == IndexType::MSTG)
-            {
-                auto first_stage_res = index->search(
-                    query_dataset,
-                    top_k,
-                    search_params,
-                    /* first_stage_only */ true,
-                    valid_ids.get(),
-                    &stats);
-                auto t0 = std::chrono::high_resolution_clock::now();
-                res = index->computeTopDistanceSubset(
-                    query_dataset, first_stage_res, top_k);
-                auto t1 = std::chrono::high_resolution_clock::now();
-                auto time_ms
-                    = std::chrono::duration_cast<std::chrono::milliseconds>(
-                        t1 - t0);
-                SI_LOG_INFO(
-                    "Finished MSTG two-stage search, num_quries={} "
-                    "num_candidates={} second_stage_time={}ms",
-                    query_dataset->numData(),
-                    first_stage_res->getNumCandidates(),
-                    time_ms.count());
-            }
-            else
-            {
-                // MultiPartMSTG might perform two-stage search internally here
-                res = index->search(
-                    query_dataset,
-                    top_k,
-                    search_params,
-                    /* first_stage_only */ false,
-                    valid_ids.get(),
-                    &stats);
-            }
+            res = index->search(
+                query_dataset,
+                top_k,
+                search_params,
+                /* first_stage_only */ false,
+                valid_ids.get(),
+                &stats);
             size_t num_incorrect_dis = 0;
             size_t num_incorrect_top1 = 0;
             float exact_dist = MetricToExactDist[metric];
@@ -664,9 +613,6 @@ struct VectorIndexTester
                 = metric == Metric::IP || metric == Metric::Cosine;
             if (index_type_str.ends_with("PQ") && metric_ip_cosine)
                 max_errors = 4;
-            else if (index_type == IndexType::MSTG && metric_ip_cosine)
-                // FIXME tune parameter and decrease MSTG error to 0
-                max_errors = 3;
             auto nns = res->getResultIndices();
             auto dis = res->getResultDistances();
             std::string dis_str("\n");
@@ -1071,13 +1017,6 @@ int main(int argc, char * argv[])
         = program.get<int>("--check_build_canceled_sec");
     auto abort_sec_stage = program.get<int>("--abort_sec_stage");
     auto index_str_vec = program.get<std::vector<std::string>>("--index_types");
-
-    auto mstg_query_threads = program.get<int>("--mstg_query_threads");
-#ifdef ENABLE_SCANN
-    if (mstg_query_threads > 0)
-        MSTGIndex<IStream, OStream, DenseBitmap, DataType::FloatVector>::
-            setQueryPoolThreads(mstg_query_threads);
-#endif
 
     if (tester.abort_sec == 0)
     {

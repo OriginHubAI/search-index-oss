@@ -18,7 +18,6 @@ inline static const std::vector<IndexType> BINARY_VECTOR_INDEX_TYPES = {
     IndexType::BinaryFLAT,
     // IndexType::BinaryIVF,
     // IndexType::BinaryHNSW,
-    IndexType::BinaryMSTG,
 };
 
 inline static const std::vector<IndexType> BINARY_VECTOR_INDEX_TEST_TYPES = {
@@ -63,11 +62,7 @@ std::shared_ptr<VectorIndex<IS, OS, IDS, dataType>> createVectorIndex(
     size_t data_dim,
     size_t max_points,
     const Parameters & params,
-    [[maybe_unused]] bool load_diskann_after_build = true,
     [[maybe_unused]] const std::string & file_store_prefix = "",
-#ifdef ENABLE_SCANN
-    [[maybe_unused]] std::shared_ptr<DiskIOManager> io_manager = nullptr,
-#endif
     [[maybe_unused]] bool use_file_checksum = false,
     [[maybe_unused]] bool manage_cache_folder = false)
 {
