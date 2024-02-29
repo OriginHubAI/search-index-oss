@@ -125,7 +125,7 @@ using IDListPtr = typename std::shared_ptr<std::vector<idx_t>>;
  * @tparam IDS Underlying IDSelector, usually (compressed) bitmap
  * IDListSelector translates position => id with id_list, then check IDS::is_member.
  * It's used as a neutral choice when the index library doesn't have a proper
- * IDSelector abstraction (such as DiskANN/hnswlib/MSTG).
+ * IDSelector abstraction (such as hnswlib/ScaNN).
  */
 template <IDSelector IDS>
 struct IDListSelector final : public AbstractIDSelector

@@ -867,11 +867,9 @@ WARN_LOGFILE           =
 INPUT                  = SearchIndex/VectorSearch.h \
                          SearchIndex/SearchIndex.h \
                          SearchIndex/FaissIndex.h \
-                         SearchIndex/MSTGIndex.h \
-                         SearchIndex/MultiPartMSTGIndex.h \
+                         SearchIndex/ScaNNIndex.h \
                          SearchIndex/VectorIndex.h \
                          SearchIndex/Common/Utils.h \
-                         SearchIndex/DiskIOManager.h \
                          SearchIndex/Common/DenseBitmap.h \
                          SearchIndex/Common/IDSelector.h \
                          SearchIndex/Common/IndexDataIO.h \
@@ -879,10 +877,7 @@ INPUT                  = SearchIndex/VectorSearch.h \
                          SearchIndex/IndexDataFileIO.h \
                          SearchIndex/DataLayer.h \
                          contrib/google-research/scann/scann/base/search_parameters.h \
-                         README.md \
-                         ./docs/filter_search_exp.md \
-                         ./docs/mstg_exp.md \
-                         ./docs/overview-search-index.md
+                         README.md
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

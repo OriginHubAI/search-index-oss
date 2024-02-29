@@ -267,15 +267,15 @@ struct VectorIndexTester
     int filter_keep_min;
     int filter_keep_max;
     int top_k;
-    int mstg_build_hashed_dataset_by_token;
-    int mstg_two_stage;
-    int mstg_l_search;
-    float mstg_l_search_ratio;
-    int mstg_num_reorder;
-    int mstg_dims_per_block;
-    float mstg_aq_threshold;
-    std::string mstg_children_per_level;
-    std::string mstg_part_sizes;
+    int scann_build_hashed_dataset_by_token;
+    int scann_two_stage;
+    int scann_l_search;
+    float scann_l_search_ratio;
+    int scann_num_reorder;
+    int scann_dims_per_block;
+    float scann_aq_threshold;
+    std::string scann_children_per_level;
+    std::string scann_part_sizes;
     int use_default_params;
     int rand_seed;
     int stress_threads;
@@ -369,16 +369,16 @@ struct VectorIndexTester
             {
                 index_params.setParam(
                     "build_hashed_dataset_by_token",
-                    mstg_build_hashed_dataset_by_token);
+                    scann_build_hashed_dataset_by_token);
                 index_params.setParam(
-                    "num_children_per_level", mstg_children_per_level);
-                if (mstg_dims_per_block > 0)
+                    "num_children_per_level", scann_children_per_level);
+                if (scann_dims_per_block > 0)
                     index_params.setParam(
-                        "quantization_block_dimension", mstg_dims_per_block);
-                if (mstg_aq_threshold >= 0)
-                    index_params.setParam("aq_threshold", mstg_aq_threshold);
+                        "quantization_block_dimension", scann_dims_per_block);
+                if (scann_aq_threshold >= 0)
+                    index_params.setParam("aq_threshold", scann_aq_threshold);
                 uint32_t num_leaf_nodes = 1;
-                for (auto c : mstg_children_per_level)
+                for (auto c : scann_children_per_level)
                     num_leaf_nodes *= c;
 
                 size_t min_cluster_size
@@ -392,10 +392,10 @@ struct VectorIndexTester
                 if (data_dim >= 16)
                 {
                     search_params.setParam("alpha", 3.0f);
-                    if (mstg_l_search > 0)
-                        search_params.setParam("l_search", mstg_l_search);
-                    if (mstg_num_reorder > 0)
-                        search_params.setParam("num_reorder", mstg_num_reorder);
+                    if (scann_l_search > 0)
+                        search_params.setParam("l_search", scann_l_search);
+                    if (scann_num_reorder > 0)
+                        search_params.setParam("num_reorder", scann_num_reorder);
                 }
                 else
                 {
@@ -405,8 +405,8 @@ struct VectorIndexTester
                 }
             }
             // override default l_search_ratio
-            if (mstg_l_search_ratio > 0)
-                search_params.setParam("l_search_ratio", mstg_l_search_ratio);
+            if (scann_l_search_ratio > 0)
+                search_params.setParam("l_search_ratio", scann_l_search_ratio);
         }
         std::shared_ptr<VectorIndex<IStream, OStream, DenseBitmap, DATA_TYPE>>
             index;
@@ -676,7 +676,7 @@ struct VectorIndexTester
             expect(num_incorrect_dis <= max_errors);
             if (data_dim >= 3)
             {
-                // when dimension <= 3, MSTG/IVFSQ gives correct distances but incorrect ids
+                // when dimension <= 3, ScaNN/IVFSQ gives correct distances but incorrect ids
                 expect(num_incorrect_top1 <= max_errors);
                 SI_LOG_INFO(
                     "num_incorrect_top1 {} max_errors {}",
@@ -895,43 +895,43 @@ int main(int argc, char * argv[])
         .default_value(1)
         .help("use default params")
         .scan<'i', int>();
-    program.add_argument("--mstg_two_stage")
+    program.add_argument("--scann_two_stage")
         .default_value(0)
-        .help("perform two stage search with MSTGIndex/MultiPartMSTGIndex")
+        .help("perform two stage search with ScaNNIndex")
         .scan<'i', int>();
-    program.add_argument("--mstg_query_threads")
+    program.add_argument("--scann_query_threads")
         .default_value(-1)
-        .help("query threads for MSTG index")
+        .help("query threads for ScaNN index")
         .scan<'i', int>();
-    program.add_argument("--mstg_children_per_level")
+    program.add_argument("--scann_children_per_level")
         .default_value(std::string(""))
         .help("ints separate by _, say 10_10, empty for default value");
-    program.add_argument("--mstg_part_sizes")
+    program.add_argument("--scann_part_sizes")
         .default_value(std::string(""))
         .help("ints separate by _, say 1000_1000, empty for default value");
-    program.add_argument("--mstg_l_search")
+    program.add_argument("--scann_l_search")
         .default_value(-1)
-        .help("l_search for MSTG index (use -1 for default value)")
+        .help("l_search for ScaNN index (use -1 for default value)")
         .scan<'i', int>();
-    program.add_argument("--mstg_l_search_ratio")
+    program.add_argument("--scann_l_search_ratio")
         .default_value(-1.0f)
-        .help("l_search for MSTG index (use -1 for default value)")
+        .help("l_search for ScaNN index (use -1 for default value)")
         .scan<'g', float>();
-    program.add_argument("--mstg_num_reorder")
+    program.add_argument("--scann_num_reorder")
         .default_value(-1)
-        .help("num_reorder for MSTG index (use -1 for default value)")
+        .help("num_reorder for ScaNN index (use -1 for default value)")
         .scan<'i', int>();
-    program.add_argument("--mstg_dims_per_block")
+    program.add_argument("--scann_dims_per_block")
         .default_value(-1)
-        .help("dims_per_block for MSTG index (use -1 for default value)")
+        .help("dims_per_block for ScaNN index (use -1 for default value)")
         .scan<'i', int>();
-    program.add_argument("--mstg_aq_threshold")
+    program.add_argument("--scann_aq_threshold")
         .default_value(-1.0f)
-        .help("aq_threshold for MSTG index (use -1 for default value)")
+        .help("aq_threshold for ScaNN index (use -1 for default value)")
         .scan<'g', float>();
-    program.add_argument("--mstg_build_hashed_dataset_by_token")
+    program.add_argument("--scann_build_hashed_dataset_by_token")
         .default_value(0)
-        .help("use hashed_dataset_by_token for MSTG index (0 by default)")
+        .help("use hashed_dataset_by_token for ScaNN index (0 by default)")
         .scan<'i', int>();
     program.add_argument("--memory_monitor_sec")
         .default_value(-1)
@@ -992,17 +992,17 @@ int main(int argc, char * argv[])
     tester.data_dim = program.get<int>("--data_dim");
     tester.data_dim_num_copy = program.get<int>("--data_dim_num_copy");
     tester.top_k = program.get<int>("--top_k");
-    tester.mstg_two_stage = program.get<int>("--mstg_two_stage");
-    tester.mstg_children_per_level
-        = program.get<std::string>("--mstg_children_per_level");
-    tester.mstg_part_sizes = program.get<std::string>("--mstg_part_sizes");
-    tester.mstg_l_search = program.get<int>("--mstg_l_search");
-    tester.mstg_l_search_ratio = program.get<float>("--mstg_l_search_ratio");
-    tester.mstg_num_reorder = program.get<int>("--mstg_num_reorder");
-    tester.mstg_dims_per_block = program.get<int>("--mstg_dims_per_block");
-    tester.mstg_aq_threshold = program.get<float>("--mstg_aq_threshold");
-    tester.mstg_build_hashed_dataset_by_token
-        = program.get<int>("--mstg_build_hashed_dataset_by_token");
+    tester.scann_two_stage = program.get<int>("--scann_two_stage");
+    tester.scann_children_per_level
+        = program.get<std::string>("--scann_children_per_level");
+    tester.scann_part_sizes = program.get<std::string>("--scann_part_sizes");
+    tester.scann_l_search = program.get<int>("--scann_l_search");
+    tester.scann_l_search_ratio = program.get<float>("--scann_l_search_ratio");
+    tester.scann_num_reorder = program.get<int>("--scann_num_reorder");
+    tester.scann_dims_per_block = program.get<int>("--scann_dims_per_block");
+    tester.scann_aq_threshold = program.get<float>("--scann_aq_threshold");
+    tester.scann_build_hashed_dataset_by_token
+        = program.get<int>("--scann_build_hashed_dataset_by_token");
     tester.fp16_storage = program.get<int>("--fp16_storage");
     tester.num_build_threads = program.get<int>("--num_build_threads");
     tester.filter_out_mod = program.get<int>("--filter_out_mod");

@@ -12,8 +12,6 @@
 namespace Search
 {
 
-// db depend on this variable
-// BinaryIVF and BInaryHNSW are disabled, and only BinaryMSTG is enabled for binary indices.
 inline static const std::vector<IndexType> BINARY_VECTOR_INDEX_TYPES = {
     IndexType::BinaryFLAT,
     // IndexType::BinaryIVF,

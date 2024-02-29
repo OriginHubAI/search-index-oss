@@ -13,17 +13,17 @@ for metric in "${metrics[@]}"; do
                 "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --use_default_params 1 --data_dim 2048"
                 "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --use_default_params 1 --data_dim 4096"
                 "./boost_ut_test_vector_index --metric ${metric} --use_default_params 1 --filter_out_mod 3"
-                "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --use_default_params 1 --mstg_build_hashed_dataset_by_token 0"
+                "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --use_default_params 1 --scann_build_hashed_dataset_by_token 0"
                 "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --use_default_params 1 --filter_out_mod 3"
                 "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --num_data 2000 --filter_out_mod 3 --filter_keep_min 1009 --filter_keep_max 1012"
-                "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --mstg_two_stage 1"
-                "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --mstg_children_per_level 3_3"
+                "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --scann_two_stage 1"
+                "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --scann_children_per_level 3_3"
                 "./boost_ut_test_vector_index --index_types SCANN --num_data 200000 --metric ${metric} --check_build_canceled_sec 1"
                 "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 60  --index_types SCANN --use_default_params 1"
                 "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 300  --index_types SCANN --use_default_params 1"
                 "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 600  --index_types SCANN --use_default_params 1"
                 "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 1000  --index_types SCANN --use_default_params 1"
-                "SPDLOG_LEVEL=debug ./boost_ut_test_vector_index --metric ${metric} --index_types SCANN --mstg_l_search_ratio 0.9"
+                "SPDLOG_LEVEL=debug ./boost_ut_test_vector_index --metric ${metric} --index_types SCANN --scann_l_search_ratio 0.9"
                 )
 done
 

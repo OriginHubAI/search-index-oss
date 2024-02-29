@@ -170,7 +170,7 @@ Status KMeansTreeNode::Train(const Dataset& training_data,
 
   int k_per_level = config.k_per_level;
   auto& level_nodes = config.num_children_per_level.empty() ?
-    SIConfiguration::MSTG_LEVEL_NUM_LEAF_NODES : config.num_children_per_level;
+    SIConfiguration::SCANN_LEVEL_NUM_LEAF_NODES : config.num_children_per_level;
   if (current_level < level_nodes.size() && level_nodes[current_level] > 0) {
     k_per_level = level_nodes[current_level];
     LOG(INFO) << "Override k_per_level=" << k_per_level << " current_level=" << current_level

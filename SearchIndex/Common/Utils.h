@@ -23,7 +23,7 @@ struct SIConfiguration
 {
     inline static int VLOG_LEVEL = 0;
     inline static uint64_t DISKANN_SECTOR_LEN = 4096;
-    inline static std::vector<int32_t> MSTG_LEVEL_NUM_LEAF_NODES;
+    inline static std::vector<int32_t> SCANN_LEVEL_NUM_LEAF_NODES;
 
     // check if the current thread should abort
     using CheckAbortHandler = std::function<void(void)>;
