@@ -980,7 +980,7 @@ void ScaNNIndex<IS, OS, IDS, dataType>::createHashedDataLayerIfNeeded(
         hash_dim = this->getHashDim();
 
     hashed_data_by_token = std::make_shared<DenseMemoryDataLayer<uint8_t>>(
-        num_rows, hash_dim, false, /*init_data*/ true);
+        num_rows, hash_dim, /*init_data*/ true);
 }
 
 template <typename IS, typename OS, IDSelector IDS, DataType dataType>
@@ -1005,7 +1005,7 @@ void ScaNNIndex<IS, OS, IDS, dataType>::createPackedHashedDataLayerIfNeeded(
     if (hash_dim == 0)
         hash_dim = this->getHashDim();
     hashed_data_packed = std::make_shared<DenseMemoryDataLayer<uint8_t>>(
-        packed_rows, hash_dim, false, /*init_data*/ true);
+        packed_rows, hash_dim, /*init_data*/ true);
 }
 
 template <typename IS, typename OS, IDSelector IDS, DataType dataType>

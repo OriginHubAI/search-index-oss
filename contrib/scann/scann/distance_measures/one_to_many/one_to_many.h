@@ -325,32 +325,12 @@ DenseAccumulatingDistanceMeasureOneToMany(
     const DatapointPtr<T>& query, const DatasetView* __restrict__ database,
     const Lambdas& lambdas, MutableSpan<ResultElem> result,
     CallbackFunctor* __restrict__ callback, ThreadPool* pool) {
-  size_t batch_size = result.size();
-  if (database->needDataPrefetching())
-    batch_size = std::min(batch_size, static_cast<size_t>(database->prefetchSizeLimit()));
-
-  auto prefetch_result_data = [&database, result](size_t begin, size_t end)
-          -> Search::PrefetchInfo* {
-    if (!database->needDataPrefetching()) return nullptr;
-    std::vector<int64_t> prefetch_list;
-    prefetch_list.reserve(end - begin);
-    for (size_t i=begin; i<end; ++i)
-      prefetch_list.push_back(GetDatapointIndex(result, i));
-    return database->prefetchData(std::move(prefetch_list));
-  };
-
-  for (size_t st=0; st<result.size(); st+=batch_size) {
-    size_t en = std::min(st+batch_size, result.size());
-    auto prefetch_info = prefetch_result_data(st, en);
-    database->setThreadPrefetchInfo(prefetch_info);
-    for (size_t i=st; i<en; ++i)
-      callback->invoke(
-          i, lambdas.VectorVector(
-                query,
-                MakeDatapointPtr(database->GetPtr(GetDatapointIndex(result, i)),
-                                  database->dimensionality())));
-    database->setThreadPrefetchInfo(nullptr);
-    database->releasePrefetch(prefetch_info);
+  for (size_t i = 0; i < result.size(); ++i) {
+    callback->invoke(
+        i, lambdas.VectorVector(
+               query,
+               MakeDatapointPtr(database->GetPtr(GetDatapointIndex(result, i)),
+                                database->dimensionality())));
   }
 }
 
@@ -666,131 +646,106 @@ DenseAccumulatingDistanceMeasureOneToManyInternalAvx2(
     return x[0] + x[1];
   };
 
-  auto prefetch_result_data = [&database, result](size_t begin, size_t end)
-          -> Search::PrefetchInfo* {
-    if (!database->needDataPrefetching()) return nullptr;
-    std::vector<int64_t> prefetch_list;
-    prefetch_list.reserve(end - begin);
-    for (size_t i=begin; i<end; ++i)
-      prefetch_list.push_back(GetDatapointIndex(result, i));
-    return database->prefetchData(std::move(prefetch_list));
-  };
+  ParallelFor<8>(Seq(num_outer_iters), pool, [&](size_t i) SCANN_AVX2 {
+    const float* f0 = get_db_ptr(i);
+    const float* f1 = get_db_ptr(i + num_outer_iters);
+    const float* f2 = get_db_ptr(i + 2 * num_outer_iters);
+    const float *p0 = nullptr, *p1 = nullptr, *p2 = nullptr;
 
-  size_t batch_size_iters = num_outer_iters;
-  if (database->needDataPrefetching()) {
-    batch_size_iters = std::min(num_outer_iters,
-                                static_cast<size_t>(database->prefetchSizeLimit() / 3));
-  }
+    if (kShouldPrefetch && i + num_prefetch_datapoints < num_outer_iters) {
+      p0 = get_db_ptr(i + num_prefetch_datapoints);
+      p1 = get_db_ptr(i + num_outer_iters + num_prefetch_datapoints);
+      p2 = get_db_ptr(i + 2 * num_outer_iters + num_prefetch_datapoints);
+    }
 
-  for (size_t st=0; st<num_outer_iters; st+=batch_size_iters) {
-      size_t num_batch_iters = std::min(batch_size_iters, num_outer_iters-st);
-      auto prefetch_info = prefetch_result_data(st*3, st*3+num_batch_iters*3);
-      ParallelFor<8>(Seq(3*st, 3*st+num_batch_iters), nullptr, [&](size_t i) SCANN_AVX2 {
-          database->setThreadPrefetchInfo(prefetch_info);
-          const float *f0 = get_db_ptr(i);
-          const float *f1 = get_db_ptr(i + num_batch_iters);
-          const float *f2 = get_db_ptr(i + 2 * num_batch_iters);
-          const float *p0 = nullptr, *p1 = nullptr, *p2 = nullptr;
+    __m256 a0_256 = _mm256_setzero_ps();
+    __m256 a1_256 = _mm256_setzero_ps();
+    __m256 a2_256 = _mm256_setzero_ps();
+    size_t j = 0;
 
-          if (kShouldPrefetch && i + num_prefetch_datapoints < num_batch_iters) {
-              p0 = get_db_ptr(i + num_prefetch_datapoints);
-              p1 = get_db_ptr(i + num_batch_iters + num_prefetch_datapoints);
-              p2 = get_db_ptr(i + 2 * num_batch_iters + num_prefetch_datapoints);
-          }
+    for (; j + 8 <= dims; j += 8) {
+      __m256 q = _mm256_loadu_ps(query.values() + j);
+      __m256 v0 = _mm256_loadu_ps(f0 + j);
+      __m256 v1 = _mm256_loadu_ps(f1 + j);
+      __m256 v2 = _mm256_loadu_ps(f2 + j);
 
-          __m256 a0_256 = _mm256_setzero_ps();
-          __m256 a1_256 = _mm256_setzero_ps();
-          __m256 a2_256 = _mm256_setzero_ps();
-          size_t j = 0;
+      if (kShouldPrefetch && p0) {
+        ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p0 +
+                                                                           j);
+        ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p1 +
+                                                                           j);
+        ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p2 +
+                                                                           j);
+      }
 
-          for (; j + 8 <= dims; j += 8) {
-              __m256 q = _mm256_loadu_ps(query.values() + j);
-              __m256 v0 = _mm256_loadu_ps(f0 + j);
-              __m256 v1 = _mm256_loadu_ps(f1 + j);
-              __m256 v2 = _mm256_loadu_ps(f2 + j);
+      a0_256 = lambdas_vec[0].FmaTerm(a0_256, q, v0);
+      a1_256 = lambdas_vec[1].FmaTerm(a1_256, q, v1);
+      a2_256 = lambdas_vec[2].FmaTerm(a2_256, q, v2);
+    }
 
-              if (kShouldPrefetch && p0) {
-                  ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p0 +
-                                                                                     j);
-                  ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p1 +
-                                                                                     j);
-                  ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p2 +
-                                                                                     j);
-              }
+    __m128 a0 = SumTopBottomAvx(a0_256);
+    __m128 a1 = SumTopBottomAvx(a1_256);
+    __m128 a2 = SumTopBottomAvx(a2_256);
 
-              a0_256 = lambdas_vec[0].FmaTerm(a0_256, q, v0);
-              a1_256 = lambdas_vec[1].FmaTerm(a1_256, q, v1);
-              a2_256 = lambdas_vec[2].FmaTerm(a2_256, q, v2);
-          }
+    if (j + 4 <= dims) {
+      __m128 q = _mm_loadu_ps(query.values() + j);
+      __m128 v0 = _mm_loadu_ps(f0 + j);
+      __m128 v1 = _mm_loadu_ps(f1 + j);
+      __m128 v2 = _mm_loadu_ps(f2 + j);
 
-          __m128 a0 = SumTopBottomAvx(a0_256);
-          __m128 a1 = SumTopBottomAvx(a1_256);
-          __m128 a2 = SumTopBottomAvx(a2_256);
+      if (kShouldPrefetch && p0) {
+        ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p0 +
+                                                                           j);
+        ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p1 +
+                                                                           j);
+        ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p2 +
+                                                                           j);
+      }
 
-          if (j + 4 <= dims) {
-              __m128 q = _mm_loadu_ps(query.values() + j);
-              __m128 v0 = _mm_loadu_ps(f0 + j);
-              __m128 v1 = _mm_loadu_ps(f1 + j);
-              __m128 v2 = _mm_loadu_ps(f2 + j);
+      a0 = lambdas_vec[0].FmaTerm(a0, q, v0);
+      a1 = lambdas_vec[1].FmaTerm(a1, q, v1);
+      a2 = lambdas_vec[2].FmaTerm(a2, q, v2);
+      j += 4;
+    }
 
-              if (kShouldPrefetch && p0) {
-                  ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p0 +
-                                                                                     j);
-                  ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p1 +
-                                                                                     j);
-                  ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(p2 +
-                                                                                     j);
-              }
+    if (j + 2 <= dims) {
+      __m128 q = _mm_setzero_ps();
+      __m128 v0 = _mm_setzero_ps();
+      __m128 v1 = _mm_setzero_ps();
+      __m128 v2 = _mm_setzero_ps();
+      q = _mm_loadh_pi(q, reinterpret_cast<const __m64*>(query.values() + j));
+      v0 = _mm_loadh_pi(v0, reinterpret_cast<const __m64*>(f0 + j));
+      v1 = _mm_loadh_pi(v1, reinterpret_cast<const __m64*>(f1 + j));
+      v2 = _mm_loadh_pi(v2, reinterpret_cast<const __m64*>(f2 + j));
+      a0 = lambdas_vec[0].FmaTerm(a0, q, v0);
+      a1 = lambdas_vec[1].FmaTerm(a1, q, v1);
+      a2 = lambdas_vec[2].FmaTerm(a2, q, v2);
+      j += 2;
+    }
 
-              a0 = lambdas_vec[0].FmaTerm(a0, q, v0);
-              a1 = lambdas_vec[1].FmaTerm(a1, q, v1);
-              a2 = lambdas_vec[2].FmaTerm(a2, q, v2);
-              j += 4;
-          }
+    float result0 = sum4(a0);
+    float result1 = sum4(a1);
+    float result2 = sum4(a2);
 
-          if (j + 2 <= dims) {
-              __m128 q = _mm_setzero_ps();
-              __m128 v0 = _mm_setzero_ps();
-              __m128 v1 = _mm_setzero_ps();
-              __m128 v2 = _mm_setzero_ps();
-              q = _mm_loadh_pi(q, reinterpret_cast<const __m64 *>(query.values() + j));
-              v0 = _mm_loadh_pi(v0, reinterpret_cast<const __m64 *>(f0 + j));
-              v1 = _mm_loadh_pi(v1, reinterpret_cast<const __m64 *>(f1 + j));
-              v2 = _mm_loadh_pi(v2, reinterpret_cast<const __m64 *>(f2 + j));
-              a0 = lambdas_vec[0].FmaTerm(a0, q, v0);
-              a1 = lambdas_vec[1].FmaTerm(a1, q, v1);
-              a2 = lambdas_vec[2].FmaTerm(a2, q, v2);
-              j += 2;
-          }
+    if (j < dims) {
+      DCHECK_EQ(j + 1, dims);
+      result0 += lambdas_vec[0].GetTerm(query.values()[j], f0[j]);
+      result1 += lambdas_vec[1].GetTerm(query.values()[j], f1[j]);
+      result2 += lambdas_vec[2].GetTerm(query.values()[j], f2[j]);
+    }
 
-          float result0 = sum4(a0);
-          float result1 = sum4(a1);
-          float result2 = sum4(a2);
+    callback->invoke(i, lambdas_vec[0].Postprocess(result0));
+    callback->invoke(i + num_outer_iters, lambdas_vec[1].Postprocess(result1));
+    callback->invoke(i + 2 * num_outer_iters,
+                     lambdas_vec[2].Postprocess(result2));
+  });
 
-          if (j < dims) {
-              DCHECK_EQ(j + 1, dims);
-              result0 += lambdas_vec[0].GetTerm(query.values()[j], f0[j]);
-              result1 += lambdas_vec[1].GetTerm(query.values()[j], f1[j]);
-              result2 += lambdas_vec[2].GetTerm(query.values()[j], f2[j]);
-          }
-
-          callback->invoke(i, lambdas_vec[0].Postprocess(result0));
-          callback->invoke(i + num_batch_iters, lambdas_vec[1].Postprocess(result1));
-          callback->invoke(i + 2 * num_batch_iters,
-                           lambdas_vec[2].Postprocess(result2));
-      });
-      database->releasePrefetch(prefetch_info);
-  }
-
-  // TODO prefetching might be further improved to reduce latency
-  auto prefetch_info = prefetch_result_data(parallel_end, result.size());
-  database->setThreadPrefetchInfo(prefetch_info);
-  for (size_t i = parallel_end; i < result.size(); ++i) {
+  size_t i = parallel_end;
+  for (; i < result.size(); ++i) {
     const DatapointPtr<float> f0 =
         MakeDatapointPtr(database->GetPtr(GetDatapointIndex(result, i)), dims);
     callback->invoke(i, lambdas.VectorVector(query, f0));
   }
-  database->releasePrefetch(prefetch_info);
 }
 
 template <typename T, typename DatasetView, typename Lambdas,
@@ -876,12 +831,6 @@ DenseAccumulatingDistanceMeasureOneToManyInternal(
   const size_t num_outer_iters = result.size() / 3;
   const size_t parallel_end = num_outer_iters * 3;
 
-  size_t batch_size_iters = num_outer_iters;
-  if (database->needDataPrefetching()) {
-    batch_size_iters = std::min(num_outer_iters,
-                                static_cast<size_t>(database->prefetchSizeLimit() / 3));
-  }
-
   constexpr size_t kMinPrefetchAheadDims =
       (IsFloatingType<ResultElem>()) ? 256 : 128;
   size_t num_prefetch_datapoints;
@@ -896,87 +845,67 @@ DenseAccumulatingDistanceMeasureOneToManyInternal(
     return database->GetPtr(idx);
   };
 
-  auto prefetch_result_data = [&database, result](size_t begin, size_t end) -> Search::PrefetchInfo* {
-    if (!database->needDataPrefetching()) return nullptr;
-    std::vector<int64_t> prefetch_list;
-    prefetch_list.reserve(end - begin);
-    for (size_t i=begin; i<end; ++i)
-      prefetch_list.push_back(GetDatapointIndex(result, i));
-    return database->prefetchData(std::move(prefetch_list));
-  };
+  ParallelFor<8>(
+      Seq(num_outer_iters), pool, [&](size_t i) ABSL_ATTRIBUTE_ALWAYS_INLINE {
+        const double* f0 = get_db_ptr(i);
+        const double* f1 = get_db_ptr(i + num_outer_iters);
+        const double* f2 = get_db_ptr(i + 2 * num_outer_iters);
+        const double *p0 = nullptr, *p1 = nullptr, *p2 = nullptr;
 
-  for (size_t st=0; st<num_outer_iters; st+=batch_size_iters) {
-      size_t num_batch_iters = std::min(batch_size_iters, num_outer_iters-st);
-      auto prefetch_info = prefetch_result_data(st*3, st*3+num_batch_iters*3);
-      // BacktraceLogger::log("one_to_many", "result" + std::to_string(result.size()));
-      ParallelFor<8>(
-          Seq(3*st, 3*st+num_batch_iters), nullptr, [&](size_t i) ABSL_ATTRIBUTE_ALWAYS_INLINE {
-              // set prefetch info for current thread
-              database->setThreadPrefetchInfo(prefetch_info);
-              const double *f0 = get_db_ptr(i);
-              const double *f1 = get_db_ptr(i + num_batch_iters);
-              const double *f2 = get_db_ptr(i + 2 * num_batch_iters);
-              const double *p0 = nullptr, *p1 = nullptr, *p2 = nullptr;
+        if (kShouldPrefetch && i + num_prefetch_datapoints < num_outer_iters) {
+          p0 = get_db_ptr(i + num_prefetch_datapoints);
+          p1 = get_db_ptr(i + num_outer_iters + num_prefetch_datapoints);
+          p2 = get_db_ptr(i + 2 * num_outer_iters + num_prefetch_datapoints);
+        }
 
-              if (kShouldPrefetch && i + num_prefetch_datapoints < num_batch_iters) {
-                  p0 = get_db_ptr(i + num_prefetch_datapoints);
-                  p1 = get_db_ptr(i + num_batch_iters + num_prefetch_datapoints);
-                  p2 = get_db_ptr(i + 2 * num_batch_iters + num_prefetch_datapoints);
-              }
+        __m128d a0 = _mm_setzero_pd();
+        __m128d a1 = _mm_setzero_pd();
+        __m128d a2 = _mm_setzero_pd();
+        size_t j = 0;
+        for (; j + 2 <= dims; j += 2) {
+          __m128d q = _mm_loadu_pd(query.values() + j);
+          __m128d v0 = _mm_loadu_pd(f0 + j);
+          __m128d v1 = _mm_loadu_pd(f1 + j);
+          __m128d v2 = _mm_loadu_pd(f2 + j);
 
-              __m128d a0 = _mm_setzero_pd();
-              __m128d a1 = _mm_setzero_pd();
-              __m128d a2 = _mm_setzero_pd();
-              size_t j = 0;
-              for (; j + 2 <= dims; j += 2) {
-                  __m128d q = _mm_loadu_pd(query.values() + j);
-                  __m128d v0 = _mm_loadu_pd(f0 + j);
-                  __m128d v1 = _mm_loadu_pd(f1 + j);
-                  __m128d v2 = _mm_loadu_pd(f2 + j);
+          if (kShouldPrefetch && p0) {
+            ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(
+                p0 + j);
+            ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(
+                p1 + j);
+            ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(
+                p2 + j);
+          }
 
-                  if (kShouldPrefetch && p0) {
-                      ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(
-                              p0 + j);
-                      ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(
-                              p1 + j);
-                      ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_T0>(
-                              p2 + j);
-                  }
+          a0 = _mm_add_pd(a0, lambdas_vec[0].GetTerm(q, v0));
+          a1 = _mm_add_pd(a1, lambdas_vec[1].GetTerm(q, v1));
+          a2 = _mm_add_pd(a2, lambdas_vec[2].GetTerm(q, v2));
+        }
 
-                  a0 = _mm_add_pd(a0, lambdas_vec[0].GetTerm(q, v0));
-                  a1 = _mm_add_pd(a1, lambdas_vec[1].GetTerm(q, v1));
-                  a2 = _mm_add_pd(a2, lambdas_vec[2].GetTerm(q, v2));
-              }
+        double result0 = a0[0] + a0[1];
+        double result1 = a1[0] + a1[1];
+        double result2 = a2[0] + a2[1];
 
-              double result0 = a0[0] + a0[1];
-              double result1 = a1[0] + a1[1];
-              double result2 = a2[0] + a2[1];
+        if (j < dims) {
+          DCHECK_EQ(j + 1, dims);
+          result0 += lambdas_vec[0].GetTerm(query.values()[j], f0[j]);
+          result1 += lambdas_vec[1].GetTerm(query.values()[j], f1[j]);
+          result2 += lambdas_vec[2].GetTerm(query.values()[j], f2[j]);
+        }
 
-              if (j < dims) {
-                  DCHECK_EQ(j + 1, dims);
-                  result0 += lambdas_vec[0].GetTerm(query.values()[j], f0[j]);
-                  result1 += lambdas_vec[1].GetTerm(query.values()[j], f1[j]);
-                  result2 += lambdas_vec[2].GetTerm(query.values()[j], f2[j]);
-              }
+        callback->invoke(i, lambdas_vec[0].Postprocess(result0));
+        callback->invoke(i + num_outer_iters,
+                         lambdas_vec[1].Postprocess(result1));
+        callback->invoke(i + 2 * num_outer_iters,
+                         lambdas_vec[2].Postprocess(result2));
+      });
 
-              callback->invoke(i, lambdas_vec[0].Postprocess(result0));
-              callback->invoke(i + num_outer_iters,
-                               lambdas_vec[1].Postprocess(result1));
-              callback->invoke(i + 2 * num_outer_iters,
-                               lambdas_vec[2].Postprocess(result2));
-              database->setThreadPrefetchInfo(nullptr);
-          });
-      database->releasePrefetch(prefetch_info);
-  }
-  // TODO prefetching might be further improved to reduce latency
-  auto prefetch_info = prefetch_result_data(parallel_end, result.size());
-  database->setThreadPrefetchInfo(prefetch_info);
-  for (size_t i = parallel_end; i < result.size(); ++i) {
+  size_t i = parallel_end;
+  for (; i < result.size(); ++i) {
     const DatapointPtr<double> f0 = MakeDatapointPtr<double>(
         database->GetPtr(GetDatapointIndex(result, i)), dims);
     callback->invoke(i, lambdas.VectorVector(query, f0));
   }
-  database->releasePrefetch(prefetch_info);
 }
 
 template <typename T, typename DatasetView, typename Lambdas,

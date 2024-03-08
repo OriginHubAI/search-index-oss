@@ -124,23 +124,10 @@ public:
     using IStreamPtr = std::variant<std::ifstream *, AbstractIStream *>;
     using OStreamPtr = std::variant<std::ofstream *, AbstractOStream *>;
 
-    DenseDataLayer(size_t max_data_, size_t data_dim_, bool use_fp16 = false) :
+    DenseDataLayer(size_t max_data_, size_t data_dim_) :
         max_data(max_data_),
-        data_dim(data_dim_),
-        quantizer(data_dim_, faiss::ScalarQuantizer::QT_fp16),
-        use_fp16_storage(use_fp16)
-    {
-        if (use_fp16)
-        {
-            scale = 1;
-        }
-        else
-        {
-            scale = 0;
-        }
-    }
+        data_dim(data_dim_) {}
 
-    faiss::IndexScalarQuantizer quantizer;
     // Add chunk of data to DataLayer
     void addData(std::shared_ptr<DataChunk> chunk)
     {
@@ -153,16 +140,7 @@ public:
         addDataImpl(*chunk);
     }
 
-    void decodeFp16(uint8_t * before_decode_ptr, float * after_decode_ptr) const
-    {
-        quantizer.sa_decode(1, before_decode_ptr, after_decode_ptr);
-    }
-
-    void
-    fp16Encode(const float * fp32_ptr, uint8_t * fp16_ptr, int vector_number)
-    {
-        quantizer.sa_encode(vector_number, fp32_ptr, fp16_ptr);
-    }
+    size_t dataSize() const { return data_dim * sizeof(T); }
 
     // call when finish adding all the data
     virtual void seal() { }
@@ -171,26 +149,9 @@ public:
 
     size_t dataDimension() const { return data_dim; }
 
-    size_t dataSize() const { return (data_dim * sizeof(T)) >> scale; }
-
     virtual const T * getDataPtr(idx_t idx) const = 0;
 
     virtual T * getDataPtr(idx_t idx) = 0;
-
-    /* prefetch related functions */
-
-    virtual bool needDataPrefetching() const = 0;
-
-    virtual int prefetchSizeLimit() const = 0;
-
-    virtual PrefetchInfo * prefetchData(std::vector<idx_t> idx_list) const = 0;
-
-    virtual void releasePrefetch(PrefetchInfo * info) const = 0;
-
-    inline void setThreadPrefetchInfo(PrefetchInfo * info) const
-    {
-        thread_prefetch_info = info;
-    }
 
     /* use variant type here to avoid adding template parameters */
 
@@ -208,11 +169,8 @@ public:
 protected:
     inline thread_local static PrefetchInfo * thread_prefetch_info;
     inline thread_local static std::vector<char> thread_vec_decode_info;
-    //inline thread_local static MemFp16Block local_mem_fp16;
     virtual void addDataImpl(DataChunk & chunk) = 0;
 
-    int scale;
-    bool use_fp16_storage;
 
     size_t max_data{0};
     size_t data_num{0};

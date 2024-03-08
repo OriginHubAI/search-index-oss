@@ -340,25 +340,9 @@ class DenseManyToManyTransposedBase : public VirtualDestructor {
     if (kIsSquaredL2) {
       query_norms_.reset(new FloatT[num_queries]);
       FloatT* query_norms = query_norms_.get();
-      size_t data_batch_size = queries->needDataPrefetching() ?
-              queries->prefetchSizeLimit() : num_queries;
-      for (size_t st=0; st<num_queries; st+=data_batch_size) {
-        size_t end = std::min(st+data_batch_size, num_queries);
-        Search::PrefetchInfo* p_info = nullptr;
-        if (queries->needDataPrefetching()) {
-          std::vector<idx_t> prefetch_list;
-          prefetch_list.reserve(end-st);
-          for (idx_t i = st; i < end; ++i) prefetch_list.push_back(i);
-          p_info = queries->prefetchData(std::move(prefetch_list));
-        }
-        ParallelFor<16>(Seq(st, end), pool, [&](size_t q_idx) {
-          queries->setThreadPrefetchInfo(p_info);
-          query_norms[q_idx] =
-                  SquaredL2Norm((*queries)[q_idx]);
-          queries->setThreadPrefetchInfo(nullptr);
-        });
-        queries->releasePrefetch(p_info);
-      }
+      ParallelFor<16>(Seq(num_queries), pool, [&](size_t q_idx) {
+        query_norms[q_idx] = SquaredL2Norm((*queries)[q_idx]);
+      });
     }
 
     const size_t q_stride_est1 =
@@ -368,33 +352,17 @@ class DenseManyToManyTransposedBase : public VirtualDestructor {
         num_queries / DivRoundUp(num_queries, q_stride_est1);
 
     size_t q_stride = NextMultipleOf(q_stride_est2, kSmallQueryStride);
-    if (queries->needDataPrefetching() && q_stride > queries->prefetchSizeLimit()) {
-      // round down to the nearest multiple of kSmallQueryStride
-      q_stride = queries->prefetchSizeLimit() / kSmallQueryStride * kSmallQueryStride;
-    }
-
     for (size_t q_idx = 0; q_idx < num_queries; q_idx += q_stride) {
       const size_t q_batch_size = std::min(q_stride, num_queries - q_idx);
-      Search::PrefetchInfo* p_info = nullptr;
-      if (queries->needDataPrefetching()) {
-          std::vector<idx_t> prefetch_list;
-          prefetch_list.reserve(q_batch_size);
-          for (idx_t i=q_idx; i<q_idx+q_batch_size; ++i) prefetch_list.push_back(i);
-          p_info = queries->prefetchData(std::move(prefetch_list));
-      }
-
       constexpr size_t kDatabaseStride = 2 * kElementsPerRegister;
       const size_t num_db_blocks = DivRoundUp(num_datapoints, kDatabaseStride);
       ParallelFor<16>(Seq(num_db_blocks), pool, [&](size_t block_idx) {
-        queries->setThreadPrefetchInfo(p_info);
         const size_t first_dp_idx = block_idx * kDatabaseStride;
         const size_t dp_batch_size =
             std::min(kDatabaseStride, num_datapoints - first_dp_idx);
 
         MidLevelBatch(q_idx, q_batch_size, first_dp_idx, dp_batch_size);
-        queries->setThreadPrefetchInfo(nullptr);
       });
-      queries->releasePrefetch(p_info);
     }
   }
 
@@ -691,39 +659,7 @@ class DenseManyToManyUntransposedBase : public VirtualDestructor {
 
     const size_t num_db_blocks = DivRoundUp(num_datapoints, kDatabaseStride);
 
-    if (queries_->needDataPrefetching()) {
-      CHECK_LE(kBigQueryStride, queries_->prefetchSizeLimit())
-        << "prefetchSizeLimit must be no less than " << kBigQueryStride;
-      for (size_t qb_idx=0; qb_idx<num_query_blocks; ++qb_idx) {
-        // perform query data prefetching
-        std::vector<idx_t> prefetch_list;
-        prefetch_list.reserve(kBigQueryStride);
-        for (idx_t i = qb_idx * kBigQueryStride;
-             i < (qb_idx+1) * kBigQueryStride & i < num_queries; ++i) prefetch_list.push_back(i);
-        auto p_info = queries_->prefetchData(std::move(prefetch_list));
-        // run MidLevelBatch with prefetched query data
-        ParallelFor<1>(
-            Seq(qb_idx * num_db_blocks, (qb_idx+1) * num_db_blocks), pool, [&](size_t block_idx) {
-              queries_->setThreadPrefetchInfo(p_info);
-              const size_t query_block_idx = block_idx / num_db_blocks;
-              const size_t first_q_idx = query_block_idx * kBigQueryStride;
-              const size_t q_batch_size =
-                  std::min(kBigQueryStride, num_queries - first_q_idx);
-
-              const size_t db_block_idx = block_idx % num_db_blocks;
-              const size_t first_dp_idx = db_block_idx * kDatabaseStride;
-              const size_t dp_batch_size =
-                  std::min(kDatabaseStride, num_datapoints - first_dp_idx);
-
-              MidLevelBatch(first_q_idx, q_batch_size, first_dp_idx, dp_batch_size);
-              queries_->setThreadPrefetchInfo(nullptr);
-            });
-        // release the prefetched query data
-        queries_->releasePrefetch(p_info);
-      }
-    }
-    else {
-      // memory data layer
+    {
       ParallelFor<1>(
           Seq(num_query_blocks * num_db_blocks), pool, [&](size_t block_idx) {
             const size_t query_block_idx = block_idx % num_query_blocks;

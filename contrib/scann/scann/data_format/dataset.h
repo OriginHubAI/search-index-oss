@@ -245,21 +245,6 @@ class TypedDataset : public Dataset {
   void AppendOrDie(const DatapointPtr<T>& dptr);
   void AppendOrDie(const GenericFeatureVector& gfv);
 
-  // functions related to prefetching from disks
-  virtual bool needDataPrefetching() const { return false; }
-
-  virtual int prefetchSizeLimit() const {
-    LOG(FATAL) << "PrefetchSizeLimit() not implemented for TypedDataset";
-    return 0;
-  }
-
-  virtual Search::PrefetchInfo* prefetchData(std::vector<int64_t> idx_list) const {
-    LOG(FATAL) << "PrefetchData() not implemented for TypedDataset";
-  }
-
-  virtual void setThreadPrefetchInfo(Search::PrefetchInfo* info) const {}
-
-  virtual void releasePrefetch(Search::PrefetchInfo* info) const {}
 
   void GetDatapoint(size_t index, Datapoint<double>* result) const final;
   Status MeanByDimension(Datapoint<double>* result) const final;
@@ -374,13 +359,12 @@ public:
     constexpr const_iterator end() const noexcept { return data_ptr + count; }
 
     constexpr const T* data() const noexcept {
-      // for memory data layer, return the internal data pointer
-      if (data_layer && !data_layer->needDataPrefetching()) return data_layer->getDataPtr(0);
+      if (data_layer) return data_layer->getDataPtr(0);
       return data_ptr;
     }
 
     constexpr T* data() noexcept {
-      if (data_layer && !data_layer->needDataPrefetching()) return data_layer->getDataPtr(0);
+      if (data_layer) return data_layer->getDataPtr(0);
       return data_ptr;
     }
 
@@ -432,25 +416,6 @@ public:
         return data_layer == nullptr ? data_ptr + idx * stride : data_layer->getDataPtr(idx);
     }
 
-    virtual bool needDataPrefetching() const {
-        return data_layer == nullptr ? false : data_layer->needDataPrefetching();
-    }
-
-    virtual int prefetchSizeLimit() const {
-        return data_layer == nullptr ? 0 : data_layer->prefetchSizeLimit();
-    }
-
-    virtual Search::PrefetchInfo* prefetchData(std::vector<int64_t> idx_list) const {
-        return data_layer != nullptr ? data_layer->prefetchData(std::move(idx_list)) : nullptr;
-    }
-
-    virtual void setThreadPrefetchInfo(Search::PrefetchInfo* info) const {
-      if (data_layer != nullptr) data_layer->setThreadPrefetchInfo(info);
-    }
-
-    virtual void releasePrefetch(Search::PrefetchInfo* info) const {
-        if (data_layer != nullptr) data_layer->releasePrefetch(info);
-    }
 
 private:
 
@@ -555,31 +520,6 @@ class DenseDataset final : public TypedDataset<T> {
 
   virtual bool isMemoryMapped() const { return data_.isMemoryMapped(); }
 
-  virtual bool needDataPrefetching() const override  {
-      auto l = this->getDataLayer();
-      return l != nullptr && l->needDataPrefetching();
-  }
-
-  virtual int prefetchSizeLimit() const override {
-      auto l = this->getDataLayer();
-      return l == nullptr ? 0 : l->prefetchSizeLimit();
-  }
-
-  virtual Search::PrefetchInfo* prefetchData(std::vector<int64_t> idx_list) const override {
-      auto l = this->getDataLayer();
-      return l ? l->prefetchData(idx_list) : nullptr;
-  }
-
-  virtual void releasePrefetch(Search::PrefetchInfo* info) const override {
-      auto l = this->getDataLayer();
-      if (l) l->releasePrefetch(info);
-  }
-
-  void setThreadPrefetchInfo(Search::PrefetchInfo* info) const override {
-      auto l = this->getDataLayer();
-      if (l) l->setThreadPrefetchInfo(info);
-  }
-
   vector<T> ClearRecyclingDataVector() {
     // vector<T> result = std::move(data_);
     vector<T> result = std::move(data_.release());
@@ -678,30 +618,6 @@ class DefaultDenseDatasetView : public DenseDatasetView<T> {
   SCANN_INLINE const T* GetPtr(size_t i) const final {
     // BacktraceLogger::log("datasetview_getptr", "sz" + std::to_string(size()));
     return ptr_ != nullptr ? ptr_ + i * dims_ : data_layer_ptr_->getDataPtr(i);
-  }
-
-  // prefetch related function
-  SCANN_INLINE bool needDataPrefetching() const {
-    return data_layer_ptr_ != nullptr && data_layer_ptr_->needDataPrefetching();
-  }
-
-  SCANN_INLINE int prefetchSizeLimit() const {
-    return data_layer_ptr_ == nullptr ? 0 : data_layer_ptr_->prefetchSizeLimit();
-  }
-
-  // marked as const because it doesn't change the dataset itself:
-  //   to compile for one_to_many computation
-  SCANN_INLINE Search::PrefetchInfo* prefetchData(std::vector<int64_t> idx_list) const {
-    return data_layer_ptr_ != nullptr ?
-      data_layer_ptr_->prefetchData(std::move(idx_list)) : nullptr;
-  }
-
-  SCANN_INLINE void releasePrefetch(Search::PrefetchInfo* info) const {
-    if (data_layer_ptr_ != nullptr) data_layer_ptr_->releasePrefetch(info);
-  }
-
-  SCANN_INLINE void setThreadPrefetchInfo(Search::PrefetchInfo* info) const {
-      if (data_layer_ptr_) data_layer_ptr_->setThreadPrefetchInfo(info);
   }
 
   SCANN_INLINE size_t dimensionality() const final { return dims_; }

@@ -79,21 +79,8 @@ StatusOr<vector<std::vector<DatapointIndex>>> Partitioner<T>::TokenizeDatabase(
   std::array<absl::base_internal::SpinLock, kNumTokenizationSpinlocks>
       tokenization_spinlocks;
 
-  size_t batch_size = database.size();
-  if (database.needDataPrefetching())
-    batch_size = std::min(batch_size, static_cast<size_t>(database.prefetchSizeLimit()));
-  for (size_t st=0; st<database.size(); st+=batch_size) {
-    size_t len = std::min(batch_size, database.size()-st);
-    Search::PrefetchInfo* prefetch_info{nullptr};
-    if (database.needDataPrefetching()) {
-      std::vector<int64_t> prefetch_list;
-      for (auto i=st; i<st+len; ++i) prefetch_list.push_back(i);
-      prefetch_info = database.prefetchData(std::move(prefetch_list));
-    }
-
     ParallelFor<kDynamicBatchSize>(
-        Seq(st, st+len), pool_or_null, [&](size_t i) {
-          database.setThreadPrefetchInfo(prefetch_info);
+        Seq(database.size()), pool_or_null, [&](size_t i) {
           const DatapointPtr<T> dptr = database[i];
           vector<int32_t> tokens_for_datapoint;
           Status status =
@@ -114,9 +101,6 @@ StatusOr<vector<std::vector<DatapointIndex>>> Partitioner<T>::TokenizeDatabase(
             }
           }
         });
-    database.releasePrefetch(prefetch_info);
-    database.setThreadPrefetchInfo(nullptr);
-  }
 
   if (pool_or_null) {
     ParallelFor<kDynamicBatchSize>(

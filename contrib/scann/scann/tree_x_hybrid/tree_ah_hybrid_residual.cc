@@ -146,7 +146,7 @@ StatusOr<DenseDataset<float>> ComputeResidualsImpl(
   // sample size for computing residuals
   // TODO further increasing the sample size helps improve accuracy
   //   but also greatly increases the memory usage
-  auto sample_size = getSampleSize(dataset.size(), dataset.needDataPrefetching());
+  auto sample_size = getSampleSize(dataset.size());
   LOG(INFO) << "Computing residual sample_size=" << sample_size
             << " total_data=" << dataset.size();
 
@@ -183,23 +183,8 @@ StatusOr<DenseDataset<float>> ComputeResidualsImpl(
   }
 
   size_t batch_size = sample_size;
-  if (dataset.needDataPrefetching())
-    batch_size = std::min(static_cast<size_t>(dataset.prefetchSizeLimit()),
-                          batch_size);
   for (size_t st=0; st < sample_size; st+=batch_size) {
     size_t end = std::min(st+batch_size, sample_size);
-    Search::PrefetchInfo* prefetch_info = nullptr;
-    if (dataset.needDataPrefetching()) {
-        // prefetch data from disk
-        std::vector<int64_t> prefetch_list;
-        prefetch_list.reserve(end-st);
-        for(auto elem : Seq(st, end)) {
-            prefetch_list.emplace_back(sample_indices[elem]);
-        }
-        prefetch_info = dataset.prefetchData(prefetch_list);
-        // set prefetch info for current thread
-        dataset.setThreadPrefetchInfo(prefetch_info);
-    }
     for (size_t dp_idx : Seq(st, end)) {
       auto sample_idx = sample_indices[dp_idx];
       const uint32_t token = tokens_by_datapoint[sample_idx];
@@ -211,9 +196,6 @@ StatusOr<DenseDataset<float>> ComputeResidualsImpl(
       }
       else residuals->AppendOrDie(residual, "");
     }
-    // release the prefetched data if needed
-    dataset.releasePrefetch(prefetch_info);
-    dataset.setThreadPrefetchInfo(nullptr);
   }
   // TODO be careful about memory leakage & corruption
   return std::move(*residuals);
@@ -421,7 +403,6 @@ Status TreeAHHybridResidual::BuildLeafSearchers(
     if (hashed_dataset_by_token) {
       // generate hashed_partition from hashed_datset_by_token in order
       hashed_partition->hash_4bit = hashed_dataset_by_token->hash_4bit;
-      hashed_partition->Reserve(leaf_sum_sizes[token+1]-leaf_sum_sizes[token]);
       for (DatapointIndex j=leaf_sum_sizes[token]; j<leaf_sum_sizes[token+1]; ++j) {
         auto hashed_dptr = (*hashed_dataset_by_token)[j];
         auto local_status = hashed_partition->Append(hashed_dptr, "");
@@ -431,7 +412,6 @@ Status TreeAHHybridResidual::BuildLeafSearchers(
     else if (hashed_dataset) {
       // get partition from hashed_dataset
       hashed_partition->hash_4bit = hashed_dataset->hash_4bit;
-      hashed_partition->Reserve(datapoints_by_token[token].size());
       for (DatapointIndex dp_index : datapoints_by_token[token]) {
         auto hashed_dptr = (*hashed_dataset)[dp_index];
         auto local_status = hashed_partition->Append(hashed_dptr, "");
@@ -441,24 +421,8 @@ Status TreeAHHybridResidual::BuildLeafSearchers(
     else {
       // generate hahsed partition on the fly
       size_t batch_size = dp_vec.size();
-      VLOG(1) << "Reserve hashed_partition with size=" << dp_vec.size();
-      hashed_partition->Reserve(dp_vec.size());
-      if (dataset->needDataPrefetching())
-          batch_size = std::min(static_cast<size_t>(dataset->prefetchSizeLimit()),
-                                batch_size);
       for (size_t st = 0; st < dp_vec.size(); st += batch_size) {
         size_t len = std::min(batch_size, dp_vec.size() - st);
-        Search::PrefetchInfo* prefetch_info = nullptr;
-        if (dataset->needDataPrefetching()) {
-            // prefetch data from disk
-            std::vector<int64_t> prefetch_list(len);
-            for(size_t i = 0; i < len; ++i) {
-                prefetch_list[i] = static_cast<int64_t>(dp_vec[st+i]);
-            }
-            prefetch_info = dataset->prefetchData(prefetch_list);
-            // set prefetch info for current thread
-            dataset->setThreadPrefetchInfo(prefetch_info);
-        }
         for (size_t i=st; i<st+len; ++i) {
           auto status_or_hashed_dptr =
               get_hashed_datapoint(dp_vec[i], token, &hashed_storage);
@@ -467,9 +431,6 @@ Status TreeAHHybridResidual::BuildLeafSearchers(
           auto local_status = hashed_partition->Append(hashed_dptr, "");
           SCANN_RETURN_IF_ERROR(local_status);
         }
-        // release the prefetched data if needed
-        dataset->releasePrefetch(prefetch_info);
-        dataset->setThreadPrefetchInfo(nullptr);
       }
     }
 

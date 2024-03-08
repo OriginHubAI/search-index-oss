@@ -54,7 +54,7 @@ StatusOr<unique_ptr<Partitioner<T>>> PartitionerFactoryNoProjection(
 
   const float sampling_fraction = ComputeSamplingFraction(config, dataset);
   // always put sampled dataset in memory
-  if (sampling_fraction < 1.0 || dataset->needDataPrefetching()) {
+  if (sampling_fraction < 1.0) {
     sampled_mutable.reset(
         (dataset->IsSparse())
             ? absl::implicit_cast<TypedDataset<T>*>(new SparseDataset<T>)
@@ -67,49 +67,13 @@ StatusOr<unique_ptr<Partitioner<T>>> PartitionerFactoryNoProjection(
       }
     }
 
-    bool sample_dataset_created = false;
-    if constexpr (std::is_same_v<T, float>) {
-      if (!dataset->IsSparse() && sample_dataset_creator) {
-        // allocate dataset on the fly
-        auto ptr = sample_dataset_creator(sample.size(), dataset->dimensionality(), sample_data_deleter);
-        if (ptr) {
-          // use the new dataset if it's successfully created
-          sampled_mutable.reset(static_cast<TypedDataset<float>*>(ptr.release()));
-          sample_dataset_created = true;
-        }
-      }
-    }
-    if (!sample_dataset_created) {
-      // reserve in-memory dataset
-      sampled_mutable->Reserve(sample.size());
-    }
     SCANN_RETURN_IF_ERROR(
         sampled_mutable->NormalizeByTag(dataset->normalization()));
     sampled = sampled_mutable.get();
 
-    size_t sample_idx = 0;
-    size_t batch_size = dataset->needDataPrefetching() ?
-            dataset->prefetchSizeLimit() : sample.size();
-    for (size_t st=0; st<sample.size(); st+=batch_size) {
-      size_t len = std::min(batch_size, sample.size()-st);
-      Search::PrefetchInfo* prefetch_info{nullptr};
-      if (dataset->needDataPrefetching()) {
-          std::vector<int64_t> prefetch_list;
-          for (auto i : absl::MakeSpan(sample).subspan(st, len))
-              prefetch_list.push_back(i);
-          prefetch_info = dataset->prefetchData(std::move(prefetch_list));
-          dataset->setThreadPrefetchInfo(prefetch_info);
-      }
-      for (DatapointIndex i: absl::MakeSpan(sample).subspan(st, len)) {
-        if (sample_dataset_created) {
-          auto p = dataset->at(i);
-          const T* new_values = sampled_mutable->at(sample_idx++).values();
-          std::copy(p.values(), p.values() + p.dimensionality(), (T*) new_values);
-        }
-        else sampled_mutable->AppendOrDie(dataset->at(i), "");
-      }
-      dataset->releasePrefetch(prefetch_info);
-      dataset->setThreadPrefetchInfo(nullptr);
+    sampled_mutable->Reserve(sample.size());
+    for (DatapointIndex i : sample) {
+      sampled_mutable->AppendOrDie(dataset->at(i), "");
     }
   } else {
     sampled = dataset;

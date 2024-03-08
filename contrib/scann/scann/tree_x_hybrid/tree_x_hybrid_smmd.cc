@@ -83,31 +83,8 @@ TypedDataset<T>* PartitionDataset(const TypedDataset<T>& original,
   result->set_dimensionality(original.dimensionality());
   result->Reserve(subset.size());
   result->hash_4bit = original.hash_4bit;
-  auto batch_size = subset.size();
-  if (original.needDataPrefetching())
-      batch_size = std::min(static_cast<size_t>(original.prefetchSizeLimit()),
-                            batch_size);
-  for (size_t st=0; st<subset.size(); st+=batch_size) {
-      // prefetch and add data in batches
-      size_t len = std::min(batch_size, subset.size() - st);
-      Search::PrefetchInfo* prefetch_info = nullptr;
-      if (original.needDataPrefetching()) {
-          // prefetch data from disk
-          std::vector<int64_t> prefetch_list(len);
-          size_t idx = 0;
-          for(auto elem : subset.subspan(st, len)) {
-              prefetch_list[idx++] = static_cast<int64_t>(elem);
-          }
-          prefetch_info = original.prefetchData(prefetch_list);
-          // set prefetch info for current thread
-          original.setThreadPrefetchInfo(prefetch_info);
-      }
-      for (const DatapointIndex i: subset.subspan(st, len)) {
-          result->AppendOrDie(original[i], "");
-      }
-      // release the prefetched data if needed
-      original.releasePrefetch(prefetch_info);
-      original.setThreadPrefetchInfo(nullptr);
+  for (const DatapointIndex i : subset) {
+    result->AppendOrDie(original[i], "");
   }
 
   result->set_normalization_tag(original.normalization());

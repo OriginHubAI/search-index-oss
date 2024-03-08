@@ -16,8 +16,7 @@ void ComputeDistanceSubset(
     auto dist_func = metric == Metric::IP ? faiss::fvec_inner_products_by_idx
                                           : faiss::fvec_L2sqr_by_idx;
 
-    size_t batch_size
-        = l->needDataPrefetching() ? l->prefetchSizeLimit() : labels.size();
+    size_t batch_size = labels.size();
     for (size_t st = 0, j = 0; st < labels.size(); st = j)
     {
         // compute current batch, skip -1 labels
@@ -37,36 +36,8 @@ void ComputeDistanceSubset(
 
         std::vector<float> batch_data_vec;
         std::vector<int64_t> batch_labels_vec;
-        if (l->needDataPrefetching())
-        {
-            // run prefetching for disk data layer
-            auto prefetch_info = l->prefetchData(batch_labels);
-            l->setThreadPrefetchInfo(prefetch_info);
-            // copy prefetched data to batch_data_vec
-            batch_data_vec.reserve(batch_labels.size() * l->dataDimension());
-            batch_labels_vec.reserve(batch_labels.size());
-            for (size_t k = 0; k < batch_labels.size(); ++k)
-            {
-                auto data_ptr = l->getDataPtr(batch_labels[k]);
-                batch_data_vec.insert(
-                    batch_data_vec.end(),
-                    data_ptr,
-                    data_ptr + l->dataDimension());
-                batch_labels_vec.push_back(k);
-            }
-            batch_data = batch_data_vec.data();
-            batch_labels_ptr = batch_labels_vec.data();
-
-            l->releasePrefetch(prefetch_info);
-            l->setThreadPrefetchInfo(nullptr);
-        }
-        else
-        {
-            // memory data layer
-            batch_data = l->getDataPtr(0);
-            batch_labels_ptr = batch_labels.data();
-        }
-
+        batch_data = l->getDataPtr(0);
+        batch_labels_ptr = batch_labels.data();
         std::vector<float> batch_dist;
         batch_dist.resize(n * batch_labels.size());
 

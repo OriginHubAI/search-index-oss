@@ -53,16 +53,8 @@ StatusOr<vector<DenseDataset<double>>> AhImpl<T>::TrainAsymmetricHashing(
     SCANN_RETURN_IF_ERROR(
         opts.projector()->ProjectInput(preprocessed.ToPtr(), &chunked_vec));
   } else {
-    // TODO optimize for small prefetch
-    Search::PrefetchInfo* prefetch_info = nullptr;
-    if (dataset.needDataPrefetching()) {
-      prefetch_info = dataset.prefetchData({0UL});
-      dataset.setThreadPrefetchInfo(prefetch_info);
-    }
     SCANN_RETURN_IF_ERROR(
         opts.projector()->ProjectInput(dataset[0], &chunked_vec));
-    dataset.setThreadPrefetchInfo(nullptr);
-    dataset.releasePrefetch(prefetch_info);
   }
   int32_t num_blocks = chunked_vec.size();
   vector<shared_ptr<DenseDataset<float>>> chunked_dataset(num_blocks);
@@ -171,26 +163,11 @@ StatusOr<vector<DenseDataset<double>>> AhImpl<T>::TrainAsymmetricHashing(
         append_chunked_blocks(idx++);
       }
     } else {
-      size_t batch_size = dataset.needDataPrefetching() ?
-                          dataset.prefetchSizeLimit() : sample.size();
-      for (size_t st = 0; st < sample.size(); st += batch_size) {
-        size_t len = std::min(batch_size, sample.size() - st);
-        Search::PrefetchInfo* prefetch_info = nullptr;
-        if (dataset.needDataPrefetching()) {
-          std::vector<int64_t> prefetch_list;
-          for (auto i: absl::MakeSpan(sample).subspan(st, len))
-            prefetch_list.push_back(i);
-          prefetch_info = dataset.prefetchData(std::move(prefetch_list));
-          dataset.setThreadPrefetchInfo(prefetch_info);
-        }
-        for (DatapointIndex i: absl::MakeSpan(sample).subspan(st, len)) {
-          SCANN_RETURN_IF_ERROR(VerifyAllFinite(dataset[i].values_slice()));
-          SCANN_RETURN_IF_ERROR(
-                  opts.projector()->ProjectInput(dataset[i], &chunked_vec));
-          append_chunked_blocks(idx++);
-        }
-        dataset.setThreadPrefetchInfo(nullptr);
-        dataset.releasePrefetch(prefetch_info);
+      for (DatapointIndex i : sample) {
+        SCANN_RETURN_IF_ERROR(VerifyAllFinite(dataset[i].values_slice()));
+        SCANN_RETURN_IF_ERROR(
+            opts.projector()->ProjectInput(dataset[i], &chunked_vec));
+        append_chunked_blocks(idx++);
       }
     }
 

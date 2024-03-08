@@ -19,10 +19,6 @@ for metric in "${metrics[@]}"; do
                 "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --scann_two_stage 1"
                 "./boost_ut_test_vector_index --index_types SCANN --metric ${metric} --scann_children_per_level 3_3"
                 "./boost_ut_test_vector_index --index_types SCANN --num_data 200000 --metric ${metric} --check_build_canceled_sec 1"
-                "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 60  --index_types SCANN --use_default_params 1"
-                "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 300  --index_types SCANN --use_default_params 1"
-                "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 600  --index_types SCANN --use_default_params 1"
-                "./boost_ut_test_vector_index --metric ${metric} --fp16_storage 1 --num_data 5000 --data_dim 1000  --index_types SCANN --use_default_params 1"
                 "SPDLOG_LEVEL=debug ./boost_ut_test_vector_index --metric ${metric} --index_types SCANN --scann_l_search_ratio 0.9"
                 )
 done
