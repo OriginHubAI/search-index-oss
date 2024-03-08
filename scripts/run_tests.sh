@@ -29,11 +29,9 @@ for metric in "${bin_metrics[@]}"; do
     cmd_list+=( "./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryFLAT"
                 "./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryIVF"
                 "./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryHNSW"
-                #"./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryMSTG"
                 "./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryFLAT --filter_out_mod 5"
                 "./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryIVF  --filter_out_mod 5"
                 "./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryHNSW --filter_out_mod 5"
-                #"./boost_ut_test_vector_index --metric ${metric} --data_dim 264 --num_data 4000 --index_types BinaryMSTG --filter_out_mod 5"
                 )
 done
 

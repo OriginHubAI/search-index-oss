@@ -1,8 +1,4 @@
 #pragma once
 
-#cmakedefine MYSCALE_MODE
-#cmakedefine MYSCALE_INTERNAL
-#cmakedefine MYSCALE_WITH_UPGRADE
 #cmakedefine ENABLE_FAISS
 #cmakedefine ENABLE_SCANN
-#cmakedefine ENABLE_DISKANN
