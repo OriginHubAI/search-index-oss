@@ -420,7 +420,7 @@ void ScaNNIndex<IS, OS, IDS, dataType>::loadImpl(IndexDataReader<IS> * reader)
         opts.pre_quantized_fixed_point = fp;
     }
 
-    createDataLayer(/*checksum_match*/ false, fp16_storage);
+    createDataLayer();
 
     data_layer->load(
         reader->getFieldDataInputStream(index_file_prefix + DATASET_NAME).get(),
@@ -821,8 +821,7 @@ void ScaNNIndex<IS, OS, IDS, dataType>::buildImpl(
         vectorToString(this->num_children_per_level, "_"),
         num_threads);
     printMemoryUsage("ScaNN starts index building");
-    // create a new data layer, don't reuse data_file
-    createDataLayer(false, fp16_storage);
+    createDataLayer();
 
     // check number of threads used in building
 #ifdef MYSCALE_MODE

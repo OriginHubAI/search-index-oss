@@ -246,12 +246,10 @@ protected:
     void buildImpl(IndexSourceDataReader<T> * reader, int num_threads) override;
 
     /// @brief  Create data layer for storing data vectors.
-    /// @param reuse_data_file reuse the existing data file if it exists to accelerate loading.
-    /// @param use_fp16_storage whether to use fp16 storage for data layer.
-    void createDataLayer(bool reuse_data_file, bool use_fp16_storage)
+    void createDataLayer()
     {
         data_layer = std::make_shared<DenseMemoryDataLayer<T>>(
-            this->maxDataPoints(), this->scann_data_dim, use_fp16_storage);
+            this->maxDataPoints(), this->scann_data_dim);
     }
 
     void
