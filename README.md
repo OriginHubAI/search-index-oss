@@ -31,6 +31,21 @@ cd build
 bash ../scripts/run_tests.sh
 ```
 
+## Contributing
+
+Before submitting a pull request, please ensure that you run the pre-commit checks locally and execute the unit tests to verify that your code is ready for review.
+
+Use the following commands to install and set up the pre-commit checks:
+
+```bash
+# install `clang-format` and `clang-tidy` if you haven't done so already
+sudo apt install clang-format clang-tidy
+
+# install pre-commit hooks
+pip3 install pre-commit
+pre-commit install
+```
+
 ## Credits
 
 This project utilizes the following open-source vector search libraries:
