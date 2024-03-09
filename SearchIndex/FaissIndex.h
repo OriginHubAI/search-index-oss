@@ -664,8 +664,6 @@ public:
             bits_per_dimension * num_quantization_blocks, this->CHAR_BITS);
         /// load memory usage and search memory usage is almost same
         auto theoretical_memory_usage = this->maxDataPoints() * row_bytes;
-        /// The ratio of actual and theoretical memory usage is calculated based on
-        /// the experimentation conducted at https://git.moqi.ai/mqdb/search-index/-/issues/59#note_78338
         float actual_build_memory_usage = theoretical_memory_usage * 1.33f;
         float load_memory_usage = theoretical_memory_usage * 1.14f;
         auto usage = IndexResourceUsage{
@@ -868,7 +866,6 @@ public:
         float actual_build_memory_usage = theoretical_memory_usage;
         float load_memory_usage;
 
-        /// ratio from https://git.moqi.ai/mqdb/search-index/-/issues/59#note_78338
         if (this->index_type == IndexType::HNSWfastSQ)
         {
             actual_build_memory_usage = theoretical_memory_usage * 1.09f;
@@ -965,7 +962,6 @@ public:
     virtual IndexResourceUsage getResourceUsage() const final
     {
         size_t theoretical_memory_usage = this->getMaxDataBytes();
-        /// https://git.moqi.ai/mqdb/search-index/-/issues/59#note_78338
         float actual_build_memory_usage = theoretical_memory_usage * 1.01f;
         auto load_memory_usage = theoretical_memory_usage;
         auto usage = IndexResourceUsage{

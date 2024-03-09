@@ -37,9 +37,9 @@
 
 namespace research_scann {
 
-size_t getSampleSize(size_t data_size, bool disk_mode)
+size_t getSampleSize(size_t data_size)
 {
-  size_t resource_limit = disk_mode ? data_size / 16 : data_size / 2;
+  size_t resource_limit = data_size / 2;
   size_t sample_size = std::max(resource_limit, 256UL * 200UL);
   // sample at most 2 million to reduce memory overhead for large datasets
   sample_size = std::min(sample_size, 2000000UL);

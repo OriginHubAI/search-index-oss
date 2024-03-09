@@ -67,7 +67,7 @@ using DoubleDatasetCreator = std::function<
     size_t size, size_t dim, Deleter& deleter)>;
 
 // compute sample size for residual training
-size_t getSampleSize(size_t data_size, bool disk_mode=false);
+size_t getSampleSize(size_t data_size);
 
 // per-children sample size for kmeans tree
 inline const size_t KMEANS_TREE_NODE_SAMPLE_SIZE = 200;
@@ -229,7 +229,6 @@ class TypedDataset : public Dataset {
   virtual DatapointPtr<T> operator[](size_t datapoint_index) const = 0;
 
   DatapointPtr<T> at(size_t datapoint_index) const {
-    // BacktraceLogger::log("dataset_at", "sz" + std::to_string(size()));
     CHECK_LT(datapoint_index, size());
     return operator[](datapoint_index);
   }
@@ -616,7 +615,6 @@ class DefaultDenseDatasetView : public DenseDatasetView<T> {
         size_(span.size() / dimensionality) {}
 
   SCANN_INLINE const T* GetPtr(size_t i) const final {
-    // BacktraceLogger::log("datasetview_getptr", "sz" + std::to_string(size()));
     return ptr_ != nullptr ? ptr_ + i * dims_ : data_layer_ptr_->getDataPtr(i);
   }
 
@@ -754,7 +752,6 @@ class SparseDataset final : public TypedDataset<T> {
 
 template <typename T>
 DatapointPtr<T> DenseDataset<T>::operator[](size_t i) const {
-  // BacktraceLogger::log("dataset_item", "sz" + std::to_string(data_.size()));
   DCHECK_LT(i, this->size());
   return MakeDatapointPtr(nullptr, data_.getDataPtr(i, stride_), stride_,
                           this->dimensionality());
@@ -762,7 +759,6 @@ DatapointPtr<T> DenseDataset<T>::operator[](size_t i) const {
 
 template <typename T>
 void DenseDataset<T>::Prefetch(size_t i) const {
-  // BacktraceLogger::log("dataset_prefetch", "sz" + std::to_string(data_.size()));
   DCHECK_LT(i, this->size());
   ::tensorflow::port::prefetch<::tensorflow::port::PREFETCH_HINT_NTA>(
       reinterpret_cast<const char*>(data_.getDataPtr(i, stride_)));

@@ -992,7 +992,6 @@ TreeXHybridSMMD<T>::ExtractSingleMachineFactoryOptions() {
 template <typename T>
 StatusOr<shared_ptr<const DenseDataset<float>>>
 TreeXHybridSMMD<T>::SharedFloatDatasetIfNeeded() {
-  // TODO: return dataset for reordering
   return SingleMachineSearcherBase<T>::SharedFloatDatasetIfNeeded();
 
   vector<shared_ptr<const DenseDataset<float>>> datasets(datapoints_by_token_.size());
