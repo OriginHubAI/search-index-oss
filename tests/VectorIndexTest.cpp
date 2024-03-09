@@ -261,7 +261,6 @@ struct VectorIndexTester
     size_t data_dim;
     size_t data_dim_num_copy;
     size_t max_points;
-    int fp16_storage;
     int num_build_threads;
     int filter_out_mod;
     int filter_keep_min;
@@ -361,7 +360,6 @@ struct VectorIndexTester
         }
         if (index_type == IndexType::SCANN)
         {
-            index_params.setParam("fp16_storage", fp16_storage);
 
             if (use_default_params)
                 SI_LOG_INFO("Using default parameters for vector index");
@@ -855,10 +853,6 @@ int main(int argc, char * argv[])
     program.add_argument("--index_types")
         .nargs(argparse::nargs_pattern::any)
         .help("Index types to run tests. Run all tests if not specified");
-    program.add_argument("--fp16_storage")
-        .default_value(0)
-        .help("whether to use fp16_storage for index")
-        .scan<'i', int>();
     program.add_argument("--num_build_threads")
         .default_value(0)
         .help("number of threads for building the index")
@@ -1003,7 +997,6 @@ int main(int argc, char * argv[])
     tester.scann_aq_threshold = program.get<float>("--scann_aq_threshold");
     tester.scann_build_hashed_dataset_by_token
         = program.get<int>("--scann_build_hashed_dataset_by_token");
-    tester.fp16_storage = program.get<int>("--fp16_storage");
     tester.num_build_threads = program.get<int>("--num_build_threads");
     tester.filter_out_mod = program.get<int>("--filter_out_mod");
     tester.filter_keep_min = program.get<int>("--filter_keep_min");

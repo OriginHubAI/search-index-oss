@@ -299,8 +299,6 @@ private:
 
     /// @brief whether to build & store hashed data by token
     bool build_hashed_dataset_by_token;
-    /// @brief whether to use fp16 for vector data storage
-    bool fp16_storage;
 
     size_t min_cluster_size;
     size_t training_sample_size;

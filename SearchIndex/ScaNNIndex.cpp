@@ -66,7 +66,6 @@ ScaNNIndex<IS, OS, IDS, dataType>::ScaNNIndex(
     SI_THROW_IF_NOT(scann_data_dim <= 4096, ErrorCode::BAD_ARGUMENTS);
     build_hashed_dataset_by_token
         = params.extractParam("build_hashed_dataset_by_token", true);
-    fp16_storage = params.extractParam("fp16_storage", false);
 
 
     auto version_str
@@ -141,11 +140,10 @@ ScaNNIndex<IS, OS, IDS, dataType>::ScaNNIndex(
 
     SI_LOG_INFO(
         "Creating ScaNNIndex, "
-        "build_hashed_dataset_by_token={} fp16_storage={} "
+        "build_hashed_dataset_by_token={} "
         "num_children_per_level={} padded_data_dim={} "
         "training_sample_size={} quantize_centroids={}",
         build_hashed_dataset_by_token,
-        fp16_storage,
         vectorToString(num_children_per_level, "_"),
         scann_data_dim,
         training_sample_size,
@@ -167,7 +165,7 @@ template <typename IS, typename OS, IDSelector IDS, DataType dataType>
 IndexResourceUsage ScaNNIndex<IS, OS, IDS, dataType>::getResourceUsage() const
 {
     // compute vector data total bytes
-    size_t vec_size = (fp16_storage ? 2 : sizeof(T)) * scann_data_dim;
+    size_t vec_size = sizeof(T) * scann_data_dim;
     size_t vec_data_bytes = vec_size * this->maxDataPoints();
 
     // compute hash data size
@@ -252,7 +250,6 @@ void ScaNNIndex<IS, OS, IDS, dataType>::loadImpl(IndexDataReader<IS> * reader)
     // load setting from config
     auto & partition_config = scann_config->partitioning();
     auto max_num_levels = partition_config.max_num_levels();
-    fp16_storage = scann_config->exact_reordering().use_fp16_storage();
     auto & cl = partition_config.num_children_per_level();
     quantize_centroids = partition_config.query_tokenization_type()
         == research_scann::PartitioningConfig_TokenizationType ::
@@ -490,8 +487,6 @@ void ScaNNIndex<IS, OS, IDS, dataType>::serializeImpl(
         if (asset_type)
             add_asset(name, asset_type.value());
     };
-    scann_config->mutable_exact_reordering()->set_use_fp16_storage(
-        fp16_storage);
     serialize_asset_pb(SCANN_CONFIG_NAME, scann_config.get());
     serialize_asset_pb(
         AH_CODEBOOK_NAME, opts.ah_codebook.get(), ScannAsset::AH_CENTERS);
