@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.14)
 project(myscale_search_index LANGUAGES C CXX)
 set(SearchIndex_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-# C++20 is required for ClickHouse and concepts
+# C++20 is required for MyScale compilation
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_EXTENSIONS ON)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# RelWithDebInfo mode by default (similar to ClickHouse)
+# RelWithDebInfo mode by default (similar to MyScale)
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to RelWithDebInfo")
     set(CMAKE_BUILD_TYPE "RelWithDebInfo")
@@ -47,26 +47,6 @@ else()
     add_compile_options(-fcolor-diagnostics)
 endif()
 
-# option to build python extension
-OPTION(SI_PYBIND "Build with python bindings" ON)
-if (SI_PYBIND)
-    message(STATUS "Compile with -fPIC mode for pybind")
-    set (CMAKE_POSITION_INDEPENDENT_CODE ON)
-endif()
-
-option(SI_USE_FILE_IOSTREAM "Use File IOstream for SearchIndex" OFF)
-if(SI_USE_FILE_IOSTREAM)
-    # for MyScale Mode, exception handling, logging relies on CK mechanism
-    message(STATUS "Use File IOStream for SearchIndex, for standalone usage")
-    add_compile_definitions(SI_USE_FILE_IOSTREAM=1)
-else()
-    message(STATUS "Use Abstract Reader/Writer for SearchIndex, for DB integrated usage & mock tests")
-endif()
-
-## option to build python extension
-# diskann needs to compile with -fPIC for pybind (should be fine)
-OPTION(SI_PYBIND "Build with python bindings" ON)
-
 ## option to dump memory usage
 OPTION(DUMP_MEMORY_USAGE "dump memory usage" OFF)
 if(DUMP_MEMORY_USAGE)
@@ -77,12 +57,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SearchIndex)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/faiss)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/simde)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/mio/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 
 if (MYSCALE_MODE)
-    # include ClickHouse related headers for logging
+    # include MyScale DB related headers for logging
     include_directories(${CMAKE_SOURCE_DIR}/base)
     include_directories(${CMAKE_SOURCE_DIR}/src)
     include_directories(${CMAKE_SOURCE_DIR}/contrib/boost)
@@ -109,15 +87,6 @@ find_package(BLAS REQUIRED)
 
 # list utility libraries for linking
 set(VECTOR_INDEX_UTIL_LIBS OpenMP::OpenMP_CXX ${BLAS_LIBRARIES})
-
-# # configure backward-cpp for stacktrace inspection
-# option(ENABLE_BACKTRACE "Enable backtrace debugging" OFF)
-# if (ENABLE_BACKTRACE)
-#     message(STATUS "Enable backtrace debugging")
-#     include(contrib/backward-cpp/BackwardConfig.cmake)
-#     message(STATUS "Backward libraries: ${BACKWARD_LIBRARIES}")
-#     list(APPEND VECTOR_INDEX_UTIL_LIBS Backward::Backward)
-# endif()
 
 SET(VECTOR_INDEX_LINK_LIBS ${VECTOR_INDEX_UTIL_LIBS})
 
@@ -161,10 +130,6 @@ message(STATUS "VECTOR_INDEX_LINK_LIBS: ${VECTOR_INDEX_LINK_LIBS}")
 
 add_library(search_index OBJECT ${SOURCE_FILES})
 set_target_properties(search_index PROPERTIES LINKER_LANGUAGE CXX)
-# if (ENABLE_BACKTRACE)
-#     # link BacktraceLogger.cpp to Backward to print backtraces
-#     target_link_libraries(search_index PUBLIC Backward::Backward)
-# endif()
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/SearchIndex/Config.h.in

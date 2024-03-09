@@ -267,14 +267,12 @@ struct VectorIndexTester
     int filter_keep_max;
     int top_k;
     int scann_build_hashed_dataset_by_token;
-    int scann_two_stage;
+    std::string scann_children_per_level;
     int scann_l_search;
     float scann_l_search_ratio;
     int scann_num_reorder;
     int scann_dims_per_block;
     float scann_aq_threshold;
-    std::string scann_children_per_level;
-    std::string scann_part_sizes;
     int use_default_params;
     int rand_seed;
     int stress_threads;
@@ -368,13 +366,13 @@ struct VectorIndexTester
                 index_params.setParam(
                     "build_hashed_dataset_by_token",
                     scann_build_hashed_dataset_by_token);
-                index_params.setParam(
-                    "num_children_per_level", scann_children_per_level);
                 if (scann_dims_per_block > 0)
                     index_params.setParam(
                         "quantization_block_dimension", scann_dims_per_block);
                 if (scann_aq_threshold >= 0)
                     index_params.setParam("aq_threshold", scann_aq_threshold);
+                index_params.setParam(
+                    "num_children_per_level", scann_children_per_level);
                 uint32_t num_leaf_nodes = 1;
                 for (auto c : scann_children_per_level)
                     num_leaf_nodes *= c;
@@ -889,20 +887,13 @@ int main(int argc, char * argv[])
         .default_value(1)
         .help("use default params")
         .scan<'i', int>();
-    program.add_argument("--scann_two_stage")
-        .default_value(0)
-        .help("perform two stage search with ScaNNIndex")
-        .scan<'i', int>();
+    program.add_argument("--scann_children_per_level")
+        .default_value(std::string(""))
+        .help("ints separate by _, say 10_10, empty for default value");
     program.add_argument("--scann_query_threads")
         .default_value(-1)
         .help("query threads for ScaNN index")
         .scan<'i', int>();
-    program.add_argument("--scann_children_per_level")
-        .default_value(std::string(""))
-        .help("ints separate by _, say 10_10, empty for default value");
-    program.add_argument("--scann_part_sizes")
-        .default_value(std::string(""))
-        .help("ints separate by _, say 1000_1000, empty for default value");
     program.add_argument("--scann_l_search")
         .default_value(-1)
         .help("l_search for ScaNN index (use -1 for default value)")
@@ -986,10 +977,6 @@ int main(int argc, char * argv[])
     tester.data_dim = program.get<int>("--data_dim");
     tester.data_dim_num_copy = program.get<int>("--data_dim_num_copy");
     tester.top_k = program.get<int>("--top_k");
-    tester.scann_two_stage = program.get<int>("--scann_two_stage");
-    tester.scann_children_per_level
-        = program.get<std::string>("--scann_children_per_level");
-    tester.scann_part_sizes = program.get<std::string>("--scann_part_sizes");
     tester.scann_l_search = program.get<int>("--scann_l_search");
     tester.scann_l_search_ratio = program.get<float>("--scann_l_search_ratio");
     tester.scann_num_reorder = program.get<int>("--scann_num_reorder");
@@ -997,6 +984,8 @@ int main(int argc, char * argv[])
     tester.scann_aq_threshold = program.get<float>("--scann_aq_threshold");
     tester.scann_build_hashed_dataset_by_token
         = program.get<int>("--scann_build_hashed_dataset_by_token");
+    tester.scann_children_per_level
+        = program.get<std::string>("--scann_children_per_level");
     tester.num_build_threads = program.get<int>("--num_build_threads");
     tester.filter_out_mod = program.get<int>("--filter_out_mod");
     tester.filter_keep_min = program.get<int>("--filter_keep_min");
