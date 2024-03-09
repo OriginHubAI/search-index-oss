@@ -288,7 +288,6 @@ public:
     void train(
         IndexSourceDataReader<IndexDataType> * reader, int num_threads) override
     {
-        // TODO check if the mutation_mutex is held by current thread
         this->status = IndexStatus::BUILD_TRAINING;
         if (this->index_type == IndexType::HNSWFLAT
             || this->index_type == IndexType::HNSWfastFLAT)
@@ -340,7 +339,6 @@ public:
         while (!reader->eof())
         {
             auto chunk = reader->readData(max_rows);
-            // TODO skip empty data and add the row-ids here
             if (VectorIndex<IS, OS, IDS, dataType>::metric == Metric::Cosine)
             {
                 chunk = chunk->normalize(true);
@@ -709,7 +707,6 @@ public:
         FaissIndex<IS, OS, IDS, dataType>(
             name_, index_type_, metric_, data_dim_, max_points_)
     {
-        // TODO better to use neighbors here to distinguish from M
         m = params.extractParam("m", 64);
         ef_c = params.extractParam("ef_c", 200);
         IndexHNSWPtr hnsw_index = nullptr;
@@ -947,7 +944,6 @@ public:
                     this->data_dim, this->max_points, this->faiss_metric));
                 break;
             case IndexType::BinaryFLAT:
-                // TODO reserve space for this->max_points
                 this->setFaissIndex(std::make_shared<faiss::IndexBinaryFlat>(
                     this->data_dim, this->faiss_metric));
                 break;

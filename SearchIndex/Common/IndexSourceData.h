@@ -225,7 +225,6 @@ public:
         size_t num_rows = count / dataSize();
         auto chunk = readData(num_rows);
         last_read_count = chunk->numData() * dataSize();
-        // TODO zero-copy optimization
         memcpy(s, chunk->getData(), last_read_count);
     }
 

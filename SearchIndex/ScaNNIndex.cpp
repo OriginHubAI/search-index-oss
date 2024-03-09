@@ -642,7 +642,6 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
     QueryStats * stats)
 {
     auto t0 = std::chrono::high_resolution_clock::now();
-    // TODO add result_data field for returning original vectors
     auto data_dim = this->dataDimension();
     SI_THROW_IF_NOT(queries->dimension() == data_dim, ErrorCode::BAD_ARGUMENTS);
     auto [alpha, num_reorder]
@@ -1008,7 +1007,6 @@ void ScaNNIndex<IS, OS, IDS, dataType>::buildScann(
     // transfer ownership to scann field
     scann.reset(std::move(status_or).value().release());
 
-    // TODO handle result_multiplier properly
     const std::string & distance
         = scann_config->distance_measure().distance_measure();
     const absl::flat_hash_set<std::string> negated_distances{

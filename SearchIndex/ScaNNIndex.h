@@ -172,7 +172,6 @@ public:
             case IndexStatus::INIT:
                 return 0;
             case IndexStatus::BUILDING:
-                // TODO measure progress after loading the data
                 return 0.2f * this->numData() / this->max_points;
             case IndexStatus::SEALED:
             case IndexStatus::LOADED:
@@ -255,7 +254,6 @@ protected:
         int final_nn,
         int pre_reorder_nn,
         int leaves,
-        int l0_children,
         bool set_unspecified,
         IDS * filter) const;
 
