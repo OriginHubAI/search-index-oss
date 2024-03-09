@@ -229,19 +229,6 @@ protected:
         IDS * filter,
         QueryStats * stats) override;
 
-    /// @brief Range search implementation for ScaNNIndex. Currently not implemented.
-    virtual void rangeSearchImpl(
-        DataSetPtr & /* queries */,
-        float /* radius */,
-        SearchResult * /* result */,
-        Parameters & /* param */,
-        IDS * /* filter */,
-        QueryStats * /* stats */) override
-    {
-        // TODO implement ScaNN range search: using center metric to tune
-        throw std::runtime_error("RangeSearch unsupported yet");
-    }
-
     /// @brief Build the index from IndexSourceDataReader, with `num_threads` threads.
     void buildImpl(IndexSourceDataReader<T> * reader, int num_threads) override;
 

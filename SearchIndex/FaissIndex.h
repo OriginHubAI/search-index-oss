@@ -496,17 +496,6 @@ protected:
         return res;
     }
 
-    virtual void rangeSearchImpl(
-        DataSetPtr & /* queries */,
-        float /* radius */,
-        SearchResult * /* result */,
-        Parameters & /* param */,
-        IDS * /* filter */,
-        QueryStats * /* stats */) override
-    {
-        throw std::runtime_error("Not implemented");
-    }
-
     void setNumThreads(int num_threads)
     {
         if (num_threads > 0)

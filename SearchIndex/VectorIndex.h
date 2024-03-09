@@ -55,8 +55,6 @@ public:
             max_points_);
     }
 
-    // TODO figure out right abstraction for general Search & RangeSearch
-
     /**
      * @brief Perform single or batch vector search.
      * @param queries Query vectors.
@@ -101,18 +99,6 @@ public:
         }
 
         return res;
-    }
-
-    /// @brief Range search is not supported yet.
-    void rangeSearch(
-        DataSetPtr /* dataset */,
-        float /* radius */,
-        SearchResult * /* result */,
-        Parameters /* param */,
-        IDS * /* filter */,
-        QueryStats * /* stats = nullptr */)
-    {
-        // TODO NotImplemented yet, call rangeSearchImpl internally
     }
 
     /// @brief Total maximum bytes of original data vectors.
@@ -191,16 +177,6 @@ protected:
         int32_t topK,
         Parameters & params,
         bool first_stage_only,
-        IDS * filter,
-        QueryStats * stats)
-        = 0;
-
-    /// @brief Actual implementation of range search.
-    virtual void rangeSearchImpl(
-        DataSetPtr & queries,
-        float radius,
-        SearchResult * result,
-        Parameters & params,
         IDS * filter,
         QueryStats * stats)
         = 0;

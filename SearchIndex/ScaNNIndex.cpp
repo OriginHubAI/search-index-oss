@@ -82,32 +82,18 @@ ScaNNIndex<IS, OS, IDS, dataType>::ScaNNIndex(
             getVersion().toString().c_str());
     }
 
-    // Refer to the following on the scann parameters
-    // https://github.com/google-research/google-research/blob/master/scann/docs/algorithms.md
-    // TODO config num_children_per_level properly and automatically
     num_children_per_level
         = params.extractParam("num_children_per_level", std::vector<int32_t>());
     if (num_children_per_level.empty())
     {
-        if (this->max_points <= 8000000)
-        {
-            // fewer than 8M points, just 1 level
-            // fewer than 1000 points, just 1 children node
-            if (this->max_points <= 1000)
-                num_children_per_level = {1};
-            else
-                num_children_per_level
-                    = {static_cast<int32_t>(std::sqrt(this->max_points))};
-        }
+        // just build a single node when number of data points is small
+        if (this->max_points <= 1000)
+            num_children_per_level = {1};
         else
-        {
-            // two level tree, leaf node has 1000 points, first level has 500 children
             num_children_per_level
-                = {static_cast<int32_t>(this->max_points / (500 * 1000)), 500};
-        }
+                = {static_cast<int32_t>(std::sqrt(this->max_points))};
     }
 
-    // TODO config advanced settings properly and automatically
     min_cluster_size = params.extractParam("min_cluster_size", 50);
     quantization_block_dimension
         = params.extractParam("quantization_block_dimension", 2);
@@ -682,12 +668,6 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
         0.75 * std::floor(1 + num_leaf_nodes * std::exp(alpha * 0.8) * beta_l));
     // exatract l_search param with default value
     uint32_t l_search = params.extractParam("l_search", default_l_search);
-    // by default search all l0 children nodes
-    int32_t default_l0_search = -1;
-    // tune l0_search for datasets larger than 80M
-    if (getMaxNumLevels() == 2 && this->numData() >= 80000000)
-        default_l0_search = alpha / 8.0f * num_children_per_level[0];
-    int32_t l0_search = params.extractParam("l0_search", default_l0_search);
 
     float l_search_ratio = params.extractParam("l_search_ratio", -1.0f);
     bool adaptive_search = params.extractParam("adaptive_search", 1);
@@ -746,7 +726,6 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
         topK,
         num_reorder,
         l_search,
-        l0_search,
         true,
         filter);
     std::vector<research_scann::NNResultsVector> res(queries->numData());
@@ -1171,9 +1150,8 @@ std::string ScaNNIndex<IS, OS, IDS, dataType>::getScannBuildConfigString()
     }
 )";
     auto h = HASH_TYPE_PARAMS.at(hash_type);
-    // TODO How does global_topn work? CONTINUE WORKING HERE
-    bool global_topn = (hash_type == "lut16") and (num_blocks <= 256)
-        and residual_quantization;
+    bool global_topn = (hash_type == "lut16") && (num_blocks <= 256)
+        && residual_quantization;
     Map hash_vars = {
         {"{lookup_type}", h.lookup_type},
         {"{residual_quantization}", residual_quantization ? "true" : "false"},
@@ -1207,7 +1185,6 @@ ScaNNIndex<IS, OS, IDS, dataType>::getScannSearchParametersBatched(
     int final_nn,
     int pre_reorder_nn,
     int leaves,
-    int l0_children,
     bool set_unspecified,
     IDS * filter) const
 {
@@ -1219,7 +1196,6 @@ ScaNNIndex<IS, OS, IDS, dataType>::getScannSearchParametersBatched(
         tree_params
             = std::make_shared<research_scann::TreeXOptionalParameters>();
         tree_params->set_num_partitions_to_search_override(leaves);
-        tree_params->set_l0_num_partitions_to_search_override(l0_children);
     }
 
     std::shared_ptr<research_scann::RestrictAllowlist> whitelist = nullptr;

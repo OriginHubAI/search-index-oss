@@ -6,7 +6,6 @@
 #include <string>
 #include <unordered_map>
 #include <nlohmann/json.hpp>
-// TODO ClickHouse has magic_enum in its contrib libraries
 #include <SearchIndex/Common/IndexDataIO.h>
 #include <SearchIndex/Common/Utils.h>
 #include <magic_enum/magic_enum.hpp>

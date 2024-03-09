@@ -227,7 +227,6 @@ public:
     seekg(std::streampos offset, std::ios::seekdir dir) override
     {
         // beg: 0, cur: 1, end: 2
-        // TODO this is currently not needed by Faiss/DiskANN after refactoring
         SI_LOG_WARNING(
             "FileBasedIStream::seekg offset={}, dir={} "
             "might not be supported by DatabaseIStream",
@@ -268,7 +267,6 @@ public:
     AbstractOStream &
     seekp(std::streampos offset, std::ios::seekdir dir) override
     {
-        // TODO this is currently not needed by Faiss/DiskANN after refactoring
         SI_LOG_WARNING(
             "FileBasedOStream::seekp offset={} dir={}, "
             "might not be supported by DatabaseIStram",

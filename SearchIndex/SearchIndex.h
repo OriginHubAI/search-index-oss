@@ -339,9 +339,6 @@ public:
         RECORD_MEMORY_USAGE("after load");
     }
 
-    /// TODO: unload the index, to be used in index node after building
-    /// virtual void unload() = 0;
-
     /// @brief Serialize search index to storage system
     void serialize(IndexDataWriter<OS> * writer)
     {
@@ -483,7 +480,7 @@ protected:
         }
     }
 
-    /// @brief Call this function first in search/rangeSearch() to adapt the parameters.
+    /// @brief Call this function first in search to adapt the parameters.
     void adaptSearchParams(Parameters & params)
     {
         if (search_params_adapter)
