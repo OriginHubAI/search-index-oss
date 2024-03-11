@@ -97,8 +97,6 @@ public:
     static const size_t BITS_PER_BYTE = 8;
 
     /// @brief Parameters for vector search with ScaNNIndex.
-    /// @note `num_reorder` is used in database two-stage search pipeline
-    /// construction.
     struct SearchParams
     {
         float alpha;
@@ -188,12 +186,6 @@ public:
 
     /// @brief return the memory & disk usage of the index.
     virtual IndexResourceUsage getResourceUsage() const final;
-
-    /// @brief Compute top-k distances for each query vector in the subset.
-    virtual std::shared_ptr<SearchResult> computeTopDistanceSubset(
-        DataSetPtr queries,
-        std::shared_ptr<SearchResult> first_stage_result,
-        int32_t top_k) const override;
 
     /// @brief Extract search parameters from ScaNNIndex parameters.
     static SearchParams extractSearchParams(

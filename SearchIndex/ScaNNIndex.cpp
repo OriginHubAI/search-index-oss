@@ -734,24 +734,16 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
     research_scann::DenseDataset<T> queries_dataset(
         queries_data_wrapper, queries->numData());
     research_scann::Status status;
-    if (first_stage_only)
-    {
-        status = scann->FindNeighborsBatchedNoSortNoExactReorder(
-            queries_dataset,
-            scann_params,
-            research_scann::MakeMutableSpan(res));
-    }
-    else
-        status = scann->FindNeighborsBatched(
-            queries_dataset,
-            scann_params,
-            research_scann::MakeMutableSpan(res));
+    status = scann->FindNeighborsBatched(
+        queries_dataset,
+        scann_params,
+        research_scann::MakeMutableSpan(res));
+    int result_len = topK;
     SI_THROW_IF_NOT_FMT(
         status.ok(),
         ErrorCode::LOGICAL_ERROR,
         "Search error: %s",
         status.error_message().c_str());
-    int result_len = first_stage_only ? num_reorder : topK;
 
     // ScaNN returns -IP for DotProductDistance, so we returns the addictive
     // inverse of the distance for IP and Cosine.
@@ -838,96 +830,6 @@ void ScaNNIndex<IS, OS, IDS, dataType>::buildImpl(
 
     this->status = IndexStatus::SEALED;
 };
-
-template <typename IS, typename OS, IDSelector IDS, DataType dataType>
-std::shared_ptr<SearchResult>
-ScaNNIndex<IS, OS, IDS, dataType>::computeTopDistanceSubset(
-    DataSetPtr queries,
-    std::shared_ptr<SearchResult> first_stage_result,
-    int32_t top_k) const
-{
-    size_t num_candidates = first_stage_result->getNumCandidates();
-    SI_THROW_IF_NOT_MSG(
-        num_candidates > 0,
-        ErrorCode::LOGICAL_ERROR,
-        "num_candidates must be valid and greater than 0");
-    std::vector<float> dist(num_candidates);
-
-    // normalize the query vectors if cosine distance is used, so we may use L2 for cosine
-    if (this->metric == Metric::Cosine)
-        queries = queries->normalize();
-    if (queries->dimension() != this->scann_data_dim)
-        queries = queries->padDataDimension(this->scann_data_dim);
-
-    using Pair = std::pair<float, idx_t>;
-
-    auto final_result
-        = SearchResult::createTopKHolder(queries->numData(), top_k);
-    for (size_t i = 0; i < queries->numData(); ++i)
-    {
-        // compute distance between query and subset
-        auto cand_i = first_stage_result->getResultIndices(i);
-        ComputeDistanceSubset(
-            data_layer.get(),
-            this->metric,
-            (*queries)[i],
-            1,
-            cand_i,
-            dist.data());
-
-        // find top_k smallest distances using a heap
-        std::vector<Pair> heap_container;
-        heap_container.reserve(first_stage_result->getNumCandidates());
-        std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>>
-            min_heap(std::greater<Pair>(), std::move(heap_container));
-        // negate the IP distance for the heap to work properly
-        for (size_t j = 0; j < num_candidates; ++j)
-            min_heap.push(std::make_pair(
-                this->metric == Metric::IP ? -dist[j] : dist[j], cand_i[j]));
-
-        // store the results in final_result
-        size_t j = 0;
-        auto final_dist_i = final_result->getResultDistances(i);
-        auto final_cand_i = final_result->getResultIndices(i);
-        while (!min_heap.empty() && j < top_k)
-        {
-            auto & p = min_heap.top();
-
-            if (this->metric == Metric::Cosine)
-            {
-                // https://stats.stackexchange.com/questions/146221/is-cosine-similarity-identical-to-l2-normalized-euclidean-distance
-                /*
-                 \begin{aligned}
-                    \|\mathbf{x}-\mathbf{y}\|_2^2 & =(\mathbf{x}-\mathbf{y})^{\top}(\mathbf{x}-\mathbf{y}) \\
-                    & =\mathbf{x}^{\top} \mathbf{x}-2 \mathbf{x}^{\top} \mathbf{y}+\mathbf{y}^{\top} \mathbf{y} \\
-                    & =2-2 \mathbf{x}^{\top} \mathbf{y} \\
-                    & =2-2 \cos \angle(\mathbf{x}, \mathbf{y})
-                 \end{aligned}
-                 */
-                final_dist_i[j] = p.first / 2;
-            }
-            else if (this->metric == Metric::IP)
-            {
-                final_dist_i[j] = -p.first;
-            }
-            else
-            {
-                final_dist_i[j] = p.first;
-            }
-
-            final_dist_i[j] = this->metric == Metric::IP ? -p.first : p.first;
-            final_cand_i[j] = p.second;
-            min_heap.pop();
-            ++j;
-        }
-
-        // translate internal indices to data ids
-        this->translateDataID(
-            final_result->getResultIndices(i).data(),
-            final_result->getResultLength(i));
-    }
-    return final_result;
-}
 
 template <typename IS, typename OS, IDSelector IDS, DataType dataType>
 void ScaNNIndex<IS, OS, IDS, dataType>::createHashedDataLayerIfNeeded(
