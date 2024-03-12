@@ -12,12 +12,6 @@
 namespace Search
 {
 
-inline static const std::vector<IndexType> BINARY_VECTOR_INDEX_TYPES = {
-    IndexType::BinaryFLAT,
-    // IndexType::BinaryIVF,
-    // IndexType::BinaryHNSW,
-};
-
 inline static const std::vector<IndexType> BINARY_VECTOR_INDEX_TEST_TYPES = {
     IndexType::BinaryFLAT,
     IndexType::BinaryIVF,
@@ -130,5 +124,12 @@ createFlatAdaptiveVectorIndex(
     return createVectorIndex<IS, OS, IDS, dataType>(
         name, index_type, metric, data_dim, max_points, params);
 }
+
+/// MyScale valid index parameters
+extern const std::string MYSCALE_VALID_INDEX_PARAMETER;
+
+std::string getDefaultIndexType(const DataType &search_type);
+IndexType getVectorIndexType(std::string type, const DataType &search_type);
+Metric getMetricType(std::string metric, const DataType &search_type);
 
 }

@@ -324,11 +324,13 @@ public:
     }
 
     /// @brief Load search index from serialized data.
-    void load(IndexDataReader<IS> * reader)
+    void load(
+        IndexDataReader<IS> * reader,
+        std::function<bool()> check_build_canceled = nullptr)
     {
         UniqueLock mutation_lock(mutation_mutex);
         SIConfiguration::setCurrentThreadCheckAbortHandler(
-            [this]() { return this->checkAndAbort(); });
+            [this, &check_build_canceled]() { return this->checkAndAbort(check_build_canceled); });
         OnExit clear_check_abort(
             []() { SIConfiguration::clearCurrentThreadCheckAbortHandler(); });
 
