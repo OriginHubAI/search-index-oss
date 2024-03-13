@@ -4,14 +4,8 @@
 #define FLOAT_VECTOR_METRIC_TYPE_PARAMETER  R"("metric_type": {"type": "string", "case_sensitive": "false", "range":[], "candidates":["L2", "Cosine", "IP"]})"
 #define BINARY_VECTOR_METRIC_TYPE_PARAMETER R"("metric_type": {"type": "string", "case_sensitive": "false", "range":[], "candidates":["Hamming", "Jaccard"]})"
 
-#define VECTOR_INDEX_IVF_BASE_PARAMETER R"( \
-    "ncentroids": {"type": "int", "case_sensitive": "false", "range":[1, 1048576], "candidates":[]}, \
-    "nprobe": {"type": "int", "case_sensitive": "false", "range":[1,1048576], "candidates":[]})"
-
-#define VECTOR_INDEX_HNSW_BASE_PARAMETER R"( \
-    "m": {"type": "int", "case_sensitive": "false", "range":[8, 128], "candidates":[]}, \
-    "ef_c": {"type": "int", "case_sensitive": "false", "range":[16, 1024], "candidates":[]}, \
-    "ef_s": {"type": "int", "case_sensitive": "false", "range":[16,1024], "candidates":[]})"
+#define VECTOR_INDEX_IVF_BASE_PARAMETER     R"("ncentroids": {"type": "int", "case_sensitive": "false", "range":[1, 1048576], "candidates":[]}, "nprobe": {"type": "int", "case_sensitive": "false", "range":[1,1048576], "candidates":[]})"
+#define VECTOR_INDEX_HNSW_BASE_PARAMETER    R"("m": {"type": "int", "case_sensitive": "false", "range":[8, 128], "candidates":[]}, "ef_c": {"type": "int", "case_sensitive": "false", "range":[16, 1024], "candidates":[]}, "ef_s": {"type": "int", "case_sensitive": "false", "range":[16,1024], "candidates":[]})"
 
 #define VECTOR_SEARCH_ALPHA_PARAMETER   R"("alpha": {"type": "float", "case_sensitive": "false", "range":[1,4], "candidates":[]})"
 #define VECTOR_INDEX_IVF_M_PARAMETER    R"("M": {"type": "int", "case_sensitive": "false", "range":[0, 2147483647], "candidates":[]})"
