@@ -36,7 +36,7 @@ option(MYSCALE_MODE "Perform search in MyScale Database" OFF)
 if(MYSCALE_MODE)
     # for MyScale Mode, exception handling, logging relies on CK mechanism
     message(STATUS "Build in MyScale Mode")
-    set(NSYNC_ENABLE_TESTS OFF)
+    option (NSYNC_ENABLE_TESTS "Disable for nsync tests in MYSCALE_MODE" OFF)
 else()
     message(STATUS "Build in Standalone Mode")
     # -DSANITIZE=address
@@ -57,6 +57,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SearchIndex)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/faiss)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/simde)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/include)
 
 if (MYSCALE_MODE)
