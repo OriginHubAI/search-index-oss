@@ -1,12 +1,19 @@
 # MyScale Search-Index
 
-The MyScale Search-Index library encapsulates vector indexing algorithms used in MyScale and provides a unified interface for operations such as index building, loading, serialization, and vector search. While primarily intended for use as a module within MyScale, it also offers methods for standalone building and running unit tests. The library supports various vector index algorithms, including Flat, IVF, HNSW (with optimized HNSWfast), and ScaNN (with automatic parameter tuning).
+<div align="center">
+
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-yellow.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+[![Language](https://img.shields.io/badge/Language-C++20-blue.svg)](https://isocpp.org/)
+
+</div>
+
+The MyScale Search-Index library encapsulates vector indexing algorithms used in [MyScaleDB](https://github.com/myscale/myscaledb) and provides a unified interface for operations such as index building, loading, serialization, and vector search. While primarily intended for use as a module within MyScale, it also offers methods for standalone building and running unit tests. The library supports various vector index algorithms, including Flat, IVF, HNSW (with optimized HNSWfast), and ScaNN (with automatic parameter tuning).
 
 ## Building from source code
 
 ### Install dependencies
 
-Similar to MyScale, Search-Index requires `clang-15` with `c++20` support to build from source:
+Similar to MyScaleDB, Search-Index requires `clang-15` with `c++20` support to build from source:
 
 ```bash
 sudo apt install clang-15 libc++abi-15-dev libc++-15-dev -y
