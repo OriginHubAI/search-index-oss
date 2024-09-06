@@ -689,8 +689,10 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
 
     float l_search_ratio = params.extractParam("l_search_ratio", -1.0f);
     bool adaptive_search = params.extractParam("adaptive_search", 1);
-    // only use adaptive_search when `l_search_ratio` is not specified in search params
-    if (l_search_ratio < 0 && adaptive_search && filter)
+    // Only use adaptive_search when `l_search_ratio` is not specified in search params
+    //   and when dataset is not very large (<= 8M).
+    // For large datasets, adaptive_search is not required for desired accuracy.
+    if (l_search_ratio < 0 && adaptive_search && filter && this->numData() < 8e6)
     {
         float inv_ratio = 1.0f / this->estimateFilterRatio(filter);
         // when filter ratio is below 0.05, every time it's quartered,
