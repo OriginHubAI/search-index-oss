@@ -114,7 +114,15 @@ public:
     inline void set(size_t id)
     {
         SI_THROW_IF_NOT(id < size, ErrorCode::LOGICAL_ERROR);
-        bitmap[id >> 3] |= (0x1 << (id & 0x7));
+        size_t byte_index = id >> 3;
+        uint8_t bit_mask = 0x1 << (id & 0x7);
+
+        /// Use std::atomic_fetch_or_explicit to perform an atomit OR operation
+        /// Ensure thread-safety while maintaining good performance
+        std::atomic_fetch_or_explicit(
+            reinterpret_cast<std::atomic<uint8_t>*>(&bitmap[byte_index]),
+            bit_mask,
+            std::memory_order_relaxed);
     }
 
     /// @brief set bit value at `id` to 0 in the bitmap

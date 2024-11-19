@@ -102,11 +102,14 @@ struct SearchResult
     }
 
     // merge the top candidates from multiple SearchResult
+    // if sort_results = true, will sort the merged results
+    // if num_candidates = 0, will use the sum of all input candidates
     // if truncate_input_results = true, will set -1 to the rest of the input
     static std::shared_ptr<SearchResult> merge(
         std::vector<std::shared_ptr<SearchResult>> & results,
         Metric metric,
-        size_t num_candidates,
+        size_t num_candidates = 0,
+        bool sort_results = true,
         bool truncate_input_results = false)
     {
         SI_THROW_IF_NOT(!results.empty(), ErrorCode::BAD_ARGUMENTS);
@@ -116,7 +119,17 @@ struct SearchResult
         { return a.distance > b.distance; }
             : [](const ResultEntry & a, const ResultEntry & b)
         { return a.distance < b.distance; };
-        auto merged = SearchResult::createTopKHolder(nq, num_candidates);
+        size_t total_num_candidates = 0;
+        if (num_candidates == 0)
+        {
+            for (auto res : results)
+                total_num_candidates += res->num_candidates;
+        }
+        else
+        {
+            total_num_candidates = num_candidates;
+        }
+        auto merged = SearchResult::createTopKHolder(nq, total_num_candidates);
 
         for (size_t q_ind = 0; q_ind < nq; ++q_ind)
         {
@@ -138,13 +151,15 @@ struct SearchResult
                 r_ind++;
             }
             // sort and compute the merged_results
-            std::sort(entries.begin(), entries.end(), cmp);
+            if (sort_results)
+                std::sort(entries.begin(), entries.end(), cmp);
+
             std::vector<std::unordered_set<idx_t>> valid_entries(
                 results.size());
-            for (size_t i = 0; i < num_candidates && i < entries.size(); ++i)
+            for (size_t i = 0; i < total_num_candidates && i < entries.size(); ++i)
             {
-                merged->labels[q_ind * num_candidates + i] = entries[i].label;
-                merged->distances[q_ind * num_candidates + i]
+                merged->labels[q_ind * total_num_candidates + i] = entries[i].label;
+                merged->distances[q_ind * total_num_candidates + i]
                     = entries[i].distance;
                 if (truncate_input_results)
                     valid_entries[entries[i].res_ind].insert(entries[i].label);
