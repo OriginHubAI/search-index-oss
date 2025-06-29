@@ -4,269 +4,303 @@
 #include "scann/partitioning/kmeans_tree_partitioner.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr SerializedKMeansTreePartitioner::SerializedKMeansTreePartitioner(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : kmeans_tree_(nullptr){}
+
+inline constexpr SerializedKMeansTreePartitioner::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        kmeans_tree_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SerializedKMeansTreePartitioner::SerializedKMeansTreePartitioner(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct SerializedKMeansTreePartitionerDefaultTypeInternal {
-  constexpr SerializedKMeansTreePartitionerDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedKMeansTreePartitionerDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedKMeansTreePartitionerDefaultTypeInternal() {}
   union {
     SerializedKMeansTreePartitioner _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedKMeansTreePartitionerDefaultTypeInternal _SerializedKMeansTreePartitioner_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedKMeansTreePartitionerDefaultTypeInternal _SerializedKMeansTreePartitioner_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto = nullptr;
-
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedKMeansTreePartitioner, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedKMeansTreePartitioner, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedKMeansTreePartitioner, kmeans_tree_),
-  0,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 6, sizeof(::research_scann::SerializedKMeansTreePartitioner)},
-};
-
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SerializedKMeansTreePartitioner_default_instance_),
+static ::_pb::Metadata file_level_metadata_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto[1];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedKMeansTreePartitioner, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedKMeansTreePartitioner, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedKMeansTreePartitioner, _impl_.kmeans_tree_),
+    0,
 };
 
-const char descriptor_table_protodef_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n0scann/partitioning/kmeans_tree_partiti"
-  "oner.proto\022\016research_scann\032)scann/trees/"
-  "kmeans_tree/kmeans_tree.proto\"\\\n\037Seriali"
-  "zedKMeansTreePartitioner\0229\n\013kmeans_tree\030"
-  "\001 \001(\0132$.research_scann.SerializedKMeansT"
-  "ree"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_deps[1] = {
-  &::descriptor_table_scann_2ftrees_2fkmeans_5ftree_2fkmeans_5ftree_2eproto,
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 9, -1, sizeof(::research_scann::SerializedKMeansTreePartitioner)},
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto = {
-  false, false, 203, descriptor_table_protodef_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto, "scann/partitioning/kmeans_tree_partitioner.proto", 
-  &descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_once, descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_deps, 1, 1,
-  schemas, file_default_instances, TableStruct_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto::offsets,
-  file_level_metadata_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto, file_level_enum_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto, file_level_service_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto,
+
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_SerializedKMeansTreePartitioner_default_instance_._instance,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_getter() {
+const char descriptor_table_protodef_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n0scann/partitioning/kmeans_tree_partiti"
+    "oner.proto\022\016research_scann\032)scann/trees/"
+    "kmeans_tree/kmeans_tree.proto\"\\\n\037Seriali"
+    "zedKMeansTreePartitioner\0229\n\013kmeans_tree\030"
+    "\001 \001(\0132$.research_scann.SerializedKMeansT"
+    "ree"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_deps[1] =
+    {
+        &::descriptor_table_scann_2ftrees_2fkmeans_5ftree_2fkmeans_5ftree_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto = {
+    false,
+    false,
+    203,
+    descriptor_table_protodef_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto,
+    "scann/partitioning/kmeans_tree_partitioner.proto",
+    &descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_once,
+    descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_deps,
+    1,
+    1,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto::offsets,
+    file_level_metadata_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto,
+    file_level_enum_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto,
+    file_level_service_descriptors_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto,
+};
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_getter() {
   return &descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto(&descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto(&descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class SerializedKMeansTreePartitioner::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedKMeansTreePartitioner>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedKMeansTreePartitioner>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SerializedKMeansTreePartitioner, _impl_._has_bits_);
   static const ::research_scann::SerializedKMeansTree& kmeans_tree(const SerializedKMeansTreePartitioner* msg);
   static void set_has_kmeans_tree(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::research_scann::SerializedKMeansTree&
-SerializedKMeansTreePartitioner::_Internal::kmeans_tree(const SerializedKMeansTreePartitioner* msg) {
-  return *msg->kmeans_tree_;
+const ::research_scann::SerializedKMeansTree& SerializedKMeansTreePartitioner::_Internal::kmeans_tree(const SerializedKMeansTreePartitioner* msg) {
+  return *msg->_impl_.kmeans_tree_;
 }
 void SerializedKMeansTreePartitioner::clear_kmeans_tree() {
-  if (kmeans_tree_ != nullptr) kmeans_tree_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.kmeans_tree_ != nullptr) _impl_.kmeans_tree_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-SerializedKMeansTreePartitioner::SerializedKMeansTreePartitioner(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SerializedKMeansTreePartitioner::SerializedKMeansTreePartitioner(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SerializedKMeansTreePartitioner)
 }
-SerializedKMeansTreePartitioner::SerializedKMeansTreePartitioner(const SerializedKMeansTreePartitioner& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_kmeans_tree()) {
-    kmeans_tree_ = new ::research_scann::SerializedKMeansTree(*from.kmeans_tree_);
-  } else {
-    kmeans_tree_ = nullptr;
-  }
+inline PROTOBUF_NDEBUG_INLINE SerializedKMeansTreePartitioner::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+SerializedKMeansTreePartitioner::SerializedKMeansTreePartitioner(
+    ::google::protobuf::Arena* arena,
+    const SerializedKMeansTreePartitioner& from)
+    : ::google::protobuf::Message(arena) {
+  SerializedKMeansTreePartitioner* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.kmeans_tree_ = (cached_has_bits & 0x00000001u)
+                ? CreateMaybeMessage<::research_scann::SerializedKMeansTree>(arena, *from._impl_.kmeans_tree_)
+                : nullptr;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.SerializedKMeansTreePartitioner)
 }
+inline PROTOBUF_NDEBUG_INLINE SerializedKMeansTreePartitioner::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void SerializedKMeansTreePartitioner::SharedCtor() {
-kmeans_tree_ = nullptr;
+inline void SerializedKMeansTreePartitioner::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.kmeans_tree_ = {};
 }
-
 SerializedKMeansTreePartitioner::~SerializedKMeansTreePartitioner() {
   // @@protoc_insertion_point(destructor:research_scann.SerializedKMeansTreePartitioner)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SerializedKMeansTreePartitioner::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete kmeans_tree_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.kmeans_tree_;
+  _impl_.~Impl_();
 }
 
-void SerializedKMeansTreePartitioner::ArenaDtor(void* object) {
-  SerializedKMeansTreePartitioner* _this = reinterpret_cast< SerializedKMeansTreePartitioner* >(object);
-  (void)_this;
-}
-void SerializedKMeansTreePartitioner::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SerializedKMeansTreePartitioner::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void SerializedKMeansTreePartitioner::Clear() {
+PROTOBUF_NOINLINE void SerializedKMeansTreePartitioner::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SerializedKMeansTreePartitioner)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(kmeans_tree_ != nullptr);
-    kmeans_tree_->Clear();
+    ABSL_DCHECK(_impl_.kmeans_tree_ != nullptr);
+    _impl_.kmeans_tree_->Clear();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SerializedKMeansTreePartitioner::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .research_scann.SerializedKMeansTree kmeans_tree = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_kmeans_tree(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* SerializedKMeansTreePartitioner::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SerializedKMeansTreePartitioner::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedKMeansTreePartitioner)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> SerializedKMeansTreePartitioner::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(SerializedKMeansTreePartitioner, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_SerializedKMeansTreePartitioner_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional .research_scann.SerializedKMeansTree kmeans_tree = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(SerializedKMeansTreePartitioner, _impl_.kmeans_tree_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional .research_scann.SerializedKMeansTree kmeans_tree = 1;
+    {PROTOBUF_FIELD_OFFSET(SerializedKMeansTreePartitioner, _impl_.kmeans_tree_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::SerializedKMeansTree>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* SerializedKMeansTreePartitioner::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedKMeansTreePartitioner)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .research_scann.SerializedKMeansTree kmeans_tree = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::kmeans_tree(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        1, _Internal::kmeans_tree(this),
+        _Internal::kmeans_tree(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SerializedKMeansTreePartitioner)
   return target;
 }
 
-size_t SerializedKMeansTreePartitioner::ByteSizeLong() const {
+::size_t SerializedKMeansTreePartitioner::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SerializedKMeansTreePartitioner)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional .research_scann.SerializedKMeansTree kmeans_tree = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *kmeans_tree_);
+    total_size +=
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.kmeans_tree_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SerializedKMeansTreePartitioner::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SerializedKMeansTreePartitioner::MergeImpl
+const ::google::protobuf::Message::ClassData SerializedKMeansTreePartitioner::_class_data_ = {
+    SerializedKMeansTreePartitioner::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SerializedKMeansTreePartitioner::GetClassData() const { return &_class_data_; }
-
-void SerializedKMeansTreePartitioner::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SerializedKMeansTreePartitioner *>(to)->MergeFrom(
-      static_cast<const SerializedKMeansTreePartitioner &>(from));
+const ::google::protobuf::Message::ClassData* SerializedKMeansTreePartitioner::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SerializedKMeansTreePartitioner::MergeFrom(const SerializedKMeansTreePartitioner& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedKMeansTreePartitioner)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SerializedKMeansTreePartitioner::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SerializedKMeansTreePartitioner*>(&to_msg);
+  auto& from = static_cast<const SerializedKMeansTreePartitioner&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedKMeansTreePartitioner)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_kmeans_tree()) {
-    _internal_mutable_kmeans_tree()->::research_scann::SerializedKMeansTree::MergeFrom(from._internal_kmeans_tree());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_kmeans_tree()->::research_scann::SerializedKMeansTree::MergeFrom(
+        from._internal_kmeans_tree());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SerializedKMeansTreePartitioner::CopyFrom(const SerializedKMeansTreePartitioner& from) {
@@ -276,30 +310,30 @@ void SerializedKMeansTreePartitioner::CopyFrom(const SerializedKMeansTreePartiti
   MergeFrom(from);
 }
 
-bool SerializedKMeansTreePartitioner::IsInitialized() const {
+PROTOBUF_NOINLINE bool SerializedKMeansTreePartitioner::IsInitialized() const {
   return true;
 }
 
-void SerializedKMeansTreePartitioner::InternalSwap(SerializedKMeansTreePartitioner* other) {
+::_pbi::CachedSize* SerializedKMeansTreePartitioner::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SerializedKMeansTreePartitioner::InternalSwap(SerializedKMeansTreePartitioner* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(kmeans_tree_, other->kmeans_tree_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.kmeans_tree_, other->_impl_.kmeans_tree_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SerializedKMeansTreePartitioner::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SerializedKMeansTreePartitioner::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_getter, &descriptor_table_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto_once,
       file_level_metadata_scann_2fpartitioning_2fkmeans_5ftree_5fpartitioner_2eproto[0]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::SerializedKMeansTreePartitioner* Arena::CreateMaybeMessage< ::research_scann::SerializedKMeansTreePartitioner >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SerializedKMeansTreePartitioner >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

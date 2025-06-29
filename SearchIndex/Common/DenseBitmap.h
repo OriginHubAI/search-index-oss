@@ -36,27 +36,36 @@ class DenseBitmap
 {
 public:
     /// @brief Align the byte size of DenseBitmap to be multiple of 8.
-    static const int BYTE_ALIGNMENT = 8;
+    static const int BYTE_ALIGNMENT;
 
     DenseBitmap() = default;
 
     /// @brief Construct a bitmap with given size and value.
-    explicit DenseBitmap(size_t size_, bool value = false) : size(size_)
+    explicit DenseBitmap(size_t size_, bool value = false, bool fill_data = true) : size(size_)
     {
-        bitmap = new uint8_t[byte_size()];
-        memset(bitmap, value ? 255 : 0, byte_size());
+        // bitmap = new uint8_t[byte_size()];
+        bitmap = static_cast<uint8_t *>(
+            std::aligned_alloc(BYTE_ALIGNMENT, byte_size()));
+        if (!bitmap)
+            throw std::bad_alloc();
+
+        if (fill_data)
+            memset(bitmap, value ? 255 : 0, byte_size());
     }
 
     DenseBitmap(const DenseBitmap & other)
     {
         size = other.size;
-        bitmap = new uint8_t[byte_size()];
+        bitmap = static_cast<uint8_t *>(
+            std::aligned_alloc(BYTE_ALIGNMENT, byte_size()));
+        if (!bitmap)
+            throw std::bad_alloc();
+
         memcpy(bitmap, other.bitmap, byte_size());
     }
 
     /// @brief Return number elements in the bitmap
     size_t get_size() const { return size; }
-
     /**
      * @brief Return the byte size of the bitmap.
      * @note The byte size is aligned to be multiple of BYTE_ALIGNMENT.
@@ -97,7 +106,8 @@ public:
             "id must be smaller than bitmap size: %lu vs. %lu",
             id,
             get_size());
-        size_t idx = (id >> 3) / BYTE_ALIGNMENT * BYTE_ALIGNMENT;
+        /// Check 8 bytes at a time
+        size_t idx = (id >> 3) & ~7ULL;
         SI_THROW_IF_NOT_FMT(
             idx + 7 < byte_size(),
             ErrorCode::LOGICAL_ERROR,
@@ -120,7 +130,7 @@ public:
         /// Use std::atomic_fetch_or_explicit to perform an atomit OR operation
         /// Ensure thread-safety while maintaining good performance
         std::atomic_fetch_or_explicit(
-            reinterpret_cast<std::atomic<uint8_t>*>(&bitmap[byte_index]),
+            reinterpret_cast<std::atomic<uint8_t> *>(&bitmap[byte_index]),
             bit_mask,
             std::memory_order_relaxed);
     }
@@ -134,35 +144,29 @@ public:
     }
 
     /// @brief Check whether all bits are set to 1 in the bitmap.
-    bool all() const
-    {
-        for (size_t i = 0; i < byte_size(); ++i)
-        {
-            if (bitmap[i] != 255)
-                return false;
-        }
-        return true;
-    }
-
+    bool all() const;
     /// @brief Check whether any bit is set to 1 in the bitmap.
-    bool any() const
-    {
-        for (size_t i = 0; i < byte_size(); ++i)
-        {
-            if (bitmap[i])
-                return true;
-        }
-        return false;
-    }
+    bool any() const;
 
     /// @brief Count the number of bits set to 1 in the bitmap.
     size_t count() const
     {
         size_t count = 0;
-        for (size_t i = 0; i < byte_size(); ++i)
+        const uint64_t * bitmap64 = reinterpret_cast<const uint64_t *>(bitmap);
+        const size_t n_chunks = byte_size() / sizeof(uint64_t);
+
+        for (size_t i = 0; i < n_chunks; ++i)
         {
-            count += __builtin_popcount(bitmap[i]);
+            count += __builtin_popcountll(bitmap64[i]);
         }
+
+        const uint8_t * remaining
+            = reinterpret_cast<const uint8_t *>(bitmap64 + n_chunks);
+        for (size_t i = 0; i < byte_size() % sizeof(uint64_t); ++i)
+        {
+            count += __builtin_popcount(remaining[i]);
+        }
+
         return count;
     }
 
@@ -170,24 +174,50 @@ public:
     ~DenseBitmap()
     {
         // delete null pointer has no effect
-        delete[] bitmap;
+        free(bitmap);
     }
 
     /// @brief Return the raw bitmap data.
     uint8_t * data() { return bitmap; }
 
     /// @brief Return indices of all the bits set to 1 as a vector.
-    std::vector<size_t> to_vector() const
+    std::vector<size_t> to_vector(const bool need_reserve = true) const
     {
         std::vector<size_t> result;
-        result.reserve(count());
-        for (size_t i = 0; i < size; ++i)
+        if (need_reserve)
+            result.reserve(count());
+
+        const uint64_t * bitmap64 = reinterpret_cast<const uint64_t *>(bitmap);
+        const size_t n_chunks = size / 64;
+
+        for (size_t chunk = 0; chunk < n_chunks; ++chunk)
+        {
+            uint64_t word = bitmap64[chunk];
+            const size_t base = chunk * 64;
+
+            while (word)
+            {
+                unsigned int pos = __builtin_ctzll(word);
+                result.push_back(base + pos);
+                word &= (word - 1);
+            }
+        }
+
+        const size_t remaining_start = n_chunks * 64;
+        for (size_t i = remaining_start; i < size; ++i)
         {
             if (unsafe_test(i))
+            {
                 result.push_back(i);
+            }
         }
+
         return result;
     }
+
+    /// @brief Intersect elements of two dense bitmaps.
+    static DenseBitmapPtr
+    intersectDenseBitmaps(DenseBitmapPtr left, DenseBitmapPtr right);
 
 private:
     /// @brief The raw bitmap data.
@@ -195,34 +225,5 @@ private:
 
     /// @brief Number of elements in the bitmap.
     size_t size;
-
-    friend DenseBitmapPtr
-    intersectDenseBitmaps(DenseBitmapPtr left, DenseBitmapPtr right);
 };
-
-/// @brief Intersect elements of two dense bitmaps.
-inline DenseBitmapPtr
-intersectDenseBitmaps(DenseBitmapPtr left, DenseBitmapPtr right)
-{
-    if (left == nullptr)
-        return right;
-    else if (right == nullptr)
-        return left;
-    SI_THROW_IF_NOT_FMT(
-        left->get_size() == right->get_size(),
-        ErrorCode::LOGICAL_ERROR,
-        "left size %zu != right size %zu",
-        left->get_size(),
-        right->get_size());
-    DenseBitmapPtr after_merge
-        = std::make_shared<DenseBitmap>(left->get_size());
-    uint8_t * bits = after_merge->bitmap;
-    uint8_t * left_bits = left->bitmap;
-    uint8_t * right_bits = right->bitmap;
-    for (size_t i = 0; i < left->byte_size(); ++i)
-    {
-        bits[i] = left_bits[i] & right_bits[i];
-    }
-    return after_merge;
-}
 }

@@ -4,282 +4,349 @@
 #include "scann/proto/projection.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr ProjectionConfig_VariableBlock::ProjectionConfig_VariableBlock(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : num_blocks_(0)
-  , num_dims_per_block_(0){}
-struct ProjectionConfig_VariableBlockDefaultTypeInternal {
-  constexpr ProjectionConfig_VariableBlockDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ProjectionConfig_VariableBlockDefaultTypeInternal() {}
-  union {
-    ProjectionConfig_VariableBlock _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ProjectionConfig_VariableBlockDefaultTypeInternal _ProjectionConfig_VariableBlock_default_instance_;
-constexpr ProjectionConfig::ProjectionConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : variable_blocks_()
-  , random_bilinear_config_(nullptr)
-  , ckmeans_config_(nullptr)
-  , meanstd_config_(nullptr)
-  , projection_type_(0)
 
-  , num_dims_per_block_(0)
-  , input_dim_(uint64_t{0u})
-  , is_bit_packed_(false)
-  , is_dense_(true)
-  , build_covariance_(true)
-  , num_blocks_(1)
-  , seed_(1){}
-struct ProjectionConfigDefaultTypeInternal {
-  constexpr ProjectionConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ProjectionConfigDefaultTypeInternal() {}
-  union {
-    ProjectionConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ProjectionConfigDefaultTypeInternal _ProjectionConfig_default_instance_;
-constexpr CkmeansConfig::CkmeansConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : projection_filename_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , clustering_convergence_tolerance_(1e-05f)
-  , need_learning_(true)
-  , num_clusters_(256)
-  , num_rotation_iterations_(100)
-  , rotation_convergence_(0.0001f)
-  , max_sample_size_(100000)
-  , max_clustering_iterations_(1){}
-struct CkmeansConfigDefaultTypeInternal {
-  constexpr CkmeansConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~CkmeansConfigDefaultTypeInternal() {}
-  union {
-    CkmeansConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CkmeansConfigDefaultTypeInternal _CkmeansConfig_default_instance_;
-constexpr MeanStdConfig::MeanStdConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : projection_filename_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct MeanStdConfigDefaultTypeInternal {
-  constexpr MeanStdConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MeanStdConfigDefaultTypeInternal() {}
-  union {
-    MeanStdConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MeanStdConfigDefaultTypeInternal _MeanStdConfig_default_instance_;
-constexpr RandomBilinearConfig::RandomBilinearConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : input_vector_rows_(0)
-  , input_vector_columns_(0)
-  , proj_vector_rows_(0)
-  , proj_vector_columns_(0){}
+inline constexpr RandomBilinearConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        input_vector_rows_{0},
+        input_vector_columns_{0},
+        proj_vector_rows_{0},
+        proj_vector_columns_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR RandomBilinearConfig::RandomBilinearConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct RandomBilinearConfigDefaultTypeInternal {
-  constexpr RandomBilinearConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RandomBilinearConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~RandomBilinearConfigDefaultTypeInternal() {}
   union {
     RandomBilinearConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RandomBilinearConfigDefaultTypeInternal _RandomBilinearConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RandomBilinearConfigDefaultTypeInternal _RandomBilinearConfig_default_instance_;
+
+inline constexpr ProjectionConfig_VariableBlock::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        num_blocks_{0},
+        num_dims_per_block_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR ProjectionConfig_VariableBlock::ProjectionConfig_VariableBlock(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct ProjectionConfig_VariableBlockDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProjectionConfig_VariableBlockDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProjectionConfig_VariableBlockDefaultTypeInternal() {}
+  union {
+    ProjectionConfig_VariableBlock _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProjectionConfig_VariableBlockDefaultTypeInternal _ProjectionConfig_VariableBlock_default_instance_;
+
+inline constexpr MeanStdConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        projection_filename_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()) {}
+
+template <typename>
+PROTOBUF_CONSTEXPR MeanStdConfig::MeanStdConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct MeanStdConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MeanStdConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MeanStdConfigDefaultTypeInternal() {}
+  union {
+    MeanStdConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MeanStdConfigDefaultTypeInternal _MeanStdConfig_default_instance_;
+
+inline constexpr CkmeansConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        projection_filename_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        clustering_convergence_tolerance_{1e-05f},
+        need_learning_{true},
+        num_clusters_{256},
+        num_rotation_iterations_{100},
+        rotation_convergence_{0.0001f},
+        max_sample_size_{100000},
+        max_clustering_iterations_{1} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR CkmeansConfig::CkmeansConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct CkmeansConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CkmeansConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CkmeansConfigDefaultTypeInternal() {}
+  union {
+    CkmeansConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CkmeansConfigDefaultTypeInternal _CkmeansConfig_default_instance_;
+
+inline constexpr ProjectionConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        variable_blocks_{},
+        random_bilinear_config_{nullptr},
+        ckmeans_config_{nullptr},
+        meanstd_config_{nullptr},
+        projection_type_{static_cast< ::research_scann::ProjectionConfig_ProjectionType >(0)},
+        num_dims_per_block_{0},
+        input_dim_{::uint64_t{0u}},
+        is_bit_packed_{false},
+        is_dense_{true},
+        build_covariance_{true},
+        num_blocks_{1},
+        seed_{1} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR ProjectionConfig::ProjectionConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct ProjectionConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProjectionConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProjectionConfigDefaultTypeInternal() {}
+  union {
+    ProjectionConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProjectionConfigDefaultTypeInternal _ProjectionConfig_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fprojection_2eproto[5];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fprojection_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fprojection_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fprojection_2eproto[5];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fprojection_2eproto[1];
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fprojection_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fprojection_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, _impl_.num_blocks_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, _impl_.num_dims_per_block_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.projection_type_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.input_dim_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.num_blocks_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.num_dims_per_block_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.variable_blocks_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.seed_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.is_bit_packed_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.is_dense_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.build_covariance_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.random_bilinear_config_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.ckmeans_config_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _impl_.meanstd_config_),
+    3,
+    5,
+    9,
+    4,
+    ~0u,
+    10,
+    6,
+    7,
+    8,
+    0,
+    1,
+    2,
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.need_learning_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.projection_filename_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.num_clusters_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.num_rotation_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.rotation_convergence_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.max_sample_size_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.max_clustering_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _impl_.clustering_convergence_tolerance_),
+    2,
+    0,
+    3,
+    4,
+    5,
+    6,
+    7,
+    1,
+    PROTOBUF_FIELD_OFFSET(::research_scann::MeanStdConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::MeanStdConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::MeanStdConfig, _impl_.projection_filename_),
+    0,
+    PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _impl_.input_vector_rows_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _impl_.input_vector_columns_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _impl_.proj_vector_rows_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _impl_.proj_vector_columns_),
+    0,
+    1,
+    2,
+    3,
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fprojection_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, num_blocks_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig_VariableBlock, num_dims_per_block_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, projection_type_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, input_dim_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, num_blocks_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, num_dims_per_block_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, variable_blocks_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, seed_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, is_bit_packed_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, is_dense_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, build_covariance_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, random_bilinear_config_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, ckmeans_config_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ProjectionConfig, meanstd_config_),
-  3,
-  5,
-  9,
-  4,
-  ~0u,
-  10,
-  6,
-  7,
-  8,
-  0,
-  1,
-  2,
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, need_learning_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, projection_filename_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, num_clusters_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, num_rotation_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, rotation_convergence_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, max_sample_size_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, max_clustering_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CkmeansConfig, clustering_convergence_tolerance_),
-  2,
-  0,
-  3,
-  4,
-  5,
-  6,
-  7,
-  1,
-  PROTOBUF_FIELD_OFFSET(::research_scann::MeanStdConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::MeanStdConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::MeanStdConfig, projection_filename_),
-  0,
-  PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, input_vector_rows_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, input_vector_columns_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, proj_vector_rows_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::RandomBilinearConfig, proj_vector_columns_),
-  0,
-  1,
-  2,
-  3,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, sizeof(::research_scann::ProjectionConfig_VariableBlock)},
-  { 9, 26, sizeof(::research_scann::ProjectionConfig)},
-  { 38, 51, sizeof(::research_scann::CkmeansConfig)},
-  { 59, 65, sizeof(::research_scann::MeanStdConfig)},
-  { 66, 75, sizeof(::research_scann::RandomBilinearConfig)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 10, -1, sizeof(::research_scann::ProjectionConfig_VariableBlock)},
+        {12, 32, -1, sizeof(::research_scann::ProjectionConfig)},
+        {44, 60, -1, sizeof(::research_scann::CkmeansConfig)},
+        {68, 77, -1, sizeof(::research_scann::MeanStdConfig)},
+        {78, 90, -1, sizeof(::research_scann::RandomBilinearConfig)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_ProjectionConfig_VariableBlock_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_ProjectionConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_CkmeansConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_MeanStdConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_RandomBilinearConfig_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_ProjectionConfig_VariableBlock_default_instance_._instance,
+    &::research_scann::_ProjectionConfig_default_instance_._instance,
+    &::research_scann::_CkmeansConfig_default_instance_._instance,
+    &::research_scann::_MeanStdConfig_default_instance_._instance,
+    &::research_scann::_RandomBilinearConfig_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fprojection_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\034scann/proto/projection.proto\022\016research"
+    "_scann\"\344\006\n\020ProjectionConfig\022H\n\017projectio"
+    "n_type\030\001 \002(\0162/.research_scann.Projection"
+    "Config.ProjectionType\022\021\n\tinput_dim\030\t \001(\004"
+    "\022\025\n\nnum_blocks\030\002 \001(\005:\0011\022\032\n\022num_dims_per_"
+    "block\030\003 \001(\005\022G\n\017variable_blocks\030\004 \003(\0132..r"
+    "esearch_scann.ProjectionConfig.VariableB"
+    "lock\022\017\n\004seed\030\005 \001(\005:\0011\022\034\n\ris_bit_packed\030\006"
+    " \001(\010:\005false\022\026\n\010is_dense\030\007 \001(\010:\004true\022\036\n\020b"
+    "uild_covariance\030\010 \001(\010:\004true\022D\n\026random_bi"
+    "linear_config\030\n \001(\0132$.research_scann.Ran"
+    "domBilinearConfig\0225\n\016ckmeans_config\030\013 \001("
+    "\0132\035.research_scann.CkmeansConfig\0225\n\016mean"
+    "std_config\030\014 \001(\0132\035.research_scann.MeanSt"
+    "dConfig\032\?\n\rVariableBlock\022\022\n\nnum_blocks\030\001"
+    " \002(\005\022\032\n\022num_dims_per_block\030\002 \002(\005\"\232\002\n\016Pro"
+    "jectionType\022\010\n\004NONE\020\000\022\t\n\005CHUNK\020\001\022\022\n\016VARI"
+    "ABLE_CHUNK\020\002\022\020\n\014RANDOM_GAUSS\020\003\022\021\n\rRANDOM"
+    "_BINARY\020\004\022\031\n\025RANDOM_BINARY_DYNAMIC\020\005\022\030\n\024"
+    "RANDOM_SPARSE_BINARY\020\006\022\025\n\021RANDOM_ORTHOGO"
+    "NAL\020\007\022\007\n\003PCA\020\010\022\023\n\017RANDOM_BILINEAR\020\t\022\026\n\022C"
+    "KMEANS_PROJECTION\020\013\022\026\n\022MEANSTD_PROJECTIO"
+    "N\020\014\022\022\n\016IDENTITY_CHUNK\020\r\022\014\n\010TRUNCATE\020\016\"\250\002"
+    "\n\rCkmeansConfig\022\033\n\rneed_learning\030\001 \001(\010:\004"
+    "true\022\033\n\023projection_filename\030\002 \001(\t\022\031\n\014num"
+    "_clusters\030\003 \001(\005:\003256\022$\n\027num_rotation_ite"
+    "rations\030\004 \001(\005:\003100\022$\n\024rotation_convergen"
+    "ce\030\005 \001(\002:\0060.0001\022\037\n\017max_sample_size\030\006 \001("
+    "\005:\006100000\022$\n\031max_clustering_iterations\030\007"
+    " \001(\005:\0011\022/\n clustering_convergence_tolera"
+    "nce\030\010 \001(\002:\0051e-05\",\n\rMeanStdConfig\022\033\n\023pro"
+    "jection_filename\030\001 \001(\t\"\206\001\n\024RandomBilinea"
+    "rConfig\022\031\n\021input_vector_rows\030\001 \001(\005\022\034\n\024in"
+    "put_vector_columns\030\002 \001(\005\022\030\n\020proj_vector_"
+    "rows\030\003 \001(\005\022\033\n\023proj_vector_columns\030\004 \001(\005"
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fprojection_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fprojection_2eproto = {
+    false,
+    false,
+    1399,
+    descriptor_table_protodef_scann_2fproto_2fprojection_2eproto,
+    "scann/proto/projection.proto",
+    &descriptor_table_scann_2fproto_2fprojection_2eproto_once,
+    nullptr,
+    0,
+    5,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fprojection_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fprojection_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fprojection_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fprojection_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fprojection_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\034scann/proto/projection.proto\022\016research"
-  "_scann\"\344\006\n\020ProjectionConfig\022H\n\017projectio"
-  "n_type\030\001 \002(\0162/.research_scann.Projection"
-  "Config.ProjectionType\022\021\n\tinput_dim\030\t \001(\004"
-  "\022\025\n\nnum_blocks\030\002 \001(\005:\0011\022\032\n\022num_dims_per_"
-  "block\030\003 \001(\005\022G\n\017variable_blocks\030\004 \003(\0132..r"
-  "esearch_scann.ProjectionConfig.VariableB"
-  "lock\022\017\n\004seed\030\005 \001(\005:\0011\022\034\n\ris_bit_packed\030\006"
-  " \001(\010:\005false\022\026\n\010is_dense\030\007 \001(\010:\004true\022\036\n\020b"
-  "uild_covariance\030\010 \001(\010:\004true\022D\n\026random_bi"
-  "linear_config\030\n \001(\0132$.research_scann.Ran"
-  "domBilinearConfig\0225\n\016ckmeans_config\030\013 \001("
-  "\0132\035.research_scann.CkmeansConfig\0225\n\016mean"
-  "std_config\030\014 \001(\0132\035.research_scann.MeanSt"
-  "dConfig\032\?\n\rVariableBlock\022\022\n\nnum_blocks\030\001"
-  " \002(\005\022\032\n\022num_dims_per_block\030\002 \002(\005\"\232\002\n\016Pro"
-  "jectionType\022\010\n\004NONE\020\000\022\t\n\005CHUNK\020\001\022\022\n\016VARI"
-  "ABLE_CHUNK\020\002\022\020\n\014RANDOM_GAUSS\020\003\022\021\n\rRANDOM"
-  "_BINARY\020\004\022\031\n\025RANDOM_BINARY_DYNAMIC\020\005\022\030\n\024"
-  "RANDOM_SPARSE_BINARY\020\006\022\025\n\021RANDOM_ORTHOGO"
-  "NAL\020\007\022\007\n\003PCA\020\010\022\023\n\017RANDOM_BILINEAR\020\t\022\026\n\022C"
-  "KMEANS_PROJECTION\020\013\022\026\n\022MEANSTD_PROJECTIO"
-  "N\020\014\022\022\n\016IDENTITY_CHUNK\020\r\022\014\n\010TRUNCATE\020\016\"\250\002"
-  "\n\rCkmeansConfig\022\033\n\rneed_learning\030\001 \001(\010:\004"
-  "true\022\033\n\023projection_filename\030\002 \001(\t\022\031\n\014num"
-  "_clusters\030\003 \001(\005:\003256\022$\n\027num_rotation_ite"
-  "rations\030\004 \001(\005:\003100\022$\n\024rotation_convergen"
-  "ce\030\005 \001(\002:\0060.0001\022\037\n\017max_sample_size\030\006 \001("
-  "\005:\006100000\022$\n\031max_clustering_iterations\030\007"
-  " \001(\005:\0011\022/\n clustering_convergence_tolera"
-  "nce\030\010 \001(\002:\0051e-05\",\n\rMeanStdConfig\022\033\n\023pro"
-  "jection_filename\030\001 \001(\t\"\206\001\n\024RandomBilinea"
-  "rConfig\022\031\n\021input_vector_rows\030\001 \001(\005\022\034\n\024in"
-  "put_vector_columns\030\002 \001(\005\022\030\n\020proj_vector_"
-  "rows\030\003 \001(\005\022\033\n\023proj_vector_columns\030\004 \001(\005"
-  ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fprojection_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fprojection_2eproto = {
-  false, false, 1399, descriptor_table_protodef_scann_2fproto_2fprojection_2eproto, "scann/proto/projection.proto", 
-  &descriptor_table_scann_2fproto_2fprojection_2eproto_once, nullptr, 0, 5,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fprojection_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fprojection_2eproto, file_level_enum_descriptors_scann_2fproto_2fprojection_2eproto, file_level_service_descriptors_scann_2fproto_2fprojection_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fprojection_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fprojection_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fprojection_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fprojection_2eproto(&descriptor_table_scann_2fproto_2fprojection_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fprojection_2eproto(&descriptor_table_scann_2fproto_2fprojection_2eproto);
 namespace research_scann {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProjectionConfig_ProjectionType_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fprojection_2eproto);
+const ::google::protobuf::EnumDescriptor* ProjectionConfig_ProjectionType_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fprojection_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fprojection_2eproto[0];
 }
+PROTOBUF_CONSTINIT const uint32_t ProjectionConfig_ProjectionType_internal_data_[] = {
+    655360u, 32u, 30u, };
 bool ProjectionConfig_ProjectionType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 14 && ((31743u >> value) & 1) != 0;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr ProjectionConfig_ProjectionType ProjectionConfig::NONE;
 constexpr ProjectionConfig_ProjectionType ProjectionConfig::CHUNK;
 constexpr ProjectionConfig_ProjectionType ProjectionConfig::VARIABLE_CHUNK;
@@ -297,13 +364,16 @@ constexpr ProjectionConfig_ProjectionType ProjectionConfig::TRUNCATE;
 constexpr ProjectionConfig_ProjectionType ProjectionConfig::ProjectionType_MIN;
 constexpr ProjectionConfig_ProjectionType ProjectionConfig::ProjectionType_MAX;
 constexpr int ProjectionConfig::ProjectionType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class ProjectionConfig_VariableBlock::_Internal {
  public:
-  using HasBits = decltype(std::declval<ProjectionConfig_VariableBlock>()._has_bits_);
+  using HasBits = decltype(std::declval<ProjectionConfig_VariableBlock>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_._has_bits_);
   static void set_has_num_blocks(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -315,224 +385,184 @@ class ProjectionConfig_VariableBlock::_Internal {
   }
 };
 
-ProjectionConfig_VariableBlock::ProjectionConfig_VariableBlock(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+ProjectionConfig_VariableBlock::ProjectionConfig_VariableBlock(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.ProjectionConfig.VariableBlock)
 }
-ProjectionConfig_VariableBlock::ProjectionConfig_VariableBlock(const ProjectionConfig_VariableBlock& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&num_blocks_, &from.num_blocks_,
-    static_cast<size_t>(reinterpret_cast<char*>(&num_dims_per_block_) -
-    reinterpret_cast<char*>(&num_blocks_)) + sizeof(num_dims_per_block_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.ProjectionConfig.VariableBlock)
+ProjectionConfig_VariableBlock::ProjectionConfig_VariableBlock(
+    ::google::protobuf::Arena* arena, const ProjectionConfig_VariableBlock& from)
+    : ProjectionConfig_VariableBlock(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE ProjectionConfig_VariableBlock::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void ProjectionConfig_VariableBlock::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&num_blocks_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_dims_per_block_) -
-    reinterpret_cast<char*>(&num_blocks_)) + sizeof(num_dims_per_block_));
+inline void ProjectionConfig_VariableBlock::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, num_blocks_),
+           0,
+           offsetof(Impl_, num_dims_per_block_) -
+               offsetof(Impl_, num_blocks_) +
+               sizeof(Impl_::num_dims_per_block_));
 }
-
 ProjectionConfig_VariableBlock::~ProjectionConfig_VariableBlock() {
   // @@protoc_insertion_point(destructor:research_scann.ProjectionConfig.VariableBlock)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void ProjectionConfig_VariableBlock::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void ProjectionConfig_VariableBlock::ArenaDtor(void* object) {
-  ProjectionConfig_VariableBlock* _this = reinterpret_cast< ProjectionConfig_VariableBlock* >(object);
-  (void)_this;
-}
-void ProjectionConfig_VariableBlock::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void ProjectionConfig_VariableBlock::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ProjectionConfig_VariableBlock::Clear() {
+PROTOBUF_NOINLINE void ProjectionConfig_VariableBlock::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.ProjectionConfig.VariableBlock)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&num_blocks_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&num_dims_per_block_) -
-        reinterpret_cast<char*>(&num_blocks_)) + sizeof(num_dims_per_block_));
+    ::memset(&_impl_.num_blocks_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.num_dims_per_block_) -
+        reinterpret_cast<char*>(&_impl_.num_blocks_)) + sizeof(_impl_.num_dims_per_block_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* ProjectionConfig_VariableBlock::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // required int32 num_blocks = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_num_blocks(&has_bits);
-          num_blocks_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // required int32 num_dims_per_block = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_num_dims_per_block(&has_bits);
-          num_dims_per_block_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* ProjectionConfig_VariableBlock::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ProjectionConfig_VariableBlock::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ProjectionConfig.VariableBlock)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> ProjectionConfig_VariableBlock::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_ProjectionConfig_VariableBlock_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // required int32 num_dims_per_block = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProjectionConfig_VariableBlock, _impl_.num_dims_per_block_), 1>(),
+     {16, 1, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_.num_dims_per_block_)}},
+    // required int32 num_blocks = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProjectionConfig_VariableBlock, _impl_.num_blocks_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_.num_blocks_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // required int32 num_blocks = 1;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_.num_blocks_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // required int32 num_dims_per_block = 2;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_.num_dims_per_block_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* ProjectionConfig_VariableBlock::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ProjectionConfig.VariableBlock)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // required int32 num_blocks = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_num_blocks(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_num_blocks(), target);
   }
 
   // required int32 num_dims_per_block = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_num_dims_per_block(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_num_dims_per_block(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.ProjectionConfig.VariableBlock)
   return target;
 }
 
-size_t ProjectionConfig_VariableBlock::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:research_scann.ProjectionConfig.VariableBlock)
-  size_t total_size = 0;
-
-  if (_internal_has_num_blocks()) {
-    // required int32 num_blocks = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_num_blocks());
-  }
-
-  if (_internal_has_num_dims_per_block()) {
-    // required int32 num_dims_per_block = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_num_dims_per_block());
-  }
-
-  return total_size;
-}
-size_t ProjectionConfig_VariableBlock::ByteSizeLong() const {
+::size_t ProjectionConfig_VariableBlock::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.ProjectionConfig.VariableBlock)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required int32 num_blocks = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_num_blocks());
-
-    // required int32 num_dims_per_block = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_num_dims_per_block());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // required int32 num_blocks = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_num_blocks());
+    }
+
+    // required int32 num_dims_per_block = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+          this->_internal_num_dims_per_block());
+    }
+
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ProjectionConfig_VariableBlock::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ProjectionConfig_VariableBlock::MergeImpl
+const ::google::protobuf::Message::ClassData ProjectionConfig_VariableBlock::_class_data_ = {
+    ProjectionConfig_VariableBlock::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ProjectionConfig_VariableBlock::GetClassData() const { return &_class_data_; }
-
-void ProjectionConfig_VariableBlock::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ProjectionConfig_VariableBlock *>(to)->MergeFrom(
-      static_cast<const ProjectionConfig_VariableBlock &>(from));
+const ::google::protobuf::Message::ClassData* ProjectionConfig_VariableBlock::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void ProjectionConfig_VariableBlock::MergeFrom(const ProjectionConfig_VariableBlock& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ProjectionConfig.VariableBlock)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void ProjectionConfig_VariableBlock::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<ProjectionConfig_VariableBlock*>(&to_msg);
+  auto& from = static_cast<const ProjectionConfig_VariableBlock&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ProjectionConfig.VariableBlock)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      num_blocks_ = from.num_blocks_;
+      _this->_impl_.num_blocks_ = from._impl_.num_blocks_;
     }
     if (cached_has_bits & 0x00000002u) {
-      num_dims_per_block_ = from.num_dims_per_block_;
+      _this->_impl_.num_dims_per_block_ = from._impl_.num_dims_per_block_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ProjectionConfig_VariableBlock::CopyFrom(const ProjectionConfig_VariableBlock& from) {
@@ -542,34 +572,40 @@ void ProjectionConfig_VariableBlock::CopyFrom(const ProjectionConfig_VariableBlo
   MergeFrom(from);
 }
 
-bool ProjectionConfig_VariableBlock::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+PROTOBUF_NOINLINE bool ProjectionConfig_VariableBlock::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) {
+    return false;
+  }
   return true;
 }
 
-void ProjectionConfig_VariableBlock::InternalSwap(ProjectionConfig_VariableBlock* other) {
+::_pbi::CachedSize* ProjectionConfig_VariableBlock::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void ProjectionConfig_VariableBlock::InternalSwap(ProjectionConfig_VariableBlock* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, num_dims_per_block_)
-      + sizeof(ProjectionConfig_VariableBlock::num_dims_per_block_)
-      - PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, num_blocks_)>(
-          reinterpret_cast<char*>(&num_blocks_),
-          reinterpret_cast<char*>(&other->num_blocks_));
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_.num_dims_per_block_)
+      + sizeof(ProjectionConfig_VariableBlock::_impl_.num_dims_per_block_)
+      - PROTOBUF_FIELD_OFFSET(ProjectionConfig_VariableBlock, _impl_.num_blocks_)>(
+          reinterpret_cast<char*>(&_impl_.num_blocks_),
+          reinterpret_cast<char*>(&other->_impl_.num_blocks_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ProjectionConfig_VariableBlock::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata ProjectionConfig_VariableBlock::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fprojection_2eproto_getter, &descriptor_table_scann_2fproto_2fprojection_2eproto_once,
       file_level_metadata_scann_2fproto_2fprojection_2eproto[0]);
 }
-
 // ===================================================================
 
 class ProjectionConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<ProjectionConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<ProjectionConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_._has_bits_);
   static void set_has_projection_type(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -611,515 +647,488 @@ class ProjectionConfig::_Internal {
   }
 };
 
-const ::research_scann::RandomBilinearConfig&
-ProjectionConfig::_Internal::random_bilinear_config(const ProjectionConfig* msg) {
-  return *msg->random_bilinear_config_;
+const ::research_scann::RandomBilinearConfig& ProjectionConfig::_Internal::random_bilinear_config(const ProjectionConfig* msg) {
+  return *msg->_impl_.random_bilinear_config_;
 }
-const ::research_scann::CkmeansConfig&
-ProjectionConfig::_Internal::ckmeans_config(const ProjectionConfig* msg) {
-  return *msg->ckmeans_config_;
+const ::research_scann::CkmeansConfig& ProjectionConfig::_Internal::ckmeans_config(const ProjectionConfig* msg) {
+  return *msg->_impl_.ckmeans_config_;
 }
-const ::research_scann::MeanStdConfig&
-ProjectionConfig::_Internal::meanstd_config(const ProjectionConfig* msg) {
-  return *msg->meanstd_config_;
+const ::research_scann::MeanStdConfig& ProjectionConfig::_Internal::meanstd_config(const ProjectionConfig* msg) {
+  return *msg->_impl_.meanstd_config_;
 }
-ProjectionConfig::ProjectionConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  variable_blocks_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+ProjectionConfig::ProjectionConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.ProjectionConfig)
 }
-ProjectionConfig::ProjectionConfig(const ProjectionConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      variable_blocks_(from.variable_blocks_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_random_bilinear_config()) {
-    random_bilinear_config_ = new ::research_scann::RandomBilinearConfig(*from.random_bilinear_config_);
-  } else {
-    random_bilinear_config_ = nullptr;
-  }
-  if (from._internal_has_ckmeans_config()) {
-    ckmeans_config_ = new ::research_scann::CkmeansConfig(*from.ckmeans_config_);
-  } else {
-    ckmeans_config_ = nullptr;
-  }
-  if (from._internal_has_meanstd_config()) {
-    meanstd_config_ = new ::research_scann::MeanStdConfig(*from.meanstd_config_);
-  } else {
-    meanstd_config_ = nullptr;
-  }
-  ::memcpy(&projection_type_, &from.projection_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&seed_) -
-    reinterpret_cast<char*>(&projection_type_)) + sizeof(seed_));
+inline PROTOBUF_NDEBUG_INLINE ProjectionConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        variable_blocks_{visibility, arena, from.variable_blocks_} {}
+
+ProjectionConfig::ProjectionConfig(
+    ::google::protobuf::Arena* arena,
+    const ProjectionConfig& from)
+    : ::google::protobuf::Message(arena) {
+  ProjectionConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.random_bilinear_config_ = (cached_has_bits & 0x00000001u)
+                ? CreateMaybeMessage<::research_scann::RandomBilinearConfig>(arena, *from._impl_.random_bilinear_config_)
+                : nullptr;
+  _impl_.ckmeans_config_ = (cached_has_bits & 0x00000002u)
+                ? CreateMaybeMessage<::research_scann::CkmeansConfig>(arena, *from._impl_.ckmeans_config_)
+                : nullptr;
+  _impl_.meanstd_config_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::research_scann::MeanStdConfig>(arena, *from._impl_.meanstd_config_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, projection_type_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, projection_type_),
+           offsetof(Impl_, seed_) -
+               offsetof(Impl_, projection_type_) +
+               sizeof(Impl_::seed_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.ProjectionConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE ProjectionConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        variable_blocks_{visibility, arena},
+        is_dense_{true},
+        build_covariance_{true},
+        num_blocks_{1},
+        seed_{1} {}
 
-inline void ProjectionConfig::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&random_bilinear_config_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_bit_packed_) -
-    reinterpret_cast<char*>(&random_bilinear_config_)) + sizeof(is_bit_packed_));
-is_dense_ = true;
-build_covariance_ = true;
-num_blocks_ = 1;
-seed_ = 1;
+inline void ProjectionConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, random_bilinear_config_),
+           0,
+           offsetof(Impl_, is_bit_packed_) -
+               offsetof(Impl_, random_bilinear_config_) +
+               sizeof(Impl_::is_bit_packed_));
 }
-
 ProjectionConfig::~ProjectionConfig() {
   // @@protoc_insertion_point(destructor:research_scann.ProjectionConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void ProjectionConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete random_bilinear_config_;
-  if (this != internal_default_instance()) delete ckmeans_config_;
-  if (this != internal_default_instance()) delete meanstd_config_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.random_bilinear_config_;
+  delete _impl_.ckmeans_config_;
+  delete _impl_.meanstd_config_;
+  _impl_.~Impl_();
 }
 
-void ProjectionConfig::ArenaDtor(void* object) {
-  ProjectionConfig* _this = reinterpret_cast< ProjectionConfig* >(object);
-  (void)_this;
-}
-void ProjectionConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void ProjectionConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ProjectionConfig::Clear() {
+PROTOBUF_NOINLINE void ProjectionConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.ProjectionConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  variable_blocks_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.variable_blocks_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(random_bilinear_config_ != nullptr);
-      random_bilinear_config_->Clear();
+      ABSL_DCHECK(_impl_.random_bilinear_config_ != nullptr);
+      _impl_.random_bilinear_config_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(ckmeans_config_ != nullptr);
-      ckmeans_config_->Clear();
+      ABSL_DCHECK(_impl_.ckmeans_config_ != nullptr);
+      _impl_.ckmeans_config_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(meanstd_config_ != nullptr);
-      meanstd_config_->Clear();
+      ABSL_DCHECK(_impl_.meanstd_config_ != nullptr);
+      _impl_.meanstd_config_->Clear();
     }
   }
   if (cached_has_bits & 0x000000f8u) {
-    ::memset(&projection_type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&is_bit_packed_) -
-        reinterpret_cast<char*>(&projection_type_)) + sizeof(is_bit_packed_));
-    is_dense_ = true;
+    ::memset(&_impl_.projection_type_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.is_bit_packed_) -
+        reinterpret_cast<char*>(&_impl_.projection_type_)) + sizeof(_impl_.is_bit_packed_));
+    _impl_.is_dense_ = true;
   }
   if (cached_has_bits & 0x00000700u) {
-    build_covariance_ = true;
-    num_blocks_ = 1;
-    seed_ = 1;
+    _impl_.build_covariance_ = true;
+    _impl_.num_blocks_ = 1;
+    _impl_.seed_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* ProjectionConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // required .research_scann.ProjectionConfig.ProjectionType projection_type = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::ProjectionConfig_ProjectionType_IsValid(val))) {
-            _internal_set_projection_type(static_cast<::research_scann::ProjectionConfig_ProjectionType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_blocks = 2 [default = 1];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_num_blocks(&has_bits);
-          num_blocks_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_dims_per_block = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_num_dims_per_block(&has_bits);
-          num_dims_per_block_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated .research_scann.ProjectionConfig.VariableBlock variable_blocks = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_variable_blocks(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // optional int32 seed = 5 [default = 1];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_seed(&has_bits);
-          seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool is_bit_packed = 6 [default = false];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          _Internal::set_has_is_bit_packed(&has_bits);
-          is_bit_packed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool is_dense = 7 [default = true];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_is_dense(&has_bits);
-          is_dense_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool build_covariance = 8 [default = true];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          _Internal::set_has_build_covariance(&has_bits);
-          build_covariance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional uint64 input_dim = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
-          _Internal::set_has_input_dim(&has_bits);
-          input_dim_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.RandomBilinearConfig random_bilinear_config = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
-          ptr = ctx->ParseMessage(_internal_mutable_random_bilinear_config(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.CkmeansConfig ckmeans_config = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
-          ptr = ctx->ParseMessage(_internal_mutable_ckmeans_config(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.MeanStdConfig meanstd_config = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
-          ptr = ctx->ParseMessage(_internal_mutable_meanstd_config(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* ProjectionConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ProjectionConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ProjectionConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<4, 12, 5, 0, 2> ProjectionConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    12, 120,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294963200,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    12,  // num_field_entries
+    5,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_ProjectionConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // required .research_scann.ProjectionConfig.ProjectionType projection_type = 1;
+    {::_pbi::TcParser::FastEvS1,
+     {8, 3, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.projection_type_)}},
+    // optional int32 num_blocks = 2 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProjectionConfig, _impl_.num_blocks_), 9>(),
+     {16, 9, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.num_blocks_)}},
+    // optional int32 num_dims_per_block = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProjectionConfig, _impl_.num_dims_per_block_), 4>(),
+     {24, 4, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.num_dims_per_block_)}},
+    // repeated .research_scann.ProjectionConfig.VariableBlock variable_blocks = 4;
+    {::_pbi::TcParser::FastMtR1,
+     {34, 63, 1, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.variable_blocks_)}},
+    // optional int32 seed = 5 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ProjectionConfig, _impl_.seed_), 10>(),
+     {40, 10, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.seed_)}},
+    // optional bool is_bit_packed = 6 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(ProjectionConfig, _impl_.is_bit_packed_), 6>(),
+     {48, 6, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.is_bit_packed_)}},
+    // optional bool is_dense = 7 [default = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(ProjectionConfig, _impl_.is_dense_), 7>(),
+     {56, 7, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.is_dense_)}},
+    // optional bool build_covariance = 8 [default = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(ProjectionConfig, _impl_.build_covariance_), 8>(),
+     {64, 8, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.build_covariance_)}},
+    // optional uint64 input_dim = 9;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(ProjectionConfig, _impl_.input_dim_), 5>(),
+     {72, 5, 0, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.input_dim_)}},
+    // optional .research_scann.RandomBilinearConfig random_bilinear_config = 10;
+    {::_pbi::TcParser::FastMtS1,
+     {82, 0, 2, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.random_bilinear_config_)}},
+    // optional .research_scann.CkmeansConfig ckmeans_config = 11;
+    {::_pbi::TcParser::FastMtS1,
+     {90, 1, 3, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.ckmeans_config_)}},
+    // optional .research_scann.MeanStdConfig meanstd_config = 12;
+    {::_pbi::TcParser::FastMtS1,
+     {98, 2, 4, PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.meanstd_config_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // required .research_scann.ProjectionConfig.ProjectionType projection_type = 1;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.projection_type_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnum)},
+    // optional int32 num_blocks = 2 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.num_blocks_), _Internal::kHasBitsOffset + 9, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_dims_per_block = 3;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.num_dims_per_block_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // repeated .research_scann.ProjectionConfig.VariableBlock variable_blocks = 4;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.variable_blocks_), -1, 1,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional int32 seed = 5 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.seed_), _Internal::kHasBitsOffset + 10, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional bool is_bit_packed = 6 [default = false];
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.is_bit_packed_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool is_dense = 7 [default = true];
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.is_dense_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool build_covariance = 8 [default = true];
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.build_covariance_), _Internal::kHasBitsOffset + 8, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional uint64 input_dim = 9;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.input_dim_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+    // optional .research_scann.RandomBilinearConfig random_bilinear_config = 10;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.random_bilinear_config_), _Internal::kHasBitsOffset + 0, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.CkmeansConfig ckmeans_config = 11;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.ckmeans_config_), _Internal::kHasBitsOffset + 1, 3,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.MeanStdConfig meanstd_config = 12;
+    {PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.meanstd_config_), _Internal::kHasBitsOffset + 2, 4,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::FieldAuxEnumData{}, ::research_scann::ProjectionConfig_ProjectionType_internal_data_},
+    {::_pbi::TcParser::GetTable<::research_scann::ProjectionConfig_VariableBlock>()},
+    {::_pbi::TcParser::GetTable<::research_scann::RandomBilinearConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::CkmeansConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::MeanStdConfig>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* ProjectionConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ProjectionConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // required .research_scann.ProjectionConfig.ProjectionType projection_type = 1;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_projection_type(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_projection_type(), target);
   }
 
   // optional int32 num_blocks = 2 [default = 1];
   if (cached_has_bits & 0x00000200u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_num_blocks(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_num_blocks(), target);
   }
 
   // optional int32 num_dims_per_block = 3;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_num_dims_per_block(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_num_dims_per_block(), target);
   }
 
   // repeated .research_scann.ProjectionConfig.VariableBlock variable_blocks = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_variable_blocks_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_variable_blocks(i), target, stream);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_variable_blocks_size()); i < n; i++) {
+    const auto& repfield = this->_internal_variable_blocks().Get(i);
+    target = ::google::protobuf::internal::WireFormatLite::
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional int32 seed = 5 [default = 1];
   if (cached_has_bits & 0x00000400u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_seed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<5>(
+            stream, this->_internal_seed(), target);
   }
 
   // optional bool is_bit_packed = 6 [default = false];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_is_bit_packed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        6, this->_internal_is_bit_packed(), target);
   }
 
   // optional bool is_dense = 7 [default = true];
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_is_dense(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_is_dense(), target);
   }
 
   // optional bool build_covariance = 8 [default = true];
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_build_covariance(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        8, this->_internal_build_covariance(), target);
   }
 
   // optional uint64 input_dim = 9;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(9, this->_internal_input_dim(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        9, this->_internal_input_dim(), target);
   }
 
   // optional .research_scann.RandomBilinearConfig random_bilinear_config = 10;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        10, _Internal::random_bilinear_config(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        10, _Internal::random_bilinear_config(this),
+        _Internal::random_bilinear_config(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.CkmeansConfig ckmeans_config = 11;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        11, _Internal::ckmeans_config(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        11, _Internal::ckmeans_config(this),
+        _Internal::ckmeans_config(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.MeanStdConfig meanstd_config = 12;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        12, _Internal::meanstd_config(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        12, _Internal::meanstd_config(this),
+        _Internal::meanstd_config(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.ProjectionConfig)
   return target;
 }
 
-size_t ProjectionConfig::ByteSizeLong() const {
+::size_t ProjectionConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.ProjectionConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  // required .research_scann.ProjectionConfig.ProjectionType projection_type = 1;
-  if (_internal_has_projection_type()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_projection_type());
-  }
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .research_scann.ProjectionConfig.VariableBlock variable_blocks = 4;
   total_size += 1UL * this->_internal_variable_blocks_size();
-  for (const auto& msg : this->variable_blocks_) {
+  for (const auto& msg : this->_internal_variable_blocks()) {
     total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+      ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
-
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional .research_scann.RandomBilinearConfig random_bilinear_config = 10;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *random_bilinear_config_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.random_bilinear_config_);
     }
 
     // optional .research_scann.CkmeansConfig ckmeans_config = 11;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *ckmeans_config_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.ckmeans_config_);
     }
 
     // optional .research_scann.MeanStdConfig meanstd_config = 12;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *meanstd_config_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.meanstd_config_);
     }
 
   }
+  // required .research_scann.ProjectionConfig.ProjectionType projection_type = 1;
+  if (cached_has_bits & 0x00000008u) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_projection_type());
+  }
+
   if (cached_has_bits & 0x000000f0u) {
     // optional int32 num_dims_per_block = 3;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_dims_per_block());
     }
 
     // optional uint64 input_dim = 9;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
           this->_internal_input_dim());
     }
 
     // optional bool is_bit_packed = 6 [default = false];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool is_dense = 7 [default = true];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
   if (cached_has_bits & 0x00000700u) {
     // optional bool build_covariance = 8 [default = true];
     if (cached_has_bits & 0x00000100u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional int32 num_blocks = 2 [default = 1];
     if (cached_has_bits & 0x00000200u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_blocks());
     }
 
     // optional int32 seed = 5 [default = 1];
     if (cached_has_bits & 0x00000400u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_seed());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ProjectionConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ProjectionConfig::MergeImpl
+const ::google::protobuf::Message::ClassData ProjectionConfig::_class_data_ = {
+    ProjectionConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ProjectionConfig::GetClassData() const { return &_class_data_; }
-
-void ProjectionConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ProjectionConfig *>(to)->MergeFrom(
-      static_cast<const ProjectionConfig &>(from));
+const ::google::protobuf::Message::ClassData* ProjectionConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void ProjectionConfig::MergeFrom(const ProjectionConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ProjectionConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void ProjectionConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<ProjectionConfig*>(&to_msg);
+  auto& from = static_cast<const ProjectionConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ProjectionConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  variable_blocks_.MergeFrom(from.variable_blocks_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_internal_mutable_variable_blocks()->MergeFrom(
+      from._internal_variable_blocks());
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_random_bilinear_config()->::research_scann::RandomBilinearConfig::MergeFrom(from._internal_random_bilinear_config());
+      _this->_internal_mutable_random_bilinear_config()->::research_scann::RandomBilinearConfig::MergeFrom(
+          from._internal_random_bilinear_config());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_ckmeans_config()->::research_scann::CkmeansConfig::MergeFrom(from._internal_ckmeans_config());
+      _this->_internal_mutable_ckmeans_config()->::research_scann::CkmeansConfig::MergeFrom(
+          from._internal_ckmeans_config());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_meanstd_config()->::research_scann::MeanStdConfig::MergeFrom(from._internal_meanstd_config());
+      _this->_internal_mutable_meanstd_config()->::research_scann::MeanStdConfig::MergeFrom(
+          from._internal_meanstd_config());
     }
     if (cached_has_bits & 0x00000008u) {
-      projection_type_ = from.projection_type_;
+      _this->_impl_.projection_type_ = from._impl_.projection_type_;
     }
     if (cached_has_bits & 0x00000010u) {
-      num_dims_per_block_ = from.num_dims_per_block_;
+      _this->_impl_.num_dims_per_block_ = from._impl_.num_dims_per_block_;
     }
     if (cached_has_bits & 0x00000020u) {
-      input_dim_ = from.input_dim_;
+      _this->_impl_.input_dim_ = from._impl_.input_dim_;
     }
     if (cached_has_bits & 0x00000040u) {
-      is_bit_packed_ = from.is_bit_packed_;
+      _this->_impl_.is_bit_packed_ = from._impl_.is_bit_packed_;
     }
     if (cached_has_bits & 0x00000080u) {
-      is_dense_ = from.is_dense_;
+      _this->_impl_.is_dense_ = from._impl_.is_dense_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00000700u) {
     if (cached_has_bits & 0x00000100u) {
-      build_covariance_ = from.build_covariance_;
+      _this->_impl_.build_covariance_ = from._impl_.build_covariance_;
     }
     if (cached_has_bits & 0x00000200u) {
-      num_blocks_ = from.num_blocks_;
+      _this->_impl_.num_blocks_ = from._impl_.num_blocks_;
     }
     if (cached_has_bits & 0x00000400u) {
-      seed_ = from.seed_;
+      _this->_impl_.seed_ = from._impl_.seed_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ProjectionConfig::CopyFrom(const ProjectionConfig& from) {
@@ -1129,40 +1138,43 @@ void ProjectionConfig::CopyFrom(const ProjectionConfig& from) {
   MergeFrom(from);
 }
 
-bool ProjectionConfig::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(variable_blocks_)) return false;
+PROTOBUF_NOINLINE bool ProjectionConfig::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) {
+    return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(_internal_variable_blocks()))
+    return false;
   return true;
 }
 
-void ProjectionConfig::InternalSwap(ProjectionConfig* other) {
+::_pbi::CachedSize* ProjectionConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void ProjectionConfig::InternalSwap(ProjectionConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  variable_blocks_.InternalSwap(&other->variable_blocks_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProjectionConfig, is_bit_packed_)
-      + sizeof(ProjectionConfig::is_bit_packed_)
-      - PROTOBUF_FIELD_OFFSET(ProjectionConfig, random_bilinear_config_)>(
-          reinterpret_cast<char*>(&random_bilinear_config_),
-          reinterpret_cast<char*>(&other->random_bilinear_config_));
-  swap(is_dense_, other->is_dense_);
-  swap(build_covariance_, other->build_covariance_);
-  swap(num_blocks_, other->num_blocks_);
-  swap(seed_, other->seed_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.variable_blocks_.InternalSwap(&other->_impl_.variable_blocks_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.seed_)
+      + sizeof(ProjectionConfig::_impl_.seed_)
+      - PROTOBUF_FIELD_OFFSET(ProjectionConfig, _impl_.random_bilinear_config_)>(
+          reinterpret_cast<char*>(&_impl_.random_bilinear_config_),
+          reinterpret_cast<char*>(&other->_impl_.random_bilinear_config_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ProjectionConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata ProjectionConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fprojection_2eproto_getter, &descriptor_table_scann_2fproto_2fprojection_2eproto_once,
       file_level_metadata_scann_2fproto_2fprojection_2eproto[1]);
 }
-
 // ===================================================================
 
 class CkmeansConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<CkmeansConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<CkmeansConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_._has_bits_);
   static void set_has_need_learning(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -1189,369 +1201,348 @@ class CkmeansConfig::_Internal {
   }
 };
 
-CkmeansConfig::CkmeansConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+CkmeansConfig::CkmeansConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.CkmeansConfig)
 }
-CkmeansConfig::CkmeansConfig(const CkmeansConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  projection_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_projection_filename()) {
-    projection_filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_projection_filename(), 
-      GetArenaForAllocation());
-  }
-  ::memcpy(&clustering_convergence_tolerance_, &from.clustering_convergence_tolerance_,
-    static_cast<size_t>(reinterpret_cast<char*>(&max_clustering_iterations_) -
-    reinterpret_cast<char*>(&clustering_convergence_tolerance_)) + sizeof(max_clustering_iterations_));
+inline PROTOBUF_NDEBUG_INLINE CkmeansConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        projection_filename_(arena, from.projection_filename_) {}
+
+CkmeansConfig::CkmeansConfig(
+    ::google::protobuf::Arena* arena,
+    const CkmeansConfig& from)
+    : ::google::protobuf::Message(arena) {
+  CkmeansConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, clustering_convergence_tolerance_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, clustering_convergence_tolerance_),
+           offsetof(Impl_, max_clustering_iterations_) -
+               offsetof(Impl_, clustering_convergence_tolerance_) +
+               sizeof(Impl_::max_clustering_iterations_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.CkmeansConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE CkmeansConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        projection_filename_(arena),
+        clustering_convergence_tolerance_{1e-05f},
+        need_learning_{true},
+        num_clusters_{256},
+        num_rotation_iterations_{100},
+        rotation_convergence_{0.0001f},
+        max_sample_size_{100000},
+        max_clustering_iterations_{1} {}
 
-inline void CkmeansConfig::SharedCtor() {
-projection_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-clustering_convergence_tolerance_ = 1e-05f;
-need_learning_ = true;
-num_clusters_ = 256;
-num_rotation_iterations_ = 100;
-rotation_convergence_ = 0.0001f;
-max_sample_size_ = 100000;
-max_clustering_iterations_ = 1;
+inline void CkmeansConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 CkmeansConfig::~CkmeansConfig() {
   // @@protoc_insertion_point(destructor:research_scann.CkmeansConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void CkmeansConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  projection_filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.projection_filename_.Destroy();
+  _impl_.~Impl_();
 }
 
-void CkmeansConfig::ArenaDtor(void* object) {
-  CkmeansConfig* _this = reinterpret_cast< CkmeansConfig* >(object);
-  (void)_this;
-}
-void CkmeansConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void CkmeansConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void CkmeansConfig::Clear() {
+PROTOBUF_NOINLINE void CkmeansConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.CkmeansConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      projection_filename_.ClearNonDefaultToEmpty();
+      _impl_.projection_filename_.ClearNonDefaultToEmpty();
     }
-    clustering_convergence_tolerance_ = 1e-05f;
-    need_learning_ = true;
-    num_clusters_ = 256;
-    num_rotation_iterations_ = 100;
-    rotation_convergence_ = 0.0001f;
-    max_sample_size_ = 100000;
-    max_clustering_iterations_ = 1;
+    _impl_.clustering_convergence_tolerance_ = 1e-05f;
+    _impl_.need_learning_ = true;
+    _impl_.num_clusters_ = 256;
+    _impl_.num_rotation_iterations_ = 100;
+    _impl_.rotation_convergence_ = 0.0001f;
+    _impl_.max_sample_size_ = 100000;
+    _impl_.max_clustering_iterations_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* CkmeansConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool need_learning = 1 [default = true];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_need_learning(&has_bits);
-          need_learning_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string projection_filename = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_projection_filename();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.CkmeansConfig.projection_filename");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_clusters = 3 [default = 256];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_num_clusters(&has_bits);
-          num_clusters_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_rotation_iterations = 4 [default = 100];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_num_rotation_iterations(&has_bits);
-          num_rotation_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float rotation_convergence = 5 [default = 0.0001];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
-          _Internal::set_has_rotation_convergence(&has_bits);
-          rotation_convergence_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_sample_size = 6 [default = 100000];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          _Internal::set_has_max_sample_size(&has_bits);
-          max_sample_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_clustering_iterations = 7 [default = 1];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_max_clustering_iterations(&has_bits);
-          max_clustering_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float clustering_convergence_tolerance = 8 [default = 1e-05];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 69)) {
-          _Internal::set_has_clustering_convergence_tolerance(&has_bits);
-          clustering_convergence_tolerance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* CkmeansConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* CkmeansConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.CkmeansConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 8, 0, 64, 2> CkmeansConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    8, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967040,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    8,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_CkmeansConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional float clustering_convergence_tolerance = 8 [default = 1e-05];
+    {::_pbi::TcParser::FastF32S1,
+     {69, 1, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.clustering_convergence_tolerance_)}},
+    // optional bool need_learning = 1 [default = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(CkmeansConfig, _impl_.need_learning_), 2>(),
+     {8, 2, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.need_learning_)}},
+    // optional string projection_filename = 2;
+    {::_pbi::TcParser::FastSS1,
+     {18, 0, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.projection_filename_)}},
+    // optional int32 num_clusters = 3 [default = 256];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(CkmeansConfig, _impl_.num_clusters_), 3>(),
+     {24, 3, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.num_clusters_)}},
+    // optional int32 num_rotation_iterations = 4 [default = 100];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(CkmeansConfig, _impl_.num_rotation_iterations_), 4>(),
+     {32, 4, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.num_rotation_iterations_)}},
+    // optional float rotation_convergence = 5 [default = 0.0001];
+    {::_pbi::TcParser::FastF32S1,
+     {45, 5, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.rotation_convergence_)}},
+    // optional int32 max_sample_size = 6 [default = 100000];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(CkmeansConfig, _impl_.max_sample_size_), 6>(),
+     {48, 6, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.max_sample_size_)}},
+    // optional int32 max_clustering_iterations = 7 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(CkmeansConfig, _impl_.max_clustering_iterations_), 7>(),
+     {56, 7, 0, PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.max_clustering_iterations_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool need_learning = 1 [default = true];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.need_learning_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional string projection_filename = 2;
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.projection_filename_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional int32 num_clusters = 3 [default = 256];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.num_clusters_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_rotation_iterations = 4 [default = 100];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.num_rotation_iterations_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float rotation_convergence = 5 [default = 0.0001];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.rotation_convergence_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional int32 max_sample_size = 6 [default = 100000];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.max_sample_size_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 max_clustering_iterations = 7 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.max_clustering_iterations_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float clustering_convergence_tolerance = 8 [default = 1e-05];
+    {PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.clustering_convergence_tolerance_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+  }},
+  // no aux_entries
+  {{
+    "\34\0\23\0\0\0\0\0\0\0\0\0\0\0\0\0"
+    "research_scann.CkmeansConfig"
+    "projection_filename"
+  }},
+};
+
+::uint8_t* CkmeansConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.CkmeansConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool need_learning = 1 [default = true];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_need_learning(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_need_learning(), target);
   }
 
   // optional string projection_filename = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_projection_filename().data(), static_cast<int>(this->_internal_projection_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.CkmeansConfig.projection_filename");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_projection_filename(), target);
+    const std::string& _s = this->_internal_projection_filename();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.CkmeansConfig.projection_filename");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional int32 num_clusters = 3 [default = 256];
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_num_clusters(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_num_clusters(), target);
   }
 
   // optional int32 num_rotation_iterations = 4 [default = 100];
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_num_rotation_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<4>(
+            stream, this->_internal_num_rotation_iterations(), target);
   }
 
   // optional float rotation_convergence = 5 [default = 0.0001];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_rotation_convergence(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        5, this->_internal_rotation_convergence(), target);
   }
 
   // optional int32 max_sample_size = 6 [default = 100000];
   if (cached_has_bits & 0x00000040u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_max_sample_size(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<6>(
+            stream, this->_internal_max_sample_size(), target);
   }
 
   // optional int32 max_clustering_iterations = 7 [default = 1];
   if (cached_has_bits & 0x00000080u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_max_clustering_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<7>(
+            stream, this->_internal_max_clustering_iterations(), target);
   }
 
   // optional float clustering_convergence_tolerance = 8 [default = 1e-05];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(8, this->_internal_clustering_convergence_tolerance(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        8, this->_internal_clustering_convergence_tolerance(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.CkmeansConfig)
   return target;
 }
 
-size_t CkmeansConfig::ByteSizeLong() const {
+::size_t CkmeansConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.CkmeansConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string projection_filename = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_projection_filename());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_projection_filename());
     }
 
     // optional float clustering_convergence_tolerance = 8 [default = 1e-05];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional bool need_learning = 1 [default = true];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional int32 num_clusters = 3 [default = 256];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_clusters());
     }
 
     // optional int32 num_rotation_iterations = 4 [default = 100];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_rotation_iterations());
     }
 
     // optional float rotation_convergence = 5 [default = 0.0001];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional int32 max_sample_size = 6 [default = 100000];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_sample_size());
     }
 
     // optional int32 max_clustering_iterations = 7 [default = 1];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_clustering_iterations());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CkmeansConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    CkmeansConfig::MergeImpl
+const ::google::protobuf::Message::ClassData CkmeansConfig::_class_data_ = {
+    CkmeansConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CkmeansConfig::GetClassData() const { return &_class_data_; }
-
-void CkmeansConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<CkmeansConfig *>(to)->MergeFrom(
-      static_cast<const CkmeansConfig &>(from));
+const ::google::protobuf::Message::ClassData* CkmeansConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void CkmeansConfig::MergeFrom(const CkmeansConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.CkmeansConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void CkmeansConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<CkmeansConfig*>(&to_msg);
+  auto& from = static_cast<const CkmeansConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.CkmeansConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_projection_filename(from._internal_projection_filename());
+      _this->_internal_set_projection_filename(from._internal_projection_filename());
     }
     if (cached_has_bits & 0x00000002u) {
-      clustering_convergence_tolerance_ = from.clustering_convergence_tolerance_;
+      _this->_impl_.clustering_convergence_tolerance_ = from._impl_.clustering_convergence_tolerance_;
     }
     if (cached_has_bits & 0x00000004u) {
-      need_learning_ = from.need_learning_;
+      _this->_impl_.need_learning_ = from._impl_.need_learning_;
     }
     if (cached_has_bits & 0x00000008u) {
-      num_clusters_ = from.num_clusters_;
+      _this->_impl_.num_clusters_ = from._impl_.num_clusters_;
     }
     if (cached_has_bits & 0x00000010u) {
-      num_rotation_iterations_ = from.num_rotation_iterations_;
+      _this->_impl_.num_rotation_iterations_ = from._impl_.num_rotation_iterations_;
     }
     if (cached_has_bits & 0x00000020u) {
-      rotation_convergence_ = from.rotation_convergence_;
+      _this->_impl_.rotation_convergence_ = from._impl_.rotation_convergence_;
     }
     if (cached_has_bits & 0x00000040u) {
-      max_sample_size_ = from.max_sample_size_;
+      _this->_impl_.max_sample_size_ = from._impl_.max_sample_size_;
     }
     if (cached_has_bits & 0x00000080u) {
-      max_clustering_iterations_ = from.max_clustering_iterations_;
+      _this->_impl_.max_clustering_iterations_ = from._impl_.max_clustering_iterations_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CkmeansConfig::CopyFrom(const CkmeansConfig& from) {
@@ -1561,220 +1552,207 @@ void CkmeansConfig::CopyFrom(const CkmeansConfig& from) {
   MergeFrom(from);
 }
 
-bool CkmeansConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool CkmeansConfig::IsInitialized() const {
   return true;
 }
 
-void CkmeansConfig::InternalSwap(CkmeansConfig* other) {
+::_pbi::CachedSize* CkmeansConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void CkmeansConfig::InternalSwap(CkmeansConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &projection_filename_, GetArenaForAllocation(),
-      &other->projection_filename_, other->GetArenaForAllocation()
-  );
-  swap(clustering_convergence_tolerance_, other->clustering_convergence_tolerance_);
-  swap(need_learning_, other->need_learning_);
-  swap(num_clusters_, other->num_clusters_);
-  swap(num_rotation_iterations_, other->num_rotation_iterations_);
-  swap(rotation_convergence_, other->rotation_convergence_);
-  swap(max_sample_size_, other->max_sample_size_);
-  swap(max_clustering_iterations_, other->max_clustering_iterations_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.projection_filename_, &other->_impl_.projection_filename_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.max_clustering_iterations_)
+      + sizeof(CkmeansConfig::_impl_.max_clustering_iterations_)
+      - PROTOBUF_FIELD_OFFSET(CkmeansConfig, _impl_.clustering_convergence_tolerance_)>(
+          reinterpret_cast<char*>(&_impl_.clustering_convergence_tolerance_),
+          reinterpret_cast<char*>(&other->_impl_.clustering_convergence_tolerance_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CkmeansConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata CkmeansConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fprojection_2eproto_getter, &descriptor_table_scann_2fproto_2fprojection_2eproto_once,
       file_level_metadata_scann_2fproto_2fprojection_2eproto[2]);
 }
-
 // ===================================================================
 
 class MeanStdConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<MeanStdConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<MeanStdConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(MeanStdConfig, _impl_._has_bits_);
   static void set_has_projection_filename(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-MeanStdConfig::MeanStdConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+MeanStdConfig::MeanStdConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.MeanStdConfig)
 }
-MeanStdConfig::MeanStdConfig(const MeanStdConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  projection_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_projection_filename()) {
-    projection_filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_projection_filename(), 
-      GetArenaForAllocation());
-  }
+inline PROTOBUF_NDEBUG_INLINE MeanStdConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        projection_filename_(arena, from.projection_filename_) {}
+
+MeanStdConfig::MeanStdConfig(
+    ::google::protobuf::Arena* arena,
+    const MeanStdConfig& from)
+    : ::google::protobuf::Message(arena) {
+  MeanStdConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+
   // @@protoc_insertion_point(copy_constructor:research_scann.MeanStdConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE MeanStdConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        projection_filename_(arena) {}
 
-inline void MeanStdConfig::SharedCtor() {
-projection_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void MeanStdConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 MeanStdConfig::~MeanStdConfig() {
   // @@protoc_insertion_point(destructor:research_scann.MeanStdConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void MeanStdConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  projection_filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.projection_filename_.Destroy();
+  _impl_.~Impl_();
 }
 
-void MeanStdConfig::ArenaDtor(void* object) {
-  MeanStdConfig* _this = reinterpret_cast< MeanStdConfig* >(object);
-  (void)_this;
-}
-void MeanStdConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void MeanStdConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void MeanStdConfig::Clear() {
+PROTOBUF_NOINLINE void MeanStdConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.MeanStdConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    projection_filename_.ClearNonDefaultToEmpty();
+    _impl_.projection_filename_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* MeanStdConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional string projection_filename = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_projection_filename();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.MeanStdConfig.projection_filename");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* MeanStdConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* MeanStdConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.MeanStdConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 56, 2> MeanStdConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(MeanStdConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_MeanStdConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional string projection_filename = 1;
+    {::_pbi::TcParser::FastSS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(MeanStdConfig, _impl_.projection_filename_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional string projection_filename = 1;
+    {PROTOBUF_FIELD_OFFSET(MeanStdConfig, _impl_.projection_filename_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\34\23\0\0\0\0\0\0"
+    "research_scann.MeanStdConfig"
+    "projection_filename"
+  }},
+};
+
+::uint8_t* MeanStdConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.MeanStdConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string projection_filename = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_projection_filename().data(), static_cast<int>(this->_internal_projection_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.MeanStdConfig.projection_filename");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_projection_filename(), target);
+    const std::string& _s = this->_internal_projection_filename();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.MeanStdConfig.projection_filename");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.MeanStdConfig)
   return target;
 }
 
-size_t MeanStdConfig::ByteSizeLong() const {
+::size_t MeanStdConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.MeanStdConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional string projection_filename = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_projection_filename());
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_projection_filename());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MeanStdConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    MeanStdConfig::MergeImpl
+const ::google::protobuf::Message::ClassData MeanStdConfig::_class_data_ = {
+    MeanStdConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MeanStdConfig::GetClassData() const { return &_class_data_; }
-
-void MeanStdConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<MeanStdConfig *>(to)->MergeFrom(
-      static_cast<const MeanStdConfig &>(from));
+const ::google::protobuf::Message::ClassData* MeanStdConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void MeanStdConfig::MergeFrom(const MeanStdConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.MeanStdConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void MeanStdConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<MeanStdConfig*>(&to_msg);
+  auto& from = static_cast<const MeanStdConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.MeanStdConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_projection_filename()) {
-    _internal_set_projection_filename(from._internal_projection_filename());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_projection_filename(from._internal_projection_filename());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MeanStdConfig::CopyFrom(const MeanStdConfig& from) {
@@ -1784,32 +1762,34 @@ void MeanStdConfig::CopyFrom(const MeanStdConfig& from) {
   MergeFrom(from);
 }
 
-bool MeanStdConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool MeanStdConfig::IsInitialized() const {
   return true;
 }
 
-void MeanStdConfig::InternalSwap(MeanStdConfig* other) {
+::_pbi::CachedSize* MeanStdConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void MeanStdConfig::InternalSwap(MeanStdConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &projection_filename_, GetArenaForAllocation(),
-      &other->projection_filename_, other->GetArenaForAllocation()
-  );
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.projection_filename_, &other->_impl_.projection_filename_, arena);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata MeanStdConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata MeanStdConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fprojection_2eproto_getter, &descriptor_table_scann_2fproto_2fprojection_2eproto_once,
       file_level_metadata_scann_2fproto_2fprojection_2eproto[3]);
 }
-
 // ===================================================================
 
 class RandomBilinearConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<RandomBilinearConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<RandomBilinearConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_._has_bits_);
   static void set_has_input_vector_rows(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1824,255 +1804,228 @@ class RandomBilinearConfig::_Internal {
   }
 };
 
-RandomBilinearConfig::RandomBilinearConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+RandomBilinearConfig::RandomBilinearConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.RandomBilinearConfig)
 }
-RandomBilinearConfig::RandomBilinearConfig(const RandomBilinearConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&input_vector_rows_, &from.input_vector_rows_,
-    static_cast<size_t>(reinterpret_cast<char*>(&proj_vector_columns_) -
-    reinterpret_cast<char*>(&input_vector_rows_)) + sizeof(proj_vector_columns_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.RandomBilinearConfig)
+RandomBilinearConfig::RandomBilinearConfig(
+    ::google::protobuf::Arena* arena, const RandomBilinearConfig& from)
+    : RandomBilinearConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE RandomBilinearConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void RandomBilinearConfig::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&input_vector_rows_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&proj_vector_columns_) -
-    reinterpret_cast<char*>(&input_vector_rows_)) + sizeof(proj_vector_columns_));
+inline void RandomBilinearConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, input_vector_rows_),
+           0,
+           offsetof(Impl_, proj_vector_columns_) -
+               offsetof(Impl_, input_vector_rows_) +
+               sizeof(Impl_::proj_vector_columns_));
 }
-
 RandomBilinearConfig::~RandomBilinearConfig() {
   // @@protoc_insertion_point(destructor:research_scann.RandomBilinearConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void RandomBilinearConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void RandomBilinearConfig::ArenaDtor(void* object) {
-  RandomBilinearConfig* _this = reinterpret_cast< RandomBilinearConfig* >(object);
-  (void)_this;
-}
-void RandomBilinearConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void RandomBilinearConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void RandomBilinearConfig::Clear() {
+PROTOBUF_NOINLINE void RandomBilinearConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.RandomBilinearConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&input_vector_rows_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&proj_vector_columns_) -
-        reinterpret_cast<char*>(&input_vector_rows_)) + sizeof(proj_vector_columns_));
+    ::memset(&_impl_.input_vector_rows_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.proj_vector_columns_) -
+        reinterpret_cast<char*>(&_impl_.input_vector_rows_)) + sizeof(_impl_.proj_vector_columns_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* RandomBilinearConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 input_vector_rows = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_input_vector_rows(&has_bits);
-          input_vector_rows_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 input_vector_columns = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_input_vector_columns(&has_bits);
-          input_vector_columns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 proj_vector_rows = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_proj_vector_rows(&has_bits);
-          proj_vector_rows_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 proj_vector_columns = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_proj_vector_columns(&has_bits);
-          proj_vector_columns_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* RandomBilinearConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* RandomBilinearConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.RandomBilinearConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 0, 0, 2> RandomBilinearConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_RandomBilinearConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional int32 proj_vector_columns = 4;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(RandomBilinearConfig, _impl_.proj_vector_columns_), 3>(),
+     {32, 3, 0, PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.proj_vector_columns_)}},
+    // optional int32 input_vector_rows = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(RandomBilinearConfig, _impl_.input_vector_rows_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.input_vector_rows_)}},
+    // optional int32 input_vector_columns = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(RandomBilinearConfig, _impl_.input_vector_columns_), 1>(),
+     {16, 1, 0, PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.input_vector_columns_)}},
+    // optional int32 proj_vector_rows = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(RandomBilinearConfig, _impl_.proj_vector_rows_), 2>(),
+     {24, 2, 0, PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.proj_vector_rows_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 input_vector_rows = 1;
+    {PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.input_vector_rows_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 input_vector_columns = 2;
+    {PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.input_vector_columns_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 proj_vector_rows = 3;
+    {PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.proj_vector_rows_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 proj_vector_columns = 4;
+    {PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.proj_vector_columns_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* RandomBilinearConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.RandomBilinearConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 input_vector_rows = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_input_vector_rows(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_input_vector_rows(), target);
   }
 
   // optional int32 input_vector_columns = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_input_vector_columns(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_input_vector_columns(), target);
   }
 
   // optional int32 proj_vector_rows = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_proj_vector_rows(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_proj_vector_rows(), target);
   }
 
   // optional int32 proj_vector_columns = 4;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_proj_vector_columns(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<4>(
+            stream, this->_internal_proj_vector_columns(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.RandomBilinearConfig)
   return target;
 }
 
-size_t RandomBilinearConfig::ByteSizeLong() const {
+::size_t RandomBilinearConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.RandomBilinearConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int32 input_vector_rows = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_input_vector_rows());
     }
 
     // optional int32 input_vector_columns = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_input_vector_columns());
     }
 
     // optional int32 proj_vector_rows = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_proj_vector_rows());
     }
 
     // optional int32 proj_vector_columns = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_proj_vector_columns());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RandomBilinearConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    RandomBilinearConfig::MergeImpl
+const ::google::protobuf::Message::ClassData RandomBilinearConfig::_class_data_ = {
+    RandomBilinearConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RandomBilinearConfig::GetClassData() const { return &_class_data_; }
-
-void RandomBilinearConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<RandomBilinearConfig *>(to)->MergeFrom(
-      static_cast<const RandomBilinearConfig &>(from));
+const ::google::protobuf::Message::ClassData* RandomBilinearConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void RandomBilinearConfig::MergeFrom(const RandomBilinearConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.RandomBilinearConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void RandomBilinearConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<RandomBilinearConfig*>(&to_msg);
+  auto& from = static_cast<const RandomBilinearConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.RandomBilinearConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      input_vector_rows_ = from.input_vector_rows_;
+      _this->_impl_.input_vector_rows_ = from._impl_.input_vector_rows_;
     }
     if (cached_has_bits & 0x00000002u) {
-      input_vector_columns_ = from.input_vector_columns_;
+      _this->_impl_.input_vector_columns_ = from._impl_.input_vector_columns_;
     }
     if (cached_has_bits & 0x00000004u) {
-      proj_vector_rows_ = from.proj_vector_rows_;
+      _this->_impl_.proj_vector_rows_ = from._impl_.proj_vector_rows_;
     }
     if (cached_has_bits & 0x00000008u) {
-      proj_vector_columns_ = from.proj_vector_columns_;
+      _this->_impl_.proj_vector_columns_ = from._impl_.proj_vector_columns_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void RandomBilinearConfig::CopyFrom(const RandomBilinearConfig& from) {
@@ -2082,47 +2035,35 @@ void RandomBilinearConfig::CopyFrom(const RandomBilinearConfig& from) {
   MergeFrom(from);
 }
 
-bool RandomBilinearConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool RandomBilinearConfig::IsInitialized() const {
   return true;
 }
 
-void RandomBilinearConfig::InternalSwap(RandomBilinearConfig* other) {
+::_pbi::CachedSize* RandomBilinearConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void RandomBilinearConfig::InternalSwap(RandomBilinearConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, proj_vector_columns_)
-      + sizeof(RandomBilinearConfig::proj_vector_columns_)
-      - PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, input_vector_rows_)>(
-          reinterpret_cast<char*>(&input_vector_rows_),
-          reinterpret_cast<char*>(&other->input_vector_rows_));
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.proj_vector_columns_)
+      + sizeof(RandomBilinearConfig::_impl_.proj_vector_columns_)
+      - PROTOBUF_FIELD_OFFSET(RandomBilinearConfig, _impl_.input_vector_rows_)>(
+          reinterpret_cast<char*>(&_impl_.input_vector_rows_),
+          reinterpret_cast<char*>(&other->_impl_.input_vector_rows_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata RandomBilinearConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata RandomBilinearConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fprojection_2eproto_getter, &descriptor_table_scann_2fproto_2fprojection_2eproto_once,
       file_level_metadata_scann_2fproto_2fprojection_2eproto[4]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::ProjectionConfig_VariableBlock* Arena::CreateMaybeMessage< ::research_scann::ProjectionConfig_VariableBlock >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::ProjectionConfig_VariableBlock >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::ProjectionConfig* Arena::CreateMaybeMessage< ::research_scann::ProjectionConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::ProjectionConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::CkmeansConfig* Arena::CreateMaybeMessage< ::research_scann::CkmeansConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::CkmeansConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::MeanStdConfig* Arena::CreateMaybeMessage< ::research_scann::MeanStdConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::MeanStdConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::RandomBilinearConfig* Arena::CreateMaybeMessage< ::research_scann::RandomBilinearConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::RandomBilinearConfig >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

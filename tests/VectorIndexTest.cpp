@@ -584,14 +584,14 @@ struct VectorIndexTester
                 filter_keep_min,
                 filter_keep_max);
             valid_ids
-                = std::make_shared<DenseBitmap>(max_points + id_offset, true);
+                = std::make_shared<DenseBitmap>(max_points + id_offset, false);
             for (size_t i = id_offset; i < max_points + id_offset; ++i)
             {
                 bool keep = !((filter_out_mod > 0 && i % filter_out_mod == 0))
                     && !(filter_keep_min >= 0 and i < filter_keep_min)
                     && !(filter_keep_max >= 0 and i > filter_keep_max);
-                if (!keep)
-                    valid_ids->unset(i);
+                if (keep)
+                    valid_ids->set(i);
             }
         }
 

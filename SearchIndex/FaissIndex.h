@@ -860,7 +860,7 @@ public:
         bool adaptive_search = params.extractParam("adaptive_search", 0);
         if (adaptive_search && filter)
         {
-            float inv_filter_ratio = 1.0f / this->estimateFilterRatio(filter);
+            float inv_filter_ratio = 1.0f / this->estimateFilterRatio(filter).first;
             // ef_grow_ratio must grow super-linearly in log space
             float ef_grow_ratio = static_cast<float>(
                 pow(1 + pow(log(inv_filter_ratio) / log(m), 1.7), 2.3));

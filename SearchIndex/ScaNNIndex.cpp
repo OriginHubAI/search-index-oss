@@ -630,8 +630,9 @@ ScaNNIndex<IS, OS, IDS, dataType>::extractSearchParams(
     // auto-tuned advanced parameters
 
     // num_reorder grows sublinearly with topK
-    uint32_t default_num_reorder = static_cast<uint32_t>(
-        20 * std::floor(std::pow(topK, 0.65f) * std::sqrt(alpha)));
+    uint32_t default_num_reorder =
+        static_cast<uint32_t>(
+            20 * std::floor(std::pow(topK, 0.65f) * std::sqrt(alpha)));
     // num_reorder grows sublinearly with num_data for large datasets
     if (num_data > 10000000)
         default_num_reorder *= std::pow(num_data / 1e7f, 0.5);
@@ -643,8 +644,7 @@ ScaNNIndex<IS, OS, IDS, dataType>::extractSearchParams(
     if (disk_mode == 0)
         default_num_reorder *= 2.5;
 
-    default_num_reorder
-        = std::max(static_cast<uint32_t>(topK), default_num_reorder);
+    default_num_reorder = std::max(static_cast<uint32_t>(topK), default_num_reorder);
     uint32_t num_reorder
         = params.extractParam("num_reorder", default_num_reorder);
     return {alpha, num_reorder};
@@ -692,33 +692,35 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
     // Only use adaptive_search when `l_search_ratio` is not specified in search params
     //   and when dataset is not very large (<= 8M).
     // For large datasets, adaptive_search is not required for desired accuracy.
-    if (l_search_ratio < 0 && adaptive_search && filter
-        && this->numData() < 8e6)
+    if (l_search_ratio < 0 && adaptive_search && filter)
     {
-        float inv_ratio = 1.0f / this->estimateFilterRatio(filter);
-        // when filter ratio is below 0.05, every time it's quartered,
-        //   increase l_search by about 1.5x
-        // r = log(clip(inv_ratio - 20, 1, 50)) / log(4)
-        // l_search := exp(log(l_search) * (0.75 ** r))
-        int threshold = data_dim < 1024 ? 200 : (data_dim < 1536 ? 50 : 5);
-        // for high dimensional data, we need to increase l_search sooner
-        float r
-            = log(min(max(inv_ratio - threshold, 1.0f), 1000.0f)) / log(5.0f);
-        // for larger dimension, we should decrease gamma and increase l_search_ratio
-        // more rapidly as filter_ratio decreases
-        float gamma
-            = data_dim < 1024 ? 0.85f : (data_dim < 1536 ? 0.78f : 0.7f);
-        l_search_ratio
-            = exp(log((l_search + 0.01f) / num_leaf_nodes) * pow(gamma, r));
-        // hard-code l_search_ratio for extremely large inv_ratio (or extremely low filter ratio)
-        int threshold1
-            = data_dim < 1024 ? 2000 : (data_dim < 1536 ? 1000 : 500);
-        int threshold2
-            = data_dim < 1024 ? 5000 : (data_dim < 1536 ? 2000 : 1000);
-        if (inv_ratio >= threshold1)
-            l_search_ratio = max(l_search_ratio, 0.5f);
-        if (inv_ratio >= threshold2)
-            l_search_ratio = max(l_search_ratio, 1.0f);
+        float inv_ratio = 1.0f / this->estimateFilterRatio(filter).first;
+        if (this->numData() < 8e6)
+        {
+            // when filter ratio is below 0.05, every time it's quartered,
+            //   increase l_search by about 1.5x
+            // r = log(clip(inv_ratio - 20, 1, 50)) / log(4)
+            // l_search := exp(log(l_search) * (0.75 ** r))
+            int threshold = data_dim < 1024 ? 200 : (data_dim < 1536 ? 50 : 5);
+            // for high dimensional data, we need to increase l_search sooner
+            float r
+                = log(min(max(inv_ratio - threshold, 1.0f), 1000.0f)) / log(5.0f);
+            // for larger dimension, we should decrease gamma and increase l_search_ratio
+            // more rapidly as filter_ratio decreases
+            float gamma
+                = data_dim < 1024 ? 0.85f : (data_dim < 1536 ? 0.78f : 0.7f);
+            l_search_ratio
+                = exp(log((l_search + 0.01f) / num_leaf_nodes) * pow(gamma, r));
+            // hard-code l_search_ratio for extremely large inv_ratio (or extremely low filter ratio)
+            int threshold1
+                = data_dim < 1024 ? 2000 : (data_dim < 1536 ? 1000 : 500);
+            int threshold2
+                = data_dim < 1024 ? 5000 : (data_dim < 1536 ? 2000 : 1000);
+            if (inv_ratio >= threshold1)
+                l_search_ratio = max(l_search_ratio, 0.5f);
+            if (inv_ratio >= threshold2)
+                l_search_ratio = max(l_search_ratio, 1.0f);
+        }
     }
     if (l_search_ratio > 0)
     {
@@ -729,11 +731,8 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
 
     // adjust l_search for large top-k
     auto leaf_nodes = this->getNumLeafNodes();
-    if (0.5 * l_search / leaf_nodes * this->max_points < topK)
-    {
-        l_search = max(
-            l_search,
-            static_cast<uint32_t>(2 * topK * leaf_nodes / this->max_points));
+    if (0.5 * l_search / leaf_nodes * this->max_points < topK) {
+        l_search = max(l_search, static_cast<uint32_t>(2 * topK * leaf_nodes / this->max_points));
         l_search = min(l_search, leaf_nodes);
     }
 
@@ -752,7 +751,12 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
 
     // get parameters and perform search
     auto scann_params = getScannSearchParametersBatched(
-        queries->numData(), topK, num_reorder, l_search, true, filter);
+        queries->numData(),
+        topK,
+        num_reorder,
+        l_search,
+        true,
+        filter);
     std::vector<research_scann::NNResultsVector> res(queries->numData());
     research_scann::DenseDataWrapper<T> queries_data_wrapper(
         const_cast<T *>(queries->getData()),
@@ -761,7 +765,9 @@ std::shared_ptr<SearchResult> ScaNNIndex<IS, OS, IDS, dataType>::searchImpl(
         queries_data_wrapper, queries->numData());
     research_scann::Status status;
     status = scann->FindNeighborsBatched(
-        queries_dataset, scann_params, research_scann::MakeMutableSpan(res));
+        queries_dataset,
+        scann_params,
+        research_scann::MakeMutableSpan(res));
     int result_len = topK;
     SI_THROW_IF_NOT_FMT(
         status.ok(),

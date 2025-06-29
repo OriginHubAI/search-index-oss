@@ -4,153 +4,225 @@
 #include "scann/proto/results.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr NearestNeighbors_Neighbor::NearestNeighbors_Neighbor(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : docid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , metadata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , distance_(0)
-  , crowding_attribute_(int64_t{0}){}
-struct NearestNeighbors_NeighborDefaultTypeInternal {
-  constexpr NearestNeighbors_NeighborDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~NearestNeighbors_NeighborDefaultTypeInternal() {}
-  union {
-    NearestNeighbors_Neighbor _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NearestNeighbors_NeighborDefaultTypeInternal _NearestNeighbors_Neighbor_default_instance_;
-constexpr NearestNeighbors::NearestNeighbors(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : neighbor_()
-  , docid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , metadata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , retrieved_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct NearestNeighborsDefaultTypeInternal {
-  constexpr NearestNeighborsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~NearestNeighborsDefaultTypeInternal() {}
-  union {
-    NearestNeighbors _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NearestNeighborsDefaultTypeInternal _NearestNeighbors_default_instance_;
-constexpr NearestNeighborsFast::NearestNeighborsFast(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : neighbor_ids_()
-  , neighbor_distances_()
-  , neighbor_crowding_attributes_()
-  , _neighbor_crowding_attributes_cached_byte_size_(0){}
+
+inline constexpr NearestNeighborsFast::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : neighbor_ids_{},
+        neighbor_distances_{},
+        neighbor_crowding_attributes_{},
+        _neighbor_crowding_attributes_cached_byte_size_{0},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR NearestNeighborsFast::NearestNeighborsFast(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct NearestNeighborsFastDefaultTypeInternal {
-  constexpr NearestNeighborsFastDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NearestNeighborsFastDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NearestNeighborsFastDefaultTypeInternal() {}
   union {
     NearestNeighborsFast _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NearestNeighborsFastDefaultTypeInternal _NearestNeighborsFast_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NearestNeighborsFastDefaultTypeInternal _NearestNeighborsFast_default_instance_;
+
+inline constexpr NearestNeighbors_Neighbor::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        docid_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        metadata_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        distance_{0},
+        crowding_attribute_{::int64_t{0}} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR NearestNeighbors_Neighbor::NearestNeighbors_Neighbor(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct NearestNeighbors_NeighborDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NearestNeighbors_NeighborDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NearestNeighbors_NeighborDefaultTypeInternal() {}
+  union {
+    NearestNeighbors_Neighbor _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NearestNeighbors_NeighborDefaultTypeInternal _NearestNeighbors_Neighbor_default_instance_;
+
+inline constexpr NearestNeighbors::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        neighbor_{},
+        docid_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        metadata_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        retrieved_version_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()) {}
+
+template <typename>
+PROTOBUF_CONSTEXPR NearestNeighbors::NearestNeighbors(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct NearestNeighborsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NearestNeighborsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NearestNeighborsDefaultTypeInternal() {}
+  union {
+    NearestNeighbors _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NearestNeighborsDefaultTypeInternal _NearestNeighbors_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fresults_2eproto[3];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fresults_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fresults_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fresults_2eproto[3];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fresults_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fresults_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fresults_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _impl_.docid_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _impl_.distance_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _impl_.metadata_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _impl_.crowding_attribute_),
+    0,
+    2,
+    1,
+    3,
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _impl_.docid_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _impl_.metadata_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _impl_.retrieved_version_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _impl_.neighbor_),
+    0,
+    1,
+    2,
+    ~0u,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, _impl_.neighbor_ids_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, _impl_.neighbor_distances_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, _impl_.neighbor_crowding_attributes_),
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fresults_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, docid_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, distance_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, metadata_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors_Neighbor, crowding_attribute_),
-  0,
-  2,
-  1,
-  3,
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, docid_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, metadata_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, retrieved_version_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighbors, neighbor_),
-  0,
-  1,
-  2,
-  ~0u,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, neighbor_ids_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, neighbor_distances_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NearestNeighborsFast, neighbor_crowding_attributes_),
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, sizeof(::research_scann::NearestNeighbors_Neighbor)},
-  { 13, 22, sizeof(::research_scann::NearestNeighbors)},
-  { 26, -1, sizeof(::research_scann::NearestNeighborsFast)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 12, -1, sizeof(::research_scann::NearestNeighbors_Neighbor)},
+        {16, 28, -1, sizeof(::research_scann::NearestNeighbors)},
+        {32, -1, -1, sizeof(::research_scann::NearestNeighborsFast)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_NearestNeighbors_Neighbor_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_NearestNeighbors_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_NearestNeighborsFast_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_NearestNeighbors_Neighbor_default_instance_._instance,
+    &::research_scann::_NearestNeighbors_default_instance_._instance,
+    &::research_scann::_NearestNeighborsFast_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fresults_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\031scann/proto/results.proto\022\016research_sc"
+    "ann\032 scann/data_format/features.proto\"\346\001"
+    "\n\020NearestNeighbors\022\r\n\005docid\030\001 \002(\014\022\020\n\010met"
+    "adata\030\003 \001(\014\022\031\n\021retrieved_version\030\004 \001(\t\022;"
+    "\n\010neighbor\030\002 \003(\0132).research_scann.Neares"
+    "tNeighbors.Neighbor\032Y\n\010Neighbor\022\r\n\005docid"
+    "\030\003 \002(\014\022\020\n\010distance\030\004 \001(\001\022\020\n\010metadata\030\005 \001"
+    "(\014\022\032\n\022crowding_attribute\030\006 \001(\003\"z\n\024Neares"
+    "tNeighborsFast\022\030\n\014neighbor_ids\030\002 \003(\006B\002\020\001"
+    "\022\036\n\022neighbor_distances\030\003 \003(\002B\002\020\001\022(\n\034neig"
+    "hbor_crowding_attributes\030\004 \003(\003B\002\020\001B\003\370\001\001"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fresults_2eproto_deps[1] =
+    {
+        &::descriptor_table_scann_2fdata_5fformat_2ffeatures_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fresults_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fresults_2eproto = {
+    false,
+    false,
+    439,
+    descriptor_table_protodef_scann_2fproto_2fresults_2eproto,
+    "scann/proto/results.proto",
+    &descriptor_table_scann_2fproto_2fresults_2eproto_once,
+    descriptor_table_scann_2fproto_2fresults_2eproto_deps,
+    1,
+    3,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fresults_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fresults_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fresults_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fresults_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fresults_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\031scann/proto/results.proto\022\016research_sc"
-  "ann\032 scann/data_format/features.proto\"\346\001"
-  "\n\020NearestNeighbors\022\r\n\005docid\030\001 \002(\014\022\020\n\010met"
-  "adata\030\003 \001(\014\022\031\n\021retrieved_version\030\004 \001(\t\022;"
-  "\n\010neighbor\030\002 \003(\0132).research_scann.Neares"
-  "tNeighbors.Neighbor\032Y\n\010Neighbor\022\r\n\005docid"
-  "\030\003 \002(\014\022\020\n\010distance\030\004 \001(\001\022\020\n\010metadata\030\005 \001"
-  "(\014\022\032\n\022crowding_attribute\030\006 \001(\003\"z\n\024Neares"
-  "tNeighborsFast\022\030\n\014neighbor_ids\030\002 \003(\006B\002\020\001"
-  "\022\036\n\022neighbor_distances\030\003 \003(\002B\002\020\001\022(\n\034neig"
-  "hbor_crowding_attributes\030\004 \003(\003B\002\020\001B\003\370\001\001"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fresults_2eproto_deps[1] = {
-  &::descriptor_table_scann_2fdata_5fformat_2ffeatures_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fresults_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fresults_2eproto = {
-  false, false, 439, descriptor_table_protodef_scann_2fproto_2fresults_2eproto, "scann/proto/results.proto", 
-  &descriptor_table_scann_2fproto_2fresults_2eproto_once, descriptor_table_scann_2fproto_2fresults_2eproto_deps, 1, 3,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fresults_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fresults_2eproto, file_level_enum_descriptors_scann_2fproto_2fresults_2eproto, file_level_service_descriptors_scann_2fproto_2fresults_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fresults_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fresults_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fresults_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fresults_2eproto(&descriptor_table_scann_2fproto_2fresults_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fresults_2eproto(&descriptor_table_scann_2fproto_2fresults_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class NearestNeighbors_Neighbor::_Internal {
  public:
-  using HasBits = decltype(std::declval<NearestNeighbors_Neighbor>()._has_bits_);
+  using HasBits = decltype(std::declval<NearestNeighbors_Neighbor>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_._has_bits_);
   static void set_has_docid(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -168,274 +240,259 @@ class NearestNeighbors_Neighbor::_Internal {
   }
 };
 
-NearestNeighbors_Neighbor::NearestNeighbors_Neighbor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+NearestNeighbors_Neighbor::NearestNeighbors_Neighbor(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.NearestNeighbors.Neighbor)
 }
-NearestNeighbors_Neighbor::NearestNeighbors_Neighbor(const NearestNeighbors_Neighbor& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  docid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_docid()) {
-    docid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_docid(), 
-      GetArenaForAllocation());
-  }
-  metadata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_metadata()) {
-    metadata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_metadata(), 
-      GetArenaForAllocation());
-  }
-  ::memcpy(&distance_, &from.distance_,
-    static_cast<size_t>(reinterpret_cast<char*>(&crowding_attribute_) -
-    reinterpret_cast<char*>(&distance_)) + sizeof(crowding_attribute_));
+inline PROTOBUF_NDEBUG_INLINE NearestNeighbors_Neighbor::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        docid_(arena, from.docid_),
+        metadata_(arena, from.metadata_) {}
+
+NearestNeighbors_Neighbor::NearestNeighbors_Neighbor(
+    ::google::protobuf::Arena* arena,
+    const NearestNeighbors_Neighbor& from)
+    : ::google::protobuf::Message(arena) {
+  NearestNeighbors_Neighbor* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, distance_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, distance_),
+           offsetof(Impl_, crowding_attribute_) -
+               offsetof(Impl_, distance_) +
+               sizeof(Impl_::crowding_attribute_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.NearestNeighbors.Neighbor)
 }
+inline PROTOBUF_NDEBUG_INLINE NearestNeighbors_Neighbor::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        docid_(arena),
+        metadata_(arena) {}
 
-inline void NearestNeighbors_Neighbor::SharedCtor() {
-docid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-metadata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&distance_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&crowding_attribute_) -
-    reinterpret_cast<char*>(&distance_)) + sizeof(crowding_attribute_));
+inline void NearestNeighbors_Neighbor::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, distance_),
+           0,
+           offsetof(Impl_, crowding_attribute_) -
+               offsetof(Impl_, distance_) +
+               sizeof(Impl_::crowding_attribute_));
 }
-
 NearestNeighbors_Neighbor::~NearestNeighbors_Neighbor() {
   // @@protoc_insertion_point(destructor:research_scann.NearestNeighbors.Neighbor)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void NearestNeighbors_Neighbor::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  docid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  metadata_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.docid_.Destroy();
+  _impl_.metadata_.Destroy();
+  _impl_.~Impl_();
 }
 
-void NearestNeighbors_Neighbor::ArenaDtor(void* object) {
-  NearestNeighbors_Neighbor* _this = reinterpret_cast< NearestNeighbors_Neighbor* >(object);
-  (void)_this;
-}
-void NearestNeighbors_Neighbor::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void NearestNeighbors_Neighbor::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void NearestNeighbors_Neighbor::Clear() {
+PROTOBUF_NOINLINE void NearestNeighbors_Neighbor::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.NearestNeighbors.Neighbor)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      docid_.ClearNonDefaultToEmpty();
+      _impl_.docid_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      metadata_.ClearNonDefaultToEmpty();
+      _impl_.metadata_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x0000000cu) {
-    ::memset(&distance_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&crowding_attribute_) -
-        reinterpret_cast<char*>(&distance_)) + sizeof(crowding_attribute_));
+    ::memset(&_impl_.distance_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.crowding_attribute_) -
+        reinterpret_cast<char*>(&_impl_.distance_)) + sizeof(_impl_.crowding_attribute_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* NearestNeighbors_Neighbor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // required bytes docid = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_docid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional double distance = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 33)) {
-          _Internal::set_has_distance(&has_bits);
-          distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-          ptr += sizeof(double);
-        } else goto handle_unusual;
-        continue;
-      // optional bytes metadata = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          auto str = _internal_mutable_metadata();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int64 crowding_attribute = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          _Internal::set_has_crowding_attribute(&has_bits);
-          crowding_attribute_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* NearestNeighbors_Neighbor::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* NearestNeighbors_Neighbor::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.NearestNeighbors.Neighbor)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 0, 0, 2> NearestNeighbors_Neighbor::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_._has_bits_),
+    0, // no _extensions_
+    6, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967235,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_NearestNeighbors_Neighbor_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional double distance = 4;
+    {::_pbi::TcParser::FastF64S1,
+     {33, 2, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.distance_)}},
+    // optional bytes metadata = 5;
+    {::_pbi::TcParser::FastBS1,
+     {42, 1, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.metadata_)}},
+    // optional int64 crowding_attribute = 6;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(NearestNeighbors_Neighbor, _impl_.crowding_attribute_), 3>(),
+     {48, 3, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.crowding_attribute_)}},
+    // required bytes docid = 3;
+    {::_pbi::TcParser::FastBS1,
+     {26, 0, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.docid_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // required bytes docid = 3;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.docid_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // optional double distance = 4;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.distance_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kDouble)},
+    // optional bytes metadata = 5;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.metadata_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // optional int64 crowding_attribute = 6;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.crowding_attribute_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt64)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* NearestNeighbors_Neighbor::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.NearestNeighbors.Neighbor)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // required bytes docid = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_docid(), target);
+    const std::string& _s = this->_internal_docid();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // optional double distance = 4;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_distance(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        4, this->_internal_distance(), target);
   }
 
   // optional bytes metadata = 5;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        5, this->_internal_metadata(), target);
+    const std::string& _s = this->_internal_metadata();
+    target = stream->WriteBytesMaybeAliased(5, _s, target);
   }
 
   // optional int64 crowding_attribute = 6;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(6, this->_internal_crowding_attribute(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt64ToArrayWithField<6>(
+            stream, this->_internal_crowding_attribute(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.NearestNeighbors.Neighbor)
   return target;
 }
 
-size_t NearestNeighbors_Neighbor::ByteSizeLong() const {
+::size_t NearestNeighbors_Neighbor::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.NearestNeighbors.Neighbor)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  // required bytes docid = 3;
-  if (_internal_has_docid()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_docid());
-  }
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  // required bytes docid = 3;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                    this->_internal_docid());
+  }
+
   if (cached_has_bits & 0x0000000eu) {
     // optional bytes metadata = 5;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_metadata());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                      this->_internal_metadata());
     }
 
     // optional double distance = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 8;
+      total_size += 9;
     }
 
     // optional int64 crowding_attribute = 6;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
           this->_internal_crowding_attribute());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NearestNeighbors_Neighbor::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    NearestNeighbors_Neighbor::MergeImpl
+const ::google::protobuf::Message::ClassData NearestNeighbors_Neighbor::_class_data_ = {
+    NearestNeighbors_Neighbor::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NearestNeighbors_Neighbor::GetClassData() const { return &_class_data_; }
-
-void NearestNeighbors_Neighbor::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<NearestNeighbors_Neighbor *>(to)->MergeFrom(
-      static_cast<const NearestNeighbors_Neighbor &>(from));
+const ::google::protobuf::Message::ClassData* NearestNeighbors_Neighbor::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void NearestNeighbors_Neighbor::MergeFrom(const NearestNeighbors_Neighbor& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NearestNeighbors.Neighbor)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void NearestNeighbors_Neighbor::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<NearestNeighbors_Neighbor*>(&to_msg);
+  auto& from = static_cast<const NearestNeighbors_Neighbor&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NearestNeighbors.Neighbor)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_docid(from._internal_docid());
+      _this->_internal_set_docid(from._internal_docid());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_metadata(from._internal_metadata());
+      _this->_internal_set_metadata(from._internal_metadata());
     }
     if (cached_has_bits & 0x00000004u) {
-      distance_ = from.distance_;
+      _this->_impl_.distance_ = from._impl_.distance_;
     }
     if (cached_has_bits & 0x00000008u) {
-      crowding_attribute_ = from.crowding_attribute_;
+      _this->_impl_.crowding_attribute_ = from._impl_.crowding_attribute_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void NearestNeighbors_Neighbor::CopyFrom(const NearestNeighbors_Neighbor& from) {
@@ -445,44 +502,44 @@ void NearestNeighbors_Neighbor::CopyFrom(const NearestNeighbors_Neighbor& from) 
   MergeFrom(from);
 }
 
-bool NearestNeighbors_Neighbor::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+PROTOBUF_NOINLINE bool NearestNeighbors_Neighbor::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) {
+    return false;
+  }
   return true;
 }
 
-void NearestNeighbors_Neighbor::InternalSwap(NearestNeighbors_Neighbor* other) {
+::_pbi::CachedSize* NearestNeighbors_Neighbor::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void NearestNeighbors_Neighbor::InternalSwap(NearestNeighbors_Neighbor* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &docid_, GetArenaForAllocation(),
-      &other->docid_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &metadata_, GetArenaForAllocation(),
-      &other->metadata_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, crowding_attribute_)
-      + sizeof(NearestNeighbors_Neighbor::crowding_attribute_)
-      - PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, distance_)>(
-          reinterpret_cast<char*>(&distance_),
-          reinterpret_cast<char*>(&other->distance_));
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.docid_, &other->_impl_.docid_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.metadata_, &other->_impl_.metadata_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.crowding_attribute_)
+      + sizeof(NearestNeighbors_Neighbor::_impl_.crowding_attribute_)
+      - PROTOBUF_FIELD_OFFSET(NearestNeighbors_Neighbor, _impl_.distance_)>(
+          reinterpret_cast<char*>(&_impl_.distance_),
+          reinterpret_cast<char*>(&other->_impl_.distance_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NearestNeighbors_Neighbor::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata NearestNeighbors_Neighbor::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fresults_2eproto_getter, &descriptor_table_scann_2fproto_2fresults_2eproto_once,
       file_level_metadata_scann_2fproto_2fresults_2eproto[0]);
 }
-
 // ===================================================================
 
 class NearestNeighbors::_Internal {
  public:
-  using HasBits = decltype(std::declval<NearestNeighbors>()._has_bits_);
+  using HasBits = decltype(std::declval<NearestNeighbors>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_._has_bits_);
   static void set_has_docid(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -497,287 +554,254 @@ class NearestNeighbors::_Internal {
   }
 };
 
-NearestNeighbors::NearestNeighbors(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  neighbor_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+NearestNeighbors::NearestNeighbors(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.NearestNeighbors)
 }
-NearestNeighbors::NearestNeighbors(const NearestNeighbors& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      neighbor_(from.neighbor_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  docid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_docid()) {
-    docid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_docid(), 
-      GetArenaForAllocation());
-  }
-  metadata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_metadata()) {
-    metadata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_metadata(), 
-      GetArenaForAllocation());
-  }
-  retrieved_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_retrieved_version()) {
-    retrieved_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_retrieved_version(), 
-      GetArenaForAllocation());
-  }
+inline PROTOBUF_NDEBUG_INLINE NearestNeighbors::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        neighbor_{visibility, arena, from.neighbor_},
+        docid_(arena, from.docid_),
+        metadata_(arena, from.metadata_),
+        retrieved_version_(arena, from.retrieved_version_) {}
+
+NearestNeighbors::NearestNeighbors(
+    ::google::protobuf::Arena* arena,
+    const NearestNeighbors& from)
+    : ::google::protobuf::Message(arena) {
+  NearestNeighbors* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+
   // @@protoc_insertion_point(copy_constructor:research_scann.NearestNeighbors)
 }
+inline PROTOBUF_NDEBUG_INLINE NearestNeighbors::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        neighbor_{visibility, arena},
+        docid_(arena),
+        metadata_(arena),
+        retrieved_version_(arena) {}
 
-inline void NearestNeighbors::SharedCtor() {
-docid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-metadata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-retrieved_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+inline void NearestNeighbors::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 NearestNeighbors::~NearestNeighbors() {
   // @@protoc_insertion_point(destructor:research_scann.NearestNeighbors)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void NearestNeighbors::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  docid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  metadata_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  retrieved_version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.docid_.Destroy();
+  _impl_.metadata_.Destroy();
+  _impl_.retrieved_version_.Destroy();
+  _impl_.~Impl_();
 }
 
-void NearestNeighbors::ArenaDtor(void* object) {
-  NearestNeighbors* _this = reinterpret_cast< NearestNeighbors* >(object);
-  (void)_this;
-}
-void NearestNeighbors::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void NearestNeighbors::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void NearestNeighbors::Clear() {
+PROTOBUF_NOINLINE void NearestNeighbors::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.NearestNeighbors)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  neighbor_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.neighbor_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      docid_.ClearNonDefaultToEmpty();
+      _impl_.docid_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      metadata_.ClearNonDefaultToEmpty();
+      _impl_.metadata_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      retrieved_version_.ClearNonDefaultToEmpty();
+      _impl_.retrieved_version_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* NearestNeighbors::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // required bytes docid = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_docid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated .research_scann.NearestNeighbors.Neighbor neighbor = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_neighbor(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // optional bytes metadata = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_metadata();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string retrieved_version = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          auto str = _internal_mutable_retrieved_version();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.NearestNeighbors.retrieved_version");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* NearestNeighbors::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* NearestNeighbors::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.NearestNeighbors)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 1, 57, 2> NearestNeighbors::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_NearestNeighbors_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional string retrieved_version = 4;
+    {::_pbi::TcParser::FastSS1,
+     {34, 2, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.retrieved_version_)}},
+    // required bytes docid = 1;
+    {::_pbi::TcParser::FastBS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.docid_)}},
+    // repeated .research_scann.NearestNeighbors.Neighbor neighbor = 2;
+    {::_pbi::TcParser::FastMtR1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.neighbor_)}},
+    // optional bytes metadata = 3;
+    {::_pbi::TcParser::FastBS1,
+     {26, 1, 0, PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.metadata_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // required bytes docid = 1;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.docid_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // repeated .research_scann.NearestNeighbors.Neighbor neighbor = 2;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.neighbor_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional bytes metadata = 3;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.metadata_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // optional string retrieved_version = 4;
+    {PROTOBUF_FIELD_OFFSET(NearestNeighbors, _impl_.retrieved_version_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::NearestNeighbors_Neighbor>()},
+  }}, {{
+    "\37\0\0\0\21\0\0\0"
+    "research_scann.NearestNeighbors"
+    "retrieved_version"
+  }},
+};
+
+::uint8_t* NearestNeighbors::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.NearestNeighbors)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // required bytes docid = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_docid(), target);
+    const std::string& _s = this->_internal_docid();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // repeated .research_scann.NearestNeighbors.Neighbor neighbor = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_neighbor_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_neighbor(i), target, stream);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_neighbor_size()); i < n; i++) {
+    const auto& repfield = this->_internal_neighbor().Get(i);
+    target = ::google::protobuf::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional bytes metadata = 3;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_metadata(), target);
+    const std::string& _s = this->_internal_metadata();
+    target = stream->WriteBytesMaybeAliased(3, _s, target);
   }
 
   // optional string retrieved_version = 4;
   if (cached_has_bits & 0x00000004u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_retrieved_version().data(), static_cast<int>(this->_internal_retrieved_version().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.NearestNeighbors.retrieved_version");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_retrieved_version(), target);
+    const std::string& _s = this->_internal_retrieved_version();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.NearestNeighbors.retrieved_version");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.NearestNeighbors)
   return target;
 }
 
-size_t NearestNeighbors::ByteSizeLong() const {
+::size_t NearestNeighbors::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.NearestNeighbors)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  // required bytes docid = 1;
-  if (_internal_has_docid()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_docid());
-  }
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .research_scann.NearestNeighbors.Neighbor neighbor = 2;
   total_size += 1UL * this->_internal_neighbor_size();
-  for (const auto& msg : this->neighbor_) {
+  for (const auto& msg : this->_internal_neighbor()) {
     total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+      ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+  }
+  // required bytes docid = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                    this->_internal_docid());
   }
 
-  cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000006u) {
     // optional bytes metadata = 3;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_metadata());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                      this->_internal_metadata());
     }
 
     // optional string retrieved_version = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_retrieved_version());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_retrieved_version());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NearestNeighbors::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    NearestNeighbors::MergeImpl
+const ::google::protobuf::Message::ClassData NearestNeighbors::_class_data_ = {
+    NearestNeighbors::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NearestNeighbors::GetClassData() const { return &_class_data_; }
-
-void NearestNeighbors::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<NearestNeighbors *>(to)->MergeFrom(
-      static_cast<const NearestNeighbors &>(from));
+const ::google::protobuf::Message::ClassData* NearestNeighbors::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void NearestNeighbors::MergeFrom(const NearestNeighbors& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NearestNeighbors)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void NearestNeighbors::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<NearestNeighbors*>(&to_msg);
+  auto& from = static_cast<const NearestNeighbors&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NearestNeighbors)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  neighbor_.MergeFrom(from.neighbor_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_internal_mutable_neighbor()->MergeFrom(
+      from._internal_neighbor());
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_docid(from._internal_docid());
+      _this->_internal_set_docid(from._internal_docid());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_metadata(from._internal_metadata());
+      _this->_internal_set_metadata(from._internal_metadata());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_retrieved_version(from._internal_retrieved_version());
+      _this->_internal_set_retrieved_version(from._internal_retrieved_version());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void NearestNeighbors::CopyFrom(const NearestNeighbors& from) {
@@ -787,167 +811,158 @@ void NearestNeighbors::CopyFrom(const NearestNeighbors& from) {
   MergeFrom(from);
 }
 
-bool NearestNeighbors::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(neighbor_)) return false;
+PROTOBUF_NOINLINE bool NearestNeighbors::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) {
+    return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(_internal_neighbor()))
+    return false;
   return true;
 }
 
-void NearestNeighbors::InternalSwap(NearestNeighbors* other) {
+::_pbi::CachedSize* NearestNeighbors::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void NearestNeighbors::InternalSwap(NearestNeighbors* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  neighbor_.InternalSwap(&other->neighbor_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &docid_, GetArenaForAllocation(),
-      &other->docid_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &metadata_, GetArenaForAllocation(),
-      &other->metadata_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &retrieved_version_, GetArenaForAllocation(),
-      &other->retrieved_version_, other->GetArenaForAllocation()
-  );
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.neighbor_.InternalSwap(&other->_impl_.neighbor_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.docid_, &other->_impl_.docid_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.metadata_, &other->_impl_.metadata_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.retrieved_version_, &other->_impl_.retrieved_version_, arena);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NearestNeighbors::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata NearestNeighbors::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fresults_2eproto_getter, &descriptor_table_scann_2fproto_2fresults_2eproto_once,
       file_level_metadata_scann_2fproto_2fresults_2eproto[1]);
 }
-
 // ===================================================================
 
 class NearestNeighborsFast::_Internal {
  public:
 };
 
-NearestNeighborsFast::NearestNeighborsFast(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  neighbor_ids_(arena),
-  neighbor_distances_(arena),
-  neighbor_crowding_attributes_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+NearestNeighborsFast::NearestNeighborsFast(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.NearestNeighborsFast)
 }
-NearestNeighborsFast::NearestNeighborsFast(const NearestNeighborsFast& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      neighbor_ids_(from.neighbor_ids_),
-      neighbor_distances_(from.neighbor_distances_),
-      neighbor_crowding_attributes_(from.neighbor_crowding_attributes_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+inline PROTOBUF_NDEBUG_INLINE NearestNeighborsFast::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : neighbor_ids_{visibility, arena, from.neighbor_ids_},
+        neighbor_distances_{visibility, arena, from.neighbor_distances_},
+        neighbor_crowding_attributes_{visibility, arena, from.neighbor_crowding_attributes_},
+        _neighbor_crowding_attributes_cached_byte_size_{0},
+        _cached_size_{0} {}
+
+NearestNeighborsFast::NearestNeighborsFast(
+    ::google::protobuf::Arena* arena,
+    const NearestNeighborsFast& from)
+    : ::google::protobuf::Message(arena) {
+  NearestNeighborsFast* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+
   // @@protoc_insertion_point(copy_constructor:research_scann.NearestNeighborsFast)
 }
+inline PROTOBUF_NDEBUG_INLINE NearestNeighborsFast::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : neighbor_ids_{visibility, arena},
+        neighbor_distances_{visibility, arena},
+        neighbor_crowding_attributes_{visibility, arena},
+        _neighbor_crowding_attributes_cached_byte_size_{0},
+        _cached_size_{0} {}
 
-inline void NearestNeighborsFast::SharedCtor() {
+inline void NearestNeighborsFast::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 NearestNeighborsFast::~NearestNeighborsFast() {
   // @@protoc_insertion_point(destructor:research_scann.NearestNeighborsFast)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void NearestNeighborsFast::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void NearestNeighborsFast::ArenaDtor(void* object) {
-  NearestNeighborsFast* _this = reinterpret_cast< NearestNeighborsFast* >(object);
-  (void)_this;
-}
-void NearestNeighborsFast::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void NearestNeighborsFast::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void NearestNeighborsFast::Clear() {
+PROTOBUF_NOINLINE void NearestNeighborsFast::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.NearestNeighborsFast)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  neighbor_ids_.Clear();
-  neighbor_distances_.Clear();
-  neighbor_crowding_attributes_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.neighbor_ids_.Clear();
+  _impl_.neighbor_distances_.Clear();
+  _impl_.neighbor_crowding_attributes_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* NearestNeighborsFast::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated fixed64 neighbor_ids = 2 [packed = true];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFixed64Parser(_internal_mutable_neighbor_ids(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17) {
-          _internal_add_neighbor_ids(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint64>(ptr));
-          ptr += sizeof(::PROTOBUF_NAMESPACE_ID::uint64);
-        } else goto handle_unusual;
-        continue;
-      // repeated float neighbor_distances = 3 [packed = true];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_neighbor_distances(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29) {
-          _internal_add_neighbor_distances(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // repeated int64 neighbor_crowding_attributes = 4 [packed = true];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_neighbor_crowding_attributes(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32) {
-          _internal_add_neighbor_crowding_attributes(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
+const char* NearestNeighborsFast::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* NearestNeighborsFast::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 3, 0, 0, 2> NearestNeighborsFast::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967281,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_NearestNeighborsFast_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // repeated int64 neighbor_crowding_attributes = 4 [packed = true];
+    {::_pbi::TcParser::FastV64P1,
+     {34, 63, 0, PROTOBUF_FIELD_OFFSET(NearestNeighborsFast, _impl_.neighbor_crowding_attributes_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // repeated fixed64 neighbor_ids = 2 [packed = true];
+    {::_pbi::TcParser::FastF64P1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(NearestNeighborsFast, _impl_.neighbor_ids_)}},
+    // repeated float neighbor_distances = 3 [packed = true];
+    {::_pbi::TcParser::FastF32P1,
+     {26, 63, 0, PROTOBUF_FIELD_OFFSET(NearestNeighborsFast, _impl_.neighbor_distances_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated fixed64 neighbor_ids = 2 [packed = true];
+    {PROTOBUF_FIELD_OFFSET(NearestNeighborsFast, _impl_.neighbor_ids_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kPackedFixed64)},
+    // repeated float neighbor_distances = 3 [packed = true];
+    {PROTOBUF_FIELD_OFFSET(NearestNeighborsFast, _impl_.neighbor_distances_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kPackedFloat)},
+    // repeated int64 neighbor_crowding_attributes = 4 [packed = true];
+    {PROTOBUF_FIELD_OFFSET(NearestNeighborsFast, _impl_.neighbor_crowding_attributes_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kPackedInt64)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* NearestNeighborsFast::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.NearestNeighborsFast)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   // repeated fixed64 neighbor_ids = 2 [packed = true];
   if (this->_internal_neighbor_ids_size() > 0) {
@@ -961,7 +976,7 @@ failure:
 
   // repeated int64 neighbor_crowding_attributes = 4 [packed = true];
   {
-    int byte_size = _neighbor_crowding_attributes_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._neighbor_crowding_attributes_cached_byte_size_.Get();
     if (byte_size > 0) {
       target = stream->WriteInt64Packed(
           4, _internal_neighbor_crowding_attributes(), byte_size, target);
@@ -969,92 +984,82 @@ failure:
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.NearestNeighborsFast)
   return target;
 }
 
-size_t NearestNeighborsFast::ByteSizeLong() const {
+::size_t NearestNeighborsFast::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.NearestNeighborsFast)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated fixed64 neighbor_ids = 2 [packed = true];
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_neighbor_ids_size());
-    size_t data_size = 8UL * count;
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    total_size += data_size;
+    std::size_t data_size = std::size_t{8} *
+        ::_pbi::FromIntSize(this->_internal_neighbor_ids_size())
+    ;
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
   }
-
   // repeated float neighbor_distances = 3 [packed = true];
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_neighbor_distances_size());
-    size_t data_size = 4UL * count;
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    total_size += data_size;
+    std::size_t data_size = std::size_t{4} *
+        ::_pbi::FromIntSize(this->_internal_neighbor_distances_size())
+    ;
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
   }
-
   // repeated int64 neighbor_crowding_attributes = 4 [packed = true];
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      Int64Size(this->neighbor_crowding_attributes_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _neighbor_crowding_attributes_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_neighbor_crowding_attributes())
+    ;
+    _impl_._neighbor_crowding_attributes_cached_byte_size_.Set(::_pbi::ToCachedSize(data_size));
+    std::size_t tag_size = data_size == 0
+        ? 0
+        : 1 + ::_pbi::WireFormatLite::Int32Size(
+                            static_cast<int32_t>(data_size))
+    ;
+    total_size += tag_size + data_size;
   }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NearestNeighborsFast::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    NearestNeighborsFast::MergeImpl
+const ::google::protobuf::Message::ClassData NearestNeighborsFast::_class_data_ = {
+    NearestNeighborsFast::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NearestNeighborsFast::GetClassData() const { return &_class_data_; }
-
-void NearestNeighborsFast::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<NearestNeighborsFast *>(to)->MergeFrom(
-      static_cast<const NearestNeighborsFast &>(from));
+const ::google::protobuf::Message::ClassData* NearestNeighborsFast::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void NearestNeighborsFast::MergeFrom(const NearestNeighborsFast& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NearestNeighborsFast)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void NearestNeighborsFast::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<NearestNeighborsFast*>(&to_msg);
+  auto& from = static_cast<const NearestNeighborsFast&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NearestNeighborsFast)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  neighbor_ids_.MergeFrom(from.neighbor_ids_);
-  neighbor_distances_.MergeFrom(from.neighbor_distances_);
-  neighbor_crowding_attributes_.MergeFrom(from.neighbor_crowding_attributes_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_mutable_neighbor_ids()->MergeFrom(from._internal_neighbor_ids());
+  _this->_internal_mutable_neighbor_distances()->MergeFrom(from._internal_neighbor_distances());
+  _this->_internal_mutable_neighbor_crowding_attributes()->MergeFrom(from._internal_neighbor_crowding_attributes());
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void NearestNeighborsFast::CopyFrom(const NearestNeighborsFast& from) {
@@ -1064,37 +1069,31 @@ void NearestNeighborsFast::CopyFrom(const NearestNeighborsFast& from) {
   MergeFrom(from);
 }
 
-bool NearestNeighborsFast::IsInitialized() const {
+PROTOBUF_NOINLINE bool NearestNeighborsFast::IsInitialized() const {
   return true;
 }
 
-void NearestNeighborsFast::InternalSwap(NearestNeighborsFast* other) {
+::_pbi::CachedSize* NearestNeighborsFast::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void NearestNeighborsFast::InternalSwap(NearestNeighborsFast* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  neighbor_ids_.InternalSwap(&other->neighbor_ids_);
-  neighbor_distances_.InternalSwap(&other->neighbor_distances_);
-  neighbor_crowding_attributes_.InternalSwap(&other->neighbor_crowding_attributes_);
+  _impl_.neighbor_ids_.InternalSwap(&other->_impl_.neighbor_ids_);
+  _impl_.neighbor_distances_.InternalSwap(&other->_impl_.neighbor_distances_);
+  _impl_.neighbor_crowding_attributes_.InternalSwap(&other->_impl_.neighbor_crowding_attributes_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NearestNeighborsFast::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata NearestNeighborsFast::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fresults_2eproto_getter, &descriptor_table_scann_2fproto_2fresults_2eproto_once,
       file_level_metadata_scann_2fproto_2fresults_2eproto[2]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::NearestNeighbors_Neighbor* Arena::CreateMaybeMessage< ::research_scann::NearestNeighbors_Neighbor >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::NearestNeighbors_Neighbor >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::NearestNeighbors* Arena::CreateMaybeMessage< ::research_scann::NearestNeighbors >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::NearestNeighbors >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::NearestNeighborsFast* Arena::CreateMaybeMessage< ::research_scann::NearestNeighborsFast >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::NearestNeighborsFast >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

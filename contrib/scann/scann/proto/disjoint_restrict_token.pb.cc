@@ -4,245 +4,265 @@
 #include "scann/proto/disjoint_restrict_token.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr DisjointRestrictToken::DisjointRestrictToken(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : low_bar_for_brute_force_(1000){}
+
+inline constexpr DisjointRestrictToken::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        low_bar_for_brute_force_{1000} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR DisjointRestrictToken::DisjointRestrictToken(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct DisjointRestrictTokenDefaultTypeInternal {
-  constexpr DisjointRestrictTokenDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DisjointRestrictTokenDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DisjointRestrictTokenDefaultTypeInternal() {}
   union {
     DisjointRestrictToken _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DisjointRestrictTokenDefaultTypeInternal _DisjointRestrictToken_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DisjointRestrictTokenDefaultTypeInternal _DisjointRestrictToken_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto = nullptr;
-
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::DisjointRestrictToken, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::DisjointRestrictToken, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::DisjointRestrictToken, low_bar_for_brute_force_),
-  0,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 6, sizeof(::research_scann::DisjointRestrictToken)},
-};
-
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_DisjointRestrictToken_default_instance_),
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto[1];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::DisjointRestrictToken, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::DisjointRestrictToken, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::DisjointRestrictToken, _impl_.low_bar_for_brute_force_),
+    0,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n)scann/proto/disjoint_restrict_token.pr"
-  "oto\022\016research_scann\">\n\025DisjointRestrictT"
-  "oken\022%\n\027low_bar_for_brute_force\030\001 \001(\005:\0041"
-  "000"
-  ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto = {
-  false, false, 123, descriptor_table_protodef_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto, "scann/proto/disjoint_restrict_token.proto", 
-  &descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_once, nullptr, 0, 1,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto, file_level_enum_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto, file_level_service_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 9, -1, sizeof(::research_scann::DisjointRestrictToken)},
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_getter() {
+
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_DisjointRestrictToken_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n)scann/proto/disjoint_restrict_token.pr"
+    "oto\022\016research_scann\">\n\025DisjointRestrictT"
+    "oken\022%\n\027low_bar_for_brute_force\030\001 \001(\005:\0041"
+    "000"
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto = {
+    false,
+    false,
+    123,
+    descriptor_table_protodef_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
+    "scann/proto/disjoint_restrict_token.proto",
+    &descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_once,
+    nullptr,
+    0,
+    1,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
+};
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto(&descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto(&descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class DisjointRestrictToken::_Internal {
  public:
-  using HasBits = decltype(std::declval<DisjointRestrictToken>()._has_bits_);
+  using HasBits = decltype(std::declval<DisjointRestrictToken>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(DisjointRestrictToken, _impl_._has_bits_);
   static void set_has_low_bar_for_brute_force(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-DisjointRestrictToken::DisjointRestrictToken(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+DisjointRestrictToken::DisjointRestrictToken(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.DisjointRestrictToken)
 }
-DisjointRestrictToken::DisjointRestrictToken(const DisjointRestrictToken& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  low_bar_for_brute_force_ = from.low_bar_for_brute_force_;
-  // @@protoc_insertion_point(copy_constructor:research_scann.DisjointRestrictToken)
+DisjointRestrictToken::DisjointRestrictToken(
+    ::google::protobuf::Arena* arena, const DisjointRestrictToken& from)
+    : DisjointRestrictToken(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE DisjointRestrictToken::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        low_bar_for_brute_force_{1000} {}
 
-inline void DisjointRestrictToken::SharedCtor() {
-low_bar_for_brute_force_ = 1000;
+inline void DisjointRestrictToken::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 DisjointRestrictToken::~DisjointRestrictToken() {
   // @@protoc_insertion_point(destructor:research_scann.DisjointRestrictToken)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void DisjointRestrictToken::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void DisjointRestrictToken::ArenaDtor(void* object) {
-  DisjointRestrictToken* _this = reinterpret_cast< DisjointRestrictToken* >(object);
-  (void)_this;
-}
-void DisjointRestrictToken::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void DisjointRestrictToken::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void DisjointRestrictToken::Clear() {
+PROTOBUF_NOINLINE void DisjointRestrictToken::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.DisjointRestrictToken)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  low_bar_for_brute_force_ = 1000;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.low_bar_for_brute_force_ = 1000;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* DisjointRestrictToken::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 low_bar_for_brute_force = 1 [default = 1000];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_low_bar_for_brute_force(&has_bits);
-          low_bar_for_brute_force_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* DisjointRestrictToken::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* DisjointRestrictToken::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.DisjointRestrictToken)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DisjointRestrictToken::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(DisjointRestrictToken, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_DisjointRestrictToken_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional int32 low_bar_for_brute_force = 1 [default = 1000];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(DisjointRestrictToken, _impl_.low_bar_for_brute_force_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(DisjointRestrictToken, _impl_.low_bar_for_brute_force_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 low_bar_for_brute_force = 1 [default = 1000];
+    {PROTOBUF_FIELD_OFFSET(DisjointRestrictToken, _impl_.low_bar_for_brute_force_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* DisjointRestrictToken::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.DisjointRestrictToken)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 low_bar_for_brute_force = 1 [default = 1000];
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_low_bar_for_brute_force(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_low_bar_for_brute_force(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.DisjointRestrictToken)
   return target;
 }
 
-size_t DisjointRestrictToken::ByteSizeLong() const {
+::size_t DisjointRestrictToken::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.DisjointRestrictToken)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional int32 low_bar_for_brute_force = 1 [default = 1000];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
         this->_internal_low_bar_for_brute_force());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DisjointRestrictToken::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    DisjointRestrictToken::MergeImpl
+const ::google::protobuf::Message::ClassData DisjointRestrictToken::_class_data_ = {
+    DisjointRestrictToken::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DisjointRestrictToken::GetClassData() const { return &_class_data_; }
-
-void DisjointRestrictToken::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<DisjointRestrictToken *>(to)->MergeFrom(
-      static_cast<const DisjointRestrictToken &>(from));
+const ::google::protobuf::Message::ClassData* DisjointRestrictToken::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void DisjointRestrictToken::MergeFrom(const DisjointRestrictToken& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.DisjointRestrictToken)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void DisjointRestrictToken::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<DisjointRestrictToken*>(&to_msg);
+  auto& from = static_cast<const DisjointRestrictToken&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.DisjointRestrictToken)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_low_bar_for_brute_force()) {
-    _internal_set_low_bar_for_brute_force(from._internal_low_bar_for_brute_force());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_low_bar_for_brute_force(from._internal_low_bar_for_brute_force());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void DisjointRestrictToken::CopyFrom(const DisjointRestrictToken& from) {
@@ -252,30 +272,30 @@ void DisjointRestrictToken::CopyFrom(const DisjointRestrictToken& from) {
   MergeFrom(from);
 }
 
-bool DisjointRestrictToken::IsInitialized() const {
+PROTOBUF_NOINLINE bool DisjointRestrictToken::IsInitialized() const {
   return true;
 }
 
-void DisjointRestrictToken::InternalSwap(DisjointRestrictToken* other) {
+::_pbi::CachedSize* DisjointRestrictToken::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void DisjointRestrictToken::InternalSwap(DisjointRestrictToken* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(low_bar_for_brute_force_, other->low_bar_for_brute_force_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+        swap(_impl_.low_bar_for_brute_force_, other->_impl_.low_bar_for_brute_force_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata DisjointRestrictToken::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata DisjointRestrictToken::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_getter, &descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto_once,
       file_level_metadata_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto[0]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::DisjointRestrictToken* Arena::CreateMaybeMessage< ::research_scann::DisjointRestrictToken >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::DisjointRestrictToken >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

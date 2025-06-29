@@ -4,232 +4,272 @@
 #include "scann/proto/scann.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr ScannConfig::ScannConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : custom_search_method_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , dataset_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , distance_measure_(nullptr)
-  , input_output_(nullptr)
-  , brute_force_(nullptr)
-  , partitioning_(nullptr)
-  , hash_(nullptr)
-  , exact_reordering_(nullptr)
-  , metadata_(nullptr)
-  , crowding_(nullptr)
-  , disjoint_restrict_token_(nullptr)
-  , v3_restricts_(nullptr)
-  , restricts_(nullptr)
-  , search_paradigm_(0)
 
-  , search_type_(0)
+inline constexpr ScannConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        custom_search_method_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        dataset_name_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        distance_measure_{nullptr},
+        input_output_{nullptr},
+        brute_force_{nullptr},
+        partitioning_{nullptr},
+        hash_{nullptr},
+        exact_reordering_{nullptr},
+        metadata_{nullptr},
+        crowding_{nullptr},
+        disjoint_restrict_token_{nullptr},
+        v3_restricts_{nullptr},
+        restricts_{nullptr},
+        search_paradigm_{static_cast< ::research_scann::ScannConfig_SearchParadigm >(0)},
+        search_type_{static_cast< ::research_scann::ScannConfig_SearchType >(0)},
+        num_single_shard_neighbors_{0},
+        restricts_enabled_{false},
+        num_neighbors_{2147483647},
+        epsilon_distance_{std::numeric_limits<float>::infinity()} {}
 
-  , num_single_shard_neighbors_(0)
-  , restricts_enabled_(false)
-  , num_neighbors_(2147483647)
-  , epsilon_distance_(std::numeric_limits<float>::infinity()){}
+template <typename>
+PROTOBUF_CONSTEXPR ScannConfig::ScannConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct ScannConfigDefaultTypeInternal {
-  constexpr ScannConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScannConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScannConfigDefaultTypeInternal() {}
   union {
     ScannConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScannConfigDefaultTypeInternal _ScannConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScannConfigDefaultTypeInternal _ScannConfig_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fscann_2eproto[1];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fscann_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fscann_2eproto = nullptr;
-
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fscann_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _internal_metadata_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _extensions_),
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, dataset_name_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, num_neighbors_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, epsilon_distance_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, restricts_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, restricts_enabled_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, v3_restricts_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, crowding_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, distance_measure_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, exact_reordering_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, input_output_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, brute_force_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, partitioning_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, hash_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, metadata_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, num_single_shard_neighbors_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, custom_search_method_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, disjoint_restrict_token_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, search_paradigm_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, search_type_),
-  1,
-  17,
-  18,
-  12,
-  16,
-  11,
-  9,
-  2,
-  7,
-  3,
-  4,
-  5,
-  6,
-  8,
-  15,
-  0,
-  10,
-  13,
-  14,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 24, sizeof(::research_scann::ScannConfig)},
-};
-
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_ScannConfig_default_instance_),
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fscann_2eproto[1];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fscann_2eproto[2];
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fscann_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fscann_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _internal_metadata_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_._extensions_),
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.dataset_name_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.num_neighbors_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.epsilon_distance_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.restricts_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.restricts_enabled_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.v3_restricts_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.crowding_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.distance_measure_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.exact_reordering_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.input_output_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.brute_force_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.partitioning_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.hash_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.metadata_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.num_single_shard_neighbors_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.custom_search_method_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.disjoint_restrict_token_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.search_paradigm_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ScannConfig, _impl_.search_type_),
+    1,
+    17,
+    18,
+    12,
+    16,
+    11,
+    9,
+    2,
+    7,
+    3,
+    4,
+    5,
+    6,
+    8,
+    15,
+    0,
+    10,
+    13,
+    14,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fscann_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\027scann/proto/scann.proto\022\016research_scan"
-  "n\032\035scann/proto/brute_force.proto\032\032scann/"
-  "proto/crowding.proto\032)scann/proto/disjoi"
-  "nt_restrict_token.proto\032\"scann/proto/dis"
-  "tance_measure.proto\032\"scann/proto/exact_r"
-  "eordering.proto\032\026scann/proto/hash.proto\032"
-  "\036scann/proto/input_output.proto\032\032scann/p"
-  "roto/metadata.proto\032\036scann/proto/partiti"
-  "oning.proto\032\033scann/proto/restricts.proto"
-  "\"\232\013\n\013ScannConfig\022\024\n\014dataset_name\030  \001(\t\022!"
-  "\n\rnum_neighbors\030\003 \001(\005:\n2147483647\022\035\n\020eps"
-  "ilon_distance\030\004 \001(\002:\003inf\0222\n\trestricts\030\' "
-  "\001(\0132\037.research_scann.RestrictsConfig\022 \n\021"
-  "restricts_enabled\030\030 \001(\010:\005false\0227\n\014v3_res"
-  "tricts\030% \001(\0132!.research_scann.V3Restrict"
-  "sConfig\022*\n\010crowding\030\035 \001(\0132\030.research_sca"
-  "nn.Crowding\022\?\n\020distance_measure\030\005 \001(\0132%."
-  "research_scann.DistanceMeasureConfig\0229\n\020"
-  "exact_reordering\030\021 \001(\0132\037.research_scann."
-  "ExactReordering\0227\n\014input_output\030\006 \001(\0132!."
-  "research_scann.InputOutputConfig\0225\n\013brut"
-  "e_force\030\007 \001(\0132 .research_scann.BruteForc"
-  "eConfig\0228\n\014partitioning\030\010 \001(\0132\".research"
-  "_scann.PartitioningConfig\022(\n\004hash\030\r \001(\0132"
-  "\032.research_scann.HashConfig\0220\n\010metadata\030"
-  "\024 \001(\0132\036.research_scann.MetadataConfig\022\"\n"
-  "\032num_single_shard_neighbors\030\025 \001(\005\022\034\n\024cus"
-  "tom_search_method\030\026 \001(\014\022F\n\027disjoint_rest"
-  "rict_token\030\037 \001(\0132%.research_scann.Disjoi"
-  "ntRestrictToken\022C\n\017search_paradigm\030\001 \001(\016"
-  "2*.research_scann.ScannConfig.SearchPara"
-  "digm\022;\n\013search_type\030\002 \001(\0162&.research_sca"
-  "nn.ScannConfig.SearchType\"2\n\016SearchParad"
-  "igm\022\022\n\016QUERY_DATABASE\020\000\022\014\n\010ALL_PAIR\020\001\"*\n"
-  "\nSearchType\022\007\n\003KNN\020\000\022\007\n\003ENN\020\001\022\n\n\006HYBRID\020"
-  "\002*\t\010\350\007\020\200\200\200\200\002J\004\010\027\020\030J\004\010\013\020\014J\004\010\016\020\017J\004\010\017\020\020J\004\010\023"
-  "\020\024J\004\010\032\020\033J\004\010\033\020\034J\004\010\034\020\035J\004\010\036\020\037J\004\010\"\020#J\004\010#\020$J\004"
-  "\010$\020%J\004\010&\020\'J\004\010(\020)J\004\010\020\020\021J\004\010!\020\"J\004\010\022\020\023J\004\010\031\020\032"
-  "R\010all_pairR\032offline_distributed_configR\017"
-  "chunked_hammingR\017sparse_logisticR\036genera"
-  "lized_hash_search_configR\017random_searche"
-  "rR\033sparse_dense_hybrid_batchedR\016inverted"
-  "_indexR\023incremental_updatesR\013auto_tuning"
-  "R\026chunked_inverted_indexR\025legacy_inverte"
-  "d_indexR\034pruned_inverted_index_cosine"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fscann_2eproto_deps[10] = {
-  &::descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto,
-  &::descriptor_table_scann_2fproto_2fcrowding_2eproto,
-  &::descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
-  &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
-  &::descriptor_table_scann_2fproto_2fexact_5freordering_2eproto,
-  &::descriptor_table_scann_2fproto_2fhash_2eproto,
-  &::descriptor_table_scann_2fproto_2finput_5foutput_2eproto,
-  &::descriptor_table_scann_2fproto_2fmetadata_2eproto,
-  &::descriptor_table_scann_2fproto_2fpartitioning_2eproto,
-  &::descriptor_table_scann_2fproto_2frestricts_2eproto,
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 27, -1, sizeof(::research_scann::ScannConfig)},
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fscann_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fscann_2eproto = {
-  false, false, 1797, descriptor_table_protodef_scann_2fproto_2fscann_2eproto, "scann/proto/scann.proto", 
-  &descriptor_table_scann_2fproto_2fscann_2eproto_once, descriptor_table_scann_2fproto_2fscann_2eproto_deps, 10, 1,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fscann_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fscann_2eproto, file_level_enum_descriptors_scann_2fproto_2fscann_2eproto, file_level_service_descriptors_scann_2fproto_2fscann_2eproto,
+
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_ScannConfig_default_instance_._instance,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fscann_2eproto_getter() {
+const char descriptor_table_protodef_scann_2fproto_2fscann_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\027scann/proto/scann.proto\022\016research_scan"
+    "n\032\035scann/proto/brute_force.proto\032\032scann/"
+    "proto/crowding.proto\032)scann/proto/disjoi"
+    "nt_restrict_token.proto\032\"scann/proto/dis"
+    "tance_measure.proto\032\"scann/proto/exact_r"
+    "eordering.proto\032\026scann/proto/hash.proto\032"
+    "\036scann/proto/input_output.proto\032\032scann/p"
+    "roto/metadata.proto\032\036scann/proto/partiti"
+    "oning.proto\032\033scann/proto/restricts.proto"
+    "\"\232\013\n\013ScannConfig\022\024\n\014dataset_name\030  \001(\t\022!"
+    "\n\rnum_neighbors\030\003 \001(\005:\n2147483647\022\035\n\020eps"
+    "ilon_distance\030\004 \001(\002:\003inf\0222\n\trestricts\030\' "
+    "\001(\0132\037.research_scann.RestrictsConfig\022 \n\021"
+    "restricts_enabled\030\030 \001(\010:\005false\0227\n\014v3_res"
+    "tricts\030% \001(\0132!.research_scann.V3Restrict"
+    "sConfig\022*\n\010crowding\030\035 \001(\0132\030.research_sca"
+    "nn.Crowding\022\?\n\020distance_measure\030\005 \001(\0132%."
+    "research_scann.DistanceMeasureConfig\0229\n\020"
+    "exact_reordering\030\021 \001(\0132\037.research_scann."
+    "ExactReordering\0227\n\014input_output\030\006 \001(\0132!."
+    "research_scann.InputOutputConfig\0225\n\013brut"
+    "e_force\030\007 \001(\0132 .research_scann.BruteForc"
+    "eConfig\0228\n\014partitioning\030\010 \001(\0132\".research"
+    "_scann.PartitioningConfig\022(\n\004hash\030\r \001(\0132"
+    "\032.research_scann.HashConfig\0220\n\010metadata\030"
+    "\024 \001(\0132\036.research_scann.MetadataConfig\022\"\n"
+    "\032num_single_shard_neighbors\030\025 \001(\005\022\034\n\024cus"
+    "tom_search_method\030\026 \001(\014\022F\n\027disjoint_rest"
+    "rict_token\030\037 \001(\0132%.research_scann.Disjoi"
+    "ntRestrictToken\022C\n\017search_paradigm\030\001 \001(\016"
+    "2*.research_scann.ScannConfig.SearchPara"
+    "digm\022;\n\013search_type\030\002 \001(\0162&.research_sca"
+    "nn.ScannConfig.SearchType\"2\n\016SearchParad"
+    "igm\022\022\n\016QUERY_DATABASE\020\000\022\014\n\010ALL_PAIR\020\001\"*\n"
+    "\nSearchType\022\007\n\003KNN\020\000\022\007\n\003ENN\020\001\022\n\n\006HYBRID\020"
+    "\002*\t\010\350\007\020\200\200\200\200\002J\004\010\027\020\030J\004\010\013\020\014J\004\010\016\020\017J\004\010\017\020\020J\004\010\023"
+    "\020\024J\004\010\032\020\033J\004\010\033\020\034J\004\010\034\020\035J\004\010\036\020\037J\004\010\"\020#J\004\010#\020$J\004"
+    "\010$\020%J\004\010&\020\'J\004\010(\020)J\004\010\020\020\021J\004\010!\020\"J\004\010\022\020\023J\004\010\031\020\032"
+    "R\010all_pairR\032offline_distributed_configR\017"
+    "chunked_hammingR\017sparse_logisticR\036genera"
+    "lized_hash_search_configR\017random_searche"
+    "rR\033sparse_dense_hybrid_batchedR\016inverted"
+    "_indexR\023incremental_updatesR\013auto_tuning"
+    "R\026chunked_inverted_indexR\025legacy_inverte"
+    "d_indexR\034pruned_inverted_index_cosine"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fscann_2eproto_deps[10] =
+    {
+        &::descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto,
+        &::descriptor_table_scann_2fproto_2fcrowding_2eproto,
+        &::descriptor_table_scann_2fproto_2fdisjoint_5frestrict_5ftoken_2eproto,
+        &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
+        &::descriptor_table_scann_2fproto_2fexact_5freordering_2eproto,
+        &::descriptor_table_scann_2fproto_2fhash_2eproto,
+        &::descriptor_table_scann_2fproto_2finput_5foutput_2eproto,
+        &::descriptor_table_scann_2fproto_2fmetadata_2eproto,
+        &::descriptor_table_scann_2fproto_2fpartitioning_2eproto,
+        &::descriptor_table_scann_2fproto_2frestricts_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fscann_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fscann_2eproto = {
+    false,
+    false,
+    1797,
+    descriptor_table_protodef_scann_2fproto_2fscann_2eproto,
+    "scann/proto/scann.proto",
+    &descriptor_table_scann_2fproto_2fscann_2eproto_once,
+    descriptor_table_scann_2fproto_2fscann_2eproto_deps,
+    10,
+    1,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fscann_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fscann_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fscann_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fscann_2eproto,
+};
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fscann_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fscann_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fscann_2eproto(&descriptor_table_scann_2fproto_2fscann_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fscann_2eproto(&descriptor_table_scann_2fproto_2fscann_2eproto);
 namespace research_scann {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ScannConfig_SearchParadigm_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fscann_2eproto);
+const ::google::protobuf::EnumDescriptor* ScannConfig_SearchParadigm_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fscann_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fscann_2eproto[0];
 }
+PROTOBUF_CONSTINIT const uint32_t ScannConfig_SearchParadigm_internal_data_[] = {
+    131072u, 0u, };
 bool ScannConfig_SearchParadigm_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 1;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr ScannConfig_SearchParadigm ScannConfig::QUERY_DATABASE;
 constexpr ScannConfig_SearchParadigm ScannConfig::ALL_PAIR;
 constexpr ScannConfig_SearchParadigm ScannConfig::SearchParadigm_MIN;
 constexpr ScannConfig_SearchParadigm ScannConfig::SearchParadigm_MAX;
 constexpr int ScannConfig::SearchParadigm_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ScannConfig_SearchType_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fscann_2eproto);
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::google::protobuf::EnumDescriptor* ScannConfig_SearchType_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fscann_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fscann_2eproto[1];
 }
+PROTOBUF_CONSTINIT const uint32_t ScannConfig_SearchType_internal_data_[] = {
+    196608u, 0u, };
 bool ScannConfig_SearchType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 2;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr ScannConfig_SearchType ScannConfig::KNN;
 constexpr ScannConfig_SearchType ScannConfig::ENN;
 constexpr ScannConfig_SearchType ScannConfig::HYBRID;
 constexpr ScannConfig_SearchType ScannConfig::SearchType_MIN;
 constexpr ScannConfig_SearchType ScannConfig::SearchType_MAX;
 constexpr int ScannConfig::SearchType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class ScannConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<ScannConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<ScannConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_._has_bits_);
   static void set_has_dataset_name(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -300,891 +340,834 @@ class ScannConfig::_Internal {
   }
 };
 
-const ::research_scann::RestrictsConfig&
-ScannConfig::_Internal::restricts(const ScannConfig* msg) {
-  return *msg->restricts_;
+const ::research_scann::RestrictsConfig& ScannConfig::_Internal::restricts(const ScannConfig* msg) {
+  return *msg->_impl_.restricts_;
 }
-const ::research_scann::V3RestrictsConfig&
-ScannConfig::_Internal::v3_restricts(const ScannConfig* msg) {
-  return *msg->v3_restricts_;
+const ::research_scann::V3RestrictsConfig& ScannConfig::_Internal::v3_restricts(const ScannConfig* msg) {
+  return *msg->_impl_.v3_restricts_;
 }
-const ::research_scann::Crowding&
-ScannConfig::_Internal::crowding(const ScannConfig* msg) {
-  return *msg->crowding_;
+const ::research_scann::Crowding& ScannConfig::_Internal::crowding(const ScannConfig* msg) {
+  return *msg->_impl_.crowding_;
 }
-const ::research_scann::DistanceMeasureConfig&
-ScannConfig::_Internal::distance_measure(const ScannConfig* msg) {
-  return *msg->distance_measure_;
+const ::research_scann::DistanceMeasureConfig& ScannConfig::_Internal::distance_measure(const ScannConfig* msg) {
+  return *msg->_impl_.distance_measure_;
 }
-const ::research_scann::ExactReordering&
-ScannConfig::_Internal::exact_reordering(const ScannConfig* msg) {
-  return *msg->exact_reordering_;
+const ::research_scann::ExactReordering& ScannConfig::_Internal::exact_reordering(const ScannConfig* msg) {
+  return *msg->_impl_.exact_reordering_;
 }
-const ::research_scann::InputOutputConfig&
-ScannConfig::_Internal::input_output(const ScannConfig* msg) {
-  return *msg->input_output_;
+const ::research_scann::InputOutputConfig& ScannConfig::_Internal::input_output(const ScannConfig* msg) {
+  return *msg->_impl_.input_output_;
 }
-const ::research_scann::BruteForceConfig&
-ScannConfig::_Internal::brute_force(const ScannConfig* msg) {
-  return *msg->brute_force_;
+const ::research_scann::BruteForceConfig& ScannConfig::_Internal::brute_force(const ScannConfig* msg) {
+  return *msg->_impl_.brute_force_;
 }
-const ::research_scann::PartitioningConfig&
-ScannConfig::_Internal::partitioning(const ScannConfig* msg) {
-  return *msg->partitioning_;
+const ::research_scann::PartitioningConfig& ScannConfig::_Internal::partitioning(const ScannConfig* msg) {
+  return *msg->_impl_.partitioning_;
 }
-const ::research_scann::HashConfig&
-ScannConfig::_Internal::hash(const ScannConfig* msg) {
-  return *msg->hash_;
+const ::research_scann::HashConfig& ScannConfig::_Internal::hash(const ScannConfig* msg) {
+  return *msg->_impl_.hash_;
 }
-const ::research_scann::MetadataConfig&
-ScannConfig::_Internal::metadata(const ScannConfig* msg) {
-  return *msg->metadata_;
+const ::research_scann::MetadataConfig& ScannConfig::_Internal::metadata(const ScannConfig* msg) {
+  return *msg->_impl_.metadata_;
 }
-const ::research_scann::DisjointRestrictToken&
-ScannConfig::_Internal::disjoint_restrict_token(const ScannConfig* msg) {
-  return *msg->disjoint_restrict_token_;
+const ::research_scann::DisjointRestrictToken& ScannConfig::_Internal::disjoint_restrict_token(const ScannConfig* msg) {
+  return *msg->_impl_.disjoint_restrict_token_;
 }
 void ScannConfig::clear_restricts() {
-  if (restricts_ != nullptr) restricts_->Clear();
-  _has_bits_[0] &= ~0x00001000u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.restricts_ != nullptr) _impl_.restricts_->Clear();
+  _impl_._has_bits_[0] &= ~0x00001000u;
 }
 void ScannConfig::clear_v3_restricts() {
-  if (v3_restricts_ != nullptr) v3_restricts_->Clear();
-  _has_bits_[0] &= ~0x00000800u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.v3_restricts_ != nullptr) _impl_.v3_restricts_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000800u;
 }
 void ScannConfig::clear_crowding() {
-  if (crowding_ != nullptr) crowding_->Clear();
-  _has_bits_[0] &= ~0x00000200u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.crowding_ != nullptr) _impl_.crowding_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000200u;
 }
 void ScannConfig::clear_distance_measure() {
-  if (distance_measure_ != nullptr) distance_measure_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.distance_measure_ != nullptr) _impl_.distance_measure_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 void ScannConfig::clear_exact_reordering() {
-  if (exact_reordering_ != nullptr) exact_reordering_->Clear();
-  _has_bits_[0] &= ~0x00000080u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.exact_reordering_ != nullptr) _impl_.exact_reordering_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000080u;
 }
 void ScannConfig::clear_input_output() {
-  if (input_output_ != nullptr) input_output_->Clear();
-  _has_bits_[0] &= ~0x00000008u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.input_output_ != nullptr) _impl_.input_output_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 void ScannConfig::clear_brute_force() {
-  if (brute_force_ != nullptr) brute_force_->Clear();
-  _has_bits_[0] &= ~0x00000010u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.brute_force_ != nullptr) _impl_.brute_force_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 void ScannConfig::clear_partitioning() {
-  if (partitioning_ != nullptr) partitioning_->Clear();
-  _has_bits_[0] &= ~0x00000020u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.partitioning_ != nullptr) _impl_.partitioning_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 void ScannConfig::clear_hash() {
-  if (hash_ != nullptr) hash_->Clear();
-  _has_bits_[0] &= ~0x00000040u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.hash_ != nullptr) _impl_.hash_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 void ScannConfig::clear_metadata() {
-  if (metadata_ != nullptr) metadata_->Clear();
-  _has_bits_[0] &= ~0x00000100u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.metadata_ != nullptr) _impl_.metadata_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000100u;
 }
 void ScannConfig::clear_disjoint_restrict_token() {
-  if (disjoint_restrict_token_ != nullptr) disjoint_restrict_token_->Clear();
-  _has_bits_[0] &= ~0x00000400u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.disjoint_restrict_token_ != nullptr) _impl_.disjoint_restrict_token_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000400u;
 }
-ScannConfig::ScannConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  _extensions_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+ScannConfig::ScannConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.ScannConfig)
 }
-ScannConfig::ScannConfig(const ScannConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _extensions_.MergeFrom(from._extensions_);
-  custom_search_method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_custom_search_method()) {
-    custom_search_method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_custom_search_method(), 
-      GetArenaForAllocation());
-  }
-  dataset_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_dataset_name()) {
-    dataset_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_dataset_name(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_distance_measure()) {
-    distance_measure_ = new ::research_scann::DistanceMeasureConfig(*from.distance_measure_);
-  } else {
-    distance_measure_ = nullptr;
-  }
-  if (from._internal_has_input_output()) {
-    input_output_ = new ::research_scann::InputOutputConfig(*from.input_output_);
-  } else {
-    input_output_ = nullptr;
-  }
-  if (from._internal_has_brute_force()) {
-    brute_force_ = new ::research_scann::BruteForceConfig(*from.brute_force_);
-  } else {
-    brute_force_ = nullptr;
-  }
-  if (from._internal_has_partitioning()) {
-    partitioning_ = new ::research_scann::PartitioningConfig(*from.partitioning_);
-  } else {
-    partitioning_ = nullptr;
-  }
-  if (from._internal_has_hash()) {
-    hash_ = new ::research_scann::HashConfig(*from.hash_);
-  } else {
-    hash_ = nullptr;
-  }
-  if (from._internal_has_exact_reordering()) {
-    exact_reordering_ = new ::research_scann::ExactReordering(*from.exact_reordering_);
-  } else {
-    exact_reordering_ = nullptr;
-  }
-  if (from._internal_has_metadata()) {
-    metadata_ = new ::research_scann::MetadataConfig(*from.metadata_);
-  } else {
-    metadata_ = nullptr;
-  }
-  if (from._internal_has_crowding()) {
-    crowding_ = new ::research_scann::Crowding(*from.crowding_);
-  } else {
-    crowding_ = nullptr;
-  }
-  if (from._internal_has_disjoint_restrict_token()) {
-    disjoint_restrict_token_ = new ::research_scann::DisjointRestrictToken(*from.disjoint_restrict_token_);
-  } else {
-    disjoint_restrict_token_ = nullptr;
-  }
-  if (from._internal_has_v3_restricts()) {
-    v3_restricts_ = new ::research_scann::V3RestrictsConfig(*from.v3_restricts_);
-  } else {
-    v3_restricts_ = nullptr;
-  }
-  if (from._internal_has_restricts()) {
-    restricts_ = new ::research_scann::RestrictsConfig(*from.restricts_);
-  } else {
-    restricts_ = nullptr;
-  }
-  ::memcpy(&search_paradigm_, &from.search_paradigm_,
-    static_cast<size_t>(reinterpret_cast<char*>(&epsilon_distance_) -
-    reinterpret_cast<char*>(&search_paradigm_)) + sizeof(epsilon_distance_));
+inline PROTOBUF_NDEBUG_INLINE ScannConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _extensions_{visibility, arena},
+        _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        custom_search_method_(arena, from.custom_search_method_),
+        dataset_name_(arena, from.dataset_name_) {}
+
+ScannConfig::ScannConfig(
+    ::google::protobuf::Arena* arena,
+    const ScannConfig& from)
+    : ::google::protobuf::Message(arena) {
+  ScannConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  _impl_._extensions_.MergeFrom(this, from._impl_._extensions_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.distance_measure_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::research_scann::DistanceMeasureConfig>(arena, *from._impl_.distance_measure_)
+                : nullptr;
+  _impl_.input_output_ = (cached_has_bits & 0x00000008u)
+                ? CreateMaybeMessage<::research_scann::InputOutputConfig>(arena, *from._impl_.input_output_)
+                : nullptr;
+  _impl_.brute_force_ = (cached_has_bits & 0x00000010u)
+                ? CreateMaybeMessage<::research_scann::BruteForceConfig>(arena, *from._impl_.brute_force_)
+                : nullptr;
+  _impl_.partitioning_ = (cached_has_bits & 0x00000020u)
+                ? CreateMaybeMessage<::research_scann::PartitioningConfig>(arena, *from._impl_.partitioning_)
+                : nullptr;
+  _impl_.hash_ = (cached_has_bits & 0x00000040u)
+                ? CreateMaybeMessage<::research_scann::HashConfig>(arena, *from._impl_.hash_)
+                : nullptr;
+  _impl_.exact_reordering_ = (cached_has_bits & 0x00000080u)
+                ? CreateMaybeMessage<::research_scann::ExactReordering>(arena, *from._impl_.exact_reordering_)
+                : nullptr;
+  _impl_.metadata_ = (cached_has_bits & 0x00000100u)
+                ? CreateMaybeMessage<::research_scann::MetadataConfig>(arena, *from._impl_.metadata_)
+                : nullptr;
+  _impl_.crowding_ = (cached_has_bits & 0x00000200u)
+                ? CreateMaybeMessage<::research_scann::Crowding>(arena, *from._impl_.crowding_)
+                : nullptr;
+  _impl_.disjoint_restrict_token_ = (cached_has_bits & 0x00000400u)
+                ? CreateMaybeMessage<::research_scann::DisjointRestrictToken>(arena, *from._impl_.disjoint_restrict_token_)
+                : nullptr;
+  _impl_.v3_restricts_ = (cached_has_bits & 0x00000800u)
+                ? CreateMaybeMessage<::research_scann::V3RestrictsConfig>(arena, *from._impl_.v3_restricts_)
+                : nullptr;
+  _impl_.restricts_ = (cached_has_bits & 0x00001000u)
+                ? CreateMaybeMessage<::research_scann::RestrictsConfig>(arena, *from._impl_.restricts_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, search_paradigm_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, search_paradigm_),
+           offsetof(Impl_, epsilon_distance_) -
+               offsetof(Impl_, search_paradigm_) +
+               sizeof(Impl_::epsilon_distance_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.ScannConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE ScannConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _extensions_{visibility, arena},
+        _cached_size_{0},
+        custom_search_method_(arena),
+        dataset_name_(arena),
+        num_neighbors_{2147483647},
+        epsilon_distance_{std::numeric_limits<float>::infinity()} {}
 
-inline void ScannConfig::SharedCtor() {
-custom_search_method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-dataset_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&distance_measure_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&restricts_enabled_) -
-    reinterpret_cast<char*>(&distance_measure_)) + sizeof(restricts_enabled_));
-num_neighbors_ = 2147483647;
-epsilon_distance_ = std::numeric_limits<float>::infinity();
+inline void ScannConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, distance_measure_),
+           0,
+           offsetof(Impl_, restricts_enabled_) -
+               offsetof(Impl_, distance_measure_) +
+               sizeof(Impl_::restricts_enabled_));
 }
-
 ScannConfig::~ScannConfig() {
   // @@protoc_insertion_point(destructor:research_scann.ScannConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void ScannConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  custom_search_method_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  dataset_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete distance_measure_;
-  if (this != internal_default_instance()) delete input_output_;
-  if (this != internal_default_instance()) delete brute_force_;
-  if (this != internal_default_instance()) delete partitioning_;
-  if (this != internal_default_instance()) delete hash_;
-  if (this != internal_default_instance()) delete exact_reordering_;
-  if (this != internal_default_instance()) delete metadata_;
-  if (this != internal_default_instance()) delete crowding_;
-  if (this != internal_default_instance()) delete disjoint_restrict_token_;
-  if (this != internal_default_instance()) delete v3_restricts_;
-  if (this != internal_default_instance()) delete restricts_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.custom_search_method_.Destroy();
+  _impl_.dataset_name_.Destroy();
+  delete _impl_.distance_measure_;
+  delete _impl_.input_output_;
+  delete _impl_.brute_force_;
+  delete _impl_.partitioning_;
+  delete _impl_.hash_;
+  delete _impl_.exact_reordering_;
+  delete _impl_.metadata_;
+  delete _impl_.crowding_;
+  delete _impl_.disjoint_restrict_token_;
+  delete _impl_.v3_restricts_;
+  delete _impl_.restricts_;
+  _impl_.~Impl_();
 }
 
-void ScannConfig::ArenaDtor(void* object) {
-  ScannConfig* _this = reinterpret_cast< ScannConfig* >(object);
-  (void)_this;
-}
-void ScannConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void ScannConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ScannConfig::Clear() {
+PROTOBUF_NOINLINE void ScannConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.ScannConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _extensions_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_._extensions_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      custom_search_method_.ClearNonDefaultToEmpty();
+      _impl_.custom_search_method_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      dataset_name_.ClearNonDefaultToEmpty();
+      _impl_.dataset_name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(distance_measure_ != nullptr);
-      distance_measure_->Clear();
+      ABSL_DCHECK(_impl_.distance_measure_ != nullptr);
+      _impl_.distance_measure_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(input_output_ != nullptr);
-      input_output_->Clear();
+      ABSL_DCHECK(_impl_.input_output_ != nullptr);
+      _impl_.input_output_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(brute_force_ != nullptr);
-      brute_force_->Clear();
+      ABSL_DCHECK(_impl_.brute_force_ != nullptr);
+      _impl_.brute_force_->Clear();
     }
     if (cached_has_bits & 0x00000020u) {
-      GOOGLE_DCHECK(partitioning_ != nullptr);
-      partitioning_->Clear();
+      ABSL_DCHECK(_impl_.partitioning_ != nullptr);
+      _impl_.partitioning_->Clear();
     }
     if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(hash_ != nullptr);
-      hash_->Clear();
+      ABSL_DCHECK(_impl_.hash_ != nullptr);
+      _impl_.hash_->Clear();
     }
     if (cached_has_bits & 0x00000080u) {
-      GOOGLE_DCHECK(exact_reordering_ != nullptr);
-      exact_reordering_->Clear();
+      ABSL_DCHECK(_impl_.exact_reordering_ != nullptr);
+      _impl_.exact_reordering_->Clear();
     }
   }
   if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
-      GOOGLE_DCHECK(metadata_ != nullptr);
-      metadata_->Clear();
+      ABSL_DCHECK(_impl_.metadata_ != nullptr);
+      _impl_.metadata_->Clear();
     }
     if (cached_has_bits & 0x00000200u) {
-      GOOGLE_DCHECK(crowding_ != nullptr);
-      crowding_->Clear();
+      ABSL_DCHECK(_impl_.crowding_ != nullptr);
+      _impl_.crowding_->Clear();
     }
     if (cached_has_bits & 0x00000400u) {
-      GOOGLE_DCHECK(disjoint_restrict_token_ != nullptr);
-      disjoint_restrict_token_->Clear();
+      ABSL_DCHECK(_impl_.disjoint_restrict_token_ != nullptr);
+      _impl_.disjoint_restrict_token_->Clear();
     }
     if (cached_has_bits & 0x00000800u) {
-      GOOGLE_DCHECK(v3_restricts_ != nullptr);
-      v3_restricts_->Clear();
+      ABSL_DCHECK(_impl_.v3_restricts_ != nullptr);
+      _impl_.v3_restricts_->Clear();
     }
     if (cached_has_bits & 0x00001000u) {
-      GOOGLE_DCHECK(restricts_ != nullptr);
-      restricts_->Clear();
+      ABSL_DCHECK(_impl_.restricts_ != nullptr);
+      _impl_.restricts_->Clear();
     }
   }
   if (cached_has_bits & 0x0000e000u) {
-    ::memset(&search_paradigm_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&num_single_shard_neighbors_) -
-        reinterpret_cast<char*>(&search_paradigm_)) + sizeof(num_single_shard_neighbors_));
+    ::memset(&_impl_.search_paradigm_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.num_single_shard_neighbors_) -
+        reinterpret_cast<char*>(&_impl_.search_paradigm_)) + sizeof(_impl_.num_single_shard_neighbors_));
   }
   if (cached_has_bits & 0x00070000u) {
-    restricts_enabled_ = false;
-    num_neighbors_ = 2147483647;
-    epsilon_distance_ = std::numeric_limits<float>::infinity();
+    _impl_.restricts_enabled_ = false;
+    _impl_.num_neighbors_ = 2147483647;
+    _impl_.epsilon_distance_ = std::numeric_limits<float>::infinity();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* ScannConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .research_scann.ScannConfig.SearchParadigm search_paradigm = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::ScannConfig_SearchParadigm_IsValid(val))) {
-            _internal_set_search_paradigm(static_cast<::research_scann::ScannConfig_SearchParadigm>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.ScannConfig.SearchType search_type = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::ScannConfig_SearchType_IsValid(val))) {
-            _internal_set_search_type(static_cast<::research_scann::ScannConfig_SearchType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_neighbors = 3 [default = 2147483647];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_num_neighbors(&has_bits);
-          num_neighbors_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float epsilon_distance = 4 [default = inf];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
-          _Internal::set_has_epsilon_distance(&has_bits);
-          epsilon_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.DistanceMeasureConfig distance_measure = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_distance_measure(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.InputOutputConfig input_output = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ctx->ParseMessage(_internal_mutable_input_output(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.BruteForceConfig brute_force = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr = ctx->ParseMessage(_internal_mutable_brute_force(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.PartitioningConfig partitioning = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
-          ptr = ctx->ParseMessage(_internal_mutable_partitioning(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.HashConfig hash = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
-          ptr = ctx->ParseMessage(_internal_mutable_hash(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.ExactReordering exact_reordering = 17;
-      case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 138)) {
-          ptr = ctx->ParseMessage(_internal_mutable_exact_reordering(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.MetadataConfig metadata = 20;
-      case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
-          ptr = ctx->ParseMessage(_internal_mutable_metadata(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_single_shard_neighbors = 21;
-      case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
-          _Internal::set_has_num_single_shard_neighbors(&has_bits);
-          num_single_shard_neighbors_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bytes custom_search_method = 22;
-      case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 178)) {
-          auto str = _internal_mutable_custom_search_method();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool restricts_enabled = 24 [default = false];
-      case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
-          _Internal::set_has_restricts_enabled(&has_bits);
-          restricts_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.Crowding crowding = 29;
-      case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 234)) {
-          ptr = ctx->ParseMessage(_internal_mutable_crowding(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.DisjointRestrictToken disjoint_restrict_token = 31;
-      case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 250)) {
-          ptr = ctx->ParseMessage(_internal_mutable_disjoint_restrict_token(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string dataset_name = 32;
-      case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 2)) {
-          auto str = _internal_mutable_dataset_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.ScannConfig.dataset_name");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.V3RestrictsConfig v3_restricts = 37;
-      case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_v3_restricts(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.RestrictsConfig restricts = 39;
-      case 39:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr = ctx->ParseMessage(_internal_mutable_restricts(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-      if ((8000u <= tag)) {
-        ptr = _extensions_.ParseField(tag, ptr,
-            internal_default_instance(), &_internal_metadata_, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* ScannConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ScannConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ScannConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<5, 19, 13, 63, 7> ScannConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_._extensions_),
+    39, 248,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    793177856,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    19,  // num_field_entries
+    13,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_ScannConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.ScannConfig.SearchParadigm search_paradigm = 1;
+    {::_pbi::TcParser::FastEr0S1,
+     {8, 13, 1, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.search_paradigm_)}},
+    // optional .research_scann.ScannConfig.SearchType search_type = 2;
+    {::_pbi::TcParser::FastEr0S1,
+     {16, 14, 2, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.search_type_)}},
+    // optional int32 num_neighbors = 3 [default = 2147483647];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ScannConfig, _impl_.num_neighbors_), 17>(),
+     {24, 17, 0, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.num_neighbors_)}},
+    // optional float epsilon_distance = 4 [default = inf];
+    {::_pbi::TcParser::FastF32S1,
+     {37, 18, 0, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.epsilon_distance_)}},
+    // optional .research_scann.DistanceMeasureConfig distance_measure = 5;
+    {::_pbi::TcParser::FastMtS1,
+     {42, 2, 2, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.distance_measure_)}},
+    // optional .research_scann.InputOutputConfig input_output = 6;
+    {::_pbi::TcParser::FastMtS1,
+     {50, 3, 3, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.input_output_)}},
+    // optional .research_scann.BruteForceConfig brute_force = 7;
+    {::_pbi::TcParser::FastMtS1,
+     {58, 4, 4, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.brute_force_)}},
+    // optional .research_scann.PartitioningConfig partitioning = 8;
+    {::_pbi::TcParser::FastMtS1,
+     {66, 5, 5, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.partitioning_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.HashConfig hash = 13;
+    {::_pbi::TcParser::FastMtS1,
+     {106, 6, 6, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.hash_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional string dataset_name = 32;
+    {::_pbi::TcParser::FastSS2,
+     {642, 1, 0, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.dataset_name_)}},
+    // optional .research_scann.ExactReordering exact_reordering = 17;
+    {::_pbi::TcParser::FastMtS2,
+     {394, 7, 7, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.exact_reordering_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.MetadataConfig metadata = 20;
+    {::_pbi::TcParser::FastMtS2,
+     {418, 8, 8, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.metadata_)}},
+    // optional int32 num_single_shard_neighbors = 21;
+    {::_pbi::TcParser::FastV32S2,
+     {424, 15, 0, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.num_single_shard_neighbors_)}},
+    // optional bytes custom_search_method = 22;
+    {::_pbi::TcParser::FastBS2,
+     {434, 0, 0, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.custom_search_method_)}},
+    // optional .research_scann.RestrictsConfig restricts = 39;
+    {::_pbi::TcParser::FastMtS2,
+     {698, 12, 12, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.restricts_)}},
+    // optional bool restricts_enabled = 24 [default = false];
+    {::_pbi::TcParser::FastV8S2,
+     {448, 16, 0, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.restricts_enabled_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.Crowding crowding = 29;
+    {::_pbi::TcParser::FastMtS2,
+     {490, 9, 9, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.crowding_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.DisjointRestrictToken disjoint_restrict_token = 31;
+    {::_pbi::TcParser::FastMtS2,
+     {506, 10, 10, PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.disjoint_restrict_token_)}},
+  }}, {{
+    37, 0, 1,
+    65530, 17,
+    65535, 65535
+  }}, {{
+    // optional .research_scann.ScannConfig.SearchParadigm search_paradigm = 1;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.search_paradigm_), _Internal::kHasBitsOffset + 13, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+    // optional .research_scann.ScannConfig.SearchType search_type = 2;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.search_type_), _Internal::kHasBitsOffset + 14, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+    // optional int32 num_neighbors = 3 [default = 2147483647];
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.num_neighbors_), _Internal::kHasBitsOffset + 17, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float epsilon_distance = 4 [default = inf];
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.epsilon_distance_), _Internal::kHasBitsOffset + 18, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional .research_scann.DistanceMeasureConfig distance_measure = 5;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.distance_measure_), _Internal::kHasBitsOffset + 2, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.InputOutputConfig input_output = 6;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.input_output_), _Internal::kHasBitsOffset + 3, 3,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.BruteForceConfig brute_force = 7;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.brute_force_), _Internal::kHasBitsOffset + 4, 4,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.PartitioningConfig partitioning = 8;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.partitioning_), _Internal::kHasBitsOffset + 5, 5,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.HashConfig hash = 13;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.hash_), _Internal::kHasBitsOffset + 6, 6,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.ExactReordering exact_reordering = 17;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.exact_reordering_), _Internal::kHasBitsOffset + 7, 7,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.MetadataConfig metadata = 20;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.metadata_), _Internal::kHasBitsOffset + 8, 8,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional int32 num_single_shard_neighbors = 21;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.num_single_shard_neighbors_), _Internal::kHasBitsOffset + 15, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional bytes custom_search_method = 22;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.custom_search_method_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // optional bool restricts_enabled = 24 [default = false];
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.restricts_enabled_), _Internal::kHasBitsOffset + 16, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional .research_scann.Crowding crowding = 29;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.crowding_), _Internal::kHasBitsOffset + 9, 9,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.DisjointRestrictToken disjoint_restrict_token = 31;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.disjoint_restrict_token_), _Internal::kHasBitsOffset + 10, 10,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional string dataset_name = 32;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.dataset_name_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional .research_scann.V3RestrictsConfig v3_restricts = 37;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.v3_restricts_), _Internal::kHasBitsOffset + 11, 11,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.RestrictsConfig restricts = 39;
+    {PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.restricts_), _Internal::kHasBitsOffset + 12, 12,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {0, 2},
+    {0, 3},
+    {::_pbi::TcParser::GetTable<::research_scann::DistanceMeasureConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::InputOutputConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::BruteForceConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::PartitioningConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::HashConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::ExactReordering>()},
+    {::_pbi::TcParser::GetTable<::research_scann::MetadataConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::Crowding>()},
+    {::_pbi::TcParser::GetTable<::research_scann::DisjointRestrictToken>()},
+    {::_pbi::TcParser::GetTable<::research_scann::V3RestrictsConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::RestrictsConfig>()},
+  }}, {{
+    "\32\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\14\0\0\0\0\0\0"
+    "research_scann.ScannConfig"
+    "dataset_name"
+  }},
+};
+
+::uint8_t* ScannConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ScannConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .research_scann.ScannConfig.SearchParadigm search_paradigm = 1;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_search_paradigm(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_search_paradigm(), target);
   }
 
   // optional .research_scann.ScannConfig.SearchType search_type = 2;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_search_type(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        2, this->_internal_search_type(), target);
   }
 
   // optional int32 num_neighbors = 3 [default = 2147483647];
   if (cached_has_bits & 0x00020000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_num_neighbors(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_num_neighbors(), target);
   }
 
   // optional float epsilon_distance = 4 [default = inf];
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_epsilon_distance(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        4, this->_internal_epsilon_distance(), target);
   }
 
   // optional .research_scann.DistanceMeasureConfig distance_measure = 5;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::distance_measure(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        5, _Internal::distance_measure(this),
+        _Internal::distance_measure(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.InputOutputConfig input_output = 6;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        6, _Internal::input_output(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        6, _Internal::input_output(this),
+        _Internal::input_output(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.BruteForceConfig brute_force = 7;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        7, _Internal::brute_force(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        7, _Internal::brute_force(this),
+        _Internal::brute_force(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.PartitioningConfig partitioning = 8;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        8, _Internal::partitioning(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        8, _Internal::partitioning(this),
+        _Internal::partitioning(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.HashConfig hash = 13;
   if (cached_has_bits & 0x00000040u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        13, _Internal::hash(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        13, _Internal::hash(this),
+        _Internal::hash(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.ExactReordering exact_reordering = 17;
   if (cached_has_bits & 0x00000080u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        17, _Internal::exact_reordering(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        17, _Internal::exact_reordering(this),
+        _Internal::exact_reordering(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.MetadataConfig metadata = 20;
   if (cached_has_bits & 0x00000100u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        20, _Internal::metadata(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        20, _Internal::metadata(this),
+        _Internal::metadata(this).GetCachedSize(), target, stream);
   }
 
   // optional int32 num_single_shard_neighbors = 21;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(21, this->_internal_num_single_shard_neighbors(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        21, this->_internal_num_single_shard_neighbors(), target);
   }
 
   // optional bytes custom_search_method = 22;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        22, this->_internal_custom_search_method(), target);
+    const std::string& _s = this->_internal_custom_search_method();
+    target = stream->WriteBytesMaybeAliased(22, _s, target);
   }
 
   // optional bool restricts_enabled = 24 [default = false];
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(24, this->_internal_restricts_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        24, this->_internal_restricts_enabled(), target);
   }
 
   // optional .research_scann.Crowding crowding = 29;
   if (cached_has_bits & 0x00000200u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        29, _Internal::crowding(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        29, _Internal::crowding(this),
+        _Internal::crowding(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.DisjointRestrictToken disjoint_restrict_token = 31;
   if (cached_has_bits & 0x00000400u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        31, _Internal::disjoint_restrict_token(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        31, _Internal::disjoint_restrict_token(this),
+        _Internal::disjoint_restrict_token(this).GetCachedSize(), target, stream);
   }
 
   // optional string dataset_name = 32;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_dataset_name().data(), static_cast<int>(this->_internal_dataset_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.ScannConfig.dataset_name");
-    target = stream->WriteStringMaybeAliased(
-        32, this->_internal_dataset_name(), target);
+    const std::string& _s = this->_internal_dataset_name();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.ScannConfig.dataset_name");
+    target = stream->WriteStringMaybeAliased(32, _s, target);
   }
 
   // optional .research_scann.V3RestrictsConfig v3_restricts = 37;
   if (cached_has_bits & 0x00000800u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        37, _Internal::v3_restricts(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        37, _Internal::v3_restricts(this),
+        _Internal::v3_restricts(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.RestrictsConfig restricts = 39;
   if (cached_has_bits & 0x00001000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        39, _Internal::restricts(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        39, _Internal::restricts(this),
+        _Internal::restricts(this).GetCachedSize(), target, stream);
   }
 
   // Extension range [1000, 536870912)
-  target = _extensions_._InternalSerialize(
-      1000, 536870912, target, stream);
-
+  target = _impl_._extensions_._InternalSerialize(
+      internal_default_instance(), 1000, 536870912, target, stream);
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.ScannConfig)
   return target;
 }
 
-size_t ScannConfig::ByteSizeLong() const {
+::size_t ScannConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.ScannConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  total_size += _extensions_.ByteSize();
+  total_size += _impl_._extensions_.ByteSize();
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional bytes custom_search_method = 22;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_custom_search_method());
+      total_size += 2 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                      this->_internal_custom_search_method());
     }
 
     // optional string dataset_name = 32;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_dataset_name());
+      total_size += 2 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_dataset_name());
     }
 
     // optional .research_scann.DistanceMeasureConfig distance_measure = 5;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *distance_measure_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.distance_measure_);
     }
 
     // optional .research_scann.InputOutputConfig input_output = 6;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *input_output_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.input_output_);
     }
 
     // optional .research_scann.BruteForceConfig brute_force = 7;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *brute_force_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.brute_force_);
     }
 
     // optional .research_scann.PartitioningConfig partitioning = 8;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *partitioning_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.partitioning_);
     }
 
     // optional .research_scann.HashConfig hash = 13;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *hash_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.hash_);
     }
 
     // optional .research_scann.ExactReordering exact_reordering = 17;
     if (cached_has_bits & 0x00000080u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *exact_reordering_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.exact_reordering_);
     }
 
   }
   if (cached_has_bits & 0x0000ff00u) {
     // optional .research_scann.MetadataConfig metadata = 20;
     if (cached_has_bits & 0x00000100u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.metadata_);
     }
 
     // optional .research_scann.Crowding crowding = 29;
     if (cached_has_bits & 0x00000200u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *crowding_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.crowding_);
     }
 
     // optional .research_scann.DisjointRestrictToken disjoint_restrict_token = 31;
     if (cached_has_bits & 0x00000400u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *disjoint_restrict_token_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.disjoint_restrict_token_);
     }
 
     // optional .research_scann.V3RestrictsConfig v3_restricts = 37;
     if (cached_has_bits & 0x00000800u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *v3_restricts_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.v3_restricts_);
     }
 
     // optional .research_scann.RestrictsConfig restricts = 39;
     if (cached_has_bits & 0x00001000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *restricts_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.restricts_);
     }
 
     // optional .research_scann.ScannConfig.SearchParadigm search_paradigm = 1;
     if (cached_has_bits & 0x00002000u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_search_paradigm());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_search_paradigm());
     }
 
     // optional .research_scann.ScannConfig.SearchType search_type = 2;
     if (cached_has_bits & 0x00004000u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_search_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_search_type());
     }
 
     // optional int32 num_single_shard_neighbors = 21;
     if (cached_has_bits & 0x00008000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_num_single_shard_neighbors());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_num_single_shard_neighbors());
     }
 
   }
   if (cached_has_bits & 0x00070000u) {
     // optional bool restricts_enabled = 24 [default = false];
     if (cached_has_bits & 0x00010000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional int32 num_neighbors = 3 [default = 2147483647];
     if (cached_has_bits & 0x00020000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_neighbors());
     }
 
     // optional float epsilon_distance = 4 [default = inf];
     if (cached_has_bits & 0x00040000u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ScannConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ScannConfig::MergeImpl
+const ::google::protobuf::Message::ClassData ScannConfig::_class_data_ = {
+    ScannConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ScannConfig::GetClassData() const { return &_class_data_; }
-
-void ScannConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ScannConfig *>(to)->MergeFrom(
-      static_cast<const ScannConfig &>(from));
+const ::google::protobuf::Message::ClassData* ScannConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void ScannConfig::MergeFrom(const ScannConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ScannConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void ScannConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<ScannConfig*>(&to_msg);
+  auto& from = static_cast<const ScannConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ScannConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_custom_search_method(from._internal_custom_search_method());
+      _this->_internal_set_custom_search_method(from._internal_custom_search_method());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_dataset_name(from._internal_dataset_name());
+      _this->_internal_set_dataset_name(from._internal_dataset_name());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_distance_measure()->::research_scann::DistanceMeasureConfig::MergeFrom(from._internal_distance_measure());
+      _this->_internal_mutable_distance_measure()->::research_scann::DistanceMeasureConfig::MergeFrom(
+          from._internal_distance_measure());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_input_output()->::research_scann::InputOutputConfig::MergeFrom(from._internal_input_output());
+      _this->_internal_mutable_input_output()->::research_scann::InputOutputConfig::MergeFrom(
+          from._internal_input_output());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_brute_force()->::research_scann::BruteForceConfig::MergeFrom(from._internal_brute_force());
+      _this->_internal_mutable_brute_force()->::research_scann::BruteForceConfig::MergeFrom(
+          from._internal_brute_force());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_mutable_partitioning()->::research_scann::PartitioningConfig::MergeFrom(from._internal_partitioning());
+      _this->_internal_mutable_partitioning()->::research_scann::PartitioningConfig::MergeFrom(
+          from._internal_partitioning());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_mutable_hash()->::research_scann::HashConfig::MergeFrom(from._internal_hash());
+      _this->_internal_mutable_hash()->::research_scann::HashConfig::MergeFrom(
+          from._internal_hash());
     }
     if (cached_has_bits & 0x00000080u) {
-      _internal_mutable_exact_reordering()->::research_scann::ExactReordering::MergeFrom(from._internal_exact_reordering());
+      _this->_internal_mutable_exact_reordering()->::research_scann::ExactReordering::MergeFrom(
+          from._internal_exact_reordering());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_mutable_metadata()->::research_scann::MetadataConfig::MergeFrom(from._internal_metadata());
+      _this->_internal_mutable_metadata()->::research_scann::MetadataConfig::MergeFrom(
+          from._internal_metadata());
     }
     if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_crowding()->::research_scann::Crowding::MergeFrom(from._internal_crowding());
+      _this->_internal_mutable_crowding()->::research_scann::Crowding::MergeFrom(
+          from._internal_crowding());
     }
     if (cached_has_bits & 0x00000400u) {
-      _internal_mutable_disjoint_restrict_token()->::research_scann::DisjointRestrictToken::MergeFrom(from._internal_disjoint_restrict_token());
+      _this->_internal_mutable_disjoint_restrict_token()->::research_scann::DisjointRestrictToken::MergeFrom(
+          from._internal_disjoint_restrict_token());
     }
     if (cached_has_bits & 0x00000800u) {
-      _internal_mutable_v3_restricts()->::research_scann::V3RestrictsConfig::MergeFrom(from._internal_v3_restricts());
+      _this->_internal_mutable_v3_restricts()->::research_scann::V3RestrictsConfig::MergeFrom(
+          from._internal_v3_restricts());
     }
     if (cached_has_bits & 0x00001000u) {
-      _internal_mutable_restricts()->::research_scann::RestrictsConfig::MergeFrom(from._internal_restricts());
+      _this->_internal_mutable_restricts()->::research_scann::RestrictsConfig::MergeFrom(
+          from._internal_restricts());
     }
     if (cached_has_bits & 0x00002000u) {
-      search_paradigm_ = from.search_paradigm_;
+      _this->_impl_.search_paradigm_ = from._impl_.search_paradigm_;
     }
     if (cached_has_bits & 0x00004000u) {
-      search_type_ = from.search_type_;
+      _this->_impl_.search_type_ = from._impl_.search_type_;
     }
     if (cached_has_bits & 0x00008000u) {
-      num_single_shard_neighbors_ = from.num_single_shard_neighbors_;
+      _this->_impl_.num_single_shard_neighbors_ = from._impl_.num_single_shard_neighbors_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00070000u) {
     if (cached_has_bits & 0x00010000u) {
-      restricts_enabled_ = from.restricts_enabled_;
+      _this->_impl_.restricts_enabled_ = from._impl_.restricts_enabled_;
     }
     if (cached_has_bits & 0x00020000u) {
-      num_neighbors_ = from.num_neighbors_;
+      _this->_impl_.num_neighbors_ = from._impl_.num_neighbors_;
     }
     if (cached_has_bits & 0x00040000u) {
-      epsilon_distance_ = from.epsilon_distance_;
+      _this->_impl_.epsilon_distance_ = from._impl_.epsilon_distance_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _extensions_.MergeFrom(from._extensions_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_._extensions_.MergeFrom(internal_default_instance(), from._impl_._extensions_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ScannConfig::CopyFrom(const ScannConfig& from) {
@@ -1194,58 +1177,49 @@ void ScannConfig::CopyFrom(const ScannConfig& from) {
   MergeFrom(from);
 }
 
-bool ScannConfig::IsInitialized() const {
-  if (!_extensions_.IsInitialized()) {
+PROTOBUF_NOINLINE bool ScannConfig::IsInitialized() const {
+  if (!_impl_._extensions_.IsInitialized(internal_default_instance())) {
     return false;
   }
-
-  if (_internal_has_partitioning()) {
-    if (!partitioning_->IsInitialized()) return false;
+  if ((_impl_._has_bits_[0] & 0x00000020u) != 0) {
+    if (!_impl_.partitioning_->IsInitialized()) return false;
   }
-  if (_internal_has_hash()) {
-    if (!hash_->IsInitialized()) return false;
+  if ((_impl_._has_bits_[0] & 0x00000040u) != 0) {
+    if (!_impl_.hash_->IsInitialized()) return false;
   }
   return true;
 }
 
-void ScannConfig::InternalSwap(ScannConfig* other) {
+::_pbi::CachedSize* ScannConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void ScannConfig::InternalSwap(ScannConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
-  _extensions_.InternalSwap(&other->_extensions_);
+  _impl_._extensions_.InternalSwap(&other->_impl_._extensions_);
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &custom_search_method_, GetArenaForAllocation(),
-      &other->custom_search_method_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &dataset_name_, GetArenaForAllocation(),
-      &other->dataset_name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ScannConfig, restricts_enabled_)
-      + sizeof(ScannConfig::restricts_enabled_)
-      - PROTOBUF_FIELD_OFFSET(ScannConfig, distance_measure_)>(
-          reinterpret_cast<char*>(&distance_measure_),
-          reinterpret_cast<char*>(&other->distance_measure_));
-  swap(num_neighbors_, other->num_neighbors_);
-  swap(epsilon_distance_, other->epsilon_distance_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.custom_search_method_, &other->_impl_.custom_search_method_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.dataset_name_, &other->_impl_.dataset_name_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.epsilon_distance_)
+      + sizeof(ScannConfig::_impl_.epsilon_distance_)
+      - PROTOBUF_FIELD_OFFSET(ScannConfig, _impl_.distance_measure_)>(
+          reinterpret_cast<char*>(&_impl_.distance_measure_),
+          reinterpret_cast<char*>(&other->_impl_.distance_measure_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ScannConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata ScannConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fscann_2eproto_getter, &descriptor_table_scann_2fproto_2fscann_2eproto_once,
       file_level_metadata_scann_2fproto_2fscann_2eproto[0]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::ScannConfig* Arena::CreateMaybeMessage< ::research_scann::ScannConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::ScannConfig >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

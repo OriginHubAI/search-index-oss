@@ -4,386 +4,453 @@
 #include "scann/proto/incremental_updates.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr IncrementalUpdateConfig_Reindexing::IncrementalUpdateConfig_Reindexing(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : enable_manual_retraining_and_reindexing_(false){}
+
+inline constexpr IncrementalUpdateConfig_Reindexing::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        enable_manual_retraining_and_reindexing_{false} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR IncrementalUpdateConfig_Reindexing::IncrementalUpdateConfig_Reindexing(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct IncrementalUpdateConfig_ReindexingDefaultTypeInternal {
-  constexpr IncrementalUpdateConfig_ReindexingDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IncrementalUpdateConfig_ReindexingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IncrementalUpdateConfig_ReindexingDefaultTypeInternal() {}
   union {
     IncrementalUpdateConfig_Reindexing _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IncrementalUpdateConfig_ReindexingDefaultTypeInternal _IncrementalUpdateConfig_Reindexing_default_instance_;
-constexpr IncrementalUpdateConfig_Pubsub2::IncrementalUpdateConfig_Pubsub2(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : topic_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , subscriber_id_base_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , publisher_id_base_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , filter_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , mod_term_filter_signature_(nullptr)
-  , use_mod_term_filter_(false)
-  , seek_back_enabled_(true)
-  , publish_rpc_updates_(true){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncrementalUpdateConfig_ReindexingDefaultTypeInternal _IncrementalUpdateConfig_Reindexing_default_instance_;
+
+inline constexpr IncrementalUpdateConfig_Pubsub2::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        topic_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        subscriber_id_base_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        publisher_id_base_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        filter_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        mod_term_filter_signature_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        use_mod_term_filter_{false},
+        seek_back_enabled_{true},
+        publish_rpc_updates_{true} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR IncrementalUpdateConfig_Pubsub2::IncrementalUpdateConfig_Pubsub2(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct IncrementalUpdateConfig_Pubsub2DefaultTypeInternal {
-  constexpr IncrementalUpdateConfig_Pubsub2DefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IncrementalUpdateConfig_Pubsub2DefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IncrementalUpdateConfig_Pubsub2DefaultTypeInternal() {}
   union {
     IncrementalUpdateConfig_Pubsub2 _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IncrementalUpdateConfig_Pubsub2DefaultTypeInternal _IncrementalUpdateConfig_Pubsub2_default_instance_;
-constexpr IncrementalUpdateConfig::IncrementalUpdateConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : sharder_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , last_update_timestamp_lifetime_(nullptr)
-  , startup_catchup_threshold_(nullptr)
-  , reindexing_(nullptr)
-  , num_datapoints_to_reserve_(uint64_t{0u})
-  , enabled_(false)
-  , enable_expiration_timestamps_(false)
-  , num_updates_between_garbage_collections_(100000u)
-  , _oneof_case_{}{}
-struct IncrementalUpdateConfigDefaultTypeInternal {
-  constexpr IncrementalUpdateConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~IncrementalUpdateConfigDefaultTypeInternal() {}
-  union {
-    IncrementalUpdateConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IncrementalUpdateConfigDefaultTypeInternal _IncrementalUpdateConfig_default_instance_;
-constexpr IncrementalUpdateMetadata::IncrementalUpdateMetadata(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , epoch_timestamp_(nullptr)
-  , max_epoch_age_(nullptr){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncrementalUpdateConfig_Pubsub2DefaultTypeInternal _IncrementalUpdateConfig_Pubsub2_default_instance_;
+
+inline constexpr IncrementalUpdateMetadata::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        version_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        epoch_timestamp_{nullptr},
+        max_epoch_age_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR IncrementalUpdateMetadata::IncrementalUpdateMetadata(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct IncrementalUpdateMetadataDefaultTypeInternal {
-  constexpr IncrementalUpdateMetadataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IncrementalUpdateMetadataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~IncrementalUpdateMetadataDefaultTypeInternal() {}
   union {
     IncrementalUpdateMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IncrementalUpdateMetadataDefaultTypeInternal _IncrementalUpdateMetadata_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncrementalUpdateMetadataDefaultTypeInternal _IncrementalUpdateMetadata_default_instance_;
+
+inline constexpr IncrementalUpdateConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        sharder_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        last_update_timestamp_lifetime_{nullptr},
+        startup_catchup_threshold_{nullptr},
+        reindexing_{nullptr},
+        num_datapoints_to_reserve_{::uint64_t{0u}},
+        enabled_{false},
+        enable_expiration_timestamps_{false},
+        num_updates_between_garbage_collections_{100000u},
+        DurabilityReplication_{},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR IncrementalUpdateConfig::IncrementalUpdateConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct IncrementalUpdateConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR IncrementalUpdateConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~IncrementalUpdateConfigDefaultTypeInternal() {}
+  union {
+    IncrementalUpdateConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncrementalUpdateConfigDefaultTypeInternal _IncrementalUpdateConfig_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto[4];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto[4];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fincremental_5fupdates_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Reindexing, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Reindexing, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Reindexing, _impl_.enable_manual_retraining_and_reindexing_),
+    0,
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.topic_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.subscriber_id_base_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.publisher_id_base_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.seek_back_enabled_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.publish_rpc_updates_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.filter_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.use_mod_term_filter_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _impl_.mod_term_filter_signature_),
+    0,
+    1,
+    2,
+    6,
+    7,
+    3,
+    5,
+    4,
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_._oneof_case_[0]),
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.enabled_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.num_datapoints_to_reserve_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.last_update_timestamp_lifetime_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.enable_expiration_timestamps_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.reindexing_),
+    ::_pbi::kInvalidFieldOffsetTag,
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.sharder_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.startup_catchup_threshold_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.num_updates_between_garbage_collections_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_.DurabilityReplication_),
+    5,
+    4,
+    1,
+    6,
+    3,
+    ~0u,
+    0,
+    2,
+    7,
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _impl_.epoch_timestamp_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _impl_.max_epoch_age_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _impl_.version_),
+    1,
+    2,
+    0,
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fincremental_5fupdates_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Reindexing, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Reindexing, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Reindexing, enable_manual_retraining_and_reindexing_),
-  0,
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, topic_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, subscriber_id_base_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, publisher_id_base_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, seek_back_enabled_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, publish_rpc_updates_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, filter_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, use_mod_term_filter_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig_Pubsub2, mod_term_filter_signature_),
-  0,
-  1,
-  2,
-  6,
-  7,
-  3,
-  5,
-  4,
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, enabled_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, num_datapoints_to_reserve_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, last_update_timestamp_lifetime_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, enable_expiration_timestamps_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, reindexing_),
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, sharder_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, startup_catchup_threshold_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, num_updates_between_garbage_collections_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, DurabilityReplication_),
-  5,
-  4,
-  1,
-  6,
-  3,
-  ~0u,
-  0,
-  2,
-  7,
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, epoch_timestamp_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, max_epoch_age_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateMetadata, version_),
-  1,
-  2,
-  0,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 6, sizeof(::research_scann::IncrementalUpdateConfig_Reindexing)},
-  { 7, 20, sizeof(::research_scann::IncrementalUpdateConfig_Pubsub2)},
-  { 28, 43, sizeof(::research_scann::IncrementalUpdateConfig)},
-  { 52, 60, sizeof(::research_scann::IncrementalUpdateMetadata)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 9, -1, sizeof(::research_scann::IncrementalUpdateConfig_Reindexing)},
+        {10, 26, -1, sizeof(::research_scann::IncrementalUpdateConfig_Pubsub2)},
+        {34, 52, -1, sizeof(::research_scann::IncrementalUpdateConfig)},
+        {61, 72, -1, sizeof(::research_scann::IncrementalUpdateMetadata)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_IncrementalUpdateConfig_Reindexing_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_IncrementalUpdateConfig_Pubsub2_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_IncrementalUpdateConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_IncrementalUpdateMetadata_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_IncrementalUpdateConfig_Reindexing_default_instance_._instance,
+    &::research_scann::_IncrementalUpdateConfig_Pubsub2_default_instance_._instance,
+    &::research_scann::_IncrementalUpdateConfig_default_instance_._instance,
+    &::research_scann::_IncrementalUpdateMetadata_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fincremental_5fupdates_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n%scann/proto/incremental_updates.proto\022"
+    "\016research_scann\032\036google/protobuf/duratio"
+    "n.proto\032\037google/protobuf/timestamp.proto"
+    "\"\261\006\n\027IncrementalUpdateConfig\022\026\n\007enabled\030"
+    "\001 \001(\010:\005false\022$\n\031num_datapoints_to_reserv"
+    "e\030\005 \001(\004:\0010\022A\n\036last_update_timestamp_life"
+    "time\030\002 \001(\0132\031.google.protobuf.Duration\022+\n"
+    "\034enable_expiration_timestamps\030\004 \001(\010:\005fal"
+    "se\022F\n\nreindexing\030\t \001(\01322.research_scann."
+    "IncrementalUpdateConfig.Reindexing\022B\n\007pu"
+    "bsub2\030\003 \001(\0132/.research_scann.Incremental"
+    "UpdateConfig.Pubsub2H\000\022\021\n\007sharder\030\006 \001(\t:"
+    "\000\022<\n\031startup_catchup_threshold\030\007 \001(\0132\031.g"
+    "oogle.protobuf.Duration\0227\n\'num_updates_b"
+    "etween_garbage_collections\030\010 \001(\r:\006100000"
+    "\032D\n\nReindexing\0226\n\'enable_manual_retraini"
+    "ng_and_reindexing\030\001 \001(\010:\005false\032\362\001\n\007Pubsu"
+    "b2\022\r\n\005topic\030\001 \001(\t\022\032\n\022subscriber_id_base\030"
+    "\002 \001(\t\022\031\n\021publisher_id_base\030\003 \001(\t\022\037\n\021seek"
+    "_back_enabled\030\004 \001(\010:\004true\022!\n\023publish_rpc"
+    "_updates\030\005 \001(\010:\004true\022\016\n\006filter\030\006 \001(\t\022\"\n\023"
+    "use_mod_term_filter\030\007 \001(\010:\005false\022)\n\031mod_"
+    "term_filter_signature\030\010 \001(\t:\006fprintB\027\n\025D"
+    "urabilityReplication\"\223\001\n\031IncrementalUpda"
+    "teMetadata\0223\n\017epoch_timestamp\030\001 \001(\0132\032.go"
+    "ogle.protobuf.Timestamp\0220\n\rmax_epoch_age"
+    "\030\003 \001(\0132\031.google.protobuf.Duration\022\017\n\007ver"
+    "sion\030\002 \001(\t"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_deps[2] =
+    {
+        &::descriptor_table_google_2fprotobuf_2fduration_2eproto,
+        &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto = {
+    false,
+    false,
+    1090,
+    descriptor_table_protodef_scann_2fproto_2fincremental_5fupdates_2eproto,
+    "scann/proto/incremental_updates.proto",
+    &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once,
+    descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_deps,
+    2,
+    4,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fincremental_5fupdates_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fincremental_5fupdates_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n%scann/proto/incremental_updates.proto\022"
-  "\016research_scann\032\036google/protobuf/duratio"
-  "n.proto\032\037google/protobuf/timestamp.proto"
-  "\"\261\006\n\027IncrementalUpdateConfig\022\026\n\007enabled\030"
-  "\001 \001(\010:\005false\022$\n\031num_datapoints_to_reserv"
-  "e\030\005 \001(\004:\0010\022A\n\036last_update_timestamp_life"
-  "time\030\002 \001(\0132\031.google.protobuf.Duration\022+\n"
-  "\034enable_expiration_timestamps\030\004 \001(\010:\005fal"
-  "se\022F\n\nreindexing\030\t \001(\01322.research_scann."
-  "IncrementalUpdateConfig.Reindexing\022B\n\007pu"
-  "bsub2\030\003 \001(\0132/.research_scann.Incremental"
-  "UpdateConfig.Pubsub2H\000\022\021\n\007sharder\030\006 \001(\t:"
-  "\000\022<\n\031startup_catchup_threshold\030\007 \001(\0132\031.g"
-  "oogle.protobuf.Duration\0227\n\'num_updates_b"
-  "etween_garbage_collections\030\010 \001(\r:\006100000"
-  "\032D\n\nReindexing\0226\n\'enable_manual_retraini"
-  "ng_and_reindexing\030\001 \001(\010:\005false\032\362\001\n\007Pubsu"
-  "b2\022\r\n\005topic\030\001 \001(\t\022\032\n\022subscriber_id_base\030"
-  "\002 \001(\t\022\031\n\021publisher_id_base\030\003 \001(\t\022\037\n\021seek"
-  "_back_enabled\030\004 \001(\010:\004true\022!\n\023publish_rpc"
-  "_updates\030\005 \001(\010:\004true\022\016\n\006filter\030\006 \001(\t\022\"\n\023"
-  "use_mod_term_filter\030\007 \001(\010:\005false\022)\n\031mod_"
-  "term_filter_signature\030\010 \001(\t:\006fprintB\027\n\025D"
-  "urabilityReplication\"\223\001\n\031IncrementalUpda"
-  "teMetadata\0223\n\017epoch_timestamp\030\001 \001(\0132\032.go"
-  "ogle.protobuf.Timestamp\0220\n\rmax_epoch_age"
-  "\030\003 \001(\0132\031.google.protobuf.Duration\022\017\n\007ver"
-  "sion\030\002 \001(\t"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_deps[2] = {
-  &::descriptor_table_google_2fprotobuf_2fduration_2eproto,
-  &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto = {
-  false, false, 1090, descriptor_table_protodef_scann_2fproto_2fincremental_5fupdates_2eproto, "scann/proto/incremental_updates.proto", 
-  &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once, descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_deps, 2, 4,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fincremental_5fupdates_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto, file_level_enum_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto, file_level_service_descriptors_scann_2fproto_2fincremental_5fupdates_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fincremental_5fupdates_2eproto(&descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fincremental_5fupdates_2eproto(&descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class IncrementalUpdateConfig_Reindexing::_Internal {
  public:
-  using HasBits = decltype(std::declval<IncrementalUpdateConfig_Reindexing>()._has_bits_);
+  using HasBits = decltype(std::declval<IncrementalUpdateConfig_Reindexing>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Reindexing, _impl_._has_bits_);
   static void set_has_enable_manual_retraining_and_reindexing(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-IncrementalUpdateConfig_Reindexing::IncrementalUpdateConfig_Reindexing(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+IncrementalUpdateConfig_Reindexing::IncrementalUpdateConfig_Reindexing(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.IncrementalUpdateConfig.Reindexing)
 }
-IncrementalUpdateConfig_Reindexing::IncrementalUpdateConfig_Reindexing(const IncrementalUpdateConfig_Reindexing& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  enable_manual_retraining_and_reindexing_ = from.enable_manual_retraining_and_reindexing_;
-  // @@protoc_insertion_point(copy_constructor:research_scann.IncrementalUpdateConfig.Reindexing)
+IncrementalUpdateConfig_Reindexing::IncrementalUpdateConfig_Reindexing(
+    ::google::protobuf::Arena* arena, const IncrementalUpdateConfig_Reindexing& from)
+    : IncrementalUpdateConfig_Reindexing(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateConfig_Reindexing::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void IncrementalUpdateConfig_Reindexing::SharedCtor() {
-enable_manual_retraining_and_reindexing_ = false;
+inline void IncrementalUpdateConfig_Reindexing::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.enable_manual_retraining_and_reindexing_ = {};
 }
-
 IncrementalUpdateConfig_Reindexing::~IncrementalUpdateConfig_Reindexing() {
   // @@protoc_insertion_point(destructor:research_scann.IncrementalUpdateConfig.Reindexing)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void IncrementalUpdateConfig_Reindexing::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void IncrementalUpdateConfig_Reindexing::ArenaDtor(void* object) {
-  IncrementalUpdateConfig_Reindexing* _this = reinterpret_cast< IncrementalUpdateConfig_Reindexing* >(object);
-  (void)_this;
-}
-void IncrementalUpdateConfig_Reindexing::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void IncrementalUpdateConfig_Reindexing::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void IncrementalUpdateConfig_Reindexing::Clear() {
+PROTOBUF_NOINLINE void IncrementalUpdateConfig_Reindexing::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.IncrementalUpdateConfig.Reindexing)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  enable_manual_retraining_and_reindexing_ = false;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.enable_manual_retraining_and_reindexing_ = false;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* IncrementalUpdateConfig_Reindexing::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool enable_manual_retraining_and_reindexing = 1 [default = false];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_enable_manual_retraining_and_reindexing(&has_bits);
-          enable_manual_retraining_and_reindexing_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* IncrementalUpdateConfig_Reindexing::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* IncrementalUpdateConfig_Reindexing::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateConfig.Reindexing)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> IncrementalUpdateConfig_Reindexing::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Reindexing, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_IncrementalUpdateConfig_Reindexing_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional bool enable_manual_retraining_and_reindexing = 1 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(IncrementalUpdateConfig_Reindexing, _impl_.enable_manual_retraining_and_reindexing_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Reindexing, _impl_.enable_manual_retraining_and_reindexing_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool enable_manual_retraining_and_reindexing = 1 [default = false];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Reindexing, _impl_.enable_manual_retraining_and_reindexing_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* IncrementalUpdateConfig_Reindexing::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateConfig.Reindexing)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool enable_manual_retraining_and_reindexing = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enable_manual_retraining_and_reindexing(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_enable_manual_retraining_and_reindexing(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.IncrementalUpdateConfig.Reindexing)
   return target;
 }
 
-size_t IncrementalUpdateConfig_Reindexing::ByteSizeLong() const {
+::size_t IncrementalUpdateConfig_Reindexing::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.IncrementalUpdateConfig.Reindexing)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional bool enable_manual_retraining_and_reindexing = 1 [default = false];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData IncrementalUpdateConfig_Reindexing::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    IncrementalUpdateConfig_Reindexing::MergeImpl
+const ::google::protobuf::Message::ClassData IncrementalUpdateConfig_Reindexing::_class_data_ = {
+    IncrementalUpdateConfig_Reindexing::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*IncrementalUpdateConfig_Reindexing::GetClassData() const { return &_class_data_; }
-
-void IncrementalUpdateConfig_Reindexing::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<IncrementalUpdateConfig_Reindexing *>(to)->MergeFrom(
-      static_cast<const IncrementalUpdateConfig_Reindexing &>(from));
+const ::google::protobuf::Message::ClassData* IncrementalUpdateConfig_Reindexing::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void IncrementalUpdateConfig_Reindexing::MergeFrom(const IncrementalUpdateConfig_Reindexing& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateConfig.Reindexing)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void IncrementalUpdateConfig_Reindexing::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<IncrementalUpdateConfig_Reindexing*>(&to_msg);
+  auto& from = static_cast<const IncrementalUpdateConfig_Reindexing&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateConfig.Reindexing)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_enable_manual_retraining_and_reindexing()) {
-    _internal_set_enable_manual_retraining_and_reindexing(from._internal_enable_manual_retraining_and_reindexing());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_enable_manual_retraining_and_reindexing(from._internal_enable_manual_retraining_and_reindexing());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void IncrementalUpdateConfig_Reindexing::CopyFrom(const IncrementalUpdateConfig_Reindexing& from) {
@@ -393,28 +460,32 @@ void IncrementalUpdateConfig_Reindexing::CopyFrom(const IncrementalUpdateConfig_
   MergeFrom(from);
 }
 
-bool IncrementalUpdateConfig_Reindexing::IsInitialized() const {
+PROTOBUF_NOINLINE bool IncrementalUpdateConfig_Reindexing::IsInitialized() const {
   return true;
 }
 
-void IncrementalUpdateConfig_Reindexing::InternalSwap(IncrementalUpdateConfig_Reindexing* other) {
+::_pbi::CachedSize* IncrementalUpdateConfig_Reindexing::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void IncrementalUpdateConfig_Reindexing::InternalSwap(IncrementalUpdateConfig_Reindexing* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(enable_manual_retraining_and_reindexing_, other->enable_manual_retraining_and_reindexing_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+        swap(_impl_.enable_manual_retraining_and_reindexing_, other->_impl_.enable_manual_retraining_and_reindexing_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata IncrementalUpdateConfig_Reindexing::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata IncrementalUpdateConfig_Reindexing::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_getter, &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once,
       file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto[0]);
 }
-
 // ===================================================================
 
 class IncrementalUpdateConfig_Pubsub2::_Internal {
  public:
-  using HasBits = decltype(std::declval<IncrementalUpdateConfig_Pubsub2>()._has_bits_);
+  using HasBits = decltype(std::declval<IncrementalUpdateConfig_Pubsub2>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_._has_bits_);
   static void set_has_topic(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -441,432 +512,378 @@ class IncrementalUpdateConfig_Pubsub2::_Internal {
   }
 };
 
-const ::PROTOBUF_NAMESPACE_ID::internal::LazyString IncrementalUpdateConfig_Pubsub2::_i_give_permission_to_break_this_code_default_mod_term_filter_signature_{{{"fprint", 6}}, {nullptr}};
-IncrementalUpdateConfig_Pubsub2::IncrementalUpdateConfig_Pubsub2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+/*static*/ const ::_pbi::LazyString IncrementalUpdateConfig_Pubsub2::Impl_::_i_give_permission_to_break_this_code_default_mod_term_filter_signature_{
+    {{"fprint", 6}},
+    {nullptr},
+};
+IncrementalUpdateConfig_Pubsub2::IncrementalUpdateConfig_Pubsub2(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.IncrementalUpdateConfig.Pubsub2)
 }
-IncrementalUpdateConfig_Pubsub2::IncrementalUpdateConfig_Pubsub2(const IncrementalUpdateConfig_Pubsub2& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  topic_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_topic()) {
-    topic_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_topic(), 
-      GetArenaForAllocation());
-  }
-  subscriber_id_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_subscriber_id_base()) {
-    subscriber_id_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_subscriber_id_base(), 
-      GetArenaForAllocation());
-  }
-  publisher_id_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_publisher_id_base()) {
-    publisher_id_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_publisher_id_base(), 
-      GetArenaForAllocation());
-  }
-  filter_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_filter()) {
-    filter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_filter(), 
-      GetArenaForAllocation());
-  }
-  mod_term_filter_signature_.UnsafeSetDefault(nullptr);
-  if (from._internal_has_mod_term_filter_signature()) {
-    mod_term_filter_signature_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::NonEmptyDefault{}, from._internal_mod_term_filter_signature(), 
-      GetArenaForAllocation());
-  }
-  ::memcpy(&use_mod_term_filter_, &from.use_mod_term_filter_,
-    static_cast<size_t>(reinterpret_cast<char*>(&publish_rpc_updates_) -
-    reinterpret_cast<char*>(&use_mod_term_filter_)) + sizeof(publish_rpc_updates_));
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateConfig_Pubsub2::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        topic_(arena, from.topic_),
+        subscriber_id_base_(arena, from.subscriber_id_base_),
+        publisher_id_base_(arena, from.publisher_id_base_),
+        filter_(arena, from.filter_),
+        mod_term_filter_signature_(arena, from.mod_term_filter_signature_, _i_give_permission_to_break_this_code_default_mod_term_filter_signature_) {}
+
+IncrementalUpdateConfig_Pubsub2::IncrementalUpdateConfig_Pubsub2(
+    ::google::protobuf::Arena* arena,
+    const IncrementalUpdateConfig_Pubsub2& from)
+    : ::google::protobuf::Message(arena) {
+  IncrementalUpdateConfig_Pubsub2* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, use_mod_term_filter_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, use_mod_term_filter_),
+           offsetof(Impl_, publish_rpc_updates_) -
+               offsetof(Impl_, use_mod_term_filter_) +
+               sizeof(Impl_::publish_rpc_updates_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.IncrementalUpdateConfig.Pubsub2)
 }
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateConfig_Pubsub2::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        topic_(arena),
+        subscriber_id_base_(arena),
+        publisher_id_base_(arena),
+        filter_(arena),
+        mod_term_filter_signature_(arena, Impl_::_i_give_permission_to_break_this_code_default_mod_term_filter_signature_),
+        seek_back_enabled_{true},
+        publish_rpc_updates_{true} {}
 
-inline void IncrementalUpdateConfig_Pubsub2::SharedCtor() {
-topic_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-subscriber_id_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-publisher_id_base_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-filter_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-mod_term_filter_signature_.UnsafeSetDefault(nullptr);
-use_mod_term_filter_ = false;
-seek_back_enabled_ = true;
-publish_rpc_updates_ = true;
+inline void IncrementalUpdateConfig_Pubsub2::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.use_mod_term_filter_ = {};
 }
-
 IncrementalUpdateConfig_Pubsub2::~IncrementalUpdateConfig_Pubsub2() {
   // @@protoc_insertion_point(destructor:research_scann.IncrementalUpdateConfig.Pubsub2)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void IncrementalUpdateConfig_Pubsub2::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  topic_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  subscriber_id_base_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  publisher_id_base_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  filter_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  mod_term_filter_signature_.DestroyNoArena(nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.topic_.Destroy();
+  _impl_.subscriber_id_base_.Destroy();
+  _impl_.publisher_id_base_.Destroy();
+  _impl_.filter_.Destroy();
+  _impl_.mod_term_filter_signature_.Destroy();
+  _impl_.~Impl_();
 }
 
-void IncrementalUpdateConfig_Pubsub2::ArenaDtor(void* object) {
-  IncrementalUpdateConfig_Pubsub2* _this = reinterpret_cast< IncrementalUpdateConfig_Pubsub2* >(object);
-  (void)_this;
-}
-void IncrementalUpdateConfig_Pubsub2::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void IncrementalUpdateConfig_Pubsub2::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void IncrementalUpdateConfig_Pubsub2::Clear() {
+PROTOBUF_NOINLINE void IncrementalUpdateConfig_Pubsub2::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.IncrementalUpdateConfig.Pubsub2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      topic_.ClearNonDefaultToEmpty();
+      _impl_.topic_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      subscriber_id_base_.ClearNonDefaultToEmpty();
+      _impl_.subscriber_id_base_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      publisher_id_base_.ClearNonDefaultToEmpty();
+      _impl_.publisher_id_base_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      filter_.ClearNonDefaultToEmpty();
+      _impl_.filter_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      mod_term_filter_signature_.ClearToDefault(::research_scann::IncrementalUpdateConfig_Pubsub2::_i_give_permission_to_break_this_code_default_mod_term_filter_signature_, GetArenaForAllocation());
-       }
+      _impl_.mod_term_filter_signature_.ClearToDefault(::research_scann::IncrementalUpdateConfig_Pubsub2::Impl_::_i_give_permission_to_break_this_code_default_mod_term_filter_signature_, GetArena());
+    }
   }
   if (cached_has_bits & 0x000000e0u) {
-    use_mod_term_filter_ = false;
-    seek_back_enabled_ = true;
-    publish_rpc_updates_ = true;
+    _impl_.use_mod_term_filter_ = false;
+    _impl_.seek_back_enabled_ = true;
+    _impl_.publish_rpc_updates_ = true;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* IncrementalUpdateConfig_Pubsub2::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional string topic = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_topic();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateConfig.Pubsub2.topic");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string subscriber_id_base = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_subscriber_id_base();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateConfig.Pubsub2.subscriber_id_base");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string publisher_id_base = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_publisher_id_base();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateConfig.Pubsub2.publisher_id_base");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool seek_back_enabled = 4 [default = true];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_seek_back_enabled(&has_bits);
-          seek_back_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool publish_rpc_updates = 5 [default = true];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_publish_rpc_updates(&has_bits);
-          publish_rpc_updates_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string filter = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          auto str = _internal_mutable_filter();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateConfig.Pubsub2.filter");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_mod_term_filter = 7 [default = false];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_use_mod_term_filter(&has_bits);
-          use_mod_term_filter_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string mod_term_filter_signature = 8 [default = "fprint"];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
-          auto str = _internal_mutable_mod_term_filter_signature();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateConfig.Pubsub2.mod_term_filter_signature");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* IncrementalUpdateConfig_Pubsub2::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* IncrementalUpdateConfig_Pubsub2::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateConfig.Pubsub2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 8, 0, 134, 2> IncrementalUpdateConfig_Pubsub2::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_._has_bits_),
+    0, // no _extensions_
+    8, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967040,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    8,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_IncrementalUpdateConfig_Pubsub2_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional string mod_term_filter_signature = 8 [default = "fprint"];
+    {::_pbi::TcParser::FastSS1,
+     {66, 4, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.mod_term_filter_signature_)}},
+    // optional string topic = 1;
+    {::_pbi::TcParser::FastSS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.topic_)}},
+    // optional string subscriber_id_base = 2;
+    {::_pbi::TcParser::FastSS1,
+     {18, 1, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.subscriber_id_base_)}},
+    // optional string publisher_id_base = 3;
+    {::_pbi::TcParser::FastSS1,
+     {26, 2, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.publisher_id_base_)}},
+    // optional bool seek_back_enabled = 4 [default = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(IncrementalUpdateConfig_Pubsub2, _impl_.seek_back_enabled_), 6>(),
+     {32, 6, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.seek_back_enabled_)}},
+    // optional bool publish_rpc_updates = 5 [default = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(IncrementalUpdateConfig_Pubsub2, _impl_.publish_rpc_updates_), 7>(),
+     {40, 7, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.publish_rpc_updates_)}},
+    // optional string filter = 6;
+    {::_pbi::TcParser::FastSS1,
+     {50, 3, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.filter_)}},
+    // optional bool use_mod_term_filter = 7 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(IncrementalUpdateConfig_Pubsub2, _impl_.use_mod_term_filter_), 5>(),
+     {56, 5, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.use_mod_term_filter_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional string topic = 1;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.topic_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional string subscriber_id_base = 2;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.subscriber_id_base_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional string publisher_id_base = 3;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.publisher_id_base_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional bool seek_back_enabled = 4 [default = true];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.seek_back_enabled_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool publish_rpc_updates = 5 [default = true];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.publish_rpc_updates_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional string filter = 6;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.filter_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional bool use_mod_term_filter = 7 [default = false];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.use_mod_term_filter_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional string mod_term_filter_signature = 8 [default = "fprint"];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.mod_term_filter_signature_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\56\5\22\21\0\0\6\0\31\0\0\0\0\0\0\0"
+    "research_scann.IncrementalUpdateConfig.Pubsub2"
+    "topic"
+    "subscriber_id_base"
+    "publisher_id_base"
+    "filter"
+    "mod_term_filter_signature"
+  }},
+};
+
+::uint8_t* IncrementalUpdateConfig_Pubsub2::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateConfig.Pubsub2)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string topic = 1;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_topic().data(), static_cast<int>(this->_internal_topic().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateConfig.Pubsub2.topic");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_topic(), target);
+    const std::string& _s = this->_internal_topic();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateConfig.Pubsub2.topic");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // optional string subscriber_id_base = 2;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_subscriber_id_base().data(), static_cast<int>(this->_internal_subscriber_id_base().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateConfig.Pubsub2.subscriber_id_base");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_subscriber_id_base(), target);
+    const std::string& _s = this->_internal_subscriber_id_base();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateConfig.Pubsub2.subscriber_id_base");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional string publisher_id_base = 3;
   if (cached_has_bits & 0x00000004u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_publisher_id_base().data(), static_cast<int>(this->_internal_publisher_id_base().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateConfig.Pubsub2.publisher_id_base");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_publisher_id_base(), target);
+    const std::string& _s = this->_internal_publisher_id_base();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateConfig.Pubsub2.publisher_id_base");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // optional bool seek_back_enabled = 4 [default = true];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_seek_back_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_seek_back_enabled(), target);
   }
 
   // optional bool publish_rpc_updates = 5 [default = true];
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_publish_rpc_updates(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_publish_rpc_updates(), target);
   }
 
   // optional string filter = 6;
   if (cached_has_bits & 0x00000008u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_filter().data(), static_cast<int>(this->_internal_filter().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateConfig.Pubsub2.filter");
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_filter(), target);
+    const std::string& _s = this->_internal_filter();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateConfig.Pubsub2.filter");
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   // optional bool use_mod_term_filter = 7 [default = false];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_use_mod_term_filter(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_use_mod_term_filter(), target);
   }
 
   // optional string mod_term_filter_signature = 8 [default = "fprint"];
   if (cached_has_bits & 0x00000010u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_mod_term_filter_signature().data(), static_cast<int>(this->_internal_mod_term_filter_signature().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateConfig.Pubsub2.mod_term_filter_signature");
-    target = stream->WriteStringMaybeAliased(
-        8, this->_internal_mod_term_filter_signature(), target);
+    const std::string& _s = this->_internal_mod_term_filter_signature();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateConfig.Pubsub2.mod_term_filter_signature");
+    target = stream->WriteStringMaybeAliased(8, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.IncrementalUpdateConfig.Pubsub2)
   return target;
 }
 
-size_t IncrementalUpdateConfig_Pubsub2::ByteSizeLong() const {
+::size_t IncrementalUpdateConfig_Pubsub2::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.IncrementalUpdateConfig.Pubsub2)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string topic = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_topic());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_topic());
     }
 
     // optional string subscriber_id_base = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_subscriber_id_base());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_subscriber_id_base());
     }
 
     // optional string publisher_id_base = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_publisher_id_base());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_publisher_id_base());
     }
 
     // optional string filter = 6;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_filter());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_filter());
     }
 
     // optional string mod_term_filter_signature = 8 [default = "fprint"];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_mod_term_filter_signature());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_mod_term_filter_signature());
     }
 
     // optional bool use_mod_term_filter = 7 [default = false];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool seek_back_enabled = 4 [default = true];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool publish_rpc_updates = 5 [default = true];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData IncrementalUpdateConfig_Pubsub2::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    IncrementalUpdateConfig_Pubsub2::MergeImpl
+const ::google::protobuf::Message::ClassData IncrementalUpdateConfig_Pubsub2::_class_data_ = {
+    IncrementalUpdateConfig_Pubsub2::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*IncrementalUpdateConfig_Pubsub2::GetClassData() const { return &_class_data_; }
-
-void IncrementalUpdateConfig_Pubsub2::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<IncrementalUpdateConfig_Pubsub2 *>(to)->MergeFrom(
-      static_cast<const IncrementalUpdateConfig_Pubsub2 &>(from));
+const ::google::protobuf::Message::ClassData* IncrementalUpdateConfig_Pubsub2::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void IncrementalUpdateConfig_Pubsub2::MergeFrom(const IncrementalUpdateConfig_Pubsub2& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateConfig.Pubsub2)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void IncrementalUpdateConfig_Pubsub2::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<IncrementalUpdateConfig_Pubsub2*>(&to_msg);
+  auto& from = static_cast<const IncrementalUpdateConfig_Pubsub2&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateConfig.Pubsub2)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_topic(from._internal_topic());
+      _this->_internal_set_topic(from._internal_topic());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_subscriber_id_base(from._internal_subscriber_id_base());
+      _this->_internal_set_subscriber_id_base(from._internal_subscriber_id_base());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_publisher_id_base(from._internal_publisher_id_base());
+      _this->_internal_set_publisher_id_base(from._internal_publisher_id_base());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_filter(from._internal_filter());
+      _this->_internal_set_filter(from._internal_filter());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_mod_term_filter_signature(from._internal_mod_term_filter_signature());
+      _this->_internal_set_mod_term_filter_signature(from._internal_mod_term_filter_signature());
     }
     if (cached_has_bits & 0x00000020u) {
-      use_mod_term_filter_ = from.use_mod_term_filter_;
+      _this->_impl_.use_mod_term_filter_ = from._impl_.use_mod_term_filter_;
     }
     if (cached_has_bits & 0x00000040u) {
-      seek_back_enabled_ = from.seek_back_enabled_;
+      _this->_impl_.seek_back_enabled_ = from._impl_.seek_back_enabled_;
     }
     if (cached_has_bits & 0x00000080u) {
-      publish_rpc_updates_ = from.publish_rpc_updates_;
+      _this->_impl_.publish_rpc_updates_ = from._impl_.publish_rpc_updates_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void IncrementalUpdateConfig_Pubsub2::CopyFrom(const IncrementalUpdateConfig_Pubsub2& from) {
@@ -876,62 +893,53 @@ void IncrementalUpdateConfig_Pubsub2::CopyFrom(const IncrementalUpdateConfig_Pub
   MergeFrom(from);
 }
 
-bool IncrementalUpdateConfig_Pubsub2::IsInitialized() const {
+PROTOBUF_NOINLINE bool IncrementalUpdateConfig_Pubsub2::IsInitialized() const {
   return true;
 }
 
-void IncrementalUpdateConfig_Pubsub2::InternalSwap(IncrementalUpdateConfig_Pubsub2* other) {
+::_pbi::CachedSize* IncrementalUpdateConfig_Pubsub2::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void IncrementalUpdateConfig_Pubsub2::InternalSwap(IncrementalUpdateConfig_Pubsub2* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &topic_, GetArenaForAllocation(),
-      &other->topic_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &subscriber_id_base_, GetArenaForAllocation(),
-      &other->subscriber_id_base_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &publisher_id_base_, GetArenaForAllocation(),
-      &other->publisher_id_base_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &filter_, GetArenaForAllocation(),
-      &other->filter_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      nullptr,
-      &mod_term_filter_signature_, GetArenaForAllocation(),
-      &other->mod_term_filter_signature_, other->GetArenaForAllocation()
-  );
-  swap(use_mod_term_filter_, other->use_mod_term_filter_);
-  swap(seek_back_enabled_, other->seek_back_enabled_);
-  swap(publish_rpc_updates_, other->publish_rpc_updates_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.topic_, &other->_impl_.topic_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.subscriber_id_base_, &other->_impl_.subscriber_id_base_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.publisher_id_base_, &other->_impl_.publisher_id_base_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.filter_, &other->_impl_.filter_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.mod_term_filter_signature_, &other->_impl_.mod_term_filter_signature_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.publish_rpc_updates_)
+      + sizeof(IncrementalUpdateConfig_Pubsub2::_impl_.publish_rpc_updates_)
+      - PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig_Pubsub2, _impl_.use_mod_term_filter_)>(
+          reinterpret_cast<char*>(&_impl_.use_mod_term_filter_),
+          reinterpret_cast<char*>(&other->_impl_.use_mod_term_filter_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata IncrementalUpdateConfig_Pubsub2::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata IncrementalUpdateConfig_Pubsub2::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_getter, &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once,
       file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto[1]);
 }
-
 // ===================================================================
 
 class IncrementalUpdateConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<IncrementalUpdateConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<IncrementalUpdateConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::research_scann::IncrementalUpdateConfig, _impl_._oneof_case_);
   static void set_has_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
   static void set_has_num_datapoints_to_reserve(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static const PROTOBUF_NAMESPACE_ID::Duration& last_update_timestamp_lifetime(const IncrementalUpdateConfig* msg);
+  static const ::google::protobuf::Duration& last_update_timestamp_lifetime(const IncrementalUpdateConfig* msg);
   static void set_has_last_update_timestamp_lifetime(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -946,7 +954,7 @@ class IncrementalUpdateConfig::_Internal {
   static void set_has_sharder(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const PROTOBUF_NAMESPACE_ID::Duration& startup_catchup_threshold(const IncrementalUpdateConfig* msg);
+  static const ::google::protobuf::Duration& startup_catchup_threshold(const IncrementalUpdateConfig* msg);
   static void set_has_startup_catchup_threshold(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -955,138 +963,133 @@ class IncrementalUpdateConfig::_Internal {
   }
 };
 
-const PROTOBUF_NAMESPACE_ID::Duration&
-IncrementalUpdateConfig::_Internal::last_update_timestamp_lifetime(const IncrementalUpdateConfig* msg) {
-  return *msg->last_update_timestamp_lifetime_;
+const ::google::protobuf::Duration& IncrementalUpdateConfig::_Internal::last_update_timestamp_lifetime(const IncrementalUpdateConfig* msg) {
+  return *msg->_impl_.last_update_timestamp_lifetime_;
 }
-const ::research_scann::IncrementalUpdateConfig_Reindexing&
-IncrementalUpdateConfig::_Internal::reindexing(const IncrementalUpdateConfig* msg) {
-  return *msg->reindexing_;
+const ::research_scann::IncrementalUpdateConfig_Reindexing& IncrementalUpdateConfig::_Internal::reindexing(const IncrementalUpdateConfig* msg) {
+  return *msg->_impl_.reindexing_;
 }
-const ::research_scann::IncrementalUpdateConfig_Pubsub2&
-IncrementalUpdateConfig::_Internal::pubsub2(const IncrementalUpdateConfig* msg) {
-  return *msg->DurabilityReplication_.pubsub2_;
+const ::research_scann::IncrementalUpdateConfig_Pubsub2& IncrementalUpdateConfig::_Internal::pubsub2(const IncrementalUpdateConfig* msg) {
+  return *msg->_impl_.DurabilityReplication_.pubsub2_;
 }
-const PROTOBUF_NAMESPACE_ID::Duration&
-IncrementalUpdateConfig::_Internal::startup_catchup_threshold(const IncrementalUpdateConfig* msg) {
-  return *msg->startup_catchup_threshold_;
+const ::google::protobuf::Duration& IncrementalUpdateConfig::_Internal::startup_catchup_threshold(const IncrementalUpdateConfig* msg) {
+  return *msg->_impl_.startup_catchup_threshold_;
 }
 void IncrementalUpdateConfig::clear_last_update_timestamp_lifetime() {
-  if (last_update_timestamp_lifetime_ != nullptr) last_update_timestamp_lifetime_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.last_update_timestamp_lifetime_ != nullptr) _impl_.last_update_timestamp_lifetime_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 void IncrementalUpdateConfig::set_allocated_pubsub2(::research_scann::IncrementalUpdateConfig_Pubsub2* pubsub2) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_DurabilityReplication();
   if (pubsub2) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::IncrementalUpdateConfig_Pubsub2>::GetOwningArena(pubsub2);
+    ::google::protobuf::Arena* submessage_arena = pubsub2->GetArena();
     if (message_arena != submessage_arena) {
-      pubsub2 = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, pubsub2, submessage_arena);
+      pubsub2 = ::google::protobuf::internal::GetOwnedMessage(message_arena, pubsub2, submessage_arena);
     }
     set_has_pubsub2();
-    DurabilityReplication_.pubsub2_ = pubsub2;
+    _impl_.DurabilityReplication_.pubsub2_ = pubsub2;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.IncrementalUpdateConfig.pubsub2)
 }
 void IncrementalUpdateConfig::clear_startup_catchup_threshold() {
-  if (startup_catchup_threshold_ != nullptr) startup_catchup_threshold_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.startup_catchup_threshold_ != nullptr) _impl_.startup_catchup_threshold_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
-IncrementalUpdateConfig::IncrementalUpdateConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+IncrementalUpdateConfig::IncrementalUpdateConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.IncrementalUpdateConfig)
 }
-IncrementalUpdateConfig::IncrementalUpdateConfig(const IncrementalUpdateConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  sharder_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_sharder()) {
-    sharder_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_sharder(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_last_update_timestamp_lifetime()) {
-    last_update_timestamp_lifetime_ = new PROTOBUF_NAMESPACE_ID::Duration(*from.last_update_timestamp_lifetime_);
-  } else {
-    last_update_timestamp_lifetime_ = nullptr;
-  }
-  if (from._internal_has_startup_catchup_threshold()) {
-    startup_catchup_threshold_ = new PROTOBUF_NAMESPACE_ID::Duration(*from.startup_catchup_threshold_);
-  } else {
-    startup_catchup_threshold_ = nullptr;
-  }
-  if (from._internal_has_reindexing()) {
-    reindexing_ = new ::research_scann::IncrementalUpdateConfig_Reindexing(*from.reindexing_);
-  } else {
-    reindexing_ = nullptr;
-  }
-  ::memcpy(&num_datapoints_to_reserve_, &from.num_datapoints_to_reserve_,
-    static_cast<size_t>(reinterpret_cast<char*>(&num_updates_between_garbage_collections_) -
-    reinterpret_cast<char*>(&num_datapoints_to_reserve_)) + sizeof(num_updates_between_garbage_collections_));
-  clear_has_DurabilityReplication();
-  switch (from.DurabilityReplication_case()) {
-    case kPubsub2: {
-      _internal_mutable_pubsub2()->::research_scann::IncrementalUpdateConfig_Pubsub2::MergeFrom(from._internal_pubsub2());
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        sharder_(arena, from.sharder_),
+        DurabilityReplication_{},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+IncrementalUpdateConfig::IncrementalUpdateConfig(
+    ::google::protobuf::Arena* arena,
+    const IncrementalUpdateConfig& from)
+    : ::google::protobuf::Message(arena) {
+  IncrementalUpdateConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.last_update_timestamp_lifetime_ = (cached_has_bits & 0x00000002u)
+                ? CreateMaybeMessage<::google::protobuf::Duration>(arena, *from._impl_.last_update_timestamp_lifetime_)
+                : nullptr;
+  _impl_.startup_catchup_threshold_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::google::protobuf::Duration>(arena, *from._impl_.startup_catchup_threshold_)
+                : nullptr;
+  _impl_.reindexing_ = (cached_has_bits & 0x00000008u)
+                ? CreateMaybeMessage<::research_scann::IncrementalUpdateConfig_Reindexing>(arena, *from._impl_.reindexing_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, num_datapoints_to_reserve_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, num_datapoints_to_reserve_),
+           offsetof(Impl_, num_updates_between_garbage_collections_) -
+               offsetof(Impl_, num_datapoints_to_reserve_) +
+               sizeof(Impl_::num_updates_between_garbage_collections_));
+  switch (DurabilityReplication_case()) {
+    case DURABILITYREPLICATION_NOT_SET:
       break;
-    }
-    case DURABILITYREPLICATION_NOT_SET: {
-      break;
-    }
+      case kPubsub2:
+        _impl_.DurabilityReplication_.pubsub2_ = CreateMaybeMessage<::research_scann::IncrementalUpdateConfig_Pubsub2>(arena, *from._impl_.DurabilityReplication_.pubsub2_);
+        break;
   }
+
   // @@protoc_insertion_point(copy_constructor:research_scann.IncrementalUpdateConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        sharder_(arena),
+        num_updates_between_garbage_collections_{100000u},
+        DurabilityReplication_{},
+        _oneof_case_{} {}
 
-inline void IncrementalUpdateConfig::SharedCtor() {
-sharder_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&last_update_timestamp_lifetime_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_expiration_timestamps_) -
-    reinterpret_cast<char*>(&last_update_timestamp_lifetime_)) + sizeof(enable_expiration_timestamps_));
-num_updates_between_garbage_collections_ = 100000u;
-clear_has_DurabilityReplication();
+inline void IncrementalUpdateConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, last_update_timestamp_lifetime_),
+           0,
+           offsetof(Impl_, enable_expiration_timestamps_) -
+               offsetof(Impl_, last_update_timestamp_lifetime_) +
+               sizeof(Impl_::enable_expiration_timestamps_));
 }
-
 IncrementalUpdateConfig::~IncrementalUpdateConfig() {
   // @@protoc_insertion_point(destructor:research_scann.IncrementalUpdateConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void IncrementalUpdateConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  sharder_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete last_update_timestamp_lifetime_;
-  if (this != internal_default_instance()) delete startup_catchup_threshold_;
-  if (this != internal_default_instance()) delete reindexing_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.sharder_.Destroy();
+  delete _impl_.last_update_timestamp_lifetime_;
+  delete _impl_.startup_catchup_threshold_;
+  delete _impl_.reindexing_;
   if (has_DurabilityReplication()) {
     clear_DurabilityReplication();
   }
-}
-
-void IncrementalUpdateConfig::ArenaDtor(void* object) {
-  IncrementalUpdateConfig* _this = reinterpret_cast< IncrementalUpdateConfig* >(object);
-  (void)_this;
-}
-void IncrementalUpdateConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void IncrementalUpdateConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_.~Impl_();
 }
 
 void IncrementalUpdateConfig::clear_DurabilityReplication() {
 // @@protoc_insertion_point(one_of_clear_start:research_scann.IncrementalUpdateConfig)
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   switch (DurabilityReplication_case()) {
     case kPubsub2: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete DurabilityReplication_.pubsub2_;
+      if (GetArena() == nullptr) {
+        delete _impl_.DurabilityReplication_.pubsub2_;
       }
       break;
     }
@@ -1094,287 +1097,276 @@ void IncrementalUpdateConfig::clear_DurabilityReplication() {
       break;
     }
   }
-  _oneof_case_[0] = DURABILITYREPLICATION_NOT_SET;
+  _impl_._oneof_case_[0] = DURABILITYREPLICATION_NOT_SET;
 }
 
 
-void IncrementalUpdateConfig::Clear() {
+PROTOBUF_NOINLINE void IncrementalUpdateConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.IncrementalUpdateConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      sharder_.ClearNonDefaultToEmpty();
+      _impl_.sharder_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(last_update_timestamp_lifetime_ != nullptr);
-      last_update_timestamp_lifetime_->Clear();
+      ABSL_DCHECK(_impl_.last_update_timestamp_lifetime_ != nullptr);
+      _impl_.last_update_timestamp_lifetime_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(startup_catchup_threshold_ != nullptr);
-      startup_catchup_threshold_->Clear();
+      ABSL_DCHECK(_impl_.startup_catchup_threshold_ != nullptr);
+      _impl_.startup_catchup_threshold_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(reindexing_ != nullptr);
-      reindexing_->Clear();
+      ABSL_DCHECK(_impl_.reindexing_ != nullptr);
+      _impl_.reindexing_->Clear();
     }
   }
   if (cached_has_bits & 0x000000f0u) {
-    ::memset(&num_datapoints_to_reserve_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&enable_expiration_timestamps_) -
-        reinterpret_cast<char*>(&num_datapoints_to_reserve_)) + sizeof(enable_expiration_timestamps_));
-    num_updates_between_garbage_collections_ = 100000u;
+    ::memset(&_impl_.num_datapoints_to_reserve_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.enable_expiration_timestamps_) -
+        reinterpret_cast<char*>(&_impl_.num_datapoints_to_reserve_)) + sizeof(_impl_.enable_expiration_timestamps_));
+    _impl_.num_updates_between_garbage_collections_ = 100000u;
   }
   clear_DurabilityReplication();
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* IncrementalUpdateConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool enabled = 1 [default = false];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_enabled(&has_bits);
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .google.protobuf.Duration last_update_timestamp_lifetime = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_last_update_timestamp_lifetime(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .research_scann.IncrementalUpdateConfig.Pubsub2 pubsub2 = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_pubsub2(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool enable_expiration_timestamps = 4 [default = false];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_enable_expiration_timestamps(&has_bits);
-          enable_expiration_timestamps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional uint64 num_datapoints_to_reserve = 5 [default = 0];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_num_datapoints_to_reserve(&has_bits);
-          num_datapoints_to_reserve_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string sharder = 6 [default = ""];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          auto str = _internal_mutable_sharder();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateConfig.sharder");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .google.protobuf.Duration startup_catchup_threshold = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr = ctx->ParseMessage(_internal_mutable_startup_catchup_threshold(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional uint32 num_updates_between_garbage_collections = 8 [default = 100000];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          _Internal::set_has_num_updates_between_garbage_collections(&has_bits);
-          num_updates_between_garbage_collections_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.IncrementalUpdateConfig.Reindexing reindexing = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
-          ptr = ctx->ParseMessage(_internal_mutable_reindexing(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* IncrementalUpdateConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* IncrementalUpdateConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<4, 9, 4, 62, 2> IncrementalUpdateConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    9, 120,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294966784,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    9,  // num_field_entries
+    4,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_IncrementalUpdateConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional bool enabled = 1 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(IncrementalUpdateConfig, _impl_.enabled_), 5>(),
+     {8, 5, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.enabled_)}},
+    // optional .google.protobuf.Duration last_update_timestamp_lifetime = 2;
+    {::_pbi::TcParser::FastMtS1,
+     {18, 1, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.last_update_timestamp_lifetime_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional bool enable_expiration_timestamps = 4 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(IncrementalUpdateConfig, _impl_.enable_expiration_timestamps_), 6>(),
+     {32, 6, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.enable_expiration_timestamps_)}},
+    // optional uint64 num_datapoints_to_reserve = 5 [default = 0];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(IncrementalUpdateConfig, _impl_.num_datapoints_to_reserve_), 4>(),
+     {40, 4, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.num_datapoints_to_reserve_)}},
+    // optional string sharder = 6 [default = ""];
+    {::_pbi::TcParser::FastSS1,
+     {50, 0, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.sharder_)}},
+    // optional .google.protobuf.Duration startup_catchup_threshold = 7;
+    {::_pbi::TcParser::FastMtS1,
+     {58, 2, 2, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.startup_catchup_threshold_)}},
+    // optional uint32 num_updates_between_garbage_collections = 8 [default = 100000];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(IncrementalUpdateConfig, _impl_.num_updates_between_garbage_collections_), 7>(),
+     {64, 7, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.num_updates_between_garbage_collections_)}},
+    // optional .research_scann.IncrementalUpdateConfig.Reindexing reindexing = 9;
+    {::_pbi::TcParser::FastMtS1,
+     {74, 3, 3, PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.reindexing_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool enabled = 1 [default = false];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.enabled_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional .google.protobuf.Duration last_update_timestamp_lifetime = 2;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.last_update_timestamp_lifetime_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .research_scann.IncrementalUpdateConfig.Pubsub2 pubsub2 = 3;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.DurabilityReplication_.pubsub2_), _Internal::kOneofCaseOffset + 0, 1,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional bool enable_expiration_timestamps = 4 [default = false];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.enable_expiration_timestamps_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional uint64 num_datapoints_to_reserve = 5 [default = 0];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.num_datapoints_to_reserve_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+    // optional string sharder = 6 [default = ""];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.sharder_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional .google.protobuf.Duration startup_catchup_threshold = 7;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.startup_catchup_threshold_), _Internal::kHasBitsOffset + 2, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional uint32 num_updates_between_garbage_collections = 8 [default = 100000];
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.num_updates_between_garbage_collections_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt32)},
+    // optional .research_scann.IncrementalUpdateConfig.Reindexing reindexing = 9;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.reindexing_), _Internal::kHasBitsOffset + 3, 3,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::google::protobuf::Duration>()},
+    {::_pbi::TcParser::GetTable<::research_scann::IncrementalUpdateConfig_Pubsub2>()},
+    {::_pbi::TcParser::GetTable<::google::protobuf::Duration>()},
+    {::_pbi::TcParser::GetTable<::research_scann::IncrementalUpdateConfig_Reindexing>()},
+  }}, {{
+    "\46\0\0\0\0\0\7\0\0\0\0\0\0\0\0\0"
+    "research_scann.IncrementalUpdateConfig"
+    "sharder"
+  }},
+};
+
+::uint8_t* IncrementalUpdateConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool enabled = 1 [default = false];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_enabled(), target);
   }
 
   // optional .google.protobuf.Duration last_update_timestamp_lifetime = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::last_update_timestamp_lifetime(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        2, _Internal::last_update_timestamp_lifetime(this),
+        _Internal::last_update_timestamp_lifetime(this).GetCachedSize(), target, stream);
   }
 
   // .research_scann.IncrementalUpdateConfig.Pubsub2 pubsub2 = 3;
-  if (_internal_has_pubsub2()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::pubsub2(this), target, stream);
+  if (DurabilityReplication_case() == kPubsub2) {
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        3, _Internal::pubsub2(this),
+        _Internal::pubsub2(this).GetCachedSize(), target, stream);
   }
 
   // optional bool enable_expiration_timestamps = 4 [default = false];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_enable_expiration_timestamps(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_enable_expiration_timestamps(), target);
   }
 
   // optional uint64 num_datapoints_to_reserve = 5 [default = 0];
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(5, this->_internal_num_datapoints_to_reserve(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        5, this->_internal_num_datapoints_to_reserve(), target);
   }
 
   // optional string sharder = 6 [default = ""];
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_sharder().data(), static_cast<int>(this->_internal_sharder().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateConfig.sharder");
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_sharder(), target);
+    const std::string& _s = this->_internal_sharder();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateConfig.sharder");
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   // optional .google.protobuf.Duration startup_catchup_threshold = 7;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        7, _Internal::startup_catchup_threshold(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        7, _Internal::startup_catchup_threshold(this),
+        _Internal::startup_catchup_threshold(this).GetCachedSize(), target, stream);
   }
 
   // optional uint32 num_updates_between_garbage_collections = 8 [default = 100000];
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(8, this->_internal_num_updates_between_garbage_collections(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        8, this->_internal_num_updates_between_garbage_collections(), target);
   }
 
   // optional .research_scann.IncrementalUpdateConfig.Reindexing reindexing = 9;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        9, _Internal::reindexing(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        9, _Internal::reindexing(this),
+        _Internal::reindexing(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.IncrementalUpdateConfig)
   return target;
 }
 
-size_t IncrementalUpdateConfig::ByteSizeLong() const {
+::size_t IncrementalUpdateConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.IncrementalUpdateConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string sharder = 6 [default = ""];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_sharder());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_sharder());
     }
 
     // optional .google.protobuf.Duration last_update_timestamp_lifetime = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *last_update_timestamp_lifetime_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.last_update_timestamp_lifetime_);
     }
 
     // optional .google.protobuf.Duration startup_catchup_threshold = 7;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *startup_catchup_threshold_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.startup_catchup_threshold_);
     }
 
     // optional .research_scann.IncrementalUpdateConfig.Reindexing reindexing = 9;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *reindexing_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.reindexing_);
     }
 
     // optional uint64 num_datapoints_to_reserve = 5 [default = 0];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
           this->_internal_num_datapoints_to_reserve());
     }
 
     // optional bool enabled = 1 [default = false];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool enable_expiration_timestamps = 4 [default = false];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional uint32 num_updates_between_garbage_collections = 8 [default = 100000];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
           this->_internal_num_updates_between_garbage_collections());
     }
 
@@ -1382,81 +1374,75 @@ size_t IncrementalUpdateConfig::ByteSizeLong() const {
   switch (DurabilityReplication_case()) {
     // .research_scann.IncrementalUpdateConfig.Pubsub2 pubsub2 = 3;
     case kPubsub2: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *DurabilityReplication_.pubsub2_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.DurabilityReplication_.pubsub2_);
       break;
     }
     case DURABILITYREPLICATION_NOT_SET: {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData IncrementalUpdateConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    IncrementalUpdateConfig::MergeImpl
+const ::google::protobuf::Message::ClassData IncrementalUpdateConfig::_class_data_ = {
+    IncrementalUpdateConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*IncrementalUpdateConfig::GetClassData() const { return &_class_data_; }
-
-void IncrementalUpdateConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<IncrementalUpdateConfig *>(to)->MergeFrom(
-      static_cast<const IncrementalUpdateConfig &>(from));
+const ::google::protobuf::Message::ClassData* IncrementalUpdateConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void IncrementalUpdateConfig::MergeFrom(const IncrementalUpdateConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void IncrementalUpdateConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<IncrementalUpdateConfig*>(&to_msg);
+  auto& from = static_cast<const IncrementalUpdateConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_sharder(from._internal_sharder());
+      _this->_internal_set_sharder(from._internal_sharder());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_last_update_timestamp_lifetime()->PROTOBUF_NAMESPACE_ID::Duration::MergeFrom(from._internal_last_update_timestamp_lifetime());
+      _this->_internal_mutable_last_update_timestamp_lifetime()->::google::protobuf::Duration::MergeFrom(
+          from._internal_last_update_timestamp_lifetime());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_startup_catchup_threshold()->PROTOBUF_NAMESPACE_ID::Duration::MergeFrom(from._internal_startup_catchup_threshold());
+      _this->_internal_mutable_startup_catchup_threshold()->::google::protobuf::Duration::MergeFrom(
+          from._internal_startup_catchup_threshold());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_reindexing()->::research_scann::IncrementalUpdateConfig_Reindexing::MergeFrom(from._internal_reindexing());
+      _this->_internal_mutable_reindexing()->::research_scann::IncrementalUpdateConfig_Reindexing::MergeFrom(
+          from._internal_reindexing());
     }
     if (cached_has_bits & 0x00000010u) {
-      num_datapoints_to_reserve_ = from.num_datapoints_to_reserve_;
+      _this->_impl_.num_datapoints_to_reserve_ = from._impl_.num_datapoints_to_reserve_;
     }
     if (cached_has_bits & 0x00000020u) {
-      enabled_ = from.enabled_;
+      _this->_impl_.enabled_ = from._impl_.enabled_;
     }
     if (cached_has_bits & 0x00000040u) {
-      enable_expiration_timestamps_ = from.enable_expiration_timestamps_;
+      _this->_impl_.enable_expiration_timestamps_ = from._impl_.enable_expiration_timestamps_;
     }
     if (cached_has_bits & 0x00000080u) {
-      num_updates_between_garbage_collections_ = from.num_updates_between_garbage_collections_;
+      _this->_impl_.num_updates_between_garbage_collections_ = from._impl_.num_updates_between_garbage_collections_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   switch (from.DurabilityReplication_case()) {
     case kPubsub2: {
-      _internal_mutable_pubsub2()->::research_scann::IncrementalUpdateConfig_Pubsub2::MergeFrom(from._internal_pubsub2());
+      _this->_internal_mutable_pubsub2()->::research_scann::IncrementalUpdateConfig_Pubsub2::MergeFrom(
+          from._internal_pubsub2());
       break;
     }
     case DURABILITYREPLICATION_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void IncrementalUpdateConfig::CopyFrom(const IncrementalUpdateConfig& from) {
@@ -1466,46 +1452,47 @@ void IncrementalUpdateConfig::CopyFrom(const IncrementalUpdateConfig& from) {
   MergeFrom(from);
 }
 
-bool IncrementalUpdateConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool IncrementalUpdateConfig::IsInitialized() const {
   return true;
 }
 
-void IncrementalUpdateConfig::InternalSwap(IncrementalUpdateConfig* other) {
+::_pbi::CachedSize* IncrementalUpdateConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void IncrementalUpdateConfig::InternalSwap(IncrementalUpdateConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &sharder_, GetArenaForAllocation(),
-      &other->sharder_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, enable_expiration_timestamps_)
-      + sizeof(IncrementalUpdateConfig::enable_expiration_timestamps_)
-      - PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, last_update_timestamp_lifetime_)>(
-          reinterpret_cast<char*>(&last_update_timestamp_lifetime_),
-          reinterpret_cast<char*>(&other->last_update_timestamp_lifetime_));
-  swap(num_updates_between_garbage_collections_, other->num_updates_between_garbage_collections_);
-  swap(DurabilityReplication_, other->DurabilityReplication_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.sharder_, &other->_impl_.sharder_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.num_updates_between_garbage_collections_)
+      + sizeof(IncrementalUpdateConfig::_impl_.num_updates_between_garbage_collections_)
+      - PROTOBUF_FIELD_OFFSET(IncrementalUpdateConfig, _impl_.last_update_timestamp_lifetime_)>(
+          reinterpret_cast<char*>(&_impl_.last_update_timestamp_lifetime_),
+          reinterpret_cast<char*>(&other->_impl_.last_update_timestamp_lifetime_));
+  swap(_impl_.DurabilityReplication_, other->_impl_.DurabilityReplication_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata IncrementalUpdateConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata IncrementalUpdateConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_getter, &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once,
       file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto[2]);
 }
-
 // ===================================================================
 
 class IncrementalUpdateMetadata::_Internal {
  public:
-  using HasBits = decltype(std::declval<IncrementalUpdateMetadata>()._has_bits_);
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& epoch_timestamp(const IncrementalUpdateMetadata* msg);
+  using HasBits = decltype(std::declval<IncrementalUpdateMetadata>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_._has_bits_);
+  static const ::google::protobuf::Timestamp& epoch_timestamp(const IncrementalUpdateMetadata* msg);
   static void set_has_epoch_timestamp(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const PROTOBUF_NAMESPACE_ID::Duration& max_epoch_age(const IncrementalUpdateMetadata* msg);
+  static const ::google::protobuf::Duration& max_epoch_age(const IncrementalUpdateMetadata* msg);
   static void set_has_max_epoch_age(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -1514,279 +1501,262 @@ class IncrementalUpdateMetadata::_Internal {
   }
 };
 
-const PROTOBUF_NAMESPACE_ID::Timestamp&
-IncrementalUpdateMetadata::_Internal::epoch_timestamp(const IncrementalUpdateMetadata* msg) {
-  return *msg->epoch_timestamp_;
+const ::google::protobuf::Timestamp& IncrementalUpdateMetadata::_Internal::epoch_timestamp(const IncrementalUpdateMetadata* msg) {
+  return *msg->_impl_.epoch_timestamp_;
 }
-const PROTOBUF_NAMESPACE_ID::Duration&
-IncrementalUpdateMetadata::_Internal::max_epoch_age(const IncrementalUpdateMetadata* msg) {
-  return *msg->max_epoch_age_;
+const ::google::protobuf::Duration& IncrementalUpdateMetadata::_Internal::max_epoch_age(const IncrementalUpdateMetadata* msg) {
+  return *msg->_impl_.max_epoch_age_;
 }
 void IncrementalUpdateMetadata::clear_epoch_timestamp() {
-  if (epoch_timestamp_ != nullptr) epoch_timestamp_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.epoch_timestamp_ != nullptr) _impl_.epoch_timestamp_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 void IncrementalUpdateMetadata::clear_max_epoch_age() {
-  if (max_epoch_age_ != nullptr) max_epoch_age_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.max_epoch_age_ != nullptr) _impl_.max_epoch_age_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
-IncrementalUpdateMetadata::IncrementalUpdateMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+IncrementalUpdateMetadata::IncrementalUpdateMetadata(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.IncrementalUpdateMetadata)
 }
-IncrementalUpdateMetadata::IncrementalUpdateMetadata(const IncrementalUpdateMetadata& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_version()) {
-    version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_version(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_epoch_timestamp()) {
-    epoch_timestamp_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.epoch_timestamp_);
-  } else {
-    epoch_timestamp_ = nullptr;
-  }
-  if (from._internal_has_max_epoch_age()) {
-    max_epoch_age_ = new PROTOBUF_NAMESPACE_ID::Duration(*from.max_epoch_age_);
-  } else {
-    max_epoch_age_ = nullptr;
-  }
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateMetadata::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        version_(arena, from.version_) {}
+
+IncrementalUpdateMetadata::IncrementalUpdateMetadata(
+    ::google::protobuf::Arena* arena,
+    const IncrementalUpdateMetadata& from)
+    : ::google::protobuf::Message(arena) {
+  IncrementalUpdateMetadata* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.epoch_timestamp_ = (cached_has_bits & 0x00000002u)
+                ? CreateMaybeMessage<::google::protobuf::Timestamp>(arena, *from._impl_.epoch_timestamp_)
+                : nullptr;
+  _impl_.max_epoch_age_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::google::protobuf::Duration>(arena, *from._impl_.max_epoch_age_)
+                : nullptr;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.IncrementalUpdateMetadata)
 }
+inline PROTOBUF_NDEBUG_INLINE IncrementalUpdateMetadata::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        version_(arena) {}
 
-inline void IncrementalUpdateMetadata::SharedCtor() {
-version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&epoch_timestamp_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&max_epoch_age_) -
-    reinterpret_cast<char*>(&epoch_timestamp_)) + sizeof(max_epoch_age_));
+inline void IncrementalUpdateMetadata::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, epoch_timestamp_),
+           0,
+           offsetof(Impl_, max_epoch_age_) -
+               offsetof(Impl_, epoch_timestamp_) +
+               sizeof(Impl_::max_epoch_age_));
 }
-
 IncrementalUpdateMetadata::~IncrementalUpdateMetadata() {
   // @@protoc_insertion_point(destructor:research_scann.IncrementalUpdateMetadata)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void IncrementalUpdateMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete epoch_timestamp_;
-  if (this != internal_default_instance()) delete max_epoch_age_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.version_.Destroy();
+  delete _impl_.epoch_timestamp_;
+  delete _impl_.max_epoch_age_;
+  _impl_.~Impl_();
 }
 
-void IncrementalUpdateMetadata::ArenaDtor(void* object) {
-  IncrementalUpdateMetadata* _this = reinterpret_cast< IncrementalUpdateMetadata* >(object);
-  (void)_this;
-}
-void IncrementalUpdateMetadata::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void IncrementalUpdateMetadata::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void IncrementalUpdateMetadata::Clear() {
+PROTOBUF_NOINLINE void IncrementalUpdateMetadata::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.IncrementalUpdateMetadata)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      version_.ClearNonDefaultToEmpty();
+      _impl_.version_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(epoch_timestamp_ != nullptr);
-      epoch_timestamp_->Clear();
+      ABSL_DCHECK(_impl_.epoch_timestamp_ != nullptr);
+      _impl_.epoch_timestamp_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(max_epoch_age_ != nullptr);
-      max_epoch_age_->Clear();
+      ABSL_DCHECK(_impl_.max_epoch_age_ != nullptr);
+      _impl_.max_epoch_age_->Clear();
     }
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* IncrementalUpdateMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .google.protobuf.Timestamp epoch_timestamp = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_epoch_timestamp(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string version = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_version();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.IncrementalUpdateMetadata.version");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .google.protobuf.Duration max_epoch_age = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_max_epoch_age(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* IncrementalUpdateMetadata::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* IncrementalUpdateMetadata::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateMetadata)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 3, 2, 56, 2> IncrementalUpdateMetadata::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_._has_bits_),
+    0, // no _extensions_
+    3, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_IncrementalUpdateMetadata_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .google.protobuf.Timestamp epoch_timestamp = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 1, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.epoch_timestamp_)}},
+    // optional string version = 2;
+    {::_pbi::TcParser::FastSS1,
+     {18, 0, 0, PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.version_)}},
+    // optional .google.protobuf.Duration max_epoch_age = 3;
+    {::_pbi::TcParser::FastMtS1,
+     {26, 2, 1, PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.max_epoch_age_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional .google.protobuf.Timestamp epoch_timestamp = 1;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.epoch_timestamp_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional string version = 2;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.version_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional .google.protobuf.Duration max_epoch_age = 3;
+    {PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.max_epoch_age_), _Internal::kHasBitsOffset + 2, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::google::protobuf::Timestamp>()},
+    {::_pbi::TcParser::GetTable<::google::protobuf::Duration>()},
+  }}, {{
+    "\50\0\7\0\0\0\0\0"
+    "research_scann.IncrementalUpdateMetadata"
+    "version"
+  }},
+};
+
+::uint8_t* IncrementalUpdateMetadata::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.IncrementalUpdateMetadata)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .google.protobuf.Timestamp epoch_timestamp = 1;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::epoch_timestamp(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        1, _Internal::epoch_timestamp(this),
+        _Internal::epoch_timestamp(this).GetCachedSize(), target, stream);
   }
 
   // optional string version = 2;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_version().data(), static_cast<int>(this->_internal_version().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.IncrementalUpdateMetadata.version");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_version(), target);
+    const std::string& _s = this->_internal_version();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.IncrementalUpdateMetadata.version");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   // optional .google.protobuf.Duration max_epoch_age = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::max_epoch_age(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        3, _Internal::max_epoch_age(this),
+        _Internal::max_epoch_age(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.IncrementalUpdateMetadata)
   return target;
 }
 
-size_t IncrementalUpdateMetadata::ByteSizeLong() const {
+::size_t IncrementalUpdateMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.IncrementalUpdateMetadata)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string version = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_version());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_version());
     }
 
     // optional .google.protobuf.Timestamp epoch_timestamp = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *epoch_timestamp_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.epoch_timestamp_);
     }
 
     // optional .google.protobuf.Duration max_epoch_age = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *max_epoch_age_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.max_epoch_age_);
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData IncrementalUpdateMetadata::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    IncrementalUpdateMetadata::MergeImpl
+const ::google::protobuf::Message::ClassData IncrementalUpdateMetadata::_class_data_ = {
+    IncrementalUpdateMetadata::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*IncrementalUpdateMetadata::GetClassData() const { return &_class_data_; }
-
-void IncrementalUpdateMetadata::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<IncrementalUpdateMetadata *>(to)->MergeFrom(
-      static_cast<const IncrementalUpdateMetadata &>(from));
+const ::google::protobuf::Message::ClassData* IncrementalUpdateMetadata::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void IncrementalUpdateMetadata::MergeFrom(const IncrementalUpdateMetadata& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateMetadata)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void IncrementalUpdateMetadata::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<IncrementalUpdateMetadata*>(&to_msg);
+  auto& from = static_cast<const IncrementalUpdateMetadata&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.IncrementalUpdateMetadata)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_version(from._internal_version());
+      _this->_internal_set_version(from._internal_version());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_epoch_timestamp()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_epoch_timestamp());
+      _this->_internal_mutable_epoch_timestamp()->::google::protobuf::Timestamp::MergeFrom(
+          from._internal_epoch_timestamp());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_max_epoch_age()->PROTOBUF_NAMESPACE_ID::Duration::MergeFrom(from._internal_max_epoch_age());
+      _this->_internal_mutable_max_epoch_age()->::google::protobuf::Duration::MergeFrom(
+          from._internal_max_epoch_age());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void IncrementalUpdateMetadata::CopyFrom(const IncrementalUpdateMetadata& from) {
@@ -1796,49 +1766,38 @@ void IncrementalUpdateMetadata::CopyFrom(const IncrementalUpdateMetadata& from) 
   MergeFrom(from);
 }
 
-bool IncrementalUpdateMetadata::IsInitialized() const {
+PROTOBUF_NOINLINE bool IncrementalUpdateMetadata::IsInitialized() const {
   return true;
 }
 
-void IncrementalUpdateMetadata::InternalSwap(IncrementalUpdateMetadata* other) {
+::_pbi::CachedSize* IncrementalUpdateMetadata::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void IncrementalUpdateMetadata::InternalSwap(IncrementalUpdateMetadata* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &version_, GetArenaForAllocation(),
-      &other->version_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, max_epoch_age_)
-      + sizeof(IncrementalUpdateMetadata::max_epoch_age_)
-      - PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, epoch_timestamp_)>(
-          reinterpret_cast<char*>(&epoch_timestamp_),
-          reinterpret_cast<char*>(&other->epoch_timestamp_));
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.version_, &other->_impl_.version_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.max_epoch_age_)
+      + sizeof(IncrementalUpdateMetadata::_impl_.max_epoch_age_)
+      - PROTOBUF_FIELD_OFFSET(IncrementalUpdateMetadata, _impl_.epoch_timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.epoch_timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.epoch_timestamp_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata IncrementalUpdateMetadata::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata IncrementalUpdateMetadata::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_getter, &descriptor_table_scann_2fproto_2fincremental_5fupdates_2eproto_once,
       file_level_metadata_scann_2fproto_2fincremental_5fupdates_2eproto[3]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::IncrementalUpdateConfig_Reindexing* Arena::CreateMaybeMessage< ::research_scann::IncrementalUpdateConfig_Reindexing >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::IncrementalUpdateConfig_Reindexing >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::IncrementalUpdateConfig_Pubsub2* Arena::CreateMaybeMessage< ::research_scann::IncrementalUpdateConfig_Pubsub2 >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::IncrementalUpdateConfig_Pubsub2 >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::IncrementalUpdateConfig* Arena::CreateMaybeMessage< ::research_scann::IncrementalUpdateConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::IncrementalUpdateConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::IncrementalUpdateMetadata* Arena::CreateMaybeMessage< ::research_scann::IncrementalUpdateMetadata >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::IncrementalUpdateMetadata >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

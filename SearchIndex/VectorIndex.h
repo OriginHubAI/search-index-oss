@@ -200,7 +200,7 @@ protected:
         = 0;
 
     /// @brief Estimate filter ratio for tuning filter search parameter.
-    float estimateFilterRatio(IDS * filter)
+    std::pair<float, bool> estimateFilterRatio(IDS * filter)
     {
         static thread_local std::minstd_rand random_engine{2023};
         size_t num_tests = 0;
@@ -208,7 +208,7 @@ protected:
         size_t num_nonzeros = 0;
         std::uniform_int_distribution<size_t> distribution(
             0, this->numData() - 1);
-
+        bool should_use_brute_force = false;
         for (idx_t i = 0; i < FILTER_SAMPLE_NUM; ++i)
         {
             idx_t pos = distribution(random_engine);
@@ -221,7 +221,11 @@ protected:
             if (num_selected >= 20 && num_nonzeros >= 6)
                 break;
         }
-        return static_cast<float>(num_selected) / num_tests;
+        // use brute force when candidate list is too small
+        if (num_tests >= 2000 && filter->count() <= 500)
+            should_use_brute_force = true;
+
+        return std::make_pair(static_cast<float>(num_selected) / num_tests, should_use_brute_force);
     }
 
     IndexType index_type;

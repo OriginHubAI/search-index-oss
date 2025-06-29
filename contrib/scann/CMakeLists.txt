@@ -3,7 +3,11 @@ project(scann)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-set(MACHINE_FLAGS "-mavx2 -mfma -fsized-deallocation -w")
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "amd64|x86_64")
+    set(MACHINE_FLAGS "-mavx2 -mfma -fsized-deallocation -w")
+else()
+    set(MACHINE_FLAGS "-fsized-deallocation -w")
+endif()
 
 set(COMMON_WARNING_FLAGS "-Wall -Werror -Wnon-virtual-dtor -Wno-sign-compare -Wno-unused-variable -Wno-unused-function -Wno-unused-result")
 
@@ -75,16 +79,20 @@ file(GLOB_RECURSE TSL_SOURCE_FILES
 add_library(scann_s ${SCANN_SOURCE_FILES} ${TSL_SOURCE_FILES})
 
 include_directories(${SCANN_INCLUDE_DIRS})
+list(APPEND SCANN_INCLUDE_DIRS 
+    ${CMAKE_CURRENT_SOURCE_DIR}/contrib
+    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/tensorflow/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/tensorflow/include/src)
 target_include_directories(scann_s PUBLIC ${SCANN_INCLUDE_DIRS})
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/tensorflow/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/contrib/tensorflow/include/src)
 
 # use ClickHouse abseil in MYSCALE_MODE
 if (NOT MYSCALE_MODE)
     set(ABSL_PROPAGATE_CXX_STD ON)
+    include_directories(contrib/abseil-cpp)
     add_subdirectory(contrib/abseil-cpp)
+    set(ABSL_Libs absl::base absl::synchronization absl::strings absl::str_format absl::time absl::status absl::statusor absl::flat_hash_map absl::flat_hash_set absl::random_distributions)
+else()
+    set(ABSL_Libs ch_contrib::abseil_swiss_tables)
 endif()
 
 # nsync
@@ -96,10 +104,14 @@ if (NOT MYSCALE_MODE)
     message(STATUS "scann link to local double-conversion")
     add_subdirectory(contrib/double-conversion)
     target_include_directories(scann_s PUBLIC contrib/double-conversion)
+    target_include_directories(scann_s PUBLIC contrib/abseil-cpp)
+    target_include_directories(scann_s PUBLIC contrib/protobuf)
     set(DoubleConversion_Libs double-conversion)
 else()
-    message(STATUS "sann link to ClickHouse double-conversion")
+    message(STATUS "sann link to ClickHouse double-conversion, abseil-cpp")
     target_include_directories(scann_s PUBLIC ${CMAKE_SOURCE_DIR}/contrib/double-conversion)
+    target_include_directories(scann_s PUBLIC ${CMAKE_SOURCE_DIR}/contrib/abseil-cpp)
+    target_include_directories(scann_s PUBLIC ${CMAKE_SOURCE_DIR}/contrib/google-protobuf/src)
     set(DoubleConversion_Libs _double-conversion)
 endif()
 
@@ -108,7 +120,9 @@ if (NOT MYSCALE_MODE)
     message(STATUS "scann link to local protobuf")
     set(protobuf_BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries")
     set(protobuf_BUILD_TESTS OFF CACHE BOOL "Build tests")
-    add_subdirectory(contrib/protobuf/cmake contrib/protobuf)
+    set(protobuf_INSTALL OFF)
+    set(utf8_range_ENABLE_INSTALL OFF)
+    add_subdirectory(contrib/protobuf)
     set(Protobuf_Libs protobuf::libprotobuf)
 else()
     message(STATUS "scann link to ClickHouse protobuf")
@@ -121,17 +135,8 @@ target_link_libraries(scann_s PUBLIC
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
-target_link_libraries(scann_s PUBLIC
-    absl::core_headers
-    absl::flags
-    absl::base
-    absl::memory
-    absl::flat_hash_set
-    absl::flat_hash_map
-    absl::status
-    absl::time
-    absl::random_random
-    absl::random_distributions
+target_link_libraries(scann_s PRIVATE
+    ${ABSL_Libs}
 )
 
 if (MYSCALE_MODE)
