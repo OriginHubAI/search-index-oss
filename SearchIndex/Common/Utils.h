@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 MOQI SINGAPORE PTE. LTD.
+ * Copyright © 2024 ORIGINHUB SINGAPORE PTE. LTD.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
@@ -25,7 +25,7 @@
 #include <sstream>
 #include <string>
 #include <execinfo.h>
-#include <magic_enum/magic_enum.hpp>
+#include <magic_enum.hpp>
 #include <nlohmann/json.hpp>
 
 #include <SearchIndex/Config.h>
@@ -354,8 +354,8 @@ public:
 #ifdef MYSCALE_MODE
 inline void checkAvailableMemory(size_t size)
 {
-    CurrentMemoryTracker::alloc(size);
-    CurrentMemoryTracker::free(size);
+    (void)CurrentMemoryTracker::alloc(size);
+    (void)CurrentMemoryTracker::free(size);
 }
 #else
 inline void checkAvailableMemory(size_t size) { }
