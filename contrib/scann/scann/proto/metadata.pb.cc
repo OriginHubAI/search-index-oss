@@ -4,215 +4,302 @@
 #include "scann/proto/metadata.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr MetadataConfig::MetadataConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
-struct MetadataConfigDefaultTypeInternal {
-  constexpr MetadataConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MetadataConfigDefaultTypeInternal() {}
-  union {
-    MetadataConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MetadataConfigDefaultTypeInternal _MetadataConfig_default_instance_;
-constexpr SparseIntersectionConfig::SparseIntersectionConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : max_to_return_(4294967295u){}
-struct SparseIntersectionConfigDefaultTypeInternal {
-  constexpr SparseIntersectionConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SparseIntersectionConfigDefaultTypeInternal() {}
-  union {
-    SparseIntersectionConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SparseIntersectionConfigDefaultTypeInternal _SparseIntersectionConfig_default_instance_;
-constexpr SparseIntersectionResult::SparseIntersectionResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : intersecting_dimension_()
-  , value_()
-  , num_intersecting_dimensions_(0u){}
-struct SparseIntersectionResultDefaultTypeInternal {
-  constexpr SparseIntersectionResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SparseIntersectionResultDefaultTypeInternal() {}
-  union {
-    SparseIntersectionResult _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SparseIntersectionResultDefaultTypeInternal _SparseIntersectionResult_default_instance_;
-constexpr UserInfoMetadataConfig::UserInfoMetadataConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : set_user_info_for_query_(false)
-  , set_user_info_for_neighbor_(true){}
+
+inline constexpr UserInfoMetadataConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        set_user_info_for_query_{false},
+        set_user_info_for_neighbor_{true} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR UserInfoMetadataConfig::UserInfoMetadataConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct UserInfoMetadataConfigDefaultTypeInternal {
-  constexpr UserInfoMetadataConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserInfoMetadataConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserInfoMetadataConfigDefaultTypeInternal() {}
   union {
     UserInfoMetadataConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserInfoMetadataConfigDefaultTypeInternal _UserInfoMetadataConfig_default_instance_;
-constexpr ClassLabelMetadataConfig::ClassLabelMetadataConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct ClassLabelMetadataConfigDefaultTypeInternal {
-  constexpr ClassLabelMetadataConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ClassLabelMetadataConfigDefaultTypeInternal() {}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserInfoMetadataConfigDefaultTypeInternal _UserInfoMetadataConfig_default_instance_;
+
+inline constexpr SparseIntersectionResult::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        intersecting_dimension_{},
+        value_{},
+        num_intersecting_dimensions_{0u} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SparseIntersectionResult::SparseIntersectionResult(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct SparseIntersectionResultDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SparseIntersectionResultDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SparseIntersectionResultDefaultTypeInternal() {}
   union {
-    ClassLabelMetadataConfig _instance;
+    SparseIntersectionResult _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ClassLabelMetadataConfigDefaultTypeInternal _ClassLabelMetadataConfig_default_instance_;
-constexpr DatabaseVectorMetadataConfig::DatabaseVectorMetadataConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : return_database_vector_(false){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SparseIntersectionResultDefaultTypeInternal _SparseIntersectionResult_default_instance_;
+
+inline constexpr SparseIntersectionConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        max_to_return_{4294967295u} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SparseIntersectionConfig::SparseIntersectionConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct SparseIntersectionConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SparseIntersectionConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SparseIntersectionConfigDefaultTypeInternal() {}
+  union {
+    SparseIntersectionConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SparseIntersectionConfigDefaultTypeInternal _SparseIntersectionConfig_default_instance_;
+
+inline constexpr DatabaseVectorMetadataConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        return_database_vector_{false} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR DatabaseVectorMetadataConfig::DatabaseVectorMetadataConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct DatabaseVectorMetadataConfigDefaultTypeInternal {
-  constexpr DatabaseVectorMetadataConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DatabaseVectorMetadataConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DatabaseVectorMetadataConfigDefaultTypeInternal() {}
   union {
     DatabaseVectorMetadataConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DatabaseVectorMetadataConfigDefaultTypeInternal _DatabaseVectorMetadataConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DatabaseVectorMetadataConfigDefaultTypeInternal _DatabaseVectorMetadataConfig_default_instance_;
+      template <typename>
+PROTOBUF_CONSTEXPR ClassLabelMetadataConfig::ClassLabelMetadataConfig(::_pbi::ConstantInitialized) {}
+struct ClassLabelMetadataConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ClassLabelMetadataConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ClassLabelMetadataConfigDefaultTypeInternal() {}
+  union {
+    ClassLabelMetadataConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClassLabelMetadataConfigDefaultTypeInternal _ClassLabelMetadataConfig_default_instance_;
+
+inline constexpr MetadataConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : metadata_type_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR MetadataConfig::MetadataConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct MetadataConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MetadataConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MetadataConfigDefaultTypeInternal() {}
+  union {
+    MetadataConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MetadataConfigDefaultTypeInternal _MetadataConfig_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fmetadata_2eproto[6];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fmetadata_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fmetadata_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fmetadata_2eproto[6];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fmetadata_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fmetadata_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fmetadata_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, _impl_._oneof_case_[0]),
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, _impl_.metadata_type_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionConfig, _impl_.max_to_return_),
+    0,
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _impl_.intersecting_dimension_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _impl_.value_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _impl_.num_intersecting_dimensions_),
+    ~0u,
+    ~0u,
+    0,
+    PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, _impl_.set_user_info_for_query_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, _impl_.set_user_info_for_neighbor_),
+    0,
+    1,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::research_scann::ClassLabelMetadataConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::DatabaseVectorMetadataConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::DatabaseVectorMetadataConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::DatabaseVectorMetadataConfig, _impl_.return_database_vector_),
+    0,
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fmetadata_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, _oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, metadata_type_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionConfig, max_to_return_),
-  0,
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, intersecting_dimension_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, value_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SparseIntersectionResult, num_intersecting_dimensions_),
-  ~0u,
-  ~0u,
-  0,
-  PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, set_user_info_for_query_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::UserInfoMetadataConfig, set_user_info_for_neighbor_),
-  0,
-  1,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::research_scann::ClassLabelMetadataConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::DatabaseVectorMetadataConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::DatabaseVectorMetadataConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::DatabaseVectorMetadataConfig, return_database_vector_),
-  0,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::research_scann::MetadataConfig)},
-  { 12, 18, sizeof(::research_scann::SparseIntersectionConfig)},
-  { 19, 27, sizeof(::research_scann::SparseIntersectionResult)},
-  { 30, 37, sizeof(::research_scann::UserInfoMetadataConfig)},
-  { 39, -1, sizeof(::research_scann::ClassLabelMetadataConfig)},
-  { 44, 50, sizeof(::research_scann::DatabaseVectorMetadataConfig)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, -1, -1, sizeof(::research_scann::MetadataConfig)},
+        {15, 24, -1, sizeof(::research_scann::SparseIntersectionConfig)},
+        {25, 36, -1, sizeof(::research_scann::SparseIntersectionResult)},
+        {39, 49, -1, sizeof(::research_scann::UserInfoMetadataConfig)},
+        {51, -1, -1, sizeof(::research_scann::ClassLabelMetadataConfig)},
+        {59, 68, -1, sizeof(::research_scann::DatabaseVectorMetadataConfig)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_MetadataConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SparseIntersectionConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SparseIntersectionResult_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_UserInfoMetadataConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_ClassLabelMetadataConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_DatabaseVectorMetadataConfig_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_MetadataConfig_default_instance_._instance,
+    &::research_scann::_SparseIntersectionConfig_default_instance_._instance,
+    &::research_scann::_SparseIntersectionResult_default_instance_._instance,
+    &::research_scann::_UserInfoMetadataConfig_default_instance_._instance,
+    &::research_scann::_ClassLabelMetadataConfig_default_instance_._instance,
+    &::research_scann::_DatabaseVectorMetadataConfig_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fmetadata_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\032scann/proto/metadata.proto\022\016research_s"
+    "cann\032\"scann/proto/distance_measure.proto"
+    "\"\214\003\n\016MetadataConfig\022G\n\023sparse_intersecti"
+    "on\030\001 \001(\0132(.research_scann.SparseIntersec"
+    "tionConfigH\000\022\?\n\016exact_distance\030\002 \001(\0132%.r"
+    "esearch_scann.DistanceMeasureConfigH\000\022:\n"
+    "\010userinfo\030\003 \001(\0132&.research_scann.UserInf"
+    "oMetadataConfigH\000\022\?\n\013class_label\030\006 \001(\0132("
+    ".research_scann.ClassLabelMetadataConfig"
+    "H\000\022G\n\017database_vector\030\005 \001(\0132,.research_s"
+    "cann.DatabaseVectorMetadataConfigH\000\022\031\n\017c"
+    "ustom_metadata\030\004 \001(\014H\000B\017\n\rmetadata_type\""
+    "=\n\030SparseIntersectionConfig\022!\n\rmax_to_re"
+    "turn\030\001 \001(\r:\n4294967295\"n\n\030SparseIntersec"
+    "tionResult\022\036\n\026intersecting_dimension\030\001 \003"
+    "(\004\022\r\n\005value\030\002 \003(\001\022#\n\033num_intersecting_di"
+    "mensions\030\003 \001(\r\"j\n\026UserInfoMetadataConfig"
+    "\022&\n\027set_user_info_for_query\030\001 \001(\010:\005false"
+    "\022(\n\032set_user_info_for_neighbor\030\002 \001(\010:\004tr"
+    "ue\"\032\n\030ClassLabelMetadataConfig\"E\n\034Databa"
+    "seVectorMetadataConfig\022%\n\026return_databas"
+    "e_vector\030\001 \001(\010:\005false"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fmetadata_2eproto_deps[1] =
+    {
+        &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fmetadata_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fmetadata_2eproto = {
+    false,
+    false,
+    861,
+    descriptor_table_protodef_scann_2fproto_2fmetadata_2eproto,
+    "scann/proto/metadata.proto",
+    &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
+    descriptor_table_scann_2fproto_2fmetadata_2eproto_deps,
+    1,
+    6,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fmetadata_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fmetadata_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fmetadata_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fmetadata_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fmetadata_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\032scann/proto/metadata.proto\022\016research_s"
-  "cann\032\"scann/proto/distance_measure.proto"
-  "\"\214\003\n\016MetadataConfig\022G\n\023sparse_intersecti"
-  "on\030\001 \001(\0132(.research_scann.SparseIntersec"
-  "tionConfigH\000\022\?\n\016exact_distance\030\002 \001(\0132%.r"
-  "esearch_scann.DistanceMeasureConfigH\000\022:\n"
-  "\010userinfo\030\003 \001(\0132&.research_scann.UserInf"
-  "oMetadataConfigH\000\022\?\n\013class_label\030\006 \001(\0132("
-  ".research_scann.ClassLabelMetadataConfig"
-  "H\000\022G\n\017database_vector\030\005 \001(\0132,.research_s"
-  "cann.DatabaseVectorMetadataConfigH\000\022\031\n\017c"
-  "ustom_metadata\030\004 \001(\014H\000B\017\n\rmetadata_type\""
-  "=\n\030SparseIntersectionConfig\022!\n\rmax_to_re"
-  "turn\030\001 \001(\r:\n4294967295\"n\n\030SparseIntersec"
-  "tionResult\022\036\n\026intersecting_dimension\030\001 \003"
-  "(\004\022\r\n\005value\030\002 \003(\001\022#\n\033num_intersecting_di"
-  "mensions\030\003 \001(\r\"j\n\026UserInfoMetadataConfig"
-  "\022&\n\027set_user_info_for_query\030\001 \001(\010:\005false"
-  "\022(\n\032set_user_info_for_neighbor\030\002 \001(\010:\004tr"
-  "ue\"\032\n\030ClassLabelMetadataConfig\"E\n\034Databa"
-  "seVectorMetadataConfig\022%\n\026return_databas"
-  "e_vector\030\001 \001(\010:\005false"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fmetadata_2eproto_deps[1] = {
-  &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fmetadata_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fmetadata_2eproto = {
-  false, false, 861, descriptor_table_protodef_scann_2fproto_2fmetadata_2eproto, "scann/proto/metadata.proto", 
-  &descriptor_table_scann_2fproto_2fmetadata_2eproto_once, descriptor_table_scann_2fproto_2fmetadata_2eproto_deps, 1, 6,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fmetadata_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fmetadata_2eproto, file_level_enum_descriptors_scann_2fproto_2fmetadata_2eproto, file_level_service_descriptors_scann_2fproto_2fmetadata_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fmetadata_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fmetadata_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fmetadata_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fmetadata_2eproto(&descriptor_table_scann_2fproto_2fmetadata_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fmetadata_2eproto(&descriptor_table_scann_2fproto_2fmetadata_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class MetadataConfig::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::research_scann::MetadataConfig, _impl_._oneof_case_);
   static const ::research_scann::SparseIntersectionConfig& sparse_intersection(const MetadataConfig* msg);
   static const ::research_scann::DistanceMeasureConfig& exact_distance(const MetadataConfig* msg);
   static const ::research_scann::UserInfoMetadataConfig& userinfo(const MetadataConfig* msg);
@@ -220,481 +307,433 @@ class MetadataConfig::_Internal {
   static const ::research_scann::DatabaseVectorMetadataConfig& database_vector(const MetadataConfig* msg);
 };
 
-const ::research_scann::SparseIntersectionConfig&
-MetadataConfig::_Internal::sparse_intersection(const MetadataConfig* msg) {
-  return *msg->metadata_type_.sparse_intersection_;
+const ::research_scann::SparseIntersectionConfig& MetadataConfig::_Internal::sparse_intersection(const MetadataConfig* msg) {
+  return *msg->_impl_.metadata_type_.sparse_intersection_;
 }
-const ::research_scann::DistanceMeasureConfig&
-MetadataConfig::_Internal::exact_distance(const MetadataConfig* msg) {
-  return *msg->metadata_type_.exact_distance_;
+const ::research_scann::DistanceMeasureConfig& MetadataConfig::_Internal::exact_distance(const MetadataConfig* msg) {
+  return *msg->_impl_.metadata_type_.exact_distance_;
 }
-const ::research_scann::UserInfoMetadataConfig&
-MetadataConfig::_Internal::userinfo(const MetadataConfig* msg) {
-  return *msg->metadata_type_.userinfo_;
+const ::research_scann::UserInfoMetadataConfig& MetadataConfig::_Internal::userinfo(const MetadataConfig* msg) {
+  return *msg->_impl_.metadata_type_.userinfo_;
 }
-const ::research_scann::ClassLabelMetadataConfig&
-MetadataConfig::_Internal::class_label(const MetadataConfig* msg) {
-  return *msg->metadata_type_.class_label_;
+const ::research_scann::ClassLabelMetadataConfig& MetadataConfig::_Internal::class_label(const MetadataConfig* msg) {
+  return *msg->_impl_.metadata_type_.class_label_;
 }
-const ::research_scann::DatabaseVectorMetadataConfig&
-MetadataConfig::_Internal::database_vector(const MetadataConfig* msg) {
-  return *msg->metadata_type_.database_vector_;
+const ::research_scann::DatabaseVectorMetadataConfig& MetadataConfig::_Internal::database_vector(const MetadataConfig* msg) {
+  return *msg->_impl_.metadata_type_.database_vector_;
 }
 void MetadataConfig::set_allocated_sparse_intersection(::research_scann::SparseIntersectionConfig* sparse_intersection) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_metadata_type();
   if (sparse_intersection) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::SparseIntersectionConfig>::GetOwningArena(sparse_intersection);
+    ::google::protobuf::Arena* submessage_arena = sparse_intersection->GetArena();
     if (message_arena != submessage_arena) {
-      sparse_intersection = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, sparse_intersection, submessage_arena);
+      sparse_intersection = ::google::protobuf::internal::GetOwnedMessage(message_arena, sparse_intersection, submessage_arena);
     }
     set_has_sparse_intersection();
-    metadata_type_.sparse_intersection_ = sparse_intersection;
+    _impl_.metadata_type_.sparse_intersection_ = sparse_intersection;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.MetadataConfig.sparse_intersection)
 }
 void MetadataConfig::set_allocated_exact_distance(::research_scann::DistanceMeasureConfig* exact_distance) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_metadata_type();
   if (exact_distance) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(exact_distance));
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(exact_distance)->GetArena();
     if (message_arena != submessage_arena) {
-      exact_distance = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, exact_distance, submessage_arena);
+      exact_distance = ::google::protobuf::internal::GetOwnedMessage(message_arena, exact_distance, submessage_arena);
     }
     set_has_exact_distance();
-    metadata_type_.exact_distance_ = exact_distance;
+    _impl_.metadata_type_.exact_distance_ = exact_distance;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.MetadataConfig.exact_distance)
 }
 void MetadataConfig::clear_exact_distance() {
-  if (_internal_has_exact_distance()) {
-    if (GetArenaForAllocation() == nullptr) {
-      delete metadata_type_.exact_distance_;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (metadata_type_case() == kExactDistance) {
+    if (GetArena() == nullptr) {
+      delete _impl_.metadata_type_.exact_distance_;
     }
     clear_has_metadata_type();
   }
 }
 void MetadataConfig::set_allocated_userinfo(::research_scann::UserInfoMetadataConfig* userinfo) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_metadata_type();
   if (userinfo) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::UserInfoMetadataConfig>::GetOwningArena(userinfo);
+    ::google::protobuf::Arena* submessage_arena = userinfo->GetArena();
     if (message_arena != submessage_arena) {
-      userinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, userinfo, submessage_arena);
+      userinfo = ::google::protobuf::internal::GetOwnedMessage(message_arena, userinfo, submessage_arena);
     }
     set_has_userinfo();
-    metadata_type_.userinfo_ = userinfo;
+    _impl_.metadata_type_.userinfo_ = userinfo;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.MetadataConfig.userinfo)
 }
 void MetadataConfig::set_allocated_class_label(::research_scann::ClassLabelMetadataConfig* class_label) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_metadata_type();
   if (class_label) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::ClassLabelMetadataConfig>::GetOwningArena(class_label);
+    ::google::protobuf::Arena* submessage_arena = class_label->GetArena();
     if (message_arena != submessage_arena) {
-      class_label = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, class_label, submessage_arena);
+      class_label = ::google::protobuf::internal::GetOwnedMessage(message_arena, class_label, submessage_arena);
     }
     set_has_class_label();
-    metadata_type_.class_label_ = class_label;
+    _impl_.metadata_type_.class_label_ = class_label;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.MetadataConfig.class_label)
 }
 void MetadataConfig::set_allocated_database_vector(::research_scann::DatabaseVectorMetadataConfig* database_vector) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_metadata_type();
   if (database_vector) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::DatabaseVectorMetadataConfig>::GetOwningArena(database_vector);
+    ::google::protobuf::Arena* submessage_arena = database_vector->GetArena();
     if (message_arena != submessage_arena) {
-      database_vector = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, database_vector, submessage_arena);
+      database_vector = ::google::protobuf::internal::GetOwnedMessage(message_arena, database_vector, submessage_arena);
     }
     set_has_database_vector();
-    metadata_type_.database_vector_ = database_vector;
+    _impl_.metadata_type_.database_vector_ = database_vector;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.MetadataConfig.database_vector)
 }
-MetadataConfig::MetadataConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+MetadataConfig::MetadataConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.MetadataConfig)
 }
-MetadataConfig::MetadataConfig(const MetadataConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  clear_has_metadata_type();
-  switch (from.metadata_type_case()) {
-    case kSparseIntersection: {
-      _internal_mutable_sparse_intersection()->::research_scann::SparseIntersectionConfig::MergeFrom(from._internal_sparse_intersection());
+inline PROTOBUF_NDEBUG_INLINE MetadataConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : metadata_type_{},
+        _cached_size_{0},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+MetadataConfig::MetadataConfig(
+    ::google::protobuf::Arena* arena,
+    const MetadataConfig& from)
+    : ::google::protobuf::Message(arena) {
+  MetadataConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  switch (metadata_type_case()) {
+    case METADATA_TYPE_NOT_SET:
       break;
-    }
-    case kExactDistance: {
-      _internal_mutable_exact_distance()->::research_scann::DistanceMeasureConfig::MergeFrom(from._internal_exact_distance());
-      break;
-    }
-    case kUserinfo: {
-      _internal_mutable_userinfo()->::research_scann::UserInfoMetadataConfig::MergeFrom(from._internal_userinfo());
-      break;
-    }
-    case kClassLabel: {
-      _internal_mutable_class_label()->::research_scann::ClassLabelMetadataConfig::MergeFrom(from._internal_class_label());
-      break;
-    }
-    case kDatabaseVector: {
-      _internal_mutable_database_vector()->::research_scann::DatabaseVectorMetadataConfig::MergeFrom(from._internal_database_vector());
-      break;
-    }
-    case kCustomMetadata: {
-      _internal_set_custom_metadata(from._internal_custom_metadata());
-      break;
-    }
-    case METADATA_TYPE_NOT_SET: {
-      break;
-    }
+      case kSparseIntersection:
+        _impl_.metadata_type_.sparse_intersection_ = CreateMaybeMessage<::research_scann::SparseIntersectionConfig>(arena, *from._impl_.metadata_type_.sparse_intersection_);
+        break;
+      case kExactDistance:
+        _impl_.metadata_type_.exact_distance_ = CreateMaybeMessage<::research_scann::DistanceMeasureConfig>(arena, *from._impl_.metadata_type_.exact_distance_);
+        break;
+      case kUserinfo:
+        _impl_.metadata_type_.userinfo_ = CreateMaybeMessage<::research_scann::UserInfoMetadataConfig>(arena, *from._impl_.metadata_type_.userinfo_);
+        break;
+      case kClassLabel:
+        _impl_.metadata_type_.class_label_ = CreateMaybeMessage<::research_scann::ClassLabelMetadataConfig>(arena, *from._impl_.metadata_type_.class_label_);
+        break;
+      case kDatabaseVector:
+        _impl_.metadata_type_.database_vector_ = CreateMaybeMessage<::research_scann::DatabaseVectorMetadataConfig>(arena, *from._impl_.metadata_type_.database_vector_);
+        break;
+      case kCustomMetadata:
+        new (&_impl_.metadata_type_.custom_metadata_) decltype(_impl_.metadata_type_.custom_metadata_){arena, from._impl_.metadata_type_.custom_metadata_};
+        break;
   }
+
   // @@protoc_insertion_point(copy_constructor:research_scann.MetadataConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE MetadataConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : metadata_type_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
 
-inline void MetadataConfig::SharedCtor() {
-clear_has_metadata_type();
+inline void MetadataConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 MetadataConfig::~MetadataConfig() {
   // @@protoc_insertion_point(destructor:research_scann.MetadataConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void MetadataConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
   if (has_metadata_type()) {
     clear_metadata_type();
   }
-}
-
-void MetadataConfig::ArenaDtor(void* object) {
-  MetadataConfig* _this = reinterpret_cast< MetadataConfig* >(object);
-  (void)_this;
-}
-void MetadataConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void MetadataConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_.~Impl_();
 }
 
 void MetadataConfig::clear_metadata_type() {
 // @@protoc_insertion_point(one_of_clear_start:research_scann.MetadataConfig)
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   switch (metadata_type_case()) {
     case kSparseIntersection: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete metadata_type_.sparse_intersection_;
+      if (GetArena() == nullptr) {
+        delete _impl_.metadata_type_.sparse_intersection_;
       }
       break;
     }
     case kExactDistance: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete metadata_type_.exact_distance_;
+      if (GetArena() == nullptr) {
+        delete _impl_.metadata_type_.exact_distance_;
       }
       break;
     }
     case kUserinfo: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete metadata_type_.userinfo_;
+      if (GetArena() == nullptr) {
+        delete _impl_.metadata_type_.userinfo_;
       }
       break;
     }
     case kClassLabel: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete metadata_type_.class_label_;
+      if (GetArena() == nullptr) {
+        delete _impl_.metadata_type_.class_label_;
       }
       break;
     }
     case kDatabaseVector: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete metadata_type_.database_vector_;
+      if (GetArena() == nullptr) {
+        delete _impl_.metadata_type_.database_vector_;
       }
       break;
     }
     case kCustomMetadata: {
-      metadata_type_.custom_metadata_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      _impl_.metadata_type_.custom_metadata_.Destroy();
       break;
     }
     case METADATA_TYPE_NOT_SET: {
       break;
     }
   }
-  _oneof_case_[0] = METADATA_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = METADATA_TYPE_NOT_SET;
 }
 
 
-void MetadataConfig::Clear() {
+PROTOBUF_NOINLINE void MetadataConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.MetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   clear_metadata_type();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* MetadataConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .research_scann.SparseIntersectionConfig sparse_intersection = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_sparse_intersection(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .research_scann.DistanceMeasureConfig exact_distance = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_exact_distance(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .research_scann.UserInfoMetadataConfig userinfo = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_userinfo(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // bytes custom_metadata = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          auto str = _internal_mutable_custom_metadata();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .research_scann.DatabaseVectorMetadataConfig database_vector = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_database_vector(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .research_scann.ClassLabelMetadataConfig class_label = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ctx->ParseMessage(_internal_mutable_class_label(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
+const char* MetadataConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* MetadataConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 6, 5, 0, 2> MetadataConfig::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    6, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967232,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    6,  // num_field_entries
+    5,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_MetadataConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .research_scann.SparseIntersectionConfig sparse_intersection = 1;
+    {PROTOBUF_FIELD_OFFSET(MetadataConfig, _impl_.metadata_type_.sparse_intersection_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .research_scann.DistanceMeasureConfig exact_distance = 2;
+    {PROTOBUF_FIELD_OFFSET(MetadataConfig, _impl_.metadata_type_.exact_distance_), _Internal::kOneofCaseOffset + 0, 1,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .research_scann.UserInfoMetadataConfig userinfo = 3;
+    {PROTOBUF_FIELD_OFFSET(MetadataConfig, _impl_.metadata_type_.userinfo_), _Internal::kOneofCaseOffset + 0, 2,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // bytes custom_metadata = 4;
+    {PROTOBUF_FIELD_OFFSET(MetadataConfig, _impl_.metadata_type_.custom_metadata_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kBytes | ::_fl::kRepAString)},
+    // .research_scann.DatabaseVectorMetadataConfig database_vector = 5;
+    {PROTOBUF_FIELD_OFFSET(MetadataConfig, _impl_.metadata_type_.database_vector_), _Internal::kOneofCaseOffset + 0, 3,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .research_scann.ClassLabelMetadataConfig class_label = 6;
+    {PROTOBUF_FIELD_OFFSET(MetadataConfig, _impl_.metadata_type_.class_label_), _Internal::kOneofCaseOffset + 0, 4,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvDefault)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::SparseIntersectionConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::DistanceMeasureConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::UserInfoMetadataConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::DatabaseVectorMetadataConfig>()},
+    {::_pbi::FieldAuxDefaultMessage{}, &::research_scann::_ClassLabelMetadataConfig_default_instance_},
+  }}, {{
+  }},
+};
+
+::uint8_t* MetadataConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.MetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   switch (metadata_type_case()) {
     case kSparseIntersection: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          1, _Internal::sparse_intersection(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          1, _Internal::sparse_intersection(this),
+          _Internal::sparse_intersection(this).GetCachedSize(), target, stream);
       break;
     }
     case kExactDistance: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          2, _Internal::exact_distance(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          2, _Internal::exact_distance(this),
+          _Internal::exact_distance(this).GetCachedSize(), target, stream);
       break;
     }
     case kUserinfo: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          3, _Internal::userinfo(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          3, _Internal::userinfo(this),
+          _Internal::userinfo(this).GetCachedSize(), target, stream);
       break;
     }
     case kCustomMetadata: {
-      target = stream->WriteBytesMaybeAliased(
-          4, this->_internal_custom_metadata(), target);
+      const std::string& _s = this->_internal_custom_metadata();
+      target = stream->WriteBytesMaybeAliased(4, _s, target);
       break;
     }
     case kDatabaseVector: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          5, _Internal::database_vector(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          5, _Internal::database_vector(this),
+          _Internal::database_vector(this).GetCachedSize(), target, stream);
       break;
     }
     case kClassLabel: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          6, _Internal::class_label(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          6, _Internal::class_label(this),
+          _Internal::class_label(this).GetCachedSize(), target, stream);
       break;
     }
-    default: ;
+    default:
+      break;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.MetadataConfig)
   return target;
 }
 
-size_t MetadataConfig::ByteSizeLong() const {
+::size_t MetadataConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.MetadataConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   switch (metadata_type_case()) {
     // .research_scann.SparseIntersectionConfig sparse_intersection = 1;
     case kSparseIntersection: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_type_.sparse_intersection_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.metadata_type_.sparse_intersection_);
       break;
     }
     // .research_scann.DistanceMeasureConfig exact_distance = 2;
     case kExactDistance: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_type_.exact_distance_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.metadata_type_.exact_distance_);
       break;
     }
     // .research_scann.UserInfoMetadataConfig userinfo = 3;
     case kUserinfo: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_type_.userinfo_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.metadata_type_.userinfo_);
       break;
     }
     // .research_scann.ClassLabelMetadataConfig class_label = 6;
     case kClassLabel: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_type_.class_label_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.metadata_type_.class_label_);
       break;
     }
     // .research_scann.DatabaseVectorMetadataConfig database_vector = 5;
     case kDatabaseVector: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *metadata_type_.database_vector_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.metadata_type_.database_vector_);
       break;
     }
     // bytes custom_metadata = 4;
     case kCustomMetadata: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_custom_metadata());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                      this->_internal_custom_metadata());
       break;
     }
     case METADATA_TYPE_NOT_SET: {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MetadataConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    MetadataConfig::MergeImpl
+const ::google::protobuf::Message::ClassData MetadataConfig::_class_data_ = {
+    MetadataConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MetadataConfig::GetClassData() const { return &_class_data_; }
-
-void MetadataConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<MetadataConfig *>(to)->MergeFrom(
-      static_cast<const MetadataConfig &>(from));
+const ::google::protobuf::Message::ClassData* MetadataConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void MetadataConfig::MergeFrom(const MetadataConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.MetadataConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void MetadataConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<MetadataConfig*>(&to_msg);
+  auto& from = static_cast<const MetadataConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.MetadataConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.metadata_type_case()) {
     case kSparseIntersection: {
-      _internal_mutable_sparse_intersection()->::research_scann::SparseIntersectionConfig::MergeFrom(from._internal_sparse_intersection());
+      _this->_internal_mutable_sparse_intersection()->::research_scann::SparseIntersectionConfig::MergeFrom(
+          from._internal_sparse_intersection());
       break;
     }
     case kExactDistance: {
-      _internal_mutable_exact_distance()->::research_scann::DistanceMeasureConfig::MergeFrom(from._internal_exact_distance());
+      _this->_internal_mutable_exact_distance()->::research_scann::DistanceMeasureConfig::MergeFrom(
+          from._internal_exact_distance());
       break;
     }
     case kUserinfo: {
-      _internal_mutable_userinfo()->::research_scann::UserInfoMetadataConfig::MergeFrom(from._internal_userinfo());
+      _this->_internal_mutable_userinfo()->::research_scann::UserInfoMetadataConfig::MergeFrom(
+          from._internal_userinfo());
       break;
     }
     case kClassLabel: {
-      _internal_mutable_class_label()->::research_scann::ClassLabelMetadataConfig::MergeFrom(from._internal_class_label());
+      _this->_internal_mutable_class_label()->::research_scann::ClassLabelMetadataConfig::MergeFrom(
+          from._internal_class_label());
       break;
     }
     case kDatabaseVector: {
-      _internal_mutable_database_vector()->::research_scann::DatabaseVectorMetadataConfig::MergeFrom(from._internal_database_vector());
+      _this->_internal_mutable_database_vector()->::research_scann::DatabaseVectorMetadataConfig::MergeFrom(
+          from._internal_database_vector());
       break;
     }
     case kCustomMetadata: {
-      _internal_set_custom_metadata(from._internal_custom_metadata());
+      _this->_internal_set_custom_metadata(from._internal_custom_metadata());
       break;
     }
     case METADATA_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MetadataConfig::CopyFrom(const MetadataConfig& from) {
@@ -704,194 +743,177 @@ void MetadataConfig::CopyFrom(const MetadataConfig& from) {
   MergeFrom(from);
 }
 
-bool MetadataConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool MetadataConfig::IsInitialized() const {
   return true;
 }
 
-void MetadataConfig::InternalSwap(MetadataConfig* other) {
+::_pbi::CachedSize* MetadataConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void MetadataConfig::InternalSwap(MetadataConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(metadata_type_, other->metadata_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.metadata_type_, other->_impl_.metadata_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata MetadataConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata MetadataConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fmetadata_2eproto_getter, &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
       file_level_metadata_scann_2fproto_2fmetadata_2eproto[0]);
 }
-
 // ===================================================================
 
 class SparseIntersectionConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<SparseIntersectionConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<SparseIntersectionConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SparseIntersectionConfig, _impl_._has_bits_);
   static void set_has_max_to_return(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SparseIntersectionConfig::SparseIntersectionConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SparseIntersectionConfig::SparseIntersectionConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SparseIntersectionConfig)
 }
-SparseIntersectionConfig::SparseIntersectionConfig(const SparseIntersectionConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  max_to_return_ = from.max_to_return_;
-  // @@protoc_insertion_point(copy_constructor:research_scann.SparseIntersectionConfig)
+SparseIntersectionConfig::SparseIntersectionConfig(
+    ::google::protobuf::Arena* arena, const SparseIntersectionConfig& from)
+    : SparseIntersectionConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE SparseIntersectionConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        max_to_return_{4294967295u} {}
 
-inline void SparseIntersectionConfig::SharedCtor() {
-max_to_return_ = 4294967295u;
+inline void SparseIntersectionConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 SparseIntersectionConfig::~SparseIntersectionConfig() {
   // @@protoc_insertion_point(destructor:research_scann.SparseIntersectionConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SparseIntersectionConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void SparseIntersectionConfig::ArenaDtor(void* object) {
-  SparseIntersectionConfig* _this = reinterpret_cast< SparseIntersectionConfig* >(object);
-  (void)_this;
-}
-void SparseIntersectionConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SparseIntersectionConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void SparseIntersectionConfig::Clear() {
+PROTOBUF_NOINLINE void SparseIntersectionConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SparseIntersectionConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  max_to_return_ = 4294967295u;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.max_to_return_ = 4294967295u;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SparseIntersectionConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional uint32 max_to_return = 1 [default = 4294967295];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_max_to_return(&has_bits);
-          max_to_return_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* SparseIntersectionConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SparseIntersectionConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SparseIntersectionConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SparseIntersectionConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(SparseIntersectionConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_SparseIntersectionConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional uint32 max_to_return = 1 [default = 4294967295];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(SparseIntersectionConfig, _impl_.max_to_return_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(SparseIntersectionConfig, _impl_.max_to_return_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional uint32 max_to_return = 1 [default = 4294967295];
+    {PROTOBUF_FIELD_OFFSET(SparseIntersectionConfig, _impl_.max_to_return_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* SparseIntersectionConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SparseIntersectionConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 max_to_return = 1 [default = 4294967295];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_max_to_return(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_max_to_return(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SparseIntersectionConfig)
   return target;
 }
 
-size_t SparseIntersectionConfig::ByteSizeLong() const {
+::size_t SparseIntersectionConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SparseIntersectionConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional uint32 max_to_return = 1 [default = 4294967295];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_max_to_return());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SparseIntersectionConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SparseIntersectionConfig::MergeImpl
+const ::google::protobuf::Message::ClassData SparseIntersectionConfig::_class_data_ = {
+    SparseIntersectionConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SparseIntersectionConfig::GetClassData() const { return &_class_data_; }
-
-void SparseIntersectionConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SparseIntersectionConfig *>(to)->MergeFrom(
-      static_cast<const SparseIntersectionConfig &>(from));
+const ::google::protobuf::Message::ClassData* SparseIntersectionConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SparseIntersectionConfig::MergeFrom(const SparseIntersectionConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SparseIntersectionConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SparseIntersectionConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SparseIntersectionConfig*>(&to_msg);
+  auto& from = static_cast<const SparseIntersectionConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SparseIntersectionConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_max_to_return()) {
-    _internal_set_max_to_return(from._internal_max_to_return());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_max_to_return(from._internal_max_to_return());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SparseIntersectionConfig::CopyFrom(const SparseIntersectionConfig& from) {
@@ -901,262 +923,246 @@ void SparseIntersectionConfig::CopyFrom(const SparseIntersectionConfig& from) {
   MergeFrom(from);
 }
 
-bool SparseIntersectionConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool SparseIntersectionConfig::IsInitialized() const {
   return true;
 }
 
-void SparseIntersectionConfig::InternalSwap(SparseIntersectionConfig* other) {
+::_pbi::CachedSize* SparseIntersectionConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SparseIntersectionConfig::InternalSwap(SparseIntersectionConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(max_to_return_, other->max_to_return_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+        swap(_impl_.max_to_return_, other->_impl_.max_to_return_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SparseIntersectionConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SparseIntersectionConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fmetadata_2eproto_getter, &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
       file_level_metadata_scann_2fproto_2fmetadata_2eproto[1]);
 }
-
 // ===================================================================
 
 class SparseIntersectionResult::_Internal {
  public:
-  using HasBits = decltype(std::declval<SparseIntersectionResult>()._has_bits_);
+  using HasBits = decltype(std::declval<SparseIntersectionResult>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_._has_bits_);
   static void set_has_num_intersecting_dimensions(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SparseIntersectionResult::SparseIntersectionResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  intersecting_dimension_(arena),
-  value_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SparseIntersectionResult::SparseIntersectionResult(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SparseIntersectionResult)
 }
-SparseIntersectionResult::SparseIntersectionResult(const SparseIntersectionResult& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      intersecting_dimension_(from.intersecting_dimension_),
-      value_(from.value_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  num_intersecting_dimensions_ = from.num_intersecting_dimensions_;
+inline PROTOBUF_NDEBUG_INLINE SparseIntersectionResult::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        intersecting_dimension_{visibility, arena, from.intersecting_dimension_},
+        value_{visibility, arena, from.value_} {}
+
+SparseIntersectionResult::SparseIntersectionResult(
+    ::google::protobuf::Arena* arena,
+    const SparseIntersectionResult& from)
+    : ::google::protobuf::Message(arena) {
+  SparseIntersectionResult* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  _impl_.num_intersecting_dimensions_ = from._impl_.num_intersecting_dimensions_;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.SparseIntersectionResult)
 }
+inline PROTOBUF_NDEBUG_INLINE SparseIntersectionResult::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        intersecting_dimension_{visibility, arena},
+        value_{visibility, arena} {}
 
-inline void SparseIntersectionResult::SharedCtor() {
-num_intersecting_dimensions_ = 0u;
+inline void SparseIntersectionResult::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.num_intersecting_dimensions_ = {};
 }
-
 SparseIntersectionResult::~SparseIntersectionResult() {
   // @@protoc_insertion_point(destructor:research_scann.SparseIntersectionResult)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SparseIntersectionResult::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void SparseIntersectionResult::ArenaDtor(void* object) {
-  SparseIntersectionResult* _this = reinterpret_cast< SparseIntersectionResult* >(object);
-  (void)_this;
-}
-void SparseIntersectionResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SparseIntersectionResult::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void SparseIntersectionResult::Clear() {
+PROTOBUF_NOINLINE void SparseIntersectionResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SparseIntersectionResult)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  intersecting_dimension_.Clear();
-  value_.Clear();
-  num_intersecting_dimensions_ = 0u;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.intersecting_dimension_.Clear();
+  _impl_.value_.Clear();
+  _impl_.num_intersecting_dimensions_ = 0u;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SparseIntersectionResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated uint64 intersecting_dimension = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            _internal_add_intersecting_dimension(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<8>(ptr));
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_intersecting_dimension(), ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated double value = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            _internal_add_value(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
-            ptr += sizeof(double);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<17>(ptr));
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_value(), ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional uint32 num_intersecting_dimensions = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_num_intersecting_dimensions(&has_bits);
-          num_intersecting_dimensions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* SparseIntersectionResult::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SparseIntersectionResult::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 3, 0, 0, 2> SparseIntersectionResult::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_._has_bits_),
+    0, // no _extensions_
+    3, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_SparseIntersectionResult_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // repeated uint64 intersecting_dimension = 1;
+    {::_pbi::TcParser::FastV64R1,
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_.intersecting_dimension_)}},
+    // repeated double value = 2;
+    {::_pbi::TcParser::FastF64R1,
+     {17, 63, 0, PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_.value_)}},
+    // optional uint32 num_intersecting_dimensions = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(SparseIntersectionResult, _impl_.num_intersecting_dimensions_), 0>(),
+     {24, 0, 0, PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_.num_intersecting_dimensions_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated uint64 intersecting_dimension = 1;
+    {PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_.intersecting_dimension_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kUInt64)},
+    // repeated double value = 2;
+    {PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_.value_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kDouble)},
+    // optional uint32 num_intersecting_dimensions = 3;
+    {PROTOBUF_FIELD_OFFSET(SparseIntersectionResult, _impl_.num_intersecting_dimensions_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* SparseIntersectionResult::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.SparseIntersectionResult)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   // repeated uint64 intersecting_dimension = 1;
-  for (int i = 0, n = this->_internal_intersecting_dimension_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_intersecting_dimension_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_intersecting_dimension(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_intersecting_dimension().Get(i), target);
   }
 
   // repeated double value = 2;
-  for (int i = 0, n = this->_internal_value_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_value_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_value(i), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        2, this->_internal_value().Get(i), target);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 num_intersecting_dimensions = 3;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_num_intersecting_dimensions(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        3, this->_internal_num_intersecting_dimensions(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SparseIntersectionResult)
   return target;
 }
 
-size_t SparseIntersectionResult::ByteSizeLong() const {
+::size_t SparseIntersectionResult::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SparseIntersectionResult)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated uint64 intersecting_dimension = 1;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt64Size(this->intersecting_dimension_);
-    total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_intersecting_dimension_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::UInt64Size(
+        this->_internal_intersecting_dimension())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_intersecting_dimension_size());
+    ;
+    total_size += tag_size + data_size;
   }
-
   // repeated double value = 2;
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_value_size());
-    size_t data_size = 8UL * count;
-    total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_value_size());
-    total_size += data_size;
+    std::size_t data_size = std::size_t{8} *
+        ::_pbi::FromIntSize(this->_internal_value_size())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_value_size());
+    ;
+    total_size += tag_size + data_size;
   }
-
   // optional uint32 num_intersecting_dimensions = 3;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_num_intersecting_dimensions());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SparseIntersectionResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SparseIntersectionResult::MergeImpl
+const ::google::protobuf::Message::ClassData SparseIntersectionResult::_class_data_ = {
+    SparseIntersectionResult::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SparseIntersectionResult::GetClassData() const { return &_class_data_; }
-
-void SparseIntersectionResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SparseIntersectionResult *>(to)->MergeFrom(
-      static_cast<const SparseIntersectionResult &>(from));
+const ::google::protobuf::Message::ClassData* SparseIntersectionResult::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SparseIntersectionResult::MergeFrom(const SparseIntersectionResult& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SparseIntersectionResult)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SparseIntersectionResult::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SparseIntersectionResult*>(&to_msg);
+  auto& from = static_cast<const SparseIntersectionResult&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SparseIntersectionResult)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  intersecting_dimension_.MergeFrom(from.intersecting_dimension_);
-  value_.MergeFrom(from.value_);
-  if (from._internal_has_num_intersecting_dimensions()) {
-    _internal_set_num_intersecting_dimensions(from._internal_num_intersecting_dimensions());
+  _this->_internal_mutable_intersecting_dimension()->MergeFrom(from._internal_intersecting_dimension());
+  _this->_internal_mutable_value()->MergeFrom(from._internal_value());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_num_intersecting_dimensions(from._internal_num_intersecting_dimensions());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SparseIntersectionResult::CopyFrom(const SparseIntersectionResult& from) {
@@ -1166,30 +1172,34 @@ void SparseIntersectionResult::CopyFrom(const SparseIntersectionResult& from) {
   MergeFrom(from);
 }
 
-bool SparseIntersectionResult::IsInitialized() const {
+PROTOBUF_NOINLINE bool SparseIntersectionResult::IsInitialized() const {
   return true;
 }
 
-void SparseIntersectionResult::InternalSwap(SparseIntersectionResult* other) {
+::_pbi::CachedSize* SparseIntersectionResult::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SparseIntersectionResult::InternalSwap(SparseIntersectionResult* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  intersecting_dimension_.InternalSwap(&other->intersecting_dimension_);
-  value_.InternalSwap(&other->value_);
-  swap(num_intersecting_dimensions_, other->num_intersecting_dimensions_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.intersecting_dimension_.InternalSwap(&other->_impl_.intersecting_dimension_);
+  _impl_.value_.InternalSwap(&other->_impl_.value_);
+        swap(_impl_.num_intersecting_dimensions_, other->_impl_.num_intersecting_dimensions_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SparseIntersectionResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SparseIntersectionResult::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fmetadata_2eproto_getter, &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
       file_level_metadata_scann_2fproto_2fmetadata_2eproto[2]);
 }
-
 // ===================================================================
 
 class UserInfoMetadataConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<UserInfoMetadataConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<UserInfoMetadataConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_._has_bits_);
   static void set_has_set_user_info_for_query(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1198,200 +1208,177 @@ class UserInfoMetadataConfig::_Internal {
   }
 };
 
-UserInfoMetadataConfig::UserInfoMetadataConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+UserInfoMetadataConfig::UserInfoMetadataConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.UserInfoMetadataConfig)
 }
-UserInfoMetadataConfig::UserInfoMetadataConfig(const UserInfoMetadataConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&set_user_info_for_query_, &from.set_user_info_for_query_,
-    static_cast<size_t>(reinterpret_cast<char*>(&set_user_info_for_neighbor_) -
-    reinterpret_cast<char*>(&set_user_info_for_query_)) + sizeof(set_user_info_for_neighbor_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.UserInfoMetadataConfig)
+UserInfoMetadataConfig::UserInfoMetadataConfig(
+    ::google::protobuf::Arena* arena, const UserInfoMetadataConfig& from)
+    : UserInfoMetadataConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE UserInfoMetadataConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        set_user_info_for_neighbor_{true} {}
 
-inline void UserInfoMetadataConfig::SharedCtor() {
-set_user_info_for_query_ = false;
-set_user_info_for_neighbor_ = true;
+inline void UserInfoMetadataConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.set_user_info_for_query_ = {};
 }
-
 UserInfoMetadataConfig::~UserInfoMetadataConfig() {
   // @@protoc_insertion_point(destructor:research_scann.UserInfoMetadataConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void UserInfoMetadataConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void UserInfoMetadataConfig::ArenaDtor(void* object) {
-  UserInfoMetadataConfig* _this = reinterpret_cast< UserInfoMetadataConfig* >(object);
-  (void)_this;
-}
-void UserInfoMetadataConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void UserInfoMetadataConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void UserInfoMetadataConfig::Clear() {
+PROTOBUF_NOINLINE void UserInfoMetadataConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.UserInfoMetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    set_user_info_for_query_ = false;
-    set_user_info_for_neighbor_ = true;
+    _impl_.set_user_info_for_query_ = false;
+    _impl_.set_user_info_for_neighbor_ = true;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* UserInfoMetadataConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool set_user_info_for_query = 1 [default = false];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_set_user_info_for_query(&has_bits);
-          set_user_info_for_query_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool set_user_info_for_neighbor = 2 [default = true];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_set_user_info_for_neighbor(&has_bits);
-          set_user_info_for_neighbor_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* UserInfoMetadataConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* UserInfoMetadataConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.UserInfoMetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> UserInfoMetadataConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_UserInfoMetadataConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional bool set_user_info_for_neighbor = 2 [default = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(UserInfoMetadataConfig, _impl_.set_user_info_for_neighbor_), 1>(),
+     {16, 1, 0, PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_.set_user_info_for_neighbor_)}},
+    // optional bool set_user_info_for_query = 1 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(UserInfoMetadataConfig, _impl_.set_user_info_for_query_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_.set_user_info_for_query_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool set_user_info_for_query = 1 [default = false];
+    {PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_.set_user_info_for_query_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool set_user_info_for_neighbor = 2 [default = true];
+    {PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_.set_user_info_for_neighbor_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* UserInfoMetadataConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.UserInfoMetadataConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool set_user_info_for_query = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_set_user_info_for_query(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_set_user_info_for_query(), target);
   }
 
   // optional bool set_user_info_for_neighbor = 2 [default = true];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_set_user_info_for_neighbor(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_set_user_info_for_neighbor(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.UserInfoMetadataConfig)
   return target;
 }
 
-size_t UserInfoMetadataConfig::ByteSizeLong() const {
+::size_t UserInfoMetadataConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.UserInfoMetadataConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bool set_user_info_for_query = 1 [default = false];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool set_user_info_for_neighbor = 2 [default = true];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UserInfoMetadataConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    UserInfoMetadataConfig::MergeImpl
+const ::google::protobuf::Message::ClassData UserInfoMetadataConfig::_class_data_ = {
+    UserInfoMetadataConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UserInfoMetadataConfig::GetClassData() const { return &_class_data_; }
-
-void UserInfoMetadataConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<UserInfoMetadataConfig *>(to)->MergeFrom(
-      static_cast<const UserInfoMetadataConfig &>(from));
+const ::google::protobuf::Message::ClassData* UserInfoMetadataConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void UserInfoMetadataConfig::MergeFrom(const UserInfoMetadataConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.UserInfoMetadataConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void UserInfoMetadataConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<UserInfoMetadataConfig*>(&to_msg);
+  auto& from = static_cast<const UserInfoMetadataConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.UserInfoMetadataConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      set_user_info_for_query_ = from.set_user_info_for_query_;
+      _this->_impl_.set_user_info_for_query_ = from._impl_.set_user_info_for_query_;
     }
     if (cached_has_bits & 0x00000002u) {
-      set_user_info_for_neighbor_ = from.set_user_info_for_neighbor_;
+      _this->_impl_.set_user_info_for_neighbor_ = from._impl_.set_user_info_for_neighbor_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UserInfoMetadataConfig::CopyFrom(const UserInfoMetadataConfig& from) {
@@ -1401,346 +1388,216 @@ void UserInfoMetadataConfig::CopyFrom(const UserInfoMetadataConfig& from) {
   MergeFrom(from);
 }
 
-bool UserInfoMetadataConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool UserInfoMetadataConfig::IsInitialized() const {
   return true;
 }
 
-void UserInfoMetadataConfig::InternalSwap(UserInfoMetadataConfig* other) {
+::_pbi::CachedSize* UserInfoMetadataConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void UserInfoMetadataConfig::InternalSwap(UserInfoMetadataConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(set_user_info_for_query_, other->set_user_info_for_query_);
-  swap(set_user_info_for_neighbor_, other->set_user_info_for_neighbor_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_.set_user_info_for_neighbor_)
+      + sizeof(UserInfoMetadataConfig::_impl_.set_user_info_for_neighbor_)
+      - PROTOBUF_FIELD_OFFSET(UserInfoMetadataConfig, _impl_.set_user_info_for_query_)>(
+          reinterpret_cast<char*>(&_impl_.set_user_info_for_query_),
+          reinterpret_cast<char*>(&other->_impl_.set_user_info_for_query_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata UserInfoMetadataConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata UserInfoMetadataConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fmetadata_2eproto_getter, &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
       file_level_metadata_scann_2fproto_2fmetadata_2eproto[3]);
 }
-
 // ===================================================================
 
 class ClassLabelMetadataConfig::_Internal {
  public:
 };
 
-ClassLabelMetadataConfig::ClassLabelMetadataConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+ClassLabelMetadataConfig::ClassLabelMetadataConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
   // @@protoc_insertion_point(arena_constructor:research_scann.ClassLabelMetadataConfig)
 }
-ClassLabelMetadataConfig::ClassLabelMetadataConfig(const ClassLabelMetadataConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+ClassLabelMetadataConfig::ClassLabelMetadataConfig(
+    ::google::protobuf::Arena* arena,
+    const ClassLabelMetadataConfig& from)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+  ClassLabelMetadataConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+
   // @@protoc_insertion_point(copy_constructor:research_scann.ClassLabelMetadataConfig)
 }
 
-inline void ClassLabelMetadataConfig::SharedCtor() {
-}
-
-ClassLabelMetadataConfig::~ClassLabelMetadataConfig() {
-  // @@protoc_insertion_point(destructor:research_scann.ClassLabelMetadataConfig)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void ClassLabelMetadataConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void ClassLabelMetadataConfig::ArenaDtor(void* object) {
-  ClassLabelMetadataConfig* _this = reinterpret_cast< ClassLabelMetadataConfig* >(object);
-  (void)_this;
-}
-void ClassLabelMetadataConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void ClassLabelMetadataConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ClassLabelMetadataConfig::Clear() {
-// @@protoc_insertion_point(message_clear_start:research_scann.ClassLabelMetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* ClassLabelMetadataConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* ClassLabelMetadataConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ClassLabelMetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:research_scann.ClassLabelMetadataConfig)
-  return target;
-}
-
-size_t ClassLabelMetadataConfig::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:research_scann.ClassLabelMetadataConfig)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ClassLabelMetadataConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ClassLabelMetadataConfig::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ClassLabelMetadataConfig::GetClassData() const { return &_class_data_; }
-
-void ClassLabelMetadataConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ClassLabelMetadataConfig *>(to)->MergeFrom(
-      static_cast<const ClassLabelMetadataConfig &>(from));
-}
 
 
-void ClassLabelMetadataConfig::MergeFrom(const ClassLabelMetadataConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ClassLabelMetadataConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
 
-void ClassLabelMetadataConfig::CopyFrom(const ClassLabelMetadataConfig& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:research_scann.ClassLabelMetadataConfig)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
 
-bool ClassLabelMetadataConfig::IsInitialized() const {
-  return true;
-}
 
-void ClassLabelMetadataConfig::InternalSwap(ClassLabelMetadataConfig* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-}
 
-::PROTOBUF_NAMESPACE_ID::Metadata ClassLabelMetadataConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+
+::google::protobuf::Metadata ClassLabelMetadataConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fmetadata_2eproto_getter, &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
       file_level_metadata_scann_2fproto_2fmetadata_2eproto[4]);
 }
-
 // ===================================================================
 
 class DatabaseVectorMetadataConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<DatabaseVectorMetadataConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<DatabaseVectorMetadataConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(DatabaseVectorMetadataConfig, _impl_._has_bits_);
   static void set_has_return_database_vector(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-DatabaseVectorMetadataConfig::DatabaseVectorMetadataConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+DatabaseVectorMetadataConfig::DatabaseVectorMetadataConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.DatabaseVectorMetadataConfig)
 }
-DatabaseVectorMetadataConfig::DatabaseVectorMetadataConfig(const DatabaseVectorMetadataConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  return_database_vector_ = from.return_database_vector_;
-  // @@protoc_insertion_point(copy_constructor:research_scann.DatabaseVectorMetadataConfig)
+DatabaseVectorMetadataConfig::DatabaseVectorMetadataConfig(
+    ::google::protobuf::Arena* arena, const DatabaseVectorMetadataConfig& from)
+    : DatabaseVectorMetadataConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE DatabaseVectorMetadataConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void DatabaseVectorMetadataConfig::SharedCtor() {
-return_database_vector_ = false;
+inline void DatabaseVectorMetadataConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.return_database_vector_ = {};
 }
-
 DatabaseVectorMetadataConfig::~DatabaseVectorMetadataConfig() {
   // @@protoc_insertion_point(destructor:research_scann.DatabaseVectorMetadataConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void DatabaseVectorMetadataConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void DatabaseVectorMetadataConfig::ArenaDtor(void* object) {
-  DatabaseVectorMetadataConfig* _this = reinterpret_cast< DatabaseVectorMetadataConfig* >(object);
-  (void)_this;
-}
-void DatabaseVectorMetadataConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void DatabaseVectorMetadataConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void DatabaseVectorMetadataConfig::Clear() {
+PROTOBUF_NOINLINE void DatabaseVectorMetadataConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.DatabaseVectorMetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  return_database_vector_ = false;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.return_database_vector_ = false;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* DatabaseVectorMetadataConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool return_database_vector = 1 [default = false];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_return_database_vector(&has_bits);
-          return_database_vector_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* DatabaseVectorMetadataConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* DatabaseVectorMetadataConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.DatabaseVectorMetadataConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DatabaseVectorMetadataConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(DatabaseVectorMetadataConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_DatabaseVectorMetadataConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional bool return_database_vector = 1 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(DatabaseVectorMetadataConfig, _impl_.return_database_vector_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(DatabaseVectorMetadataConfig, _impl_.return_database_vector_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool return_database_vector = 1 [default = false];
+    {PROTOBUF_FIELD_OFFSET(DatabaseVectorMetadataConfig, _impl_.return_database_vector_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* DatabaseVectorMetadataConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.DatabaseVectorMetadataConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool return_database_vector = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_return_database_vector(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_return_database_vector(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.DatabaseVectorMetadataConfig)
   return target;
 }
 
-size_t DatabaseVectorMetadataConfig::ByteSizeLong() const {
+::size_t DatabaseVectorMetadataConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.DatabaseVectorMetadataConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional bool return_database_vector = 1 [default = false];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 + 1;
+    total_size += 2;
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DatabaseVectorMetadataConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    DatabaseVectorMetadataConfig::MergeImpl
+const ::google::protobuf::Message::ClassData DatabaseVectorMetadataConfig::_class_data_ = {
+    DatabaseVectorMetadataConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DatabaseVectorMetadataConfig::GetClassData() const { return &_class_data_; }
-
-void DatabaseVectorMetadataConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<DatabaseVectorMetadataConfig *>(to)->MergeFrom(
-      static_cast<const DatabaseVectorMetadataConfig &>(from));
+const ::google::protobuf::Message::ClassData* DatabaseVectorMetadataConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void DatabaseVectorMetadataConfig::MergeFrom(const DatabaseVectorMetadataConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.DatabaseVectorMetadataConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void DatabaseVectorMetadataConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<DatabaseVectorMetadataConfig*>(&to_msg);
+  auto& from = static_cast<const DatabaseVectorMetadataConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.DatabaseVectorMetadataConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_return_database_vector()) {
-    _internal_set_return_database_vector(from._internal_return_database_vector());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_return_database_vector(from._internal_return_database_vector());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void DatabaseVectorMetadataConfig::CopyFrom(const DatabaseVectorMetadataConfig& from) {
@@ -1750,45 +1607,30 @@ void DatabaseVectorMetadataConfig::CopyFrom(const DatabaseVectorMetadataConfig& 
   MergeFrom(from);
 }
 
-bool DatabaseVectorMetadataConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool DatabaseVectorMetadataConfig::IsInitialized() const {
   return true;
 }
 
-void DatabaseVectorMetadataConfig::InternalSwap(DatabaseVectorMetadataConfig* other) {
+::_pbi::CachedSize* DatabaseVectorMetadataConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void DatabaseVectorMetadataConfig::InternalSwap(DatabaseVectorMetadataConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(return_database_vector_, other->return_database_vector_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+        swap(_impl_.return_database_vector_, other->_impl_.return_database_vector_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata DatabaseVectorMetadataConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata DatabaseVectorMetadataConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fmetadata_2eproto_getter, &descriptor_table_scann_2fproto_2fmetadata_2eproto_once,
       file_level_metadata_scann_2fproto_2fmetadata_2eproto[5]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::MetadataConfig* Arena::CreateMaybeMessage< ::research_scann::MetadataConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::MetadataConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::SparseIntersectionConfig* Arena::CreateMaybeMessage< ::research_scann::SparseIntersectionConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SparseIntersectionConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::SparseIntersectionResult* Arena::CreateMaybeMessage< ::research_scann::SparseIntersectionResult >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SparseIntersectionResult >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::UserInfoMetadataConfig* Arena::CreateMaybeMessage< ::research_scann::UserInfoMetadataConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::UserInfoMetadataConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::ClassLabelMetadataConfig* Arena::CreateMaybeMessage< ::research_scann::ClassLabelMetadataConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::ClassLabelMetadataConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::DatabaseVectorMetadataConfig* Arena::CreateMaybeMessage< ::research_scann::DatabaseVectorMetadataConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::DatabaseVectorMetadataConfig >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

@@ -4,95 +4,137 @@
 #include "scann/proto/brute_force.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr BruteForceConfig::BruteForceConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : fixed_point_(nullptr)
-  , scalar_quantized_(false)
-  , scalar_quantization_multiplier_quantile_(1)
-  , scalar_quantization_noise_shaping_threshold_(std::numeric_limits<float>::quiet_NaN()){}
+
+inline constexpr BruteForceConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        fixed_point_{nullptr},
+        scalar_quantized_{false},
+        scalar_quantization_multiplier_quantile_{1},
+        scalar_quantization_noise_shaping_threshold_{std::numeric_limits<float>::quiet_NaN()} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR BruteForceConfig::BruteForceConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct BruteForceConfigDefaultTypeInternal {
-  constexpr BruteForceConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BruteForceConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~BruteForceConfigDefaultTypeInternal() {}
   union {
     BruteForceConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BruteForceConfigDefaultTypeInternal _BruteForceConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BruteForceConfigDefaultTypeInternal _BruteForceConfig_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fbrute_5fforce_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fbrute_5fforce_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fbrute_5fforce_2eproto = nullptr;
-
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fbrute_5fforce_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, scalar_quantized_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, fixed_point_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, scalar_quantization_multiplier_quantile_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, scalar_quantization_noise_shaping_threshold_),
-  1,
-  0,
-  2,
-  3,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, sizeof(::research_scann::BruteForceConfig)},
-};
-
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_BruteForceConfig_default_instance_),
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fbrute_5fforce_2eproto[1];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fbrute_5fforce_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fbrute_5fforce_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fbrute_5fforce_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _impl_.scalar_quantized_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _impl_.fixed_point_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _impl_.scalar_quantization_multiplier_quantile_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BruteForceConfig, _impl_.scalar_quantization_noise_shaping_threshold_),
+    1,
+    0,
+    2,
+    3,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fbrute_5fforce_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\035scann/proto/brute_force.proto\022\016researc"
-  "h_scann\032\"scann/proto/exact_reordering.pr"
-  "oto\"\332\001\n\020BruteForceConfig\022#\n\020scalar_quant"
-  "ized\030\001 \001(\010:\005falseB\002\030\001\022/\n\013fixed_point\030\004 \001"
-  "(\0132\032.research_scann.FixedPoint\0226\n\'scalar"
-  "_quantization_multiplier_quantile\030\002 \001(\002:"
-  "\0011B\002\030\001\0228\n+scalar_quantization_noise_shap"
-  "ing_threshold\030\003 \001(\002:\003nan"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_deps[1] = {
-  &::descriptor_table_scann_2fproto_2fexact_5freordering_2eproto,
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 12, -1, sizeof(::research_scann::BruteForceConfig)},
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto = {
-  false, false, 304, descriptor_table_protodef_scann_2fproto_2fbrute_5fforce_2eproto, "scann/proto/brute_force.proto", 
-  &descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_once, descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_deps, 1, 1,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fbrute_5fforce_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fbrute_5fforce_2eproto, file_level_enum_descriptors_scann_2fproto_2fbrute_5fforce_2eproto, file_level_service_descriptors_scann_2fproto_2fbrute_5fforce_2eproto,
+
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_BruteForceConfig_default_instance_._instance,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_getter() {
+const char descriptor_table_protodef_scann_2fproto_2fbrute_5fforce_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\035scann/proto/brute_force.proto\022\016researc"
+    "h_scann\032\"scann/proto/exact_reordering.pr"
+    "oto\"\332\001\n\020BruteForceConfig\022#\n\020scalar_quant"
+    "ized\030\001 \001(\010:\005falseB\002\030\001\022/\n\013fixed_point\030\004 \001"
+    "(\0132\032.research_scann.FixedPoint\0226\n\'scalar"
+    "_quantization_multiplier_quantile\030\002 \001(\002:"
+    "\0011B\002\030\001\0228\n+scalar_quantization_noise_shap"
+    "ing_threshold\030\003 \001(\002:\003nan"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_deps[1] =
+    {
+        &::descriptor_table_scann_2fproto_2fexact_5freordering_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto = {
+    false,
+    false,
+    304,
+    descriptor_table_protodef_scann_2fproto_2fbrute_5fforce_2eproto,
+    "scann/proto/brute_force.proto",
+    &descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_once,
+    descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_deps,
+    1,
+    1,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fbrute_5fforce_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fbrute_5fforce_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fbrute_5fforce_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fbrute_5fforce_2eproto,
+};
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fbrute_5fforce_2eproto(&descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fbrute_5fforce_2eproto(&descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class BruteForceConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<BruteForceConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<BruteForceConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_._has_bits_);
   static void set_has_scalar_quantized(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -108,270 +150,265 @@ class BruteForceConfig::_Internal {
   }
 };
 
-const ::research_scann::FixedPoint&
-BruteForceConfig::_Internal::fixed_point(const BruteForceConfig* msg) {
-  return *msg->fixed_point_;
+const ::research_scann::FixedPoint& BruteForceConfig::_Internal::fixed_point(const BruteForceConfig* msg) {
+  return *msg->_impl_.fixed_point_;
 }
 void BruteForceConfig::clear_fixed_point() {
-  if (fixed_point_ != nullptr) fixed_point_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.fixed_point_ != nullptr) _impl_.fixed_point_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-BruteForceConfig::BruteForceConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+BruteForceConfig::BruteForceConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.BruteForceConfig)
 }
-BruteForceConfig::BruteForceConfig(const BruteForceConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_fixed_point()) {
-    fixed_point_ = new ::research_scann::FixedPoint(*from.fixed_point_);
-  } else {
-    fixed_point_ = nullptr;
-  }
-  ::memcpy(&scalar_quantized_, &from.scalar_quantized_,
-    static_cast<size_t>(reinterpret_cast<char*>(&scalar_quantization_noise_shaping_threshold_) -
-    reinterpret_cast<char*>(&scalar_quantized_)) + sizeof(scalar_quantization_noise_shaping_threshold_));
+inline PROTOBUF_NDEBUG_INLINE BruteForceConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+BruteForceConfig::BruteForceConfig(
+    ::google::protobuf::Arena* arena,
+    const BruteForceConfig& from)
+    : ::google::protobuf::Message(arena) {
+  BruteForceConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.fixed_point_ = (cached_has_bits & 0x00000001u)
+                ? CreateMaybeMessage<::research_scann::FixedPoint>(arena, *from._impl_.fixed_point_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, scalar_quantized_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, scalar_quantized_),
+           offsetof(Impl_, scalar_quantization_noise_shaping_threshold_) -
+               offsetof(Impl_, scalar_quantized_) +
+               sizeof(Impl_::scalar_quantization_noise_shaping_threshold_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.BruteForceConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE BruteForceConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        scalar_quantization_multiplier_quantile_{1},
+        scalar_quantization_noise_shaping_threshold_{std::numeric_limits<float>::quiet_NaN()} {}
 
-inline void BruteForceConfig::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&fixed_point_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&scalar_quantized_) -
-    reinterpret_cast<char*>(&fixed_point_)) + sizeof(scalar_quantized_));
-scalar_quantization_multiplier_quantile_ = 1;
-scalar_quantization_noise_shaping_threshold_ = std::numeric_limits<float>::quiet_NaN();
+inline void BruteForceConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, fixed_point_),
+           0,
+           offsetof(Impl_, scalar_quantized_) -
+               offsetof(Impl_, fixed_point_) +
+               sizeof(Impl_::scalar_quantized_));
 }
-
 BruteForceConfig::~BruteForceConfig() {
   // @@protoc_insertion_point(destructor:research_scann.BruteForceConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void BruteForceConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete fixed_point_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.fixed_point_;
+  _impl_.~Impl_();
 }
 
-void BruteForceConfig::ArenaDtor(void* object) {
-  BruteForceConfig* _this = reinterpret_cast< BruteForceConfig* >(object);
-  (void)_this;
-}
-void BruteForceConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void BruteForceConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void BruteForceConfig::Clear() {
+PROTOBUF_NOINLINE void BruteForceConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.BruteForceConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(fixed_point_ != nullptr);
-    fixed_point_->Clear();
+    ABSL_DCHECK(_impl_.fixed_point_ != nullptr);
+    _impl_.fixed_point_->Clear();
   }
   if (cached_has_bits & 0x0000000eu) {
-    scalar_quantized_ = false;
-    scalar_quantization_multiplier_quantile_ = 1;
-    scalar_quantization_noise_shaping_threshold_ = std::numeric_limits<float>::quiet_NaN();
+    _impl_.scalar_quantized_ = false;
+    _impl_.scalar_quantization_multiplier_quantile_ = 1;
+    _impl_.scalar_quantization_noise_shaping_threshold_ = std::numeric_limits<float>::quiet_NaN();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* BruteForceConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool scalar_quantized = 1 [default = false, deprecated = true];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_scalar_quantized(&has_bits);
-          scalar_quantized_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float scalar_quantization_multiplier_quantile = 2 [default = 1, deprecated = true];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_scalar_quantization_multiplier_quantile(&has_bits);
-          scalar_quantization_multiplier_quantile_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional float scalar_quantization_noise_shaping_threshold = 3 [default = nan];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
-          _Internal::set_has_scalar_quantization_noise_shaping_threshold(&has_bits);
-          scalar_quantization_noise_shaping_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.FixedPoint fixed_point = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_fixed_point(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* BruteForceConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* BruteForceConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.BruteForceConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 1, 0, 2> BruteForceConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_BruteForceConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional .research_scann.FixedPoint fixed_point = 4;
+    {::_pbi::TcParser::FastMtS1,
+     {34, 0, 0, PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.fixed_point_)}},
+    // optional bool scalar_quantized = 1 [default = false, deprecated = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(BruteForceConfig, _impl_.scalar_quantized_), 1>(),
+     {8, 1, 0, PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantized_)}},
+    // optional float scalar_quantization_multiplier_quantile = 2 [default = 1, deprecated = true];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 2, 0, PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantization_multiplier_quantile_)}},
+    // optional float scalar_quantization_noise_shaping_threshold = 3 [default = nan];
+    {::_pbi::TcParser::FastF32S1,
+     {29, 3, 0, PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantization_noise_shaping_threshold_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool scalar_quantized = 1 [default = false, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantized_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional float scalar_quantization_multiplier_quantile = 2 [default = 1, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantization_multiplier_quantile_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional float scalar_quantization_noise_shaping_threshold = 3 [default = nan];
+    {PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantization_noise_shaping_threshold_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional .research_scann.FixedPoint fixed_point = 4;
+    {PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.fixed_point_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::FixedPoint>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* BruteForceConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.BruteForceConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool scalar_quantized = 1 [default = false, deprecated = true];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_scalar_quantized(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_scalar_quantized(), target);
   }
 
   // optional float scalar_quantization_multiplier_quantile = 2 [default = 1, deprecated = true];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_scalar_quantization_multiplier_quantile(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_scalar_quantization_multiplier_quantile(), target);
   }
 
   // optional float scalar_quantization_noise_shaping_threshold = 3 [default = nan];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_scalar_quantization_noise_shaping_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        3, this->_internal_scalar_quantization_noise_shaping_threshold(), target);
   }
 
   // optional .research_scann.FixedPoint fixed_point = 4;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::fixed_point(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        4, _Internal::fixed_point(this),
+        _Internal::fixed_point(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.BruteForceConfig)
   return target;
 }
 
-size_t BruteForceConfig::ByteSizeLong() const {
+::size_t BruteForceConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.BruteForceConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional .research_scann.FixedPoint fixed_point = 4;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fixed_point_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.fixed_point_);
     }
 
     // optional bool scalar_quantized = 1 [default = false, deprecated = true];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional float scalar_quantization_multiplier_quantile = 2 [default = 1, deprecated = true];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional float scalar_quantization_noise_shaping_threshold = 3 [default = nan];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BruteForceConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    BruteForceConfig::MergeImpl
+const ::google::protobuf::Message::ClassData BruteForceConfig::_class_data_ = {
+    BruteForceConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BruteForceConfig::GetClassData() const { return &_class_data_; }
-
-void BruteForceConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<BruteForceConfig *>(to)->MergeFrom(
-      static_cast<const BruteForceConfig &>(from));
+const ::google::protobuf::Message::ClassData* BruteForceConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void BruteForceConfig::MergeFrom(const BruteForceConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.BruteForceConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void BruteForceConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<BruteForceConfig*>(&to_msg);
+  auto& from = static_cast<const BruteForceConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.BruteForceConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_fixed_point()->::research_scann::FixedPoint::MergeFrom(from._internal_fixed_point());
+      _this->_internal_mutable_fixed_point()->::research_scann::FixedPoint::MergeFrom(
+          from._internal_fixed_point());
     }
     if (cached_has_bits & 0x00000002u) {
-      scalar_quantized_ = from.scalar_quantized_;
+      _this->_impl_.scalar_quantized_ = from._impl_.scalar_quantized_;
     }
     if (cached_has_bits & 0x00000004u) {
-      scalar_quantization_multiplier_quantile_ = from.scalar_quantization_multiplier_quantile_;
+      _this->_impl_.scalar_quantization_multiplier_quantile_ = from._impl_.scalar_quantization_multiplier_quantile_;
     }
     if (cached_has_bits & 0x00000008u) {
-      scalar_quantization_noise_shaping_threshold_ = from.scalar_quantization_noise_shaping_threshold_;
+      _this->_impl_.scalar_quantization_noise_shaping_threshold_ = from._impl_.scalar_quantization_noise_shaping_threshold_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void BruteForceConfig::CopyFrom(const BruteForceConfig& from) {
@@ -381,37 +418,35 @@ void BruteForceConfig::CopyFrom(const BruteForceConfig& from) {
   MergeFrom(from);
 }
 
-bool BruteForceConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool BruteForceConfig::IsInitialized() const {
   return true;
 }
 
-void BruteForceConfig::InternalSwap(BruteForceConfig* other) {
+::_pbi::CachedSize* BruteForceConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void BruteForceConfig::InternalSwap(BruteForceConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BruteForceConfig, scalar_quantized_)
-      + sizeof(BruteForceConfig::scalar_quantized_)
-      - PROTOBUF_FIELD_OFFSET(BruteForceConfig, fixed_point_)>(
-          reinterpret_cast<char*>(&fixed_point_),
-          reinterpret_cast<char*>(&other->fixed_point_));
-  swap(scalar_quantization_multiplier_quantile_, other->scalar_quantization_multiplier_quantile_);
-  swap(scalar_quantization_noise_shaping_threshold_, other->scalar_quantization_noise_shaping_threshold_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.scalar_quantization_noise_shaping_threshold_)
+      + sizeof(BruteForceConfig::_impl_.scalar_quantization_noise_shaping_threshold_)
+      - PROTOBUF_FIELD_OFFSET(BruteForceConfig, _impl_.fixed_point_)>(
+          reinterpret_cast<char*>(&_impl_.fixed_point_),
+          reinterpret_cast<char*>(&other->_impl_.fixed_point_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata BruteForceConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata BruteForceConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_getter, &descriptor_table_scann_2fproto_2fbrute_5fforce_2eproto_once,
       file_level_metadata_scann_2fproto_2fbrute_5fforce_2eproto[0]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::BruteForceConfig* Arena::CreateMaybeMessage< ::research_scann::BruteForceConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::BruteForceConfig >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"
