@@ -4,163 +4,235 @@
 #include "scann/partitioning/linear_projection_tree.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr SerializedLinearProjectionTree_Node_NonLeafFields::SerializedLinearProjectionTree_Node_NonLeafFields(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : projection_vector_()
-  , left_(nullptr)
-  , right_(nullptr)
-  , threshold_(0){}
-struct SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal {
-  constexpr SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal() {}
-  union {
-    SerializedLinearProjectionTree_Node_NonLeafFields _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal _SerializedLinearProjectionTree_Node_NonLeafFields_default_instance_;
-constexpr SerializedLinearProjectionTree_Node_LeafFields::SerializedLinearProjectionTree_Node_LeafFields(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : leaf_number_(0){}
+
+inline constexpr SerializedLinearProjectionTree_Node_LeafFields::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        leaf_number_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SerializedLinearProjectionTree_Node_LeafFields::SerializedLinearProjectionTree_Node_LeafFields(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct SerializedLinearProjectionTree_Node_LeafFieldsDefaultTypeInternal {
-  constexpr SerializedLinearProjectionTree_Node_LeafFieldsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedLinearProjectionTree_Node_LeafFieldsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedLinearProjectionTree_Node_LeafFieldsDefaultTypeInternal() {}
   union {
     SerializedLinearProjectionTree_Node_LeafFields _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedLinearProjectionTree_Node_LeafFieldsDefaultTypeInternal _SerializedLinearProjectionTree_Node_LeafFields_default_instance_;
-constexpr SerializedLinearProjectionTree_Node::SerializedLinearProjectionTree_Node(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedLinearProjectionTree_Node_LeafFieldsDefaultTypeInternal _SerializedLinearProjectionTree_Node_LeafFields_default_instance_;
+
+inline constexpr SerializedLinearProjectionTree_Node::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : leaf_or_non_leaf_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SerializedLinearProjectionTree_Node::SerializedLinearProjectionTree_Node(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct SerializedLinearProjectionTree_NodeDefaultTypeInternal {
-  constexpr SerializedLinearProjectionTree_NodeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedLinearProjectionTree_NodeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedLinearProjectionTree_NodeDefaultTypeInternal() {}
   union {
     SerializedLinearProjectionTree_Node _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedLinearProjectionTree_NodeDefaultTypeInternal _SerializedLinearProjectionTree_Node_default_instance_;
-constexpr SerializedLinearProjectionTree::SerializedLinearProjectionTree(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : root_(nullptr){}
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedLinearProjectionTree_NodeDefaultTypeInternal _SerializedLinearProjectionTree_Node_default_instance_;
+
+inline constexpr SerializedLinearProjectionTree_Node_NonLeafFields::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        projection_vector_{},
+        left_{nullptr},
+        right_{nullptr},
+        threshold_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SerializedLinearProjectionTree_Node_NonLeafFields::SerializedLinearProjectionTree_Node_NonLeafFields(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal() {}
+  union {
+    SerializedLinearProjectionTree_Node_NonLeafFields _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedLinearProjectionTree_Node_NonLeafFieldsDefaultTypeInternal _SerializedLinearProjectionTree_Node_NonLeafFields_default_instance_;
+
+inline constexpr SerializedLinearProjectionTree::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        root_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SerializedLinearProjectionTree::SerializedLinearProjectionTree(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct SerializedLinearProjectionTreeDefaultTypeInternal {
-  constexpr SerializedLinearProjectionTreeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedLinearProjectionTreeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedLinearProjectionTreeDefaultTypeInternal() {}
   union {
     SerializedLinearProjectionTree _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedLinearProjectionTreeDefaultTypeInternal _SerializedLinearProjectionTree_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedLinearProjectionTreeDefaultTypeInternal _SerializedLinearProjectionTree_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[4];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[4];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.projection_vector_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.threshold_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.left_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.right_),
+    ~0u,
+    2,
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_LeafFields, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_LeafFields, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_LeafFields, _impl_.leaf_number_),
+    0,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, _internal_metadata_),
+    ~0u,  // no _extensions_
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, _impl_._oneof_case_[0]),
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, _impl_.leaf_or_non_leaf_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree, _impl_.root_),
+    0,
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, projection_vector_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, threshold_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, left_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields, right_),
-  ~0u,
-  2,
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_LeafFields, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_LeafFields, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node_LeafFields, leaf_number_),
-  0,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, _oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, leaf_or_non_leaf_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree, root_),
-  0,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, sizeof(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields)},
-  { 13, 19, sizeof(::research_scann::SerializedLinearProjectionTree_Node_LeafFields)},
-  { 20, -1, sizeof(::research_scann::SerializedLinearProjectionTree_Node)},
-  { 28, 34, sizeof(::research_scann::SerializedLinearProjectionTree)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 12, -1, sizeof(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields)},
+        {16, 25, -1, sizeof(::research_scann::SerializedLinearProjectionTree_Node_LeafFields)},
+        {26, -1, -1, sizeof(::research_scann::SerializedLinearProjectionTree_Node)},
+        {37, 46, -1, sizeof(::research_scann::SerializedLinearProjectionTree)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SerializedLinearProjectionTree_Node_NonLeafFields_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SerializedLinearProjectionTree_Node_LeafFields_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SerializedLinearProjectionTree_Node_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_SerializedLinearProjectionTree_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_SerializedLinearProjectionTree_Node_NonLeafFields_default_instance_._instance,
+    &::research_scann::_SerializedLinearProjectionTree_Node_LeafFields_default_instance_._instance,
+    &::research_scann::_SerializedLinearProjectionTree_Node_default_instance_._instance,
+    &::research_scann::_SerializedLinearProjectionTree_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n/scann/partitioning/linear_projection_t"
+    "ree.proto\022\016research_scann\"\221\004\n\036Serialized"
+    "LinearProjectionTree\022A\n\004root\030\001 \001(\01323.res"
+    "earch_scann.SerializedLinearProjectionTr"
+    "ee.Node\032\253\003\n\004Node\022U\n\010non_leaf\030\001 \001(\0132A.res"
+    "earch_scann.SerializedLinearProjectionTr"
+    "ee.Node.NonLeafFieldsH\000\022N\n\004leaf\030\002 \001(\0132>."
+    "research_scann.SerializedLinearProjectio"
+    "nTree.Node.LeafFieldsH\000\032\304\001\n\rNonLeafField"
+    "s\022\031\n\021projection_vector\030\001 \003(\002\022\021\n\tthreshol"
+    "d\030\002 \001(\002\022A\n\004left\030\003 \001(\01323.research_scann.S"
+    "erializedLinearProjectionTree.Node\022B\n\005ri"
+    "ght\030\004 \001(\01323.research_scann.SerializedLin"
+    "earProjectionTree.Node\032!\n\nLeafFields\022\023\n\013"
+    "leaf_number\030\005 \001(\005B\022\n\020leaf_or_non_leaf"
+};
+static ::absl::once_flag descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto = {
+    false,
+    false,
+    597,
+    descriptor_table_protodef_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto,
+    "scann/partitioning/linear_projection_tree.proto",
+    &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once,
+    nullptr,
+    0,
+    4,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto::offsets,
+    file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto,
+    file_level_enum_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto,
+    file_level_service_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n/scann/partitioning/linear_projection_t"
-  "ree.proto\022\016research_scann\"\221\004\n\036Serialized"
-  "LinearProjectionTree\022A\n\004root\030\001 \001(\01323.res"
-  "earch_scann.SerializedLinearProjectionTr"
-  "ee.Node\032\253\003\n\004Node\022U\n\010non_leaf\030\001 \001(\0132A.res"
-  "earch_scann.SerializedLinearProjectionTr"
-  "ee.Node.NonLeafFieldsH\000\022N\n\004leaf\030\002 \001(\0132>."
-  "research_scann.SerializedLinearProjectio"
-  "nTree.Node.LeafFieldsH\000\032\304\001\n\rNonLeafField"
-  "s\022\031\n\021projection_vector\030\001 \003(\002\022\021\n\tthreshol"
-  "d\030\002 \001(\002\022A\n\004left\030\003 \001(\01323.research_scann.S"
-  "erializedLinearProjectionTree.Node\022B\n\005ri"
-  "ght\030\004 \001(\01323.research_scann.SerializedLin"
-  "earProjectionTree.Node\032!\n\nLeafFields\022\023\n\013"
-  "leaf_number\030\005 \001(\005B\022\n\020leaf_or_non_leaf"
-  ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto = {
-  false, false, 597, descriptor_table_protodef_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto, "scann/partitioning/linear_projection_tree.proto", 
-  &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once, nullptr, 0, 4,
-  schemas, file_default_instances, TableStruct_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto::offsets,
-  file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto, file_level_enum_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto, file_level_service_descriptors_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_getter() {
   return &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto(&descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto(&descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class SerializedLinearProjectionTree_Node_NonLeafFields::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedLinearProjectionTree_Node_NonLeafFields>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedLinearProjectionTree_Node_NonLeafFields>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_._has_bits_);
   static void set_has_threshold(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -174,289 +246,270 @@ class SerializedLinearProjectionTree_Node_NonLeafFields::_Internal {
   }
 };
 
-const ::research_scann::SerializedLinearProjectionTree_Node&
-SerializedLinearProjectionTree_Node_NonLeafFields::_Internal::left(const SerializedLinearProjectionTree_Node_NonLeafFields* msg) {
-  return *msg->left_;
+const ::research_scann::SerializedLinearProjectionTree_Node& SerializedLinearProjectionTree_Node_NonLeafFields::_Internal::left(const SerializedLinearProjectionTree_Node_NonLeafFields* msg) {
+  return *msg->_impl_.left_;
 }
-const ::research_scann::SerializedLinearProjectionTree_Node&
-SerializedLinearProjectionTree_Node_NonLeafFields::_Internal::right(const SerializedLinearProjectionTree_Node_NonLeafFields* msg) {
-  return *msg->right_;
+const ::research_scann::SerializedLinearProjectionTree_Node& SerializedLinearProjectionTree_Node_NonLeafFields::_Internal::right(const SerializedLinearProjectionTree_Node_NonLeafFields* msg) {
+  return *msg->_impl_.right_;
 }
-SerializedLinearProjectionTree_Node_NonLeafFields::SerializedLinearProjectionTree_Node_NonLeafFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  projection_vector_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SerializedLinearProjectionTree_Node_NonLeafFields::SerializedLinearProjectionTree_Node_NonLeafFields(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
 }
-SerializedLinearProjectionTree_Node_NonLeafFields::SerializedLinearProjectionTree_Node_NonLeafFields(const SerializedLinearProjectionTree_Node_NonLeafFields& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      projection_vector_(from.projection_vector_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_left()) {
-    left_ = new ::research_scann::SerializedLinearProjectionTree_Node(*from.left_);
-  } else {
-    left_ = nullptr;
-  }
-  if (from._internal_has_right()) {
-    right_ = new ::research_scann::SerializedLinearProjectionTree_Node(*from.right_);
-  } else {
-    right_ = nullptr;
-  }
-  threshold_ = from.threshold_;
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree_Node_NonLeafFields::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        projection_vector_{visibility, arena, from.projection_vector_} {}
+
+SerializedLinearProjectionTree_Node_NonLeafFields::SerializedLinearProjectionTree_Node_NonLeafFields(
+    ::google::protobuf::Arena* arena,
+    const SerializedLinearProjectionTree_Node_NonLeafFields& from)
+    : ::google::protobuf::Message(arena) {
+  SerializedLinearProjectionTree_Node_NonLeafFields* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.left_ = (cached_has_bits & 0x00000001u)
+                ? CreateMaybeMessage<::research_scann::SerializedLinearProjectionTree_Node>(arena, *from._impl_.left_)
+                : nullptr;
+  _impl_.right_ = (cached_has_bits & 0x00000002u)
+                ? CreateMaybeMessage<::research_scann::SerializedLinearProjectionTree_Node>(arena, *from._impl_.right_)
+                : nullptr;
+  _impl_.threshold_ = from._impl_.threshold_;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
 }
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree_Node_NonLeafFields::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        projection_vector_{visibility, arena} {}
 
-inline void SerializedLinearProjectionTree_Node_NonLeafFields::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&left_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&threshold_) -
-    reinterpret_cast<char*>(&left_)) + sizeof(threshold_));
+inline void SerializedLinearProjectionTree_Node_NonLeafFields::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, left_),
+           0,
+           offsetof(Impl_, threshold_) -
+               offsetof(Impl_, left_) +
+               sizeof(Impl_::threshold_));
 }
-
 SerializedLinearProjectionTree_Node_NonLeafFields::~SerializedLinearProjectionTree_Node_NonLeafFields() {
   // @@protoc_insertion_point(destructor:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SerializedLinearProjectionTree_Node_NonLeafFields::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete left_;
-  if (this != internal_default_instance()) delete right_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.left_;
+  delete _impl_.right_;
+  _impl_.~Impl_();
 }
 
-void SerializedLinearProjectionTree_Node_NonLeafFields::ArenaDtor(void* object) {
-  SerializedLinearProjectionTree_Node_NonLeafFields* _this = reinterpret_cast< SerializedLinearProjectionTree_Node_NonLeafFields* >(object);
-  (void)_this;
-}
-void SerializedLinearProjectionTree_Node_NonLeafFields::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SerializedLinearProjectionTree_Node_NonLeafFields::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void SerializedLinearProjectionTree_Node_NonLeafFields::Clear() {
+PROTOBUF_NOINLINE void SerializedLinearProjectionTree_Node_NonLeafFields::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  projection_vector_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.projection_vector_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(left_ != nullptr);
-      left_->Clear();
+      ABSL_DCHECK(_impl_.left_ != nullptr);
+      _impl_.left_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(right_ != nullptr);
-      right_->Clear();
+      ABSL_DCHECK(_impl_.right_ != nullptr);
+      _impl_.right_->Clear();
     }
   }
-  threshold_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.threshold_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SerializedLinearProjectionTree_Node_NonLeafFields::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated float projection_vector = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            _internal_add_projection_vector(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
-            ptr += sizeof(float);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<13>(ptr));
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_projection_vector(), ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float threshold = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_threshold(&has_bits);
-          threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.SerializedLinearProjectionTree.Node left = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_left(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.SerializedLinearProjectionTree.Node right = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_right(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* SerializedLinearProjectionTree_Node_NonLeafFields::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SerializedLinearProjectionTree_Node_NonLeafFields::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 2, 0, 2> SerializedLinearProjectionTree_Node_NonLeafFields::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_SerializedLinearProjectionTree_Node_NonLeafFields_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional .research_scann.SerializedLinearProjectionTree.Node right = 4;
+    {::_pbi::TcParser::FastMtS1,
+     {34, 1, 1, PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.right_)}},
+    // repeated float projection_vector = 1;
+    {::_pbi::TcParser::FastF32R1,
+     {13, 63, 0, PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.projection_vector_)}},
+    // optional float threshold = 2;
+    {::_pbi::TcParser::FastF32S1,
+     {21, 2, 0, PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.threshold_)}},
+    // optional .research_scann.SerializedLinearProjectionTree.Node left = 3;
+    {::_pbi::TcParser::FastMtS1,
+     {26, 0, 0, PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.left_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated float projection_vector = 1;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.projection_vector_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kFloat)},
+    // optional float threshold = 2;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.threshold_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional .research_scann.SerializedLinearProjectionTree.Node left = 3;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.left_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.SerializedLinearProjectionTree.Node right = 4;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.right_), _Internal::kHasBitsOffset + 1, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::SerializedLinearProjectionTree_Node>()},
+    {::_pbi::TcParser::GetTable<::research_scann::SerializedLinearProjectionTree_Node>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* SerializedLinearProjectionTree_Node_NonLeafFields::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   // repeated float projection_vector = 1;
-  for (int i = 0, n = this->_internal_projection_vector_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_projection_vector_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_projection_vector(i), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        1, this->_internal_projection_vector().Get(i), target);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional float threshold = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_threshold(), target);
   }
 
   // optional .research_scann.SerializedLinearProjectionTree.Node left = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::left(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        3, _Internal::left(this),
+        _Internal::left(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.SerializedLinearProjectionTree.Node right = 4;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::right(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        4, _Internal::right(this),
+        _Internal::right(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
   return target;
 }
 
-size_t SerializedLinearProjectionTree_Node_NonLeafFields::ByteSizeLong() const {
+::size_t SerializedLinearProjectionTree_Node_NonLeafFields::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated float projection_vector = 1;
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_projection_vector_size());
-    size_t data_size = 4UL * count;
-    total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_projection_vector_size());
-    total_size += data_size;
+    std::size_t data_size = std::size_t{4} *
+        ::_pbi::FromIntSize(this->_internal_projection_vector_size())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_projection_vector_size());
+    ;
+    total_size += tag_size + data_size;
   }
-
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional .research_scann.SerializedLinearProjectionTree.Node left = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *left_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.left_);
     }
 
     // optional .research_scann.SerializedLinearProjectionTree.Node right = 4;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *right_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.right_);
     }
 
     // optional float threshold = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SerializedLinearProjectionTree_Node_NonLeafFields::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SerializedLinearProjectionTree_Node_NonLeafFields::MergeImpl
+const ::google::protobuf::Message::ClassData SerializedLinearProjectionTree_Node_NonLeafFields::_class_data_ = {
+    SerializedLinearProjectionTree_Node_NonLeafFields::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SerializedLinearProjectionTree_Node_NonLeafFields::GetClassData() const { return &_class_data_; }
-
-void SerializedLinearProjectionTree_Node_NonLeafFields::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SerializedLinearProjectionTree_Node_NonLeafFields *>(to)->MergeFrom(
-      static_cast<const SerializedLinearProjectionTree_Node_NonLeafFields &>(from));
+const ::google::protobuf::Message::ClassData* SerializedLinearProjectionTree_Node_NonLeafFields::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SerializedLinearProjectionTree_Node_NonLeafFields::MergeFrom(const SerializedLinearProjectionTree_Node_NonLeafFields& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SerializedLinearProjectionTree_Node_NonLeafFields::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SerializedLinearProjectionTree_Node_NonLeafFields*>(&to_msg);
+  auto& from = static_cast<const SerializedLinearProjectionTree_Node_NonLeafFields&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree.Node.NonLeafFields)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  projection_vector_.MergeFrom(from.projection_vector_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_internal_mutable_projection_vector()->MergeFrom(from._internal_projection_vector());
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_left()->::research_scann::SerializedLinearProjectionTree_Node::MergeFrom(from._internal_left());
+      _this->_internal_mutable_left()->::research_scann::SerializedLinearProjectionTree_Node::MergeFrom(
+          from._internal_left());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_right()->::research_scann::SerializedLinearProjectionTree_Node::MergeFrom(from._internal_right());
+      _this->_internal_mutable_right()->::research_scann::SerializedLinearProjectionTree_Node::MergeFrom(
+          from._internal_right());
     }
     if (cached_has_bits & 0x00000004u) {
-      threshold_ = from.threshold_;
+      _this->_impl_.threshold_ = from._impl_.threshold_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SerializedLinearProjectionTree_Node_NonLeafFields::CopyFrom(const SerializedLinearProjectionTree_Node_NonLeafFields& from) {
@@ -466,200 +519,183 @@ void SerializedLinearProjectionTree_Node_NonLeafFields::CopyFrom(const Serialize
   MergeFrom(from);
 }
 
-bool SerializedLinearProjectionTree_Node_NonLeafFields::IsInitialized() const {
+PROTOBUF_NOINLINE bool SerializedLinearProjectionTree_Node_NonLeafFields::IsInitialized() const {
   return true;
 }
 
-void SerializedLinearProjectionTree_Node_NonLeafFields::InternalSwap(SerializedLinearProjectionTree_Node_NonLeafFields* other) {
+::_pbi::CachedSize* SerializedLinearProjectionTree_Node_NonLeafFields::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SerializedLinearProjectionTree_Node_NonLeafFields::InternalSwap(SerializedLinearProjectionTree_Node_NonLeafFields* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  projection_vector_.InternalSwap(&other->projection_vector_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, threshold_)
-      + sizeof(SerializedLinearProjectionTree_Node_NonLeafFields::threshold_)
-      - PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, left_)>(
-          reinterpret_cast<char*>(&left_),
-          reinterpret_cast<char*>(&other->left_));
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.projection_vector_.InternalSwap(&other->_impl_.projection_vector_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.threshold_)
+      + sizeof(SerializedLinearProjectionTree_Node_NonLeafFields::_impl_.threshold_)
+      - PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_NonLeafFields, _impl_.left_)>(
+          reinterpret_cast<char*>(&_impl_.left_),
+          reinterpret_cast<char*>(&other->_impl_.left_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SerializedLinearProjectionTree_Node_NonLeafFields::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SerializedLinearProjectionTree_Node_NonLeafFields::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_getter, &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once,
       file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[0]);
 }
-
 // ===================================================================
 
 class SerializedLinearProjectionTree_Node_LeafFields::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedLinearProjectionTree_Node_LeafFields>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedLinearProjectionTree_Node_LeafFields>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_LeafFields, _impl_._has_bits_);
   static void set_has_leaf_number(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SerializedLinearProjectionTree_Node_LeafFields::SerializedLinearProjectionTree_Node_LeafFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SerializedLinearProjectionTree_Node_LeafFields::SerializedLinearProjectionTree_Node_LeafFields(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
 }
-SerializedLinearProjectionTree_Node_LeafFields::SerializedLinearProjectionTree_Node_LeafFields(const SerializedLinearProjectionTree_Node_LeafFields& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  leaf_number_ = from.leaf_number_;
-  // @@protoc_insertion_point(copy_constructor:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
+SerializedLinearProjectionTree_Node_LeafFields::SerializedLinearProjectionTree_Node_LeafFields(
+    ::google::protobuf::Arena* arena, const SerializedLinearProjectionTree_Node_LeafFields& from)
+    : SerializedLinearProjectionTree_Node_LeafFields(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree_Node_LeafFields::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void SerializedLinearProjectionTree_Node_LeafFields::SharedCtor() {
-leaf_number_ = 0;
+inline void SerializedLinearProjectionTree_Node_LeafFields::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.leaf_number_ = {};
 }
-
 SerializedLinearProjectionTree_Node_LeafFields::~SerializedLinearProjectionTree_Node_LeafFields() {
   // @@protoc_insertion_point(destructor:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SerializedLinearProjectionTree_Node_LeafFields::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void SerializedLinearProjectionTree_Node_LeafFields::ArenaDtor(void* object) {
-  SerializedLinearProjectionTree_Node_LeafFields* _this = reinterpret_cast< SerializedLinearProjectionTree_Node_LeafFields* >(object);
-  (void)_this;
-}
-void SerializedLinearProjectionTree_Node_LeafFields::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SerializedLinearProjectionTree_Node_LeafFields::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void SerializedLinearProjectionTree_Node_LeafFields::Clear() {
+PROTOBUF_NOINLINE void SerializedLinearProjectionTree_Node_LeafFields::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  leaf_number_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.leaf_number_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SerializedLinearProjectionTree_Node_LeafFields::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 leaf_number = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_leaf_number(&has_bits);
-          leaf_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* SerializedLinearProjectionTree_Node_LeafFields::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SerializedLinearProjectionTree_Node_LeafFields::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SerializedLinearProjectionTree_Node_LeafFields::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_LeafFields, _impl_._has_bits_),
+    0, // no _extensions_
+    5, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967279,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_SerializedLinearProjectionTree_Node_LeafFields_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional int32 leaf_number = 5;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(SerializedLinearProjectionTree_Node_LeafFields, _impl_.leaf_number_), 0>(),
+     {40, 0, 0, PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_LeafFields, _impl_.leaf_number_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 leaf_number = 5;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node_LeafFields, _impl_.leaf_number_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* SerializedLinearProjectionTree_Node_LeafFields::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 leaf_number = 5;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_leaf_number(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<5>(
+            stream, this->_internal_leaf_number(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
   return target;
 }
 
-size_t SerializedLinearProjectionTree_Node_LeafFields::ByteSizeLong() const {
+::size_t SerializedLinearProjectionTree_Node_LeafFields::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional int32 leaf_number = 5;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
         this->_internal_leaf_number());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SerializedLinearProjectionTree_Node_LeafFields::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SerializedLinearProjectionTree_Node_LeafFields::MergeImpl
+const ::google::protobuf::Message::ClassData SerializedLinearProjectionTree_Node_LeafFields::_class_data_ = {
+    SerializedLinearProjectionTree_Node_LeafFields::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SerializedLinearProjectionTree_Node_LeafFields::GetClassData() const { return &_class_data_; }
-
-void SerializedLinearProjectionTree_Node_LeafFields::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SerializedLinearProjectionTree_Node_LeafFields *>(to)->MergeFrom(
-      static_cast<const SerializedLinearProjectionTree_Node_LeafFields &>(from));
+const ::google::protobuf::Message::ClassData* SerializedLinearProjectionTree_Node_LeafFields::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SerializedLinearProjectionTree_Node_LeafFields::MergeFrom(const SerializedLinearProjectionTree_Node_LeafFields& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SerializedLinearProjectionTree_Node_LeafFields::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SerializedLinearProjectionTree_Node_LeafFields*>(&to_msg);
+  auto& from = static_cast<const SerializedLinearProjectionTree_Node_LeafFields&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree.Node.LeafFields)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_leaf_number()) {
-    _internal_set_leaf_number(from._internal_leaf_number());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_leaf_number(from._internal_leaf_number());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SerializedLinearProjectionTree_Node_LeafFields::CopyFrom(const SerializedLinearProjectionTree_Node_LeafFields& from) {
@@ -669,138 +705,137 @@ void SerializedLinearProjectionTree_Node_LeafFields::CopyFrom(const SerializedLi
   MergeFrom(from);
 }
 
-bool SerializedLinearProjectionTree_Node_LeafFields::IsInitialized() const {
+PROTOBUF_NOINLINE bool SerializedLinearProjectionTree_Node_LeafFields::IsInitialized() const {
   return true;
 }
 
-void SerializedLinearProjectionTree_Node_LeafFields::InternalSwap(SerializedLinearProjectionTree_Node_LeafFields* other) {
+::_pbi::CachedSize* SerializedLinearProjectionTree_Node_LeafFields::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SerializedLinearProjectionTree_Node_LeafFields::InternalSwap(SerializedLinearProjectionTree_Node_LeafFields* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(leaf_number_, other->leaf_number_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+        swap(_impl_.leaf_number_, other->_impl_.leaf_number_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SerializedLinearProjectionTree_Node_LeafFields::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SerializedLinearProjectionTree_Node_LeafFields::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_getter, &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once,
       file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[1]);
 }
-
 // ===================================================================
 
 class SerializedLinearProjectionTree_Node::_Internal {
  public:
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::research_scann::SerializedLinearProjectionTree_Node, _impl_._oneof_case_);
   static const ::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields& non_leaf(const SerializedLinearProjectionTree_Node* msg);
   static const ::research_scann::SerializedLinearProjectionTree_Node_LeafFields& leaf(const SerializedLinearProjectionTree_Node* msg);
 };
 
-const ::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields&
-SerializedLinearProjectionTree_Node::_Internal::non_leaf(const SerializedLinearProjectionTree_Node* msg) {
-  return *msg->leaf_or_non_leaf_.non_leaf_;
+const ::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields& SerializedLinearProjectionTree_Node::_Internal::non_leaf(const SerializedLinearProjectionTree_Node* msg) {
+  return *msg->_impl_.leaf_or_non_leaf_.non_leaf_;
 }
-const ::research_scann::SerializedLinearProjectionTree_Node_LeafFields&
-SerializedLinearProjectionTree_Node::_Internal::leaf(const SerializedLinearProjectionTree_Node* msg) {
-  return *msg->leaf_or_non_leaf_.leaf_;
+const ::research_scann::SerializedLinearProjectionTree_Node_LeafFields& SerializedLinearProjectionTree_Node::_Internal::leaf(const SerializedLinearProjectionTree_Node* msg) {
+  return *msg->_impl_.leaf_or_non_leaf_.leaf_;
 }
 void SerializedLinearProjectionTree_Node::set_allocated_non_leaf(::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields* non_leaf) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_leaf_or_non_leaf();
   if (non_leaf) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields>::GetOwningArena(non_leaf);
+    ::google::protobuf::Arena* submessage_arena = non_leaf->GetArena();
     if (message_arena != submessage_arena) {
-      non_leaf = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, non_leaf, submessage_arena);
+      non_leaf = ::google::protobuf::internal::GetOwnedMessage(message_arena, non_leaf, submessage_arena);
     }
     set_has_non_leaf();
-    leaf_or_non_leaf_.non_leaf_ = non_leaf;
+    _impl_.leaf_or_non_leaf_.non_leaf_ = non_leaf;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.SerializedLinearProjectionTree.Node.non_leaf)
 }
 void SerializedLinearProjectionTree_Node::set_allocated_leaf(::research_scann::SerializedLinearProjectionTree_Node_LeafFields* leaf) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  ::google::protobuf::Arena* message_arena = GetArena();
   clear_leaf_or_non_leaf();
   if (leaf) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::research_scann::SerializedLinearProjectionTree_Node_LeafFields>::GetOwningArena(leaf);
+    ::google::protobuf::Arena* submessage_arena = leaf->GetArena();
     if (message_arena != submessage_arena) {
-      leaf = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, leaf, submessage_arena);
+      leaf = ::google::protobuf::internal::GetOwnedMessage(message_arena, leaf, submessage_arena);
     }
     set_has_leaf();
-    leaf_or_non_leaf_.leaf_ = leaf;
+    _impl_.leaf_or_non_leaf_.leaf_ = leaf;
   }
   // @@protoc_insertion_point(field_set_allocated:research_scann.SerializedLinearProjectionTree.Node.leaf)
 }
-SerializedLinearProjectionTree_Node::SerializedLinearProjectionTree_Node(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SerializedLinearProjectionTree_Node::SerializedLinearProjectionTree_Node(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SerializedLinearProjectionTree.Node)
 }
-SerializedLinearProjectionTree_Node::SerializedLinearProjectionTree_Node(const SerializedLinearProjectionTree_Node& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  clear_has_leaf_or_non_leaf();
-  switch (from.leaf_or_non_leaf_case()) {
-    case kNonLeaf: {
-      _internal_mutable_non_leaf()->::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields::MergeFrom(from._internal_non_leaf());
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree_Node::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : leaf_or_non_leaf_{},
+        _cached_size_{0},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+SerializedLinearProjectionTree_Node::SerializedLinearProjectionTree_Node(
+    ::google::protobuf::Arena* arena,
+    const SerializedLinearProjectionTree_Node& from)
+    : ::google::protobuf::Message(arena) {
+  SerializedLinearProjectionTree_Node* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  switch (leaf_or_non_leaf_case()) {
+    case LEAF_OR_NON_LEAF_NOT_SET:
       break;
-    }
-    case kLeaf: {
-      _internal_mutable_leaf()->::research_scann::SerializedLinearProjectionTree_Node_LeafFields::MergeFrom(from._internal_leaf());
-      break;
-    }
-    case LEAF_OR_NON_LEAF_NOT_SET: {
-      break;
-    }
+      case kNonLeaf:
+        _impl_.leaf_or_non_leaf_.non_leaf_ = CreateMaybeMessage<::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields>(arena, *from._impl_.leaf_or_non_leaf_.non_leaf_);
+        break;
+      case kLeaf:
+        _impl_.leaf_or_non_leaf_.leaf_ = CreateMaybeMessage<::research_scann::SerializedLinearProjectionTree_Node_LeafFields>(arena, *from._impl_.leaf_or_non_leaf_.leaf_);
+        break;
   }
+
   // @@protoc_insertion_point(copy_constructor:research_scann.SerializedLinearProjectionTree.Node)
 }
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree_Node::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : leaf_or_non_leaf_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
 
-inline void SerializedLinearProjectionTree_Node::SharedCtor() {
-clear_has_leaf_or_non_leaf();
+inline void SerializedLinearProjectionTree_Node::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 SerializedLinearProjectionTree_Node::~SerializedLinearProjectionTree_Node() {
   // @@protoc_insertion_point(destructor:research_scann.SerializedLinearProjectionTree.Node)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SerializedLinearProjectionTree_Node::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
   if (has_leaf_or_non_leaf()) {
     clear_leaf_or_non_leaf();
   }
-}
-
-void SerializedLinearProjectionTree_Node::ArenaDtor(void* object) {
-  SerializedLinearProjectionTree_Node* _this = reinterpret_cast< SerializedLinearProjectionTree_Node* >(object);
-  (void)_this;
-}
-void SerializedLinearProjectionTree_Node::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SerializedLinearProjectionTree_Node::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_.~Impl_();
 }
 
 void SerializedLinearProjectionTree_Node::clear_leaf_or_non_leaf() {
 // @@protoc_insertion_point(one_of_clear_start:research_scann.SerializedLinearProjectionTree.Node)
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   switch (leaf_or_non_leaf_case()) {
     case kNonLeaf: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete leaf_or_non_leaf_.non_leaf_;
+      if (GetArena() == nullptr) {
+        delete _impl_.leaf_or_non_leaf_.non_leaf_;
       }
       break;
     }
     case kLeaf: {
-      if (GetArenaForAllocation() == nullptr) {
-        delete leaf_or_non_leaf_.leaf_;
+      if (GetArena() == nullptr) {
+        delete _impl_.leaf_or_non_leaf_.leaf_;
       }
       break;
     }
@@ -808,163 +843,152 @@ void SerializedLinearProjectionTree_Node::clear_leaf_or_non_leaf() {
       break;
     }
   }
-  _oneof_case_[0] = LEAF_OR_NON_LEAF_NOT_SET;
+  _impl_._oneof_case_[0] = LEAF_OR_NON_LEAF_NOT_SET;
 }
 
 
-void SerializedLinearProjectionTree_Node::Clear() {
+PROTOBUF_NOINLINE void SerializedLinearProjectionTree_Node::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SerializedLinearProjectionTree.Node)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   clear_leaf_or_non_leaf();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SerializedLinearProjectionTree_Node::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .research_scann.SerializedLinearProjectionTree.Node.NonLeafFields non_leaf = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_non_leaf(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .research_scann.SerializedLinearProjectionTree.Node.LeafFields leaf = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_leaf(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
+const char* SerializedLinearProjectionTree_Node::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SerializedLinearProjectionTree_Node::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 2, 2, 0, 2> SerializedLinearProjectionTree_Node::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_SerializedLinearProjectionTree_Node_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .research_scann.SerializedLinearProjectionTree.Node.NonLeafFields non_leaf = 1;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node, _impl_.leaf_or_non_leaf_.non_leaf_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .research_scann.SerializedLinearProjectionTree.Node.LeafFields leaf = 2;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree_Node, _impl_.leaf_or_non_leaf_.leaf_), _Internal::kOneofCaseOffset + 0, 1,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields>()},
+    {::_pbi::TcParser::GetTable<::research_scann::SerializedLinearProjectionTree_Node_LeafFields>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* SerializedLinearProjectionTree_Node::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedLinearProjectionTree.Node)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   switch (leaf_or_non_leaf_case()) {
     case kNonLeaf: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          1, _Internal::non_leaf(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          1, _Internal::non_leaf(this),
+          _Internal::non_leaf(this).GetCachedSize(), target, stream);
       break;
     }
     case kLeaf: {
-      target = stream->EnsureSpace(target);
-      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          2, _Internal::leaf(this), target, stream);
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          2, _Internal::leaf(this),
+          _Internal::leaf(this).GetCachedSize(), target, stream);
       break;
     }
-    default: ;
+    default:
+      break;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SerializedLinearProjectionTree.Node)
   return target;
 }
 
-size_t SerializedLinearProjectionTree_Node::ByteSizeLong() const {
+::size_t SerializedLinearProjectionTree_Node::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SerializedLinearProjectionTree.Node)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   switch (leaf_or_non_leaf_case()) {
     // .research_scann.SerializedLinearProjectionTree.Node.NonLeafFields non_leaf = 1;
     case kNonLeaf: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *leaf_or_non_leaf_.non_leaf_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.leaf_or_non_leaf_.non_leaf_);
       break;
     }
     // .research_scann.SerializedLinearProjectionTree.Node.LeafFields leaf = 2;
     case kLeaf: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *leaf_or_non_leaf_.leaf_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.leaf_or_non_leaf_.leaf_);
       break;
     }
     case LEAF_OR_NON_LEAF_NOT_SET: {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SerializedLinearProjectionTree_Node::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SerializedLinearProjectionTree_Node::MergeImpl
+const ::google::protobuf::Message::ClassData SerializedLinearProjectionTree_Node::_class_data_ = {
+    SerializedLinearProjectionTree_Node::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SerializedLinearProjectionTree_Node::GetClassData() const { return &_class_data_; }
-
-void SerializedLinearProjectionTree_Node::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SerializedLinearProjectionTree_Node *>(to)->MergeFrom(
-      static_cast<const SerializedLinearProjectionTree_Node &>(from));
+const ::google::protobuf::Message::ClassData* SerializedLinearProjectionTree_Node::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SerializedLinearProjectionTree_Node::MergeFrom(const SerializedLinearProjectionTree_Node& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree.Node)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SerializedLinearProjectionTree_Node::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SerializedLinearProjectionTree_Node*>(&to_msg);
+  auto& from = static_cast<const SerializedLinearProjectionTree_Node&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree.Node)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.leaf_or_non_leaf_case()) {
     case kNonLeaf: {
-      _internal_mutable_non_leaf()->::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields::MergeFrom(from._internal_non_leaf());
+      _this->_internal_mutable_non_leaf()->::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields::MergeFrom(
+          from._internal_non_leaf());
       break;
     }
     case kLeaf: {
-      _internal_mutable_leaf()->::research_scann::SerializedLinearProjectionTree_Node_LeafFields::MergeFrom(from._internal_leaf());
+      _this->_internal_mutable_leaf()->::research_scann::SerializedLinearProjectionTree_Node_LeafFields::MergeFrom(
+          from._internal_leaf());
       break;
     }
     case LEAF_OR_NON_LEAF_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SerializedLinearProjectionTree_Node::CopyFrom(const SerializedLinearProjectionTree_Node& from) {
@@ -974,209 +998,204 @@ void SerializedLinearProjectionTree_Node::CopyFrom(const SerializedLinearProject
   MergeFrom(from);
 }
 
-bool SerializedLinearProjectionTree_Node::IsInitialized() const {
+PROTOBUF_NOINLINE bool SerializedLinearProjectionTree_Node::IsInitialized() const {
   return true;
 }
 
-void SerializedLinearProjectionTree_Node::InternalSwap(SerializedLinearProjectionTree_Node* other) {
+::_pbi::CachedSize* SerializedLinearProjectionTree_Node::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SerializedLinearProjectionTree_Node::InternalSwap(SerializedLinearProjectionTree_Node* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(leaf_or_non_leaf_, other->leaf_or_non_leaf_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.leaf_or_non_leaf_, other->_impl_.leaf_or_non_leaf_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SerializedLinearProjectionTree_Node::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SerializedLinearProjectionTree_Node::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_getter, &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once,
       file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[2]);
 }
-
 // ===================================================================
 
 class SerializedLinearProjectionTree::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedLinearProjectionTree>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedLinearProjectionTree>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree, _impl_._has_bits_);
   static const ::research_scann::SerializedLinearProjectionTree_Node& root(const SerializedLinearProjectionTree* msg);
   static void set_has_root(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::research_scann::SerializedLinearProjectionTree_Node&
-SerializedLinearProjectionTree::_Internal::root(const SerializedLinearProjectionTree* msg) {
-  return *msg->root_;
+const ::research_scann::SerializedLinearProjectionTree_Node& SerializedLinearProjectionTree::_Internal::root(const SerializedLinearProjectionTree* msg) {
+  return *msg->_impl_.root_;
 }
-SerializedLinearProjectionTree::SerializedLinearProjectionTree(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+SerializedLinearProjectionTree::SerializedLinearProjectionTree(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.SerializedLinearProjectionTree)
 }
-SerializedLinearProjectionTree::SerializedLinearProjectionTree(const SerializedLinearProjectionTree& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_root()) {
-    root_ = new ::research_scann::SerializedLinearProjectionTree_Node(*from.root_);
-  } else {
-    root_ = nullptr;
-  }
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+SerializedLinearProjectionTree::SerializedLinearProjectionTree(
+    ::google::protobuf::Arena* arena,
+    const SerializedLinearProjectionTree& from)
+    : ::google::protobuf::Message(arena) {
+  SerializedLinearProjectionTree* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.root_ = (cached_has_bits & 0x00000001u)
+                ? CreateMaybeMessage<::research_scann::SerializedLinearProjectionTree_Node>(arena, *from._impl_.root_)
+                : nullptr;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.SerializedLinearProjectionTree)
 }
+inline PROTOBUF_NDEBUG_INLINE SerializedLinearProjectionTree::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
 
-inline void SerializedLinearProjectionTree::SharedCtor() {
-root_ = nullptr;
+inline void SerializedLinearProjectionTree::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.root_ = {};
 }
-
 SerializedLinearProjectionTree::~SerializedLinearProjectionTree() {
   // @@protoc_insertion_point(destructor:research_scann.SerializedLinearProjectionTree)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void SerializedLinearProjectionTree::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete root_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.root_;
+  _impl_.~Impl_();
 }
 
-void SerializedLinearProjectionTree::ArenaDtor(void* object) {
-  SerializedLinearProjectionTree* _this = reinterpret_cast< SerializedLinearProjectionTree* >(object);
-  (void)_this;
-}
-void SerializedLinearProjectionTree::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void SerializedLinearProjectionTree::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void SerializedLinearProjectionTree::Clear() {
+PROTOBUF_NOINLINE void SerializedLinearProjectionTree::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.SerializedLinearProjectionTree)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(root_ != nullptr);
-    root_->Clear();
+    ABSL_DCHECK(_impl_.root_ != nullptr);
+    _impl_.root_->Clear();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* SerializedLinearProjectionTree::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .research_scann.SerializedLinearProjectionTree.Node root = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_root(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* SerializedLinearProjectionTree::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SerializedLinearProjectionTree::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedLinearProjectionTree)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> SerializedLinearProjectionTree::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree, _impl_._has_bits_),
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_SerializedLinearProjectionTree_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional .research_scann.SerializedLinearProjectionTree.Node root = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree, _impl_.root_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional .research_scann.SerializedLinearProjectionTree.Node root = 1;
+    {PROTOBUF_FIELD_OFFSET(SerializedLinearProjectionTree, _impl_.root_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::SerializedLinearProjectionTree_Node>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* SerializedLinearProjectionTree::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.SerializedLinearProjectionTree)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .research_scann.SerializedLinearProjectionTree.Node root = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::root(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        1, _Internal::root(this),
+        _Internal::root(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.SerializedLinearProjectionTree)
   return target;
 }
 
-size_t SerializedLinearProjectionTree::ByteSizeLong() const {
+::size_t SerializedLinearProjectionTree::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.SerializedLinearProjectionTree)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional .research_scann.SerializedLinearProjectionTree.Node root = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *root_);
+    total_size +=
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.root_);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SerializedLinearProjectionTree::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    SerializedLinearProjectionTree::MergeImpl
+const ::google::protobuf::Message::ClassData SerializedLinearProjectionTree::_class_data_ = {
+    SerializedLinearProjectionTree::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SerializedLinearProjectionTree::GetClassData() const { return &_class_data_; }
-
-void SerializedLinearProjectionTree::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<SerializedLinearProjectionTree *>(to)->MergeFrom(
-      static_cast<const SerializedLinearProjectionTree &>(from));
+const ::google::protobuf::Message::ClassData* SerializedLinearProjectionTree::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void SerializedLinearProjectionTree::MergeFrom(const SerializedLinearProjectionTree& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void SerializedLinearProjectionTree::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<SerializedLinearProjectionTree*>(&to_msg);
+  auto& from = static_cast<const SerializedLinearProjectionTree&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.SerializedLinearProjectionTree)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_root()) {
-    _internal_mutable_root()->::research_scann::SerializedLinearProjectionTree_Node::MergeFrom(from._internal_root());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_root()->::research_scann::SerializedLinearProjectionTree_Node::MergeFrom(
+        from._internal_root());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SerializedLinearProjectionTree::CopyFrom(const SerializedLinearProjectionTree& from) {
@@ -1186,39 +1205,30 @@ void SerializedLinearProjectionTree::CopyFrom(const SerializedLinearProjectionTr
   MergeFrom(from);
 }
 
-bool SerializedLinearProjectionTree::IsInitialized() const {
+PROTOBUF_NOINLINE bool SerializedLinearProjectionTree::IsInitialized() const {
   return true;
 }
 
-void SerializedLinearProjectionTree::InternalSwap(SerializedLinearProjectionTree* other) {
+::_pbi::CachedSize* SerializedLinearProjectionTree::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void SerializedLinearProjectionTree::InternalSwap(SerializedLinearProjectionTree* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(root_, other->root_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.root_, other->_impl_.root_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SerializedLinearProjectionTree::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata SerializedLinearProjectionTree::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_getter, &descriptor_table_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto_once,
       file_level_metadata_scann_2fpartitioning_2flinear_5fprojection_5ftree_2eproto[3]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields* Arena::CreateMaybeMessage< ::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SerializedLinearProjectionTree_Node_NonLeafFields >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::SerializedLinearProjectionTree_Node_LeafFields* Arena::CreateMaybeMessage< ::research_scann::SerializedLinearProjectionTree_Node_LeafFields >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SerializedLinearProjectionTree_Node_LeafFields >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::SerializedLinearProjectionTree_Node* Arena::CreateMaybeMessage< ::research_scann::SerializedLinearProjectionTree_Node >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SerializedLinearProjectionTree_Node >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::SerializedLinearProjectionTree* Arena::CreateMaybeMessage< ::research_scann::SerializedLinearProjectionTree >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::SerializedLinearProjectionTree >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

@@ -1,9 +1,9 @@
 [submodule "contrib/faiss"]
 	path = contrib/faiss
-	url = https://github.com/myscale/faiss.git
+	url = git@github.com:OriginHubAI/faiss.git
 [submodule "contrib/scann/contrib/abseil-cpp"]
 	path = contrib/scann/contrib/abseil-cpp
-	url = https://github.com/abseil/abseil-cpp.git
+	url = https://github.com/ClickHouse/abseil-cpp.git
 [submodule "contrib/scann/contrib/nsync"]
 	path = contrib/scann/contrib/nsync
 	url = https://github.com/google/nsync.git

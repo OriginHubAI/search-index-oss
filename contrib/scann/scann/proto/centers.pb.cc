@@ -4,314 +4,349 @@
 #include "scann/proto/centers.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr CentersForAllSubspaces::CentersForAllSubspaces(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : subspace_centers_()
-  , quantization_scheme_(0)
-{}
-struct CentersForAllSubspacesDefaultTypeInternal {
-  constexpr CentersForAllSubspacesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~CentersForAllSubspacesDefaultTypeInternal() {}
-  union {
-    CentersForAllSubspaces _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CentersForAllSubspacesDefaultTypeInternal _CentersForAllSubspaces_default_instance_;
-constexpr CentersForSubspace::CentersForSubspace(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : center_(){}
+
+inline constexpr CentersForSubspace::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : center_{},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR CentersForSubspace::CentersForSubspace(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct CentersForSubspaceDefaultTypeInternal {
-  constexpr CentersForSubspaceDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CentersForSubspaceDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~CentersForSubspaceDefaultTypeInternal() {}
   union {
     CentersForSubspace _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CentersForSubspaceDefaultTypeInternal _CentersForSubspace_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CentersForSubspaceDefaultTypeInternal _CentersForSubspace_default_instance_;
+
+inline constexpr CentersForAllSubspaces::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        subspace_centers_{},
+        quantization_scheme_{static_cast< ::research_scann::AsymmetricHasherConfig_QuantizationScheme >(0)} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR CentersForAllSubspaces::CentersForAllSubspaces(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct CentersForAllSubspacesDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CentersForAllSubspacesDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CentersForAllSubspacesDefaultTypeInternal() {}
+  union {
+    CentersForAllSubspaces _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CentersForAllSubspacesDefaultTypeInternal _CentersForAllSubspaces_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fcenters_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fcenters_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fcenters_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fcenters_2eproto[2];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fcenters_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fcenters_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fcenters_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, _impl_.subspace_centers_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, _impl_.quantization_scheme_),
+    ~0u,
+    0,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::research_scann::CentersForSubspace, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::CentersForSubspace, _impl_.center_),
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fcenters_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, subspace_centers_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::CentersForAllSubspaces, quantization_scheme_),
-  ~0u,
-  0,
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::research_scann::CentersForSubspace, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::CentersForSubspace, center_),
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, sizeof(::research_scann::CentersForAllSubspaces)},
-  { 9, -1, sizeof(::research_scann::CentersForSubspace)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 10, -1, sizeof(::research_scann::CentersForAllSubspaces)},
+        {12, -1, -1, sizeof(::research_scann::CentersForSubspace)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_CentersForAllSubspaces_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_CentersForSubspace_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_CentersForAllSubspaces_default_instance_._instance,
+    &::research_scann::_CentersForSubspace_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fcenters_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\031scann/proto/centers.proto\022\016research_sc"
+    "ann\032 scann/data_format/features.proto\032\026s"
+    "cann/proto/hash.proto\"\267\001\n\026CentersForAllS"
+    "ubspaces\022<\n\020subspace_centers\030\001 \003(\0132\".res"
+    "earch_scann.CentersForSubspace\022_\n\023quanti"
+    "zation_scheme\030\002 \001(\01629.research_scann.Asy"
+    "mmetricHasherConfig.QuantizationScheme:\007"
+    "PRODUCT\"J\n\022CentersForSubspace\0224\n\006center\030"
+    "\001 \003(\0132$.research_scann.GenericFeatureVec"
+    "tor"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fcenters_2eproto_deps[2] =
+    {
+        &::descriptor_table_scann_2fdata_5fformat_2ffeatures_2eproto,
+        &::descriptor_table_scann_2fproto_2fhash_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fcenters_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fcenters_2eproto = {
+    false,
+    false,
+    363,
+    descriptor_table_protodef_scann_2fproto_2fcenters_2eproto,
+    "scann/proto/centers.proto",
+    &descriptor_table_scann_2fproto_2fcenters_2eproto_once,
+    descriptor_table_scann_2fproto_2fcenters_2eproto_deps,
+    2,
+    2,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fcenters_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fcenters_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fcenters_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fcenters_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fcenters_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\031scann/proto/centers.proto\022\016research_sc"
-  "ann\032 scann/data_format/features.proto\032\026s"
-  "cann/proto/hash.proto\"\267\001\n\026CentersForAllS"
-  "ubspaces\022<\n\020subspace_centers\030\001 \003(\0132\".res"
-  "earch_scann.CentersForSubspace\022_\n\023quanti"
-  "zation_scheme\030\002 \001(\01629.research_scann.Asy"
-  "mmetricHasherConfig.QuantizationScheme:\007"
-  "PRODUCT\"J\n\022CentersForSubspace\0224\n\006center\030"
-  "\001 \003(\0132$.research_scann.GenericFeatureVec"
-  "tor"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fcenters_2eproto_deps[2] = {
-  &::descriptor_table_scann_2fdata_5fformat_2ffeatures_2eproto,
-  &::descriptor_table_scann_2fproto_2fhash_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fcenters_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fcenters_2eproto = {
-  false, false, 363, descriptor_table_protodef_scann_2fproto_2fcenters_2eproto, "scann/proto/centers.proto", 
-  &descriptor_table_scann_2fproto_2fcenters_2eproto_once, descriptor_table_scann_2fproto_2fcenters_2eproto_deps, 2, 2,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fcenters_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fcenters_2eproto, file_level_enum_descriptors_scann_2fproto_2fcenters_2eproto, file_level_service_descriptors_scann_2fproto_2fcenters_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fcenters_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fcenters_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fcenters_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fcenters_2eproto(&descriptor_table_scann_2fproto_2fcenters_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fcenters_2eproto(&descriptor_table_scann_2fproto_2fcenters_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class CentersForAllSubspaces::_Internal {
  public:
-  using HasBits = decltype(std::declval<CentersForAllSubspaces>()._has_bits_);
+  using HasBits = decltype(std::declval<CentersForAllSubspaces>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(CentersForAllSubspaces, _impl_._has_bits_);
   static void set_has_quantization_scheme(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-CentersForAllSubspaces::CentersForAllSubspaces(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  subspace_centers_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+CentersForAllSubspaces::CentersForAllSubspaces(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.CentersForAllSubspaces)
 }
-CentersForAllSubspaces::CentersForAllSubspaces(const CentersForAllSubspaces& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      subspace_centers_(from.subspace_centers_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  quantization_scheme_ = from.quantization_scheme_;
+inline PROTOBUF_NDEBUG_INLINE CentersForAllSubspaces::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        subspace_centers_{visibility, arena, from.subspace_centers_} {}
+
+CentersForAllSubspaces::CentersForAllSubspaces(
+    ::google::protobuf::Arena* arena,
+    const CentersForAllSubspaces& from)
+    : ::google::protobuf::Message(arena) {
+  CentersForAllSubspaces* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  _impl_.quantization_scheme_ = from._impl_.quantization_scheme_;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.CentersForAllSubspaces)
 }
+inline PROTOBUF_NDEBUG_INLINE CentersForAllSubspaces::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        subspace_centers_{visibility, arena} {}
 
-inline void CentersForAllSubspaces::SharedCtor() {
-quantization_scheme_ = 0;
+inline void CentersForAllSubspaces::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.quantization_scheme_ = {};
 }
-
 CentersForAllSubspaces::~CentersForAllSubspaces() {
   // @@protoc_insertion_point(destructor:research_scann.CentersForAllSubspaces)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void CentersForAllSubspaces::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void CentersForAllSubspaces::ArenaDtor(void* object) {
-  CentersForAllSubspaces* _this = reinterpret_cast< CentersForAllSubspaces* >(object);
-  (void)_this;
-}
-void CentersForAllSubspaces::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void CentersForAllSubspaces::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void CentersForAllSubspaces::Clear() {
+PROTOBUF_NOINLINE void CentersForAllSubspaces::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.CentersForAllSubspaces)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  subspace_centers_.Clear();
-  quantization_scheme_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.subspace_centers_.Clear();
+  _impl_.quantization_scheme_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* CentersForAllSubspaces::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated .research_scann.CentersForSubspace subspace_centers = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_subspace_centers(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 2 [default = PRODUCT];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::AsymmetricHasherConfig_QuantizationScheme_IsValid(val))) {
-            _internal_set_quantization_scheme(static_cast<::research_scann::AsymmetricHasherConfig_QuantizationScheme>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* CentersForAllSubspaces::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* CentersForAllSubspaces::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 2, 0, 2> CentersForAllSubspaces::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(CentersForAllSubspaces, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_CentersForAllSubspaces_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 2 [default = PRODUCT];
+    {::_pbi::TcParser::FastEr0S1,
+     {16, 0, 3, PROTOBUF_FIELD_OFFSET(CentersForAllSubspaces, _impl_.quantization_scheme_)}},
+    // repeated .research_scann.CentersForSubspace subspace_centers = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(CentersForAllSubspaces, _impl_.subspace_centers_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated .research_scann.CentersForSubspace subspace_centers = 1;
+    {PROTOBUF_FIELD_OFFSET(CentersForAllSubspaces, _impl_.subspace_centers_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 2 [default = PRODUCT];
+    {PROTOBUF_FIELD_OFFSET(CentersForAllSubspaces, _impl_.quantization_scheme_), _Internal::kHasBitsOffset + 0, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::CentersForSubspace>()},
+    {0, 4},
+  }}, {{
+  }},
+};
+
+::uint8_t* CentersForAllSubspaces::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.CentersForAllSubspaces)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   // repeated .research_scann.CentersForSubspace subspace_centers = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_subspace_centers_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_subspace_centers(i), target, stream);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_subspace_centers_size()); i < n; i++) {
+    const auto& repfield = this->_internal_subspace_centers().Get(i);
+    target = ::google::protobuf::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 2 [default = PRODUCT];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_quantization_scheme(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        2, this->_internal_quantization_scheme(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.CentersForAllSubspaces)
   return target;
 }
 
-size_t CentersForAllSubspaces::ByteSizeLong() const {
+::size_t CentersForAllSubspaces::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.CentersForAllSubspaces)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .research_scann.CentersForSubspace subspace_centers = 1;
   total_size += 1UL * this->_internal_subspace_centers_size();
-  for (const auto& msg : this->subspace_centers_) {
+  for (const auto& msg : this->_internal_subspace_centers()) {
     total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+      ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
-
   // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 2 [default = PRODUCT];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_quantization_scheme());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_quantization_scheme());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CentersForAllSubspaces::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    CentersForAllSubspaces::MergeImpl
+const ::google::protobuf::Message::ClassData CentersForAllSubspaces::_class_data_ = {
+    CentersForAllSubspaces::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CentersForAllSubspaces::GetClassData() const { return &_class_data_; }
-
-void CentersForAllSubspaces::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<CentersForAllSubspaces *>(to)->MergeFrom(
-      static_cast<const CentersForAllSubspaces &>(from));
+const ::google::protobuf::Message::ClassData* CentersForAllSubspaces::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void CentersForAllSubspaces::MergeFrom(const CentersForAllSubspaces& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.CentersForAllSubspaces)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void CentersForAllSubspaces::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<CentersForAllSubspaces*>(&to_msg);
+  auto& from = static_cast<const CentersForAllSubspaces&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.CentersForAllSubspaces)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  subspace_centers_.MergeFrom(from.subspace_centers_);
-  if (from._internal_has_quantization_scheme()) {
-    _internal_set_quantization_scheme(from._internal_quantization_scheme());
+  _this->_internal_mutable_subspace_centers()->MergeFrom(
+      from._internal_subspace_centers());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_quantization_scheme(from._internal_quantization_scheme());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CentersForAllSubspaces::CopyFrom(const CentersForAllSubspaces& from) {
@@ -321,25 +356,28 @@ void CentersForAllSubspaces::CopyFrom(const CentersForAllSubspaces& from) {
   MergeFrom(from);
 }
 
-bool CentersForAllSubspaces::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(subspace_centers_)) return false;
+PROTOBUF_NOINLINE bool CentersForAllSubspaces::IsInitialized() const {
+  if (!::google::protobuf::internal::AllAreInitialized(_internal_subspace_centers()))
+    return false;
   return true;
 }
 
-void CentersForAllSubspaces::InternalSwap(CentersForAllSubspaces* other) {
+::_pbi::CachedSize* CentersForAllSubspaces::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void CentersForAllSubspaces::InternalSwap(CentersForAllSubspaces* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  subspace_centers_.InternalSwap(&other->subspace_centers_);
-  swap(quantization_scheme_, other->quantization_scheme_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.subspace_centers_.InternalSwap(&other->_impl_.subspace_centers_);
+  swap(_impl_.quantization_scheme_, other->_impl_.quantization_scheme_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CentersForAllSubspaces::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata CentersForAllSubspaces::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fcenters_2eproto_getter, &descriptor_table_scann_2fproto_2fcenters_2eproto_once,
       file_level_metadata_scann_2fproto_2fcenters_2eproto[0]);
 }
-
 // ===================================================================
 
 class CentersForSubspace::_Internal {
@@ -347,167 +385,159 @@ class CentersForSubspace::_Internal {
 };
 
 void CentersForSubspace::clear_center() {
-  center_.Clear();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.center_.Clear();
 }
-CentersForSubspace::CentersForSubspace(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  center_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+CentersForSubspace::CentersForSubspace(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.CentersForSubspace)
 }
-CentersForSubspace::CentersForSubspace(const CentersForSubspace& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      center_(from.center_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+inline PROTOBUF_NDEBUG_INLINE CentersForSubspace::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : center_{visibility, arena, from.center_},
+        _cached_size_{0} {}
+
+CentersForSubspace::CentersForSubspace(
+    ::google::protobuf::Arena* arena,
+    const CentersForSubspace& from)
+    : ::google::protobuf::Message(arena) {
+  CentersForSubspace* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+
   // @@protoc_insertion_point(copy_constructor:research_scann.CentersForSubspace)
 }
+inline PROTOBUF_NDEBUG_INLINE CentersForSubspace::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : center_{visibility, arena},
+        _cached_size_{0} {}
 
-inline void CentersForSubspace::SharedCtor() {
+inline void CentersForSubspace::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 CentersForSubspace::~CentersForSubspace() {
   // @@protoc_insertion_point(destructor:research_scann.CentersForSubspace)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void CentersForSubspace::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void CentersForSubspace::ArenaDtor(void* object) {
-  CentersForSubspace* _this = reinterpret_cast< CentersForSubspace* >(object);
-  (void)_this;
-}
-void CentersForSubspace::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void CentersForSubspace::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void CentersForSubspace::Clear() {
+PROTOBUF_NOINLINE void CentersForSubspace::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.CentersForSubspace)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  center_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.center_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* CentersForSubspace::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated .research_scann.GenericFeatureVector center = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_center(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
+const char* CentersForSubspace::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* CentersForSubspace::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> CentersForSubspace::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_CentersForSubspace_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // repeated .research_scann.GenericFeatureVector center = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(CentersForSubspace, _impl_.center_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated .research_scann.GenericFeatureVector center = 1;
+    {PROTOBUF_FIELD_OFFSET(CentersForSubspace, _impl_.center_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::GenericFeatureVector>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* CentersForSubspace::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:research_scann.CentersForSubspace)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
 
   // repeated .research_scann.GenericFeatureVector center = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_center_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_center(i), target, stream);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_center_size()); i < n; i++) {
+    const auto& repfield = this->_internal_center().Get(i);
+    target = ::google::protobuf::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.CentersForSubspace)
   return target;
 }
 
-size_t CentersForSubspace::ByteSizeLong() const {
+::size_t CentersForSubspace::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.CentersForSubspace)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated .research_scann.GenericFeatureVector center = 1;
   total_size += 1UL * this->_internal_center_size();
-  for (const auto& msg : this->center_) {
+  for (const auto& msg : this->_internal_center()) {
     total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+      ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CentersForSubspace::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    CentersForSubspace::MergeImpl
+const ::google::protobuf::Message::ClassData CentersForSubspace::_class_data_ = {
+    CentersForSubspace::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CentersForSubspace::GetClassData() const { return &_class_data_; }
-
-void CentersForSubspace::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<CentersForSubspace *>(to)->MergeFrom(
-      static_cast<const CentersForSubspace &>(from));
+const ::google::protobuf::Message::ClassData* CentersForSubspace::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void CentersForSubspace::MergeFrom(const CentersForSubspace& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.CentersForSubspace)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void CentersForSubspace::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<CentersForSubspace*>(&to_msg);
+  auto& from = static_cast<const CentersForSubspace&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.CentersForSubspace)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  center_.MergeFrom(from.center_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_mutable_center()->MergeFrom(
+      from._internal_center());
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CentersForSubspace::CopyFrom(const CentersForSubspace& from) {
@@ -517,33 +547,31 @@ void CentersForSubspace::CopyFrom(const CentersForSubspace& from) {
   MergeFrom(from);
 }
 
-bool CentersForSubspace::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(center_)) return false;
+PROTOBUF_NOINLINE bool CentersForSubspace::IsInitialized() const {
+  if (!::google::protobuf::internal::AllAreInitialized(_internal_center()))
+    return false;
   return true;
 }
 
-void CentersForSubspace::InternalSwap(CentersForSubspace* other) {
+::_pbi::CachedSize* CentersForSubspace::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void CentersForSubspace::InternalSwap(CentersForSubspace* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  center_.InternalSwap(&other->center_);
+  _impl_.center_.InternalSwap(&other->_impl_.center_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CentersForSubspace::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata CentersForSubspace::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fcenters_2eproto_getter, &descriptor_table_scann_2fproto_2fcenters_2eproto_once,
       file_level_metadata_scann_2fproto_2fcenters_2eproto[1]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::CentersForAllSubspaces* Arena::CreateMaybeMessage< ::research_scann::CentersForAllSubspaces >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::CentersForAllSubspaces >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::CentersForSubspace* Arena::CreateMaybeMessage< ::research_scann::CentersForSubspace >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::CentersForSubspace >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

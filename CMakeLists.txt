@@ -65,6 +65,7 @@ if (MYSCALE_MODE)
     include_directories(${CMAKE_SOURCE_DIR}/base)
     include_directories(${CMAKE_SOURCE_DIR}/src)
     include_directories(${CMAKE_SOURCE_DIR}/contrib/boost)
+    include_directories(${CMAKE_SOURCE_DIR}/contrib/google-protobuf/src)
     include_directories(${CMAKE_SOURCE_DIR}/contrib/fmtlib/include)
     include_directories(${CMAKE_SOURCE_DIR}/base/poco/Foundation/include)
     include_directories(${CMAKE_SOURCE_DIR}/base/poco/Util/include)
@@ -87,7 +88,8 @@ find_package(OpenMP REQUIRED)
 find_package(BLAS REQUIRED)
 
 # list utility libraries for linking
-set(VECTOR_INDEX_UTIL_LIBS OpenMP::OpenMP_CXX ${BLAS_LIBRARIES})
+set(VECTOR_INDEX_UTIL_LIBS ${BLAS_LIBRARIES})
+set(VECTOR_INDEX_UTIL_LIBS_PRIVATE OpenMP::OpenMP_CXX)
 
 SET(VECTOR_INDEX_LINK_LIBS ${VECTOR_INDEX_UTIL_LIBS})
 
@@ -139,6 +141,7 @@ configure_file(
 # build shared & static libraries
 add_library(${PROJECT_NAME}_static STATIC $<TARGET_OBJECTS:search_index>)
 target_link_libraries(${PROJECT_NAME}_static PUBLIC ${VECTOR_INDEX_LINK_LIBS})
+target_link_libraries(${PROJECT_NAME}_static PRIVATE ${VECTOR_INDEX_UTIL_LIBS_PRIVATE})
 target_include_directories(${PROJECT_NAME}_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME}_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/contrib)
 target_include_directories(${PROJECT_NAME}_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/contrib/faiss)
@@ -158,3 +161,4 @@ endfunction()
 
 add_ut_test(tests/VectorIndexTest.cpp test_vector_index)
 target_link_libraries(boost_ut_test_vector_index PUBLIC ${PROJECT_NAME}_static)
+

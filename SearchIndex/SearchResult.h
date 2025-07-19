@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 MOQI SINGAPORE PTE. LTD.
+ * Copyright © 2024 ORIGINHUB SINGAPORE PTE. LTD.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by

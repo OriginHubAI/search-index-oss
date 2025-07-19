@@ -4,185 +4,253 @@
 #include "scann/proto/exact_reordering.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr ExactReordering::ExactReordering(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : approx_distance_measure_(nullptr)
-  , fixed_point_(nullptr)
-  , neighbor_selection_override_heuristics_(nullptr)
-  , use_fixed_point_if_possible_(false)
-  , use_fp16_storage_(false)
-  , approx_num_neighbors_(2147483647)
-  , approx_epsilon_distance_(std::numeric_limits<float>::infinity()){}
-struct ExactReorderingDefaultTypeInternal {
-  constexpr ExactReorderingDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ExactReorderingDefaultTypeInternal() {}
-  union {
-    ExactReordering _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ExactReorderingDefaultTypeInternal _ExactReordering_default_instance_;
-constexpr FixedPoint::FixedPoint(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : offline_quantization_cell_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , mr_jobname_prefix_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , multipliers_filename_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , enabled_(false)
-  , num_machines_(0)
-  , fixed_point_multiplier_(std::numeric_limits<float>::quiet_NaN())
-  , fixed_point_multiplier_quantile_(1)
-  , noise_shaping_threshold_(std::numeric_limits<double>::quiet_NaN()){}
-struct FixedPointDefaultTypeInternal {
-  constexpr FixedPointDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~FixedPointDefaultTypeInternal() {}
-  union {
-    FixedPoint _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FixedPointDefaultTypeInternal _FixedPoint_default_instance_;
-constexpr NeighborSelectionOverrideHeuristics::NeighborSelectionOverrideHeuristics(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : approx_num_neighbors_multiplier_(2)
-  , approx_epsilon_distance_multiplier_(1.2f){}
+
+inline constexpr NeighborSelectionOverrideHeuristics::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        approx_num_neighbors_multiplier_{2},
+        approx_epsilon_distance_multiplier_{1.2f} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR NeighborSelectionOverrideHeuristics::NeighborSelectionOverrideHeuristics(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct NeighborSelectionOverrideHeuristicsDefaultTypeInternal {
-  constexpr NeighborSelectionOverrideHeuristicsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NeighborSelectionOverrideHeuristicsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~NeighborSelectionOverrideHeuristicsDefaultTypeInternal() {}
   union {
     NeighborSelectionOverrideHeuristics _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NeighborSelectionOverrideHeuristicsDefaultTypeInternal _NeighborSelectionOverrideHeuristics_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NeighborSelectionOverrideHeuristicsDefaultTypeInternal _NeighborSelectionOverrideHeuristics_default_instance_;
+
+inline constexpr FixedPoint::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        offline_quantization_cell_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        mr_jobname_prefix_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        multipliers_filename_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        enabled_{false},
+        num_machines_{0},
+        fixed_point_multiplier_{std::numeric_limits<float>::quiet_NaN()},
+        fixed_point_multiplier_quantile_{1},
+        noise_shaping_threshold_{std::numeric_limits<double>::quiet_NaN()} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR FixedPoint::FixedPoint(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct FixedPointDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FixedPointDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FixedPointDefaultTypeInternal() {}
+  union {
+    FixedPoint _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FixedPointDefaultTypeInternal _FixedPoint_default_instance_;
+
+inline constexpr ExactReordering::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        approx_distance_measure_{nullptr},
+        fixed_point_{nullptr},
+        neighbor_selection_override_heuristics_{nullptr},
+        use_fixed_point_if_possible_{false},
+        use_fp16_storage_{false},
+        approx_num_neighbors_{2147483647},
+        approx_epsilon_distance_{std::numeric_limits<float>::infinity()} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR ExactReordering::ExactReordering(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct ExactReorderingDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ExactReorderingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ExactReorderingDefaultTypeInternal() {}
+  union {
+    ExactReordering _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExactReorderingDefaultTypeInternal _ExactReordering_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto[3];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_scann_2fproto_2fexact_5freordering_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fexact_5freordering_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto[3];
+static constexpr const ::_pb::EnumDescriptor**
+    file_level_enum_descriptors_scann_2fproto_2fexact_5freordering_2eproto = nullptr;
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fexact_5freordering_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fexact_5freordering_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.approx_num_neighbors_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.approx_epsilon_distance_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.approx_distance_measure_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.fixed_point_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.neighbor_selection_override_heuristics_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.use_fixed_point_if_possible_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _impl_.use_fp16_storage_),
+    5,
+    6,
+    0,
+    1,
+    2,
+    3,
+    4,
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.enabled_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.fixed_point_multiplier_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.multipliers_filename_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.noise_shaping_threshold_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.fixed_point_multiplier_quantile_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.mr_jobname_prefix_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.offline_quantization_cell_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _impl_.num_machines_),
+    3,
+    5,
+    2,
+    7,
+    6,
+    1,
+    0,
+    4,
+    PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, _impl_.approx_num_neighbors_multiplier_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, _impl_.approx_epsilon_distance_multiplier_),
+    0,
+    1,
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fexact_5freordering_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, approx_num_neighbors_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, approx_epsilon_distance_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, approx_distance_measure_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, fixed_point_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, neighbor_selection_override_heuristics_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, use_fixed_point_if_possible_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::ExactReordering, use_fp16_storage_),
-  5,
-  6,
-  0,
-  1,
-  2,
-  3,
-  4,
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, enabled_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, fixed_point_multiplier_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, multipliers_filename_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, noise_shaping_threshold_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, fixed_point_multiplier_quantile_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, mr_jobname_prefix_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, offline_quantization_cell_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::FixedPoint, num_machines_),
-  3,
-  5,
-  2,
-  7,
-  6,
-  1,
-  0,
-  4,
-  PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, approx_num_neighbors_multiplier_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::NeighborSelectionOverrideHeuristics, approx_epsilon_distance_multiplier_),
-  0,
-  1,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 12, sizeof(::research_scann::ExactReordering)},
-  { 19, 32, sizeof(::research_scann::FixedPoint)},
-  { 40, 47, sizeof(::research_scann::NeighborSelectionOverrideHeuristics)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 15, -1, sizeof(::research_scann::ExactReordering)},
+        {22, 38, -1, sizeof(::research_scann::FixedPoint)},
+        {46, 56, -1, sizeof(::research_scann::NeighborSelectionOverrideHeuristics)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_ExactReordering_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_FixedPoint_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_NeighborSelectionOverrideHeuristics_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_ExactReordering_default_instance_._instance,
+    &::research_scann::_FixedPoint_default_instance_._instance,
+    &::research_scann::_NeighborSelectionOverrideHeuristics_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fexact_5freordering_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\"scann/proto/exact_reordering.proto\022\016re"
+    "search_scann\032\"scann/proto/distance_measu"
+    "re.proto\"\220\003\n\017ExactReordering\022(\n\024approx_n"
+    "um_neighbors\030\001 \001(\005:\n2147483647\022$\n\027approx"
+    "_epsilon_distance\030\002 \001(\002:\003inf\022F\n\027approx_d"
+    "istance_measure\030\003 \001(\0132%.research_scann.D"
+    "istanceMeasureConfig\022/\n\013fixed_point\030\005 \001("
+    "\0132\032.research_scann.FixedPoint\022c\n&neighbo"
+    "r_selection_override_heuristics\030\006 \001(\01323."
+    "research_scann.NeighborSelectionOverride"
+    "Heuristics\022.\n\033use_fixed_point_if_possibl"
+    "e\030\004 \001(\010:\005falseB\002\030\001\022\037\n\020use_fp16_storage\030\007"
+    " \001(\010:\005false\"\215\002\n\nFixedPoint\022\026\n\007enabled\030\001 "
+    "\001(\010:\005false\022#\n\026fixed_point_multiplier\030\002 \001"
+    "(\002:\003nan\022\034\n\024multipliers_filename\030\007 \001(\t\022$\n"
+    "\027noise_shaping_threshold\030\010 \001(\001:\003nan\022*\n\037f"
+    "ixed_point_multiplier_quantile\030\006 \001(\002:\0011\022"
+    "\031\n\021mr_jobname_prefix\030\005 \001(\t\022!\n\031offline_qu"
+    "antization_cell\030\003 \001(\t\022\024\n\014num_machines\030\004 "
+    "\001(\005\"\202\001\n#NeighborSelectionOverrideHeurist"
+    "ics\022*\n\037approx_num_neighbors_multiplier\030\001"
+    " \001(\002:\0012\022/\n\"approx_epsilon_distance_multi"
+    "plier\030\002 \001(\002:\0031.2"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_deps[1] =
+    {
+        &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fexact_5freordering_2eproto = {
+    false,
+    false,
+    896,
+    descriptor_table_protodef_scann_2fproto_2fexact_5freordering_2eproto,
+    "scann/proto/exact_reordering.proto",
+    &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once,
+    descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_deps,
+    1,
+    3,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fexact_5freordering_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fexact_5freordering_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fexact_5freordering_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fexact_5freordering_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\"scann/proto/exact_reordering.proto\022\016re"
-  "search_scann\032\"scann/proto/distance_measu"
-  "re.proto\"\220\003\n\017ExactReordering\022(\n\024approx_n"
-  "um_neighbors\030\001 \001(\005:\n2147483647\022$\n\027approx"
-  "_epsilon_distance\030\002 \001(\002:\003inf\022F\n\027approx_d"
-  "istance_measure\030\003 \001(\0132%.research_scann.D"
-  "istanceMeasureConfig\022/\n\013fixed_point\030\005 \001("
-  "\0132\032.research_scann.FixedPoint\022c\n&neighbo"
-  "r_selection_override_heuristics\030\006 \001(\01323."
-  "research_scann.NeighborSelectionOverride"
-  "Heuristics\022.\n\033use_fixed_point_if_possibl"
-  "e\030\004 \001(\010:\005falseB\002\030\001\022\037\n\020use_fp16_storage\030\007"
-  " \001(\010:\005false\"\215\002\n\nFixedPoint\022\026\n\007enabled\030\001 "
-  "\001(\010:\005false\022#\n\026fixed_point_multiplier\030\002 \001"
-  "(\002:\003nan\022\034\n\024multipliers_filename\030\007 \001(\t\022$\n"
-  "\027noise_shaping_threshold\030\010 \001(\001:\003nan\022*\n\037f"
-  "ixed_point_multiplier_quantile\030\006 \001(\002:\0011\022"
-  "\031\n\021mr_jobname_prefix\030\005 \001(\t\022!\n\031offline_qu"
-  "antization_cell\030\003 \001(\t\022\024\n\014num_machines\030\004 "
-  "\001(\005\"\202\001\n#NeighborSelectionOverrideHeurist"
-  "ics\022*\n\037approx_num_neighbors_multiplier\030\001"
-  " \001(\002:\0012\022/\n\"approx_epsilon_distance_multi"
-  "plier\030\002 \001(\002:\0031.2"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_deps[1] = {
-  &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fexact_5freordering_2eproto = {
-  false, false, 896, descriptor_table_protodef_scann_2fproto_2fexact_5freordering_2eproto, "scann/proto/exact_reordering.proto", 
-  &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once, descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_deps, 1, 3,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fexact_5freordering_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto, file_level_enum_descriptors_scann_2fproto_2fexact_5freordering_2eproto, file_level_service_descriptors_scann_2fproto_2fexact_5freordering_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fexact_5freordering_2eproto(&descriptor_table_scann_2fproto_2fexact_5freordering_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fexact_5freordering_2eproto(&descriptor_table_scann_2fproto_2fexact_5freordering_2eproto);
 namespace research_scann {
-
 // ===================================================================
 
 class ExactReordering::_Internal {
  public:
-  using HasBits = decltype(std::declval<ExactReordering>()._has_bits_);
+  using HasBits = decltype(std::declval<ExactReordering>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_._has_bits_);
   static void set_has_approx_num_neighbors(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
@@ -209,376 +277,362 @@ class ExactReordering::_Internal {
   }
 };
 
-const ::research_scann::DistanceMeasureConfig&
-ExactReordering::_Internal::approx_distance_measure(const ExactReordering* msg) {
-  return *msg->approx_distance_measure_;
+const ::research_scann::DistanceMeasureConfig& ExactReordering::_Internal::approx_distance_measure(const ExactReordering* msg) {
+  return *msg->_impl_.approx_distance_measure_;
 }
-const ::research_scann::FixedPoint&
-ExactReordering::_Internal::fixed_point(const ExactReordering* msg) {
-  return *msg->fixed_point_;
+const ::research_scann::FixedPoint& ExactReordering::_Internal::fixed_point(const ExactReordering* msg) {
+  return *msg->_impl_.fixed_point_;
 }
-const ::research_scann::NeighborSelectionOverrideHeuristics&
-ExactReordering::_Internal::neighbor_selection_override_heuristics(const ExactReordering* msg) {
-  return *msg->neighbor_selection_override_heuristics_;
+const ::research_scann::NeighborSelectionOverrideHeuristics& ExactReordering::_Internal::neighbor_selection_override_heuristics(const ExactReordering* msg) {
+  return *msg->_impl_.neighbor_selection_override_heuristics_;
 }
 void ExactReordering::clear_approx_distance_measure() {
-  if (approx_distance_measure_ != nullptr) approx_distance_measure_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.approx_distance_measure_ != nullptr) _impl_.approx_distance_measure_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-ExactReordering::ExactReordering(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+ExactReordering::ExactReordering(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.ExactReordering)
 }
-ExactReordering::ExactReordering(const ExactReordering& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_approx_distance_measure()) {
-    approx_distance_measure_ = new ::research_scann::DistanceMeasureConfig(*from.approx_distance_measure_);
-  } else {
-    approx_distance_measure_ = nullptr;
-  }
-  if (from._internal_has_fixed_point()) {
-    fixed_point_ = new ::research_scann::FixedPoint(*from.fixed_point_);
-  } else {
-    fixed_point_ = nullptr;
-  }
-  if (from._internal_has_neighbor_selection_override_heuristics()) {
-    neighbor_selection_override_heuristics_ = new ::research_scann::NeighborSelectionOverrideHeuristics(*from.neighbor_selection_override_heuristics_);
-  } else {
-    neighbor_selection_override_heuristics_ = nullptr;
-  }
-  ::memcpy(&use_fixed_point_if_possible_, &from.use_fixed_point_if_possible_,
-    static_cast<size_t>(reinterpret_cast<char*>(&approx_epsilon_distance_) -
-    reinterpret_cast<char*>(&use_fixed_point_if_possible_)) + sizeof(approx_epsilon_distance_));
+inline PROTOBUF_NDEBUG_INLINE ExactReordering::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+ExactReordering::ExactReordering(
+    ::google::protobuf::Arena* arena,
+    const ExactReordering& from)
+    : ::google::protobuf::Message(arena) {
+  ExactReordering* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.approx_distance_measure_ = (cached_has_bits & 0x00000001u)
+                ? CreateMaybeMessage<::research_scann::DistanceMeasureConfig>(arena, *from._impl_.approx_distance_measure_)
+                : nullptr;
+  _impl_.fixed_point_ = (cached_has_bits & 0x00000002u)
+                ? CreateMaybeMessage<::research_scann::FixedPoint>(arena, *from._impl_.fixed_point_)
+                : nullptr;
+  _impl_.neighbor_selection_override_heuristics_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::research_scann::NeighborSelectionOverrideHeuristics>(arena, *from._impl_.neighbor_selection_override_heuristics_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, use_fixed_point_if_possible_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, use_fixed_point_if_possible_),
+           offsetof(Impl_, approx_epsilon_distance_) -
+               offsetof(Impl_, use_fixed_point_if_possible_) +
+               sizeof(Impl_::approx_epsilon_distance_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.ExactReordering)
 }
+inline PROTOBUF_NDEBUG_INLINE ExactReordering::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        approx_num_neighbors_{2147483647},
+        approx_epsilon_distance_{std::numeric_limits<float>::infinity()} {}
 
-inline void ExactReordering::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&approx_distance_measure_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&use_fp16_storage_) -
-    reinterpret_cast<char*>(&approx_distance_measure_)) + sizeof(use_fp16_storage_));
-approx_num_neighbors_ = 2147483647;
-approx_epsilon_distance_ = std::numeric_limits<float>::infinity();
+inline void ExactReordering::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, approx_distance_measure_),
+           0,
+           offsetof(Impl_, use_fp16_storage_) -
+               offsetof(Impl_, approx_distance_measure_) +
+               sizeof(Impl_::use_fp16_storage_));
 }
-
 ExactReordering::~ExactReordering() {
   // @@protoc_insertion_point(destructor:research_scann.ExactReordering)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void ExactReordering::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete approx_distance_measure_;
-  if (this != internal_default_instance()) delete fixed_point_;
-  if (this != internal_default_instance()) delete neighbor_selection_override_heuristics_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.approx_distance_measure_;
+  delete _impl_.fixed_point_;
+  delete _impl_.neighbor_selection_override_heuristics_;
+  _impl_.~Impl_();
 }
 
-void ExactReordering::ArenaDtor(void* object) {
-  ExactReordering* _this = reinterpret_cast< ExactReordering* >(object);
-  (void)_this;
-}
-void ExactReordering::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void ExactReordering::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ExactReordering::Clear() {
+PROTOBUF_NOINLINE void ExactReordering::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.ExactReordering)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(approx_distance_measure_ != nullptr);
-      approx_distance_measure_->Clear();
+      ABSL_DCHECK(_impl_.approx_distance_measure_ != nullptr);
+      _impl_.approx_distance_measure_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(fixed_point_ != nullptr);
-      fixed_point_->Clear();
+      ABSL_DCHECK(_impl_.fixed_point_ != nullptr);
+      _impl_.fixed_point_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(neighbor_selection_override_heuristics_ != nullptr);
-      neighbor_selection_override_heuristics_->Clear();
+      ABSL_DCHECK(_impl_.neighbor_selection_override_heuristics_ != nullptr);
+      _impl_.neighbor_selection_override_heuristics_->Clear();
     }
   }
-  ::memset(&use_fixed_point_if_possible_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&use_fp16_storage_) -
-      reinterpret_cast<char*>(&use_fixed_point_if_possible_)) + sizeof(use_fp16_storage_));
+  ::memset(&_impl_.use_fixed_point_if_possible_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.use_fp16_storage_) -
+      reinterpret_cast<char*>(&_impl_.use_fixed_point_if_possible_)) + sizeof(_impl_.use_fp16_storage_));
   if (cached_has_bits & 0x00000060u) {
-    approx_num_neighbors_ = 2147483647;
-    approx_epsilon_distance_ = std::numeric_limits<float>::infinity();
+    _impl_.approx_num_neighbors_ = 2147483647;
+    _impl_.approx_epsilon_distance_ = std::numeric_limits<float>::infinity();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* ExactReordering::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 approx_num_neighbors = 1 [default = 2147483647];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_approx_num_neighbors(&has_bits);
-          approx_num_neighbors_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float approx_epsilon_distance = 2 [default = inf];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_approx_epsilon_distance(&has_bits);
-          approx_epsilon_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.DistanceMeasureConfig approx_distance_measure = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_approx_distance_measure(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_fixed_point_if_possible = 4 [default = false, deprecated = true];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_use_fixed_point_if_possible(&has_bits);
-          use_fixed_point_if_possible_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.FixedPoint fixed_point = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_fixed_point(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.NeighborSelectionOverrideHeuristics neighbor_selection_override_heuristics = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ctx->ParseMessage(_internal_mutable_neighbor_selection_override_heuristics(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_fp16_storage = 7 [default = false];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_use_fp16_storage(&has_bits);
-          use_fp16_storage_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* ExactReordering::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ExactReordering::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ExactReordering)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 7, 3, 0, 2> ExactReordering::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_._has_bits_),
+    0, // no _extensions_
+    7, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967168,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    7,  // num_field_entries
+    3,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_ExactReordering_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional int32 approx_num_neighbors = 1 [default = 2147483647];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(ExactReordering, _impl_.approx_num_neighbors_), 5>(),
+     {8, 5, 0, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_num_neighbors_)}},
+    // optional float approx_epsilon_distance = 2 [default = inf];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 6, 0, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_epsilon_distance_)}},
+    // optional .research_scann.DistanceMeasureConfig approx_distance_measure = 3;
+    {::_pbi::TcParser::FastMtS1,
+     {26, 0, 0, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_distance_measure_)}},
+    // optional bool use_fixed_point_if_possible = 4 [default = false, deprecated = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(ExactReordering, _impl_.use_fixed_point_if_possible_), 3>(),
+     {32, 3, 0, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.use_fixed_point_if_possible_)}},
+    // optional .research_scann.FixedPoint fixed_point = 5;
+    {::_pbi::TcParser::FastMtS1,
+     {42, 1, 1, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.fixed_point_)}},
+    // optional .research_scann.NeighborSelectionOverrideHeuristics neighbor_selection_override_heuristics = 6;
+    {::_pbi::TcParser::FastMtS1,
+     {50, 2, 2, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.neighbor_selection_override_heuristics_)}},
+    // optional bool use_fp16_storage = 7 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(ExactReordering, _impl_.use_fp16_storage_), 4>(),
+     {56, 4, 0, PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.use_fp16_storage_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 approx_num_neighbors = 1 [default = 2147483647];
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_num_neighbors_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float approx_epsilon_distance = 2 [default = inf];
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_epsilon_distance_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional .research_scann.DistanceMeasureConfig approx_distance_measure = 3;
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_distance_measure_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional bool use_fixed_point_if_possible = 4 [default = false, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.use_fixed_point_if_possible_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional .research_scann.FixedPoint fixed_point = 5;
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.fixed_point_), _Internal::kHasBitsOffset + 1, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.NeighborSelectionOverrideHeuristics neighbor_selection_override_heuristics = 6;
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.neighbor_selection_override_heuristics_), _Internal::kHasBitsOffset + 2, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional bool use_fp16_storage = 7 [default = false];
+    {PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.use_fp16_storage_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::DistanceMeasureConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::FixedPoint>()},
+    {::_pbi::TcParser::GetTable<::research_scann::NeighborSelectionOverrideHeuristics>()},
+  }}, {{
+  }},
+};
+
+::uint8_t* ExactReordering::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.ExactReordering)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 approx_num_neighbors = 1 [default = 2147483647];
   if (cached_has_bits & 0x00000020u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_approx_num_neighbors(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_approx_num_neighbors(), target);
   }
 
   // optional float approx_epsilon_distance = 2 [default = inf];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_approx_epsilon_distance(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_approx_epsilon_distance(), target);
   }
 
   // optional .research_scann.DistanceMeasureConfig approx_distance_measure = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::approx_distance_measure(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        3, _Internal::approx_distance_measure(this),
+        _Internal::approx_distance_measure(this).GetCachedSize(), target, stream);
   }
 
   // optional bool use_fixed_point_if_possible = 4 [default = false, deprecated = true];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_use_fixed_point_if_possible(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_use_fixed_point_if_possible(), target);
   }
 
   // optional .research_scann.FixedPoint fixed_point = 5;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::fixed_point(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        5, _Internal::fixed_point(this),
+        _Internal::fixed_point(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.NeighborSelectionOverrideHeuristics neighbor_selection_override_heuristics = 6;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        6, _Internal::neighbor_selection_override_heuristics(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        6, _Internal::neighbor_selection_override_heuristics(this),
+        _Internal::neighbor_selection_override_heuristics(this).GetCachedSize(), target, stream);
   }
 
   // optional bool use_fp16_storage = 7 [default = false];
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_use_fp16_storage(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        7, this->_internal_use_fp16_storage(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.ExactReordering)
   return target;
 }
 
-size_t ExactReordering::ByteSizeLong() const {
+::size_t ExactReordering::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.ExactReordering)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     // optional .research_scann.DistanceMeasureConfig approx_distance_measure = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *approx_distance_measure_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.approx_distance_measure_);
     }
 
     // optional .research_scann.FixedPoint fixed_point = 5;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fixed_point_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.fixed_point_);
     }
 
     // optional .research_scann.NeighborSelectionOverrideHeuristics neighbor_selection_override_heuristics = 6;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *neighbor_selection_override_heuristics_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.neighbor_selection_override_heuristics_);
     }
 
     // optional bool use_fixed_point_if_possible = 4 [default = false, deprecated = true];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool use_fp16_storage = 7 [default = false];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional int32 approx_num_neighbors = 1 [default = 2147483647];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_approx_num_neighbors());
     }
 
     // optional float approx_epsilon_distance = 2 [default = inf];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExactReordering::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    ExactReordering::MergeImpl
+const ::google::protobuf::Message::ClassData ExactReordering::_class_data_ = {
+    ExactReordering::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExactReordering::GetClassData() const { return &_class_data_; }
-
-void ExactReordering::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<ExactReordering *>(to)->MergeFrom(
-      static_cast<const ExactReordering &>(from));
+const ::google::protobuf::Message::ClassData* ExactReordering::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void ExactReordering::MergeFrom(const ExactReordering& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ExactReordering)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void ExactReordering::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<ExactReordering*>(&to_msg);
+  auto& from = static_cast<const ExactReordering&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.ExactReordering)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_approx_distance_measure()->::research_scann::DistanceMeasureConfig::MergeFrom(from._internal_approx_distance_measure());
+      _this->_internal_mutable_approx_distance_measure()->::research_scann::DistanceMeasureConfig::MergeFrom(
+          from._internal_approx_distance_measure());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_fixed_point()->::research_scann::FixedPoint::MergeFrom(from._internal_fixed_point());
+      _this->_internal_mutable_fixed_point()->::research_scann::FixedPoint::MergeFrom(
+          from._internal_fixed_point());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_neighbor_selection_override_heuristics()->::research_scann::NeighborSelectionOverrideHeuristics::MergeFrom(from._internal_neighbor_selection_override_heuristics());
+      _this->_internal_mutable_neighbor_selection_override_heuristics()->::research_scann::NeighborSelectionOverrideHeuristics::MergeFrom(
+          from._internal_neighbor_selection_override_heuristics());
     }
     if (cached_has_bits & 0x00000008u) {
-      use_fixed_point_if_possible_ = from.use_fixed_point_if_possible_;
+      _this->_impl_.use_fixed_point_if_possible_ = from._impl_.use_fixed_point_if_possible_;
     }
     if (cached_has_bits & 0x00000010u) {
-      use_fp16_storage_ = from.use_fp16_storage_;
+      _this->_impl_.use_fp16_storage_ = from._impl_.use_fp16_storage_;
     }
     if (cached_has_bits & 0x00000020u) {
-      approx_num_neighbors_ = from.approx_num_neighbors_;
+      _this->_impl_.approx_num_neighbors_ = from._impl_.approx_num_neighbors_;
     }
     if (cached_has_bits & 0x00000040u) {
-      approx_epsilon_distance_ = from.approx_epsilon_distance_;
+      _this->_impl_.approx_epsilon_distance_ = from._impl_.approx_epsilon_distance_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ExactReordering::CopyFrom(const ExactReordering& from) {
@@ -588,35 +642,37 @@ void ExactReordering::CopyFrom(const ExactReordering& from) {
   MergeFrom(from);
 }
 
-bool ExactReordering::IsInitialized() const {
+PROTOBUF_NOINLINE bool ExactReordering::IsInitialized() const {
   return true;
 }
 
-void ExactReordering::InternalSwap(ExactReordering* other) {
+::_pbi::CachedSize* ExactReordering::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void ExactReordering::InternalSwap(ExactReordering* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ExactReordering, use_fp16_storage_)
-      + sizeof(ExactReordering::use_fp16_storage_)
-      - PROTOBUF_FIELD_OFFSET(ExactReordering, approx_distance_measure_)>(
-          reinterpret_cast<char*>(&approx_distance_measure_),
-          reinterpret_cast<char*>(&other->approx_distance_measure_));
-  swap(approx_num_neighbors_, other->approx_num_neighbors_);
-  swap(approx_epsilon_distance_, other->approx_epsilon_distance_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_epsilon_distance_)
+      + sizeof(ExactReordering::_impl_.approx_epsilon_distance_)
+      - PROTOBUF_FIELD_OFFSET(ExactReordering, _impl_.approx_distance_measure_)>(
+          reinterpret_cast<char*>(&_impl_.approx_distance_measure_),
+          reinterpret_cast<char*>(&other->_impl_.approx_distance_measure_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ExactReordering::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata ExactReordering::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_getter, &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once,
       file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto[0]);
 }
-
 // ===================================================================
 
 class FixedPoint::_Internal {
  public:
-  using HasBits = decltype(std::declval<FixedPoint>()._has_bits_);
+  using HasBits = decltype(std::declval<FixedPoint>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_._has_bits_);
   static void set_has_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -643,402 +699,366 @@ class FixedPoint::_Internal {
   }
 };
 
-FixedPoint::FixedPoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+FixedPoint::FixedPoint(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.FixedPoint)
 }
-FixedPoint::FixedPoint(const FixedPoint& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  offline_quantization_cell_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_offline_quantization_cell()) {
-    offline_quantization_cell_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_offline_quantization_cell(), 
-      GetArenaForAllocation());
-  }
-  mr_jobname_prefix_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_mr_jobname_prefix()) {
-    mr_jobname_prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mr_jobname_prefix(), 
-      GetArenaForAllocation());
-  }
-  multipliers_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_multipliers_filename()) {
-    multipliers_filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_multipliers_filename(), 
-      GetArenaForAllocation());
-  }
-  ::memcpy(&enabled_, &from.enabled_,
-    static_cast<size_t>(reinterpret_cast<char*>(&noise_shaping_threshold_) -
-    reinterpret_cast<char*>(&enabled_)) + sizeof(noise_shaping_threshold_));
+inline PROTOBUF_NDEBUG_INLINE FixedPoint::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        offline_quantization_cell_(arena, from.offline_quantization_cell_),
+        mr_jobname_prefix_(arena, from.mr_jobname_prefix_),
+        multipliers_filename_(arena, from.multipliers_filename_) {}
+
+FixedPoint::FixedPoint(
+    ::google::protobuf::Arena* arena,
+    const FixedPoint& from)
+    : ::google::protobuf::Message(arena) {
+  FixedPoint* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, enabled_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, enabled_),
+           offsetof(Impl_, noise_shaping_threshold_) -
+               offsetof(Impl_, enabled_) +
+               sizeof(Impl_::noise_shaping_threshold_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.FixedPoint)
 }
+inline PROTOBUF_NDEBUG_INLINE FixedPoint::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        offline_quantization_cell_(arena),
+        mr_jobname_prefix_(arena),
+        multipliers_filename_(arena),
+        fixed_point_multiplier_{std::numeric_limits<float>::quiet_NaN()},
+        fixed_point_multiplier_quantile_{1},
+        noise_shaping_threshold_{std::numeric_limits<double>::quiet_NaN()} {}
 
-inline void FixedPoint::SharedCtor() {
-offline_quantization_cell_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-mr_jobname_prefix_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-multipliers_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&enabled_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_machines_) -
-    reinterpret_cast<char*>(&enabled_)) + sizeof(num_machines_));
-fixed_point_multiplier_ = std::numeric_limits<float>::quiet_NaN();
-fixed_point_multiplier_quantile_ = 1;
-noise_shaping_threshold_ = std::numeric_limits<double>::quiet_NaN();
+inline void FixedPoint::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, enabled_),
+           0,
+           offsetof(Impl_, num_machines_) -
+               offsetof(Impl_, enabled_) +
+               sizeof(Impl_::num_machines_));
 }
-
 FixedPoint::~FixedPoint() {
   // @@protoc_insertion_point(destructor:research_scann.FixedPoint)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void FixedPoint::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  offline_quantization_cell_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  mr_jobname_prefix_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  multipliers_filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.offline_quantization_cell_.Destroy();
+  _impl_.mr_jobname_prefix_.Destroy();
+  _impl_.multipliers_filename_.Destroy();
+  _impl_.~Impl_();
 }
 
-void FixedPoint::ArenaDtor(void* object) {
-  FixedPoint* _this = reinterpret_cast< FixedPoint* >(object);
-  (void)_this;
-}
-void FixedPoint::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void FixedPoint::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void FixedPoint::Clear() {
+PROTOBUF_NOINLINE void FixedPoint::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.FixedPoint)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      offline_quantization_cell_.ClearNonDefaultToEmpty();
+      _impl_.offline_quantization_cell_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      mr_jobname_prefix_.ClearNonDefaultToEmpty();
+      _impl_.mr_jobname_prefix_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      multipliers_filename_.ClearNonDefaultToEmpty();
+      _impl_.multipliers_filename_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x000000f8u) {
-    ::memset(&enabled_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&num_machines_) -
-        reinterpret_cast<char*>(&enabled_)) + sizeof(num_machines_));
-    fixed_point_multiplier_ = std::numeric_limits<float>::quiet_NaN();
-    fixed_point_multiplier_quantile_ = 1;
-    noise_shaping_threshold_ = std::numeric_limits<double>::quiet_NaN();
+    ::memset(&_impl_.enabled_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.num_machines_) -
+        reinterpret_cast<char*>(&_impl_.enabled_)) + sizeof(_impl_.num_machines_));
+    _impl_.fixed_point_multiplier_ = std::numeric_limits<float>::quiet_NaN();
+    _impl_.fixed_point_multiplier_quantile_ = 1;
+    _impl_.noise_shaping_threshold_ = std::numeric_limits<double>::quiet_NaN();
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* FixedPoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool enabled = 1 [default = false];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_enabled(&has_bits);
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float fixed_point_multiplier = 2 [default = nan];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_fixed_point_multiplier(&has_bits);
-          fixed_point_multiplier_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional string offline_quantization_cell = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_offline_quantization_cell();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.FixedPoint.offline_quantization_cell");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_machines = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_num_machines(&has_bits);
-          num_machines_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string mr_jobname_prefix = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          auto str = _internal_mutable_mr_jobname_prefix();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.FixedPoint.mr_jobname_prefix");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float fixed_point_multiplier_quantile = 6 [default = 1];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
-          _Internal::set_has_fixed_point_multiplier_quantile(&has_bits);
-          fixed_point_multiplier_quantile_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional string multipliers_filename = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          auto str = _internal_mutable_multipliers_filename();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.FixedPoint.multipliers_filename");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional double noise_shaping_threshold = 8 [default = nan];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 65)) {
-          _Internal::set_has_noise_shaping_threshold(&has_bits);
-          noise_shaping_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-          ptr += sizeof(double);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* FixedPoint::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* FixedPoint::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.FixedPoint)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 8, 0, 104, 2> FixedPoint::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_._has_bits_),
+    0, // no _extensions_
+    8, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967040,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    8,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_FixedPoint_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional double noise_shaping_threshold = 8 [default = nan];
+    {::_pbi::TcParser::FastF64S1,
+     {65, 7, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.noise_shaping_threshold_)}},
+    // optional bool enabled = 1 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(FixedPoint, _impl_.enabled_), 3>(),
+     {8, 3, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.enabled_)}},
+    // optional float fixed_point_multiplier = 2 [default = nan];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 5, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.fixed_point_multiplier_)}},
+    // optional string offline_quantization_cell = 3;
+    {::_pbi::TcParser::FastSS1,
+     {26, 0, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.offline_quantization_cell_)}},
+    // optional int32 num_machines = 4;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(FixedPoint, _impl_.num_machines_), 4>(),
+     {32, 4, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.num_machines_)}},
+    // optional string mr_jobname_prefix = 5;
+    {::_pbi::TcParser::FastSS1,
+     {42, 1, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.mr_jobname_prefix_)}},
+    // optional float fixed_point_multiplier_quantile = 6 [default = 1];
+    {::_pbi::TcParser::FastF32S1,
+     {53, 6, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.fixed_point_multiplier_quantile_)}},
+    // optional string multipliers_filename = 7;
+    {::_pbi::TcParser::FastSS1,
+     {58, 2, 0, PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.multipliers_filename_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool enabled = 1 [default = false];
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.enabled_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional float fixed_point_multiplier = 2 [default = nan];
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.fixed_point_multiplier_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional string offline_quantization_cell = 3;
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.offline_quantization_cell_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional int32 num_machines = 4;
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.num_machines_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional string mr_jobname_prefix = 5;
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.mr_jobname_prefix_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional float fixed_point_multiplier_quantile = 6 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.fixed_point_multiplier_quantile_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional string multipliers_filename = 7;
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.multipliers_filename_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional double noise_shaping_threshold = 8 [default = nan];
+    {PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.noise_shaping_threshold_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kDouble)},
+  }},
+  // no aux_entries
+  {{
+    "\31\0\0\31\0\21\0\24\0\0\0\0\0\0\0\0"
+    "research_scann.FixedPoint"
+    "offline_quantization_cell"
+    "mr_jobname_prefix"
+    "multipliers_filename"
+  }},
+};
+
+::uint8_t* FixedPoint::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.FixedPoint)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool enabled = 1 [default = false];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_enabled(), target);
   }
 
   // optional float fixed_point_multiplier = 2 [default = nan];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_fixed_point_multiplier(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_fixed_point_multiplier(), target);
   }
 
   // optional string offline_quantization_cell = 3;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_offline_quantization_cell().data(), static_cast<int>(this->_internal_offline_quantization_cell().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.FixedPoint.offline_quantization_cell");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_offline_quantization_cell(), target);
+    const std::string& _s = this->_internal_offline_quantization_cell();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.FixedPoint.offline_quantization_cell");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
   }
 
   // optional int32 num_machines = 4;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_num_machines(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<4>(
+            stream, this->_internal_num_machines(), target);
   }
 
   // optional string mr_jobname_prefix = 5;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_mr_jobname_prefix().data(), static_cast<int>(this->_internal_mr_jobname_prefix().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.FixedPoint.mr_jobname_prefix");
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_mr_jobname_prefix(), target);
+    const std::string& _s = this->_internal_mr_jobname_prefix();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.FixedPoint.mr_jobname_prefix");
+    target = stream->WriteStringMaybeAliased(5, _s, target);
   }
 
   // optional float fixed_point_multiplier_quantile = 6 [default = 1];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_fixed_point_multiplier_quantile(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        6, this->_internal_fixed_point_multiplier_quantile(), target);
   }
 
   // optional string multipliers_filename = 7;
   if (cached_has_bits & 0x00000004u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_multipliers_filename().data(), static_cast<int>(this->_internal_multipliers_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.FixedPoint.multipliers_filename");
-    target = stream->WriteStringMaybeAliased(
-        7, this->_internal_multipliers_filename(), target);
+    const std::string& _s = this->_internal_multipliers_filename();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.FixedPoint.multipliers_filename");
+    target = stream->WriteStringMaybeAliased(7, _s, target);
   }
 
   // optional double noise_shaping_threshold = 8 [default = nan];
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(8, this->_internal_noise_shaping_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        8, this->_internal_noise_shaping_threshold(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.FixedPoint)
   return target;
 }
 
-size_t FixedPoint::ByteSizeLong() const {
+::size_t FixedPoint::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.FixedPoint)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string offline_quantization_cell = 3;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_offline_quantization_cell());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_offline_quantization_cell());
     }
 
     // optional string mr_jobname_prefix = 5;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_mr_jobname_prefix());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_mr_jobname_prefix());
     }
 
     // optional string multipliers_filename = 7;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_multipliers_filename());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_multipliers_filename());
     }
 
     // optional bool enabled = 1 [default = false];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional int32 num_machines = 4;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_machines());
     }
 
     // optional float fixed_point_multiplier = 2 [default = nan];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional float fixed_point_multiplier_quantile = 6 [default = 1];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional double noise_shaping_threshold = 8 [default = nan];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 + 8;
+      total_size += 9;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FixedPoint::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    FixedPoint::MergeImpl
+const ::google::protobuf::Message::ClassData FixedPoint::_class_data_ = {
+    FixedPoint::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FixedPoint::GetClassData() const { return &_class_data_; }
-
-void FixedPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<FixedPoint *>(to)->MergeFrom(
-      static_cast<const FixedPoint &>(from));
+const ::google::protobuf::Message::ClassData* FixedPoint::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void FixedPoint::MergeFrom(const FixedPoint& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.FixedPoint)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void FixedPoint::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<FixedPoint*>(&to_msg);
+  auto& from = static_cast<const FixedPoint&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.FixedPoint)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_offline_quantization_cell(from._internal_offline_quantization_cell());
+      _this->_internal_set_offline_quantization_cell(from._internal_offline_quantization_cell());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_mr_jobname_prefix(from._internal_mr_jobname_prefix());
+      _this->_internal_set_mr_jobname_prefix(from._internal_mr_jobname_prefix());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_multipliers_filename(from._internal_multipliers_filename());
+      _this->_internal_set_multipliers_filename(from._internal_multipliers_filename());
     }
     if (cached_has_bits & 0x00000008u) {
-      enabled_ = from.enabled_;
+      _this->_impl_.enabled_ = from._impl_.enabled_;
     }
     if (cached_has_bits & 0x00000010u) {
-      num_machines_ = from.num_machines_;
+      _this->_impl_.num_machines_ = from._impl_.num_machines_;
     }
     if (cached_has_bits & 0x00000020u) {
-      fixed_point_multiplier_ = from.fixed_point_multiplier_;
+      _this->_impl_.fixed_point_multiplier_ = from._impl_.fixed_point_multiplier_;
     }
     if (cached_has_bits & 0x00000040u) {
-      fixed_point_multiplier_quantile_ = from.fixed_point_multiplier_quantile_;
+      _this->_impl_.fixed_point_multiplier_quantile_ = from._impl_.fixed_point_multiplier_quantile_;
     }
     if (cached_has_bits & 0x00000080u) {
-      noise_shaping_threshold_ = from.noise_shaping_threshold_;
+      _this->_impl_.noise_shaping_threshold_ = from._impl_.noise_shaping_threshold_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void FixedPoint::CopyFrom(const FixedPoint& from) {
@@ -1048,51 +1068,42 @@ void FixedPoint::CopyFrom(const FixedPoint& from) {
   MergeFrom(from);
 }
 
-bool FixedPoint::IsInitialized() const {
+PROTOBUF_NOINLINE bool FixedPoint::IsInitialized() const {
   return true;
 }
 
-void FixedPoint::InternalSwap(FixedPoint* other) {
+::_pbi::CachedSize* FixedPoint::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void FixedPoint::InternalSwap(FixedPoint* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &offline_quantization_cell_, GetArenaForAllocation(),
-      &other->offline_quantization_cell_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &mr_jobname_prefix_, GetArenaForAllocation(),
-      &other->mr_jobname_prefix_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &multipliers_filename_, GetArenaForAllocation(),
-      &other->multipliers_filename_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FixedPoint, num_machines_)
-      + sizeof(FixedPoint::num_machines_)
-      - PROTOBUF_FIELD_OFFSET(FixedPoint, enabled_)>(
-          reinterpret_cast<char*>(&enabled_),
-          reinterpret_cast<char*>(&other->enabled_));
-  swap(fixed_point_multiplier_, other->fixed_point_multiplier_);
-  swap(fixed_point_multiplier_quantile_, other->fixed_point_multiplier_quantile_);
-  swap(noise_shaping_threshold_, other->noise_shaping_threshold_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.offline_quantization_cell_, &other->_impl_.offline_quantization_cell_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.mr_jobname_prefix_, &other->_impl_.mr_jobname_prefix_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.multipliers_filename_, &other->_impl_.multipliers_filename_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.noise_shaping_threshold_)
+      + sizeof(FixedPoint::_impl_.noise_shaping_threshold_)
+      - PROTOBUF_FIELD_OFFSET(FixedPoint, _impl_.enabled_)>(
+          reinterpret_cast<char*>(&_impl_.enabled_),
+          reinterpret_cast<char*>(&other->_impl_.enabled_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata FixedPoint::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata FixedPoint::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_getter, &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once,
       file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto[1]);
 }
-
 // ===================================================================
 
 class NeighborSelectionOverrideHeuristics::_Internal {
  public:
-  using HasBits = decltype(std::declval<NeighborSelectionOverrideHeuristics>()._has_bits_);
+  using HasBits = decltype(std::declval<NeighborSelectionOverrideHeuristics>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_._has_bits_);
   static void set_has_approx_num_neighbors_multiplier(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1101,200 +1112,177 @@ class NeighborSelectionOverrideHeuristics::_Internal {
   }
 };
 
-NeighborSelectionOverrideHeuristics::NeighborSelectionOverrideHeuristics(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+NeighborSelectionOverrideHeuristics::NeighborSelectionOverrideHeuristics(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.NeighborSelectionOverrideHeuristics)
 }
-NeighborSelectionOverrideHeuristics::NeighborSelectionOverrideHeuristics(const NeighborSelectionOverrideHeuristics& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&approx_num_neighbors_multiplier_, &from.approx_num_neighbors_multiplier_,
-    static_cast<size_t>(reinterpret_cast<char*>(&approx_epsilon_distance_multiplier_) -
-    reinterpret_cast<char*>(&approx_num_neighbors_multiplier_)) + sizeof(approx_epsilon_distance_multiplier_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.NeighborSelectionOverrideHeuristics)
+NeighborSelectionOverrideHeuristics::NeighborSelectionOverrideHeuristics(
+    ::google::protobuf::Arena* arena, const NeighborSelectionOverrideHeuristics& from)
+    : NeighborSelectionOverrideHeuristics(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE NeighborSelectionOverrideHeuristics::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        approx_num_neighbors_multiplier_{2},
+        approx_epsilon_distance_multiplier_{1.2f} {}
 
-inline void NeighborSelectionOverrideHeuristics::SharedCtor() {
-approx_num_neighbors_multiplier_ = 2;
-approx_epsilon_distance_multiplier_ = 1.2f;
+inline void NeighborSelectionOverrideHeuristics::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 NeighborSelectionOverrideHeuristics::~NeighborSelectionOverrideHeuristics() {
   // @@protoc_insertion_point(destructor:research_scann.NeighborSelectionOverrideHeuristics)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void NeighborSelectionOverrideHeuristics::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void NeighborSelectionOverrideHeuristics::ArenaDtor(void* object) {
-  NeighborSelectionOverrideHeuristics* _this = reinterpret_cast< NeighborSelectionOverrideHeuristics* >(object);
-  (void)_this;
-}
-void NeighborSelectionOverrideHeuristics::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void NeighborSelectionOverrideHeuristics::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void NeighborSelectionOverrideHeuristics::Clear() {
+PROTOBUF_NOINLINE void NeighborSelectionOverrideHeuristics::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.NeighborSelectionOverrideHeuristics)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    approx_num_neighbors_multiplier_ = 2;
-    approx_epsilon_distance_multiplier_ = 1.2f;
+    _impl_.approx_num_neighbors_multiplier_ = 2;
+    _impl_.approx_epsilon_distance_multiplier_ = 1.2f;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* NeighborSelectionOverrideHeuristics::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional float approx_num_neighbors_multiplier = 1 [default = 2];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
-          _Internal::set_has_approx_num_neighbors_multiplier(&has_bits);
-          approx_num_neighbors_multiplier_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional float approx_epsilon_distance_multiplier = 2 [default = 1.2];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_approx_epsilon_distance_multiplier(&has_bits);
-          approx_epsilon_distance_multiplier_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* NeighborSelectionOverrideHeuristics::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* NeighborSelectionOverrideHeuristics::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.NeighborSelectionOverrideHeuristics)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> NeighborSelectionOverrideHeuristics::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_NeighborSelectionOverrideHeuristics_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional float approx_epsilon_distance_multiplier = 2 [default = 1.2];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 1, 0, PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_.approx_epsilon_distance_multiplier_)}},
+    // optional float approx_num_neighbors_multiplier = 1 [default = 2];
+    {::_pbi::TcParser::FastF32S1,
+     {13, 0, 0, PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_.approx_num_neighbors_multiplier_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional float approx_num_neighbors_multiplier = 1 [default = 2];
+    {PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_.approx_num_neighbors_multiplier_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional float approx_epsilon_distance_multiplier = 2 [default = 1.2];
+    {PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_.approx_epsilon_distance_multiplier_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* NeighborSelectionOverrideHeuristics::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.NeighborSelectionOverrideHeuristics)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional float approx_num_neighbors_multiplier = 1 [default = 2];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_approx_num_neighbors_multiplier(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        1, this->_internal_approx_num_neighbors_multiplier(), target);
   }
 
   // optional float approx_epsilon_distance_multiplier = 2 [default = 1.2];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_approx_epsilon_distance_multiplier(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_approx_epsilon_distance_multiplier(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.NeighborSelectionOverrideHeuristics)
   return target;
 }
 
-size_t NeighborSelectionOverrideHeuristics::ByteSizeLong() const {
+::size_t NeighborSelectionOverrideHeuristics::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.NeighborSelectionOverrideHeuristics)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional float approx_num_neighbors_multiplier = 1 [default = 2];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional float approx_epsilon_distance_multiplier = 2 [default = 1.2];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NeighborSelectionOverrideHeuristics::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    NeighborSelectionOverrideHeuristics::MergeImpl
+const ::google::protobuf::Message::ClassData NeighborSelectionOverrideHeuristics::_class_data_ = {
+    NeighborSelectionOverrideHeuristics::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NeighborSelectionOverrideHeuristics::GetClassData() const { return &_class_data_; }
-
-void NeighborSelectionOverrideHeuristics::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<NeighborSelectionOverrideHeuristics *>(to)->MergeFrom(
-      static_cast<const NeighborSelectionOverrideHeuristics &>(from));
+const ::google::protobuf::Message::ClassData* NeighborSelectionOverrideHeuristics::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void NeighborSelectionOverrideHeuristics::MergeFrom(const NeighborSelectionOverrideHeuristics& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NeighborSelectionOverrideHeuristics)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void NeighborSelectionOverrideHeuristics::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<NeighborSelectionOverrideHeuristics*>(&to_msg);
+  auto& from = static_cast<const NeighborSelectionOverrideHeuristics&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.NeighborSelectionOverrideHeuristics)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      approx_num_neighbors_multiplier_ = from.approx_num_neighbors_multiplier_;
+      _this->_impl_.approx_num_neighbors_multiplier_ = from._impl_.approx_num_neighbors_multiplier_;
     }
     if (cached_has_bits & 0x00000002u) {
-      approx_epsilon_distance_multiplier_ = from.approx_epsilon_distance_multiplier_;
+      _this->_impl_.approx_epsilon_distance_multiplier_ = from._impl_.approx_epsilon_distance_multiplier_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void NeighborSelectionOverrideHeuristics::CopyFrom(const NeighborSelectionOverrideHeuristics& from) {
@@ -1304,37 +1292,35 @@ void NeighborSelectionOverrideHeuristics::CopyFrom(const NeighborSelectionOverri
   MergeFrom(from);
 }
 
-bool NeighborSelectionOverrideHeuristics::IsInitialized() const {
+PROTOBUF_NOINLINE bool NeighborSelectionOverrideHeuristics::IsInitialized() const {
   return true;
 }
 
-void NeighborSelectionOverrideHeuristics::InternalSwap(NeighborSelectionOverrideHeuristics* other) {
+::_pbi::CachedSize* NeighborSelectionOverrideHeuristics::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void NeighborSelectionOverrideHeuristics::InternalSwap(NeighborSelectionOverrideHeuristics* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(approx_num_neighbors_multiplier_, other->approx_num_neighbors_multiplier_);
-  swap(approx_epsilon_distance_multiplier_, other->approx_epsilon_distance_multiplier_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_.approx_epsilon_distance_multiplier_)
+      + sizeof(NeighborSelectionOverrideHeuristics::_impl_.approx_epsilon_distance_multiplier_)
+      - PROTOBUF_FIELD_OFFSET(NeighborSelectionOverrideHeuristics, _impl_.approx_num_neighbors_multiplier_)>(
+          reinterpret_cast<char*>(&_impl_.approx_num_neighbors_multiplier_),
+          reinterpret_cast<char*>(&other->_impl_.approx_num_neighbors_multiplier_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NeighborSelectionOverrideHeuristics::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata NeighborSelectionOverrideHeuristics::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_getter, &descriptor_table_scann_2fproto_2fexact_5freordering_2eproto_once,
       file_level_metadata_scann_2fproto_2fexact_5freordering_2eproto[2]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::ExactReordering* Arena::CreateMaybeMessage< ::research_scann::ExactReordering >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::ExactReordering >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::FixedPoint* Arena::CreateMaybeMessage< ::research_scann::FixedPoint >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::FixedPoint >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::NeighborSelectionOverrideHeuristics* Arena::CreateMaybeMessage< ::research_scann::NeighborSelectionOverrideHeuristics >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::NeighborSelectionOverrideHeuristics >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

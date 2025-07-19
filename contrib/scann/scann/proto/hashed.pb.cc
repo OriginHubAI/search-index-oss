@@ -4,124 +4,166 @@
 #include "scann/proto/hashed.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr HashedItem::HashedItem(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : deprecated_token_membership_()
-  , data_id_str_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , indicator_vars_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , restrict_(nullptr)
-  , packing_strategy_(2)
-{}
+
+inline constexpr HashedItem::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        deprecated_token_membership_{},
+        data_id_str_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        indicator_vars_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        restrict_{nullptr},
+        packing_strategy_{static_cast< ::research_scann::HashedItem_PackingStrategy >(2)} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR HashedItem::HashedItem(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct HashedItemDefaultTypeInternal {
-  constexpr HashedItemDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HashedItemDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~HashedItemDefaultTypeInternal() {}
   union {
     HashedItem _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HashedItemDefaultTypeInternal _HashedItem_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HashedItemDefaultTypeInternal _HashedItem_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fhashed_2eproto[1];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fhashed_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fhashed_2eproto = nullptr;
-
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fhashed_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, data_id_str_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, indicator_vars_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, restrict_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, deprecated_token_membership_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, packing_strategy_),
-  0,
-  1,
-  2,
-  ~0u,
-  3,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 10, sizeof(::research_scann::HashedItem)},
-};
-
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_HashedItem_default_instance_),
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fhashed_2eproto[1];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fhashed_2eproto[1];
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fhashed_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fhashed_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _impl_.data_id_str_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _impl_.indicator_vars_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _impl_.restrict_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _impl_.deprecated_token_membership_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashedItem, _impl_.packing_strategy_),
+    0,
+    1,
+    2,
+    ~0u,
+    3,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fhashed_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\030scann/proto/hashed.proto\022\016research_sca"
-  "nn\032 scann/data_format/features.proto\"\250\002\n"
-  "\nHashedItem\022\023\n\013data_id_str\030\001 \001(\014\022\026\n\016indi"
-  "cator_vars\030\002 \002(\014\022E\n\010restrict\030\004 \001(\01323.res"
-  "earch_scann.GenericFeatureVector.Restric"
-  "tTokens\022#\n\033deprecated_token_membership\030\003"
-  " \003(\003\022L\n\020packing_strategy\030\005 \001(\0162*.researc"
-  "h_scann.HashedItem.PackingStrategy:\006BINA"
-  "RY\"3\n\017PackingStrategy\022\010\n\004NONE\020\000\022\n\n\006NIBBL"
-  "E\020\001\022\n\n\006BINARY\020\002"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fhashed_2eproto_deps[1] = {
-  &::descriptor_table_scann_2fdata_5fformat_2ffeatures_2eproto,
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 13, -1, sizeof(::research_scann::HashedItem)},
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fhashed_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fhashed_2eproto = {
-  false, false, 375, descriptor_table_protodef_scann_2fproto_2fhashed_2eproto, "scann/proto/hashed.proto", 
-  &descriptor_table_scann_2fproto_2fhashed_2eproto_once, descriptor_table_scann_2fproto_2fhashed_2eproto_deps, 1, 1,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fhashed_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fhashed_2eproto, file_level_enum_descriptors_scann_2fproto_2fhashed_2eproto, file_level_service_descriptors_scann_2fproto_2fhashed_2eproto,
+
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_HashedItem_default_instance_._instance,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fhashed_2eproto_getter() {
+const char descriptor_table_protodef_scann_2fproto_2fhashed_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\030scann/proto/hashed.proto\022\016research_sca"
+    "nn\032 scann/data_format/features.proto\"\250\002\n"
+    "\nHashedItem\022\023\n\013data_id_str\030\001 \001(\014\022\026\n\016indi"
+    "cator_vars\030\002 \002(\014\022E\n\010restrict\030\004 \001(\01323.res"
+    "earch_scann.GenericFeatureVector.Restric"
+    "tTokens\022#\n\033deprecated_token_membership\030\003"
+    " \003(\003\022L\n\020packing_strategy\030\005 \001(\0162*.researc"
+    "h_scann.HashedItem.PackingStrategy:\006BINA"
+    "RY\"3\n\017PackingStrategy\022\010\n\004NONE\020\000\022\n\n\006NIBBL"
+    "E\020\001\022\n\n\006BINARY\020\002"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fhashed_2eproto_deps[1] =
+    {
+        &::descriptor_table_scann_2fdata_5fformat_2ffeatures_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fhashed_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fhashed_2eproto = {
+    false,
+    false,
+    375,
+    descriptor_table_protodef_scann_2fproto_2fhashed_2eproto,
+    "scann/proto/hashed.proto",
+    &descriptor_table_scann_2fproto_2fhashed_2eproto_once,
+    descriptor_table_scann_2fproto_2fhashed_2eproto_deps,
+    1,
+    1,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fhashed_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fhashed_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fhashed_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fhashed_2eproto,
+};
+
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fhashed_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fhashed_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fhashed_2eproto(&descriptor_table_scann_2fproto_2fhashed_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fhashed_2eproto(&descriptor_table_scann_2fproto_2fhashed_2eproto);
 namespace research_scann {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* HashedItem_PackingStrategy_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhashed_2eproto);
+const ::google::protobuf::EnumDescriptor* HashedItem_PackingStrategy_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhashed_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fhashed_2eproto[0];
 }
+PROTOBUF_CONSTINIT const uint32_t HashedItem_PackingStrategy_internal_data_[] = {
+    196608u, 0u, };
 bool HashedItem_PackingStrategy_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 2;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr HashedItem_PackingStrategy HashedItem::NONE;
 constexpr HashedItem_PackingStrategy HashedItem::NIBBLE;
 constexpr HashedItem_PackingStrategy HashedItem::BINARY;
 constexpr HashedItem_PackingStrategy HashedItem::PackingStrategy_MIN;
 constexpr HashedItem_PackingStrategy HashedItem::PackingStrategy_MAX;
 constexpr int HashedItem::PackingStrategy_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class HashedItem::_Internal {
  public:
-  using HasBits = decltype(std::declval<HashedItem>()._has_bits_);
+  using HasBits = decltype(std::declval<HashedItem>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(HashedItem, _impl_._has_bits_);
   static void set_has_data_id_str(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -140,325 +182,295 @@ class HashedItem::_Internal {
   }
 };
 
-const ::research_scann::GenericFeatureVector_RestrictTokens&
-HashedItem::_Internal::restrict(const HashedItem* msg) {
-  return *msg->restrict_;
+const ::research_scann::GenericFeatureVector_RestrictTokens& HashedItem::_Internal::restrict(const HashedItem* msg) {
+  return *msg->_impl_.restrict_;
 }
 void HashedItem::clear_restrict() {
-  if (restrict_ != nullptr) restrict_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.restrict_ != nullptr) _impl_.restrict_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
-HashedItem::HashedItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  deprecated_token_membership_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+HashedItem::HashedItem(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.HashedItem)
 }
-HashedItem::HashedItem(const HashedItem& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      deprecated_token_membership_(from.deprecated_token_membership_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  data_id_str_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_data_id_str()) {
-    data_id_str_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_data_id_str(), 
-      GetArenaForAllocation());
-  }
-  indicator_vars_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_indicator_vars()) {
-    indicator_vars_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_indicator_vars(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_restrict()) {
-    restrict_ = new ::research_scann::GenericFeatureVector_RestrictTokens(*from.restrict_);
-  } else {
-    restrict_ = nullptr;
-  }
-  packing_strategy_ = from.packing_strategy_;
+inline PROTOBUF_NDEBUG_INLINE HashedItem::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        deprecated_token_membership_{visibility, arena, from.deprecated_token_membership_},
+        data_id_str_(arena, from.data_id_str_),
+        indicator_vars_(arena, from.indicator_vars_) {}
+
+HashedItem::HashedItem(
+    ::google::protobuf::Arena* arena,
+    const HashedItem& from)
+    : ::google::protobuf::Message(arena) {
+  HashedItem* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.restrict_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::research_scann::GenericFeatureVector_RestrictTokens>(arena, *from._impl_.restrict_)
+                : nullptr;
+  _impl_.packing_strategy_ = from._impl_.packing_strategy_;
+
   // @@protoc_insertion_point(copy_constructor:research_scann.HashedItem)
 }
+inline PROTOBUF_NDEBUG_INLINE HashedItem::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        deprecated_token_membership_{visibility, arena},
+        data_id_str_(arena),
+        indicator_vars_(arena),
+        packing_strategy_{static_cast< ::research_scann::HashedItem_PackingStrategy >(2)} {}
 
-inline void HashedItem::SharedCtor() {
-data_id_str_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-indicator_vars_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-restrict_ = nullptr;
-packing_strategy_ = 2;
+inline void HashedItem::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.restrict_ = {};
 }
-
 HashedItem::~HashedItem() {
   // @@protoc_insertion_point(destructor:research_scann.HashedItem)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void HashedItem::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  data_id_str_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  indicator_vars_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete restrict_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.data_id_str_.Destroy();
+  _impl_.indicator_vars_.Destroy();
+  delete _impl_.restrict_;
+  _impl_.~Impl_();
 }
 
-void HashedItem::ArenaDtor(void* object) {
-  HashedItem* _this = reinterpret_cast< HashedItem* >(object);
-  (void)_this;
-}
-void HashedItem::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void HashedItem::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void HashedItem::Clear() {
+PROTOBUF_NOINLINE void HashedItem::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.HashedItem)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  deprecated_token_membership_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.deprecated_token_membership_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      data_id_str_.ClearNonDefaultToEmpty();
+      _impl_.data_id_str_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      indicator_vars_.ClearNonDefaultToEmpty();
+      _impl_.indicator_vars_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(restrict_ != nullptr);
-      restrict_->Clear();
+      ABSL_DCHECK(_impl_.restrict_ != nullptr);
+      _impl_.restrict_->Clear();
     }
-    packing_strategy_ = 2;
+    _impl_.packing_strategy_ = 2;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* HashedItem::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bytes data_id_str = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_data_id_str();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // required bytes indicator_vars = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_indicator_vars();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated int64 deprecated_token_membership = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            _internal_add_deprecated_token_membership(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<24>(ptr));
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_deprecated_token_membership(), ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.GenericFeatureVector.RestrictTokens restrict = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_restrict(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.HashedItem.PackingStrategy packing_strategy = 5 [default = BINARY];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::HashedItem_PackingStrategy_IsValid(val))) {
-            _internal_set_packing_strategy(static_cast<::research_scann::HashedItem_PackingStrategy>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(5, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* HashedItem::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* HashedItem::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.HashedItem)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 5, 2, 0, 2> HashedItem::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(HashedItem, _impl_._has_bits_),
+    0, // no _extensions_
+    5, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967264,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    5,  // num_field_entries
+    2,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_HashedItem_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional bytes data_id_str = 1;
+    {::_pbi::TcParser::FastBS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.data_id_str_)}},
+    // required bytes indicator_vars = 2;
+    {::_pbi::TcParser::FastBS1,
+     {18, 1, 0, PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.indicator_vars_)}},
+    // repeated int64 deprecated_token_membership = 3;
+    {::_pbi::TcParser::FastV64R1,
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.deprecated_token_membership_)}},
+    // optional .research_scann.GenericFeatureVector.RestrictTokens restrict = 4;
+    {::_pbi::TcParser::FastMtS1,
+     {34, 2, 0, PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.restrict_)}},
+    // optional .research_scann.HashedItem.PackingStrategy packing_strategy = 5 [default = BINARY];
+    {::_pbi::TcParser::FastEr0S1,
+     {40, 3, 2, PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.packing_strategy_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bytes data_id_str = 1;
+    {PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.data_id_str_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // required bytes indicator_vars = 2;
+    {PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.indicator_vars_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBytes | ::_fl::kRepAString)},
+    // repeated int64 deprecated_token_membership = 3;
+    {PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.deprecated_token_membership_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kInt64)},
+    // optional .research_scann.GenericFeatureVector.RestrictTokens restrict = 4;
+    {PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.restrict_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.HashedItem.PackingStrategy packing_strategy = 5 [default = BINARY];
+    {PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.packing_strategy_), _Internal::kHasBitsOffset + 3, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::GenericFeatureVector_RestrictTokens>()},
+    {0, 3},
+  }}, {{
+  }},
+};
+
+::uint8_t* HashedItem::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.HashedItem)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes data_id_str = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteBytesMaybeAliased(
-        1, this->_internal_data_id_str(), target);
+    const std::string& _s = this->_internal_data_id_str();
+    target = stream->WriteBytesMaybeAliased(1, _s, target);
   }
 
   // required bytes indicator_vars = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_indicator_vars(), target);
+    const std::string& _s = this->_internal_indicator_vars();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
   }
 
   // repeated int64 deprecated_token_membership = 3;
-  for (int i = 0, n = this->_internal_deprecated_token_membership_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_deprecated_token_membership_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_deprecated_token_membership(i), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        3, this->_internal_deprecated_token_membership().Get(i), target);
   }
 
   // optional .research_scann.GenericFeatureVector.RestrictTokens restrict = 4;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::restrict(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        4, _Internal::restrict(this),
+        _Internal::restrict(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.HashedItem.PackingStrategy packing_strategy = 5 [default = BINARY];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      5, this->_internal_packing_strategy(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        5, this->_internal_packing_strategy(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.HashedItem)
   return target;
 }
 
-size_t HashedItem::ByteSizeLong() const {
+::size_t HashedItem::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.HashedItem)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  // required bytes indicator_vars = 2;
-  if (_internal_has_indicator_vars()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_indicator_vars());
-  }
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated int64 deprecated_token_membership = 3;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      Int64Size(this->deprecated_token_membership_);
-    total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_deprecated_token_membership_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_deprecated_token_membership())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_deprecated_token_membership_size());
+    ;
+    total_size += tag_size + data_size;
+  }
+  // optional bytes data_id_str = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                    this->_internal_data_id_str());
   }
 
-  // optional bytes data_id_str = 1;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_data_id_str());
+  // required bytes indicator_vars = 2;
+  if (cached_has_bits & 0x00000002u) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                    this->_internal_indicator_vars());
   }
 
   if (cached_has_bits & 0x0000000cu) {
     // optional .research_scann.GenericFeatureVector.RestrictTokens restrict = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *restrict_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.restrict_);
     }
 
     // optional .research_scann.HashedItem.PackingStrategy packing_strategy = 5 [default = BINARY];
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_packing_strategy());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_packing_strategy());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HashedItem::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    HashedItem::MergeImpl
+const ::google::protobuf::Message::ClassData HashedItem::_class_data_ = {
+    HashedItem::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HashedItem::GetClassData() const { return &_class_data_; }
-
-void HashedItem::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<HashedItem *>(to)->MergeFrom(
-      static_cast<const HashedItem &>(from));
+const ::google::protobuf::Message::ClassData* HashedItem::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void HashedItem::MergeFrom(const HashedItem& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.HashedItem)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void HashedItem::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<HashedItem*>(&to_msg);
+  auto& from = static_cast<const HashedItem&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.HashedItem)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  deprecated_token_membership_.MergeFrom(from.deprecated_token_membership_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_internal_mutable_deprecated_token_membership()->MergeFrom(from._internal_deprecated_token_membership());
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_data_id_str(from._internal_data_id_str());
+      _this->_internal_set_data_id_str(from._internal_data_id_str());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_indicator_vars(from._internal_indicator_vars());
+      _this->_internal_set_indicator_vars(from._internal_indicator_vars());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_restrict()->::research_scann::GenericFeatureVector_RestrictTokens::MergeFrom(from._internal_restrict());
+      _this->_internal_mutable_restrict()->::research_scann::GenericFeatureVector_RestrictTokens::MergeFrom(
+          from._internal_restrict());
     }
     if (cached_has_bits & 0x00000008u) {
-      packing_strategy_ = from.packing_strategy_;
+      _this->_impl_.packing_strategy_ = from._impl_.packing_strategy_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HashedItem::CopyFrom(const HashedItem& from) {
@@ -468,43 +480,43 @@ void HashedItem::CopyFrom(const HashedItem& from) {
   MergeFrom(from);
 }
 
-bool HashedItem::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+PROTOBUF_NOINLINE bool HashedItem::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) {
+    return false;
+  }
   return true;
 }
 
-void HashedItem::InternalSwap(HashedItem* other) {
+::_pbi::CachedSize* HashedItem::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void HashedItem::InternalSwap(HashedItem* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  deprecated_token_membership_.InternalSwap(&other->deprecated_token_membership_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &data_id_str_, GetArenaForAllocation(),
-      &other->data_id_str_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &indicator_vars_, GetArenaForAllocation(),
-      &other->indicator_vars_, other->GetArenaForAllocation()
-  );
-  swap(restrict_, other->restrict_);
-  swap(packing_strategy_, other->packing_strategy_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.deprecated_token_membership_.InternalSwap(&other->_impl_.deprecated_token_membership_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.data_id_str_, &other->_impl_.data_id_str_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.indicator_vars_, &other->_impl_.indicator_vars_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.packing_strategy_)
+      + sizeof(HashedItem::_impl_.packing_strategy_)
+      - PROTOBUF_FIELD_OFFSET(HashedItem, _impl_.restrict_)>(
+          reinterpret_cast<char*>(&_impl_.restrict_),
+          reinterpret_cast<char*>(&other->_impl_.restrict_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata HashedItem::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata HashedItem::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhashed_2eproto_getter, &descriptor_table_scann_2fproto_2fhashed_2eproto_once,
       file_level_metadata_scann_2fproto_2fhashed_2eproto[0]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::HashedItem* Arena::CreateMaybeMessage< ::research_scann::HashedItem >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::HashedItem >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"

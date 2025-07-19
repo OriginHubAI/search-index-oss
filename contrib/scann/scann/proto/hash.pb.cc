@@ -4,503 +4,612 @@
 #include "scann/proto/hash.pb.h"
 
 #include <algorithm>
-
-#include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
-#include <google/protobuf/descriptor.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/reflection_ops.h>
-#include <google/protobuf/wire_format.h>
+#include "google/protobuf/io/coded_stream.h"
+#include "google/protobuf/extension_set.h"
+#include "google/protobuf/wire_format_lite.h"
+#include "google/protobuf/descriptor.h"
+#include "google/protobuf/generated_message_reflection.h"
+#include "google/protobuf/reflection_ops.h"
+#include "google/protobuf/wire_format.h"
+#include "google/protobuf/generated_message_tctable_impl.h"
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
+// Must be included last.
+#include "google/protobuf/port_def.inc"
 PROTOBUF_PRAGMA_INIT_SEG
+namespace _pb = ::google::protobuf;
+namespace _pbi = ::google::protobuf::internal;
+namespace _fl = ::google::protobuf::internal::field_layout;
 namespace research_scann {
-constexpr HashConfig::HashConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : parameters_filename_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , projection_(nullptr)
-  , asymmetric_hash_(nullptr)
-  , min_hash_(nullptr)
-  , pca_hash_(nullptr)
-  , bit_sampling_hash_(nullptr)
-  , bnc_hash_(nullptr)
-  , num_bits_(0)
-  , threshold_type_(1)
-{}
-struct HashConfigDefaultTypeInternal {
-  constexpr HashConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~HashConfigDefaultTypeInternal() {}
-  union {
-    HashConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HashConfigDefaultTypeInternal _HashConfig_default_instance_;
-constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptions::AsymmetricHasherConfig_FixedPointLUTConversionOptions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : float_to_int_conversion_method_(0)
 
-  , multiplier_quantile_(1){}
-struct AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal {
-  constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal() {}
-  union {
-    AsymmetricHasherConfig_FixedPointLUTConversionOptions _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal _AsymmetricHasherConfig_FixedPointLUTConversionOptions_default_instance_;
-constexpr AsymmetricHasherConfig::AsymmetricHasherConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : centers_filename_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , mr_jobname_prefix_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , cell_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , projection_(nullptr)
-  , quantization_distance_(nullptr)
-  , stacked_quantizers_config_(nullptr)
-  , fixed_point_lut_conversion_options_(nullptr)
-  , min_number_machines_(0)
-  , use_per_leaf_partition_training_(false)
-  , use_noise_shaped_training_(false)
-  , use_single_machine_trainer_(false)
-  , lookup_type_(0)
+inline constexpr StackedQuantizersConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        relative_improvement_threshold_{0.001f},
+        min_num_iterations_{3},
+        max_num_iterations_{10} {}
 
-  , quantization_scheme_(0)
-
-  , partition_level_confidence_interval_stdevs_(0)
-  , num_machines_(0)
-  , use_residual_quantization_(false)
-  , use_normalized_residual_quantization_(false)
-  , use_norm_biasing_correction_(false)
-  , use_global_topn_(false)
-  , min_cluster_size_(1)
-  , num_clusters_per_block_(256)
-  , max_sample_size_(2147483647)
-  , max_clustering_iterations_(10)
-  , clustering_convergence_tolerance_(1e-05f)
-  , clustering_seed_(1)
-  , sampling_seed_(1)
-  , ram_gb_(4)
-  , num_cpus_(1)
-  , noise_shaping_threshold_(std::numeric_limits<double>::quiet_NaN())
-  , _oneof_case_{}{}
-struct AsymmetricHasherConfigDefaultTypeInternal {
-  constexpr AsymmetricHasherConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AsymmetricHasherConfigDefaultTypeInternal() {}
-  union {
-    AsymmetricHasherConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AsymmetricHasherConfigDefaultTypeInternal _AsymmetricHasherConfig_default_instance_;
-constexpr MinHasherConfig::MinHasherConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : seeds_()
-  , config_id_(0)
-  , num_sketches_(0)
-  , num_hashes_(0)
-  , num_bits_per_hash_(0){}
-struct MinHasherConfigDefaultTypeInternal {
-  constexpr MinHasherConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~MinHasherConfigDefaultTypeInternal() {}
-  union {
-    MinHasherConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MinHasherConfigDefaultTypeInternal _MinHasherConfig_default_instance_;
-constexpr BitSamplingHasherConfig::BitSamplingHasherConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : use_entropy_(false)
-  , num_bits_(3){}
-struct BitSamplingHasherConfigDefaultTypeInternal {
-  constexpr BitSamplingHasherConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~BitSamplingHasherConfigDefaultTypeInternal() {}
-  union {
-    BitSamplingHasherConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BitSamplingHasherConfigDefaultTypeInternal _BitSamplingHasherConfig_default_instance_;
-constexpr PcaHasherConfig::PcaHasherConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : rotate_projections_(false)
-  , learn_projections_(false)
-  , max_sample_size_(0)
-  , sampling_fraction_(1)
-  , sampling_seed_(1)
-  , max_num_iteration_(40)
-  , iteration_tolerance_(1e-05f){}
-struct PcaHasherConfigDefaultTypeInternal {
-  constexpr PcaHasherConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~PcaHasherConfigDefaultTypeInternal() {}
-  union {
-    PcaHasherConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PcaHasherConfigDefaultTypeInternal _PcaHasherConfig_default_instance_;
-constexpr BncHasherConfig::BncHasherConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : compression_ratio_(0)
-  , num_cpus_(1)
-  , gamma_(10)
-  , learning_rate_(0.1f)
-  , batch_size_(128)
-  , num_phase1_iterations_(50)
-  , num_phase2_iterations_(100)
-  , sampling_seed_(1){}
-struct BncHasherConfigDefaultTypeInternal {
-  constexpr BncHasherConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~BncHasherConfigDefaultTypeInternal() {}
-  union {
-    BncHasherConfig _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BncHasherConfigDefaultTypeInternal _BncHasherConfig_default_instance_;
-constexpr StackedQuantizersConfig::StackedQuantizersConfig(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : relative_improvement_threshold_(0.001f)
-  , min_num_iterations_(3)
-  , max_num_iterations_(10){}
+template <typename>
+PROTOBUF_CONSTEXPR StackedQuantizersConfig::StackedQuantizersConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
 struct StackedQuantizersConfigDefaultTypeInternal {
-  constexpr StackedQuantizersConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StackedQuantizersConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StackedQuantizersConfigDefaultTypeInternal() {}
   union {
     StackedQuantizersConfig _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StackedQuantizersConfigDefaultTypeInternal _StackedQuantizersConfig_default_instance_;
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StackedQuantizersConfigDefaultTypeInternal _StackedQuantizersConfig_default_instance_;
+
+inline constexpr PcaHasherConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        rotate_projections_{false},
+        learn_projections_{false},
+        max_sample_size_{0},
+        sampling_fraction_{1},
+        sampling_seed_{1},
+        max_num_iteration_{40},
+        iteration_tolerance_{1e-05f} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR PcaHasherConfig::PcaHasherConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct PcaHasherConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PcaHasherConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PcaHasherConfigDefaultTypeInternal() {}
+  union {
+    PcaHasherConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PcaHasherConfigDefaultTypeInternal _PcaHasherConfig_default_instance_;
+
+inline constexpr MinHasherConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        seeds_{},
+        config_id_{0},
+        num_sketches_{0},
+        num_hashes_{0},
+        num_bits_per_hash_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR MinHasherConfig::MinHasherConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct MinHasherConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MinHasherConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MinHasherConfigDefaultTypeInternal() {}
+  union {
+    MinHasherConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MinHasherConfigDefaultTypeInternal _MinHasherConfig_default_instance_;
+
+inline constexpr BncHasherConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        compression_ratio_{0},
+        num_cpus_{1},
+        gamma_{10},
+        learning_rate_{0.1f},
+        batch_size_{128},
+        num_phase1_iterations_{50},
+        num_phase2_iterations_{100},
+        sampling_seed_{1} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR BncHasherConfig::BncHasherConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct BncHasherConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BncHasherConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BncHasherConfigDefaultTypeInternal() {}
+  union {
+    BncHasherConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BncHasherConfigDefaultTypeInternal _BncHasherConfig_default_instance_;
+
+inline constexpr BitSamplingHasherConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        use_entropy_{false},
+        num_bits_{3} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR BitSamplingHasherConfig::BitSamplingHasherConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct BitSamplingHasherConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BitSamplingHasherConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BitSamplingHasherConfigDefaultTypeInternal() {}
+  union {
+    BitSamplingHasherConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BitSamplingHasherConfigDefaultTypeInternal _BitSamplingHasherConfig_default_instance_;
+
+inline constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptions::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        float_to_int_conversion_method_{static_cast< ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod >(0)},
+        multiplier_quantile_{1} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR AsymmetricHasherConfig_FixedPointLUTConversionOptions::AsymmetricHasherConfig_FixedPointLUTConversionOptions(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal() {}
+  union {
+    AsymmetricHasherConfig_FixedPointLUTConversionOptions _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AsymmetricHasherConfig_FixedPointLUTConversionOptionsDefaultTypeInternal _AsymmetricHasherConfig_FixedPointLUTConversionOptions_default_instance_;
+
+inline constexpr AsymmetricHasherConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        centers_filename_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        mr_jobname_prefix_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        cell_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        projection_{nullptr},
+        quantization_distance_{nullptr},
+        stacked_quantizers_config_{nullptr},
+        fixed_point_lut_conversion_options_{nullptr},
+        min_number_machines_{0},
+        use_per_leaf_partition_training_{false},
+        use_noise_shaped_training_{false},
+        use_single_machine_trainer_{false},
+        lookup_type_{static_cast< ::research_scann::AsymmetricHasherConfig_LookupType >(0)},
+        quantization_scheme_{static_cast< ::research_scann::AsymmetricHasherConfig_QuantizationScheme >(0)},
+        partition_level_confidence_interval_stdevs_{0},
+        num_machines_{0},
+        use_residual_quantization_{false},
+        use_normalized_residual_quantization_{false},
+        use_norm_biasing_correction_{false},
+        use_global_topn_{false},
+        min_cluster_size_{1},
+        num_clusters_per_block_{256},
+        max_sample_size_{2147483647},
+        max_clustering_iterations_{10},
+        clustering_convergence_tolerance_{1e-05f},
+        clustering_seed_{1},
+        sampling_seed_{1},
+        ram_gb_{4},
+        num_cpus_{1},
+        noise_shaping_threshold_{std::numeric_limits<double>::quiet_NaN()},
+        SamplingFractionOrExpectedSize_{},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR AsymmetricHasherConfig::AsymmetricHasherConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct AsymmetricHasherConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AsymmetricHasherConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AsymmetricHasherConfigDefaultTypeInternal() {}
+  union {
+    AsymmetricHasherConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AsymmetricHasherConfigDefaultTypeInternal _AsymmetricHasherConfig_default_instance_;
+
+inline constexpr HashConfig::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        parameters_filename_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        projection_{nullptr},
+        asymmetric_hash_{nullptr},
+        min_hash_{nullptr},
+        pca_hash_{nullptr},
+        bit_sampling_hash_{nullptr},
+        bnc_hash_{nullptr},
+        num_bits_{0},
+        threshold_type_{static_cast< ::research_scann::HashConfig_ThresholdType >(1)} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR HashConfig::HashConfig(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct HashConfigDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HashConfigDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HashConfigDefaultTypeInternal() {}
+  union {
+    HashConfig _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HashConfigDefaultTypeInternal _HashConfig_default_instance_;
 }  // namespace research_scann
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_scann_2fproto_2fhash_2eproto[8];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fhash_2eproto[4];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_scann_2fproto_2fhash_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_scann_2fproto_2fhash_2eproto[8];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_scann_2fproto_2fhash_2eproto[4];
+static constexpr const ::_pb::ServiceDescriptor**
+    file_level_service_descriptors_scann_2fproto_2fhash_2eproto = nullptr;
+const ::uint32_t TableStruct_scann_2fproto_2fhash_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.num_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.projection_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.threshold_type_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.parameters_filename_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.asymmetric_hash_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.min_hash_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.pca_hash_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.bit_sampling_hash_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _impl_.bnc_hash_),
+    7,
+    1,
+    8,
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.float_to_int_conversion_method_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.multiplier_quantile_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_._oneof_case_[0]),
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.projection_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.num_clusters_per_block_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.lookup_type_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.clustering_seed_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_residual_quantization_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_normalized_residual_quantization_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.noise_shaping_threshold_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_norm_biasing_correction_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_global_topn_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.fixed_point_lut_conversion_options_),
+    ::_pbi::kInvalidFieldOffsetTag,
+    ::_pbi::kInvalidFieldOffsetTag,
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.sampling_seed_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.quantization_distance_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.max_clustering_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.clustering_convergence_tolerance_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.centers_filename_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.num_machines_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_per_leaf_partition_training_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.mr_jobname_prefix_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.cell_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.ram_gb_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.num_cpus_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.quantization_scheme_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.stacked_quantizers_config_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.min_number_machines_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.max_sample_size_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_noise_shaped_training_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.partition_level_confidence_interval_stdevs_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.min_cluster_size_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.use_single_machine_trainer_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_.SamplingFractionOrExpectedSize_),
+    3,
+    20,
+    11,
+    24,
+    15,
+    16,
+    28,
+    17,
+    18,
+    6,
+    ~0u,
+    ~0u,
+    25,
+    4,
+    22,
+    23,
+    0,
+    14,
+    8,
+    1,
+    2,
+    26,
+    27,
+    12,
+    5,
+    7,
+    21,
+    9,
+    13,
+    19,
+    10,
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _impl_.config_id_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _impl_.num_sketches_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _impl_.num_hashes_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _impl_.seeds_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _impl_.num_bits_per_hash_),
+    0,
+    1,
+    2,
+    ~0u,
+    3,
+    PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, _impl_.num_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, _impl_.use_entropy_),
+    1,
+    0,
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.rotate_projections_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.sampling_fraction_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.sampling_seed_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.max_sample_size_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.learn_projections_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.max_num_iteration_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _impl_.iteration_tolerance_),
+    0,
+    3,
+    4,
+    2,
+    1,
+    5,
+    6,
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.compression_ratio_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.gamma_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.learning_rate_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.batch_size_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.num_phase1_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.num_phase2_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.sampling_seed_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _impl_.num_cpus_),
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    1,
+    PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _impl_.min_num_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _impl_.max_num_iterations_),
+    PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _impl_.relative_improvement_threshold_),
+    1,
+    2,
+    0,
+};
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_scann_2fproto_2fhash_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, num_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, projection_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, threshold_type_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, parameters_filename_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, asymmetric_hash_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, min_hash_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, pca_hash_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, bit_sampling_hash_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::HashConfig, bnc_hash_),
-  7,
-  1,
-  8,
-  0,
-  2,
-  3,
-  4,
-  5,
-  6,
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, float_to_int_conversion_method_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions, multiplier_quantile_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _oneof_case_[0]),
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, projection_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, num_clusters_per_block_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, lookup_type_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, clustering_seed_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_residual_quantization_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_normalized_residual_quantization_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, noise_shaping_threshold_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_norm_biasing_correction_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_global_topn_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, fixed_point_lut_conversion_options_),
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, sampling_seed_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, quantization_distance_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, max_clustering_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, clustering_convergence_tolerance_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, centers_filename_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, num_machines_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_per_leaf_partition_training_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, mr_jobname_prefix_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, cell_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, ram_gb_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, num_cpus_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, quantization_scheme_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, stacked_quantizers_config_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, min_number_machines_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, max_sample_size_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_noise_shaped_training_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, partition_level_confidence_interval_stdevs_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, min_cluster_size_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, use_single_machine_trainer_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, SamplingFractionOrExpectedSize_),
-  3,
-  20,
-  11,
-  24,
-  15,
-  16,
-  28,
-  17,
-  18,
-  6,
-  ~0u,
-  ~0u,
-  25,
-  4,
-  22,
-  23,
-  0,
-  14,
-  8,
-  1,
-  2,
-  26,
-  27,
-  12,
-  5,
-  7,
-  21,
-  9,
-  13,
-  19,
-  10,
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, config_id_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, num_sketches_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, num_hashes_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, seeds_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::MinHasherConfig, num_bits_per_hash_),
-  0,
-  1,
-  2,
-  ~0u,
-  3,
-  PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, num_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BitSamplingHasherConfig, use_entropy_),
-  1,
-  0,
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, rotate_projections_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, sampling_fraction_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, sampling_seed_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, max_sample_size_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, learn_projections_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, max_num_iteration_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::PcaHasherConfig, iteration_tolerance_),
-  0,
-  3,
-  4,
-  2,
-  1,
-  5,
-  6,
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, compression_ratio_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, gamma_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, learning_rate_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, batch_size_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, num_phase1_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, num_phase2_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, sampling_seed_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::BncHasherConfig, num_cpus_),
-  0,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  1,
-  PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, min_num_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, max_num_iterations_),
-  PROTOBUF_FIELD_OFFSET(::research_scann::StackedQuantizersConfig, relative_improvement_threshold_),
-  1,
-  2,
-  0,
-};
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 14, sizeof(::research_scann::HashConfig)},
-  { 23, 30, sizeof(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions)},
-  { 32, 69, sizeof(::research_scann::AsymmetricHasherConfig)},
-  { 100, 110, sizeof(::research_scann::MinHasherConfig)},
-  { 115, 122, sizeof(::research_scann::BitSamplingHasherConfig)},
-  { 124, 136, sizeof(::research_scann::PcaHasherConfig)},
-  { 143, 156, sizeof(::research_scann::BncHasherConfig)},
-  { 164, 172, sizeof(::research_scann::StackedQuantizersConfig)},
+static const ::_pbi::MigrationSchema
+    schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+        {0, 17, -1, sizeof(::research_scann::HashConfig)},
+        {26, 36, -1, sizeof(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions)},
+        {38, 78, -1, sizeof(::research_scann::AsymmetricHasherConfig)},
+        {109, 122, -1, sizeof(::research_scann::MinHasherConfig)},
+        {127, 137, -1, sizeof(::research_scann::BitSamplingHasherConfig)},
+        {139, 154, -1, sizeof(::research_scann::PcaHasherConfig)},
+        {161, 177, -1, sizeof(::research_scann::BncHasherConfig)},
+        {185, 196, -1, sizeof(::research_scann::StackedQuantizersConfig)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_HashConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_AsymmetricHasherConfig_FixedPointLUTConversionOptions_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_AsymmetricHasherConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_MinHasherConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_BitSamplingHasherConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_PcaHasherConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_BncHasherConfig_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::research_scann::_StackedQuantizersConfig_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+    &::research_scann::_HashConfig_default_instance_._instance,
+    &::research_scann::_AsymmetricHasherConfig_FixedPointLUTConversionOptions_default_instance_._instance,
+    &::research_scann::_AsymmetricHasherConfig_default_instance_._instance,
+    &::research_scann::_MinHasherConfig_default_instance_._instance,
+    &::research_scann::_BitSamplingHasherConfig_default_instance_._instance,
+    &::research_scann::_PcaHasherConfig_default_instance_._instance,
+    &::research_scann::_BncHasherConfig_default_instance_._instance,
+    &::research_scann::_StackedQuantizersConfig_default_instance_._instance,
+};
+const char descriptor_table_protodef_scann_2fproto_2fhash_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+    "\n\026scann/proto/hash.proto\022\016research_scann"
+    "\032\"scann/proto/distance_measure.proto\032\034sc"
+    "ann/proto/projection.proto\"\245\004\n\nHashConfi"
+    "g\022\020\n\010num_bits\030\001 \001(\005\0224\n\nprojection\030\002 \001(\0132"
+    " .research_scann.ProjectionConfig\022F\n\016thr"
+    "eshold_type\030\003 \001(\0162(.research_scann.HashC"
+    "onfig.ThresholdType:\004SIGN\022\033\n\023parameters_"
+    "filename\030\004 \001(\t\022\?\n\017asymmetric_hash\030\005 \001(\0132"
+    "&.research_scann.AsymmetricHasherConfig\022"
+    "1\n\010min_hash\030\006 \001(\0132\037.research_scann.MinHa"
+    "sherConfig\0221\n\010pca_hash\030\007 \001(\0132\037.research_"
+    "scann.PcaHasherConfig\022B\n\021bit_sampling_ha"
+    "sh\030\t \001(\0132\'.research_scann.BitSamplingHas"
+    "herConfig\0221\n\010bnc_hash\030\n \001(\0132\037.research_s"
+    "cann.BncHasherConfig\"L\n\rThresholdType\022\013\n"
+    "\007UNKNOWN\020\000\022\010\n\004SIGN\020\001\022\010\n\004MEAN\020\002\022\n\n\006MEDIAN"
+    "\020\003\022\016\n\nSINUSOIDAL\020\004\"\302\016\n\026AsymmetricHasherC"
+    "onfig\0224\n\nprojection\030\001 \001(\0132 .research_sca"
+    "nn.ProjectionConfig\022#\n\026num_clusters_per_"
+    "block\030\002 \001(\005:\003256\022M\n\013lookup_type\030\024 \001(\01621."
+    "research_scann.AsymmetricHasherConfig.Lo"
+    "okupType:\005FLOAT\022\032\n\017clustering_seed\030\t \001(\005"
+    ":\0011\022(\n\031use_residual_quantization\030\026 \001(\010:\005"
+    "false\0223\n$use_normalized_residual_quantiz"
+    "ation\030  \001(\010:\005false\022$\n\027noise_shaping_thre"
+    "shold\030\034 \001(\001:\003nan\022*\n\033use_norm_biasing_cor"
+    "rection\030\037 \001(\010:\005false\022\036\n\017use_global_topn\030"
+    "! \001(\010:\005false\022q\n\"fixed_point_lut_conversi"
+    "on_options\030\031 \001(\0132E.research_scann.Asymme"
+    "tricHasherConfig.FixedPointLUTConversion"
+    "Options\022\036\n\021sampling_fraction\030\n \001(\002:\0011H\000\022"
+    "\036\n\024expected_sample_size\030\035 \001(\005H\000\022\030\n\rsampl"
+    "ing_seed\030\013 \001(\005:\0011\022D\n\025quantization_distan"
+    "ce\030\022 \001(\0132%.research_scann.DistanceMeasur"
+    "eConfig\022%\n\031max_clustering_iterations\030\004 \001"
+    "(\005:\00210\022/\n clustering_convergence_toleran"
+    "ce\030\005 \001(\002:\0051e-05\022\030\n\020centers_filename\030\006 \001("
+    "\t\022\024\n\014num_machines\030\033 \001(\005\022.\n\037use_per_leaf_"
+    "partition_training\030\021 \001(\010:\005false\022\031\n\021mr_jo"
+    "bname_prefix\030\014 \001(\t\022\014\n\004cell\030\r \001(\t\022\021\n\006ram_"
+    "gb\030\016 \001(\005:\0014\022\023\n\010num_cpus\030\017 \001(\005:\0011\022_\n\023quan"
+    "tization_scheme\030\027 \001(\01629.research_scann.A"
+    "symmetricHasherConfig.QuantizationScheme"
+    ":\007PRODUCT\022J\n\031stacked_quantizers_config\030\030"
+    " \001(\0132\'.research_scann.StackedQuantizersC"
+    "onfig\022\037\n\023min_number_machines\030\007 \001(\005B\002\030\001\022#"
+    "\n\017max_sample_size\030\003 \001(\005:\n2147483647\022,\n\031u"
+    "se_noise_shaped_training\030\036 \001(\010:\005falseB\002\030"
+    "\001\0229\n*partition_level_confidence_interval"
+    "_stdevs\030\032 \001(\002:\0010B\002\030\001\022\037\n\020min_cluster_size"
+    "\030\023 \001(\002:\0011B\002\030\001\022-\n\032use_single_machine_trai"
+    "ner\030\010 \001(\010:\005falseB\002\030\001\032\214\002\n\036FixedPointLUTCo"
+    "nversionOptions\022\222\001\n\036float_to_int_convers"
+    "ion_method\030\001 \001(\0162`.research_scann.Asymme"
+    "tricHasherConfig.FixedPointLUTConversion"
+    "Options.FloatToIntConversionMethod:\010TRUN"
+    "CATE\022\036\n\023multiplier_quantile\030\002 \001(\002:\0011\"5\n\032"
+    "FloatToIntConversionMethod\022\014\n\010TRUNCATE\020\000"
+    "\022\t\n\005ROUND\020\001\"<\n\nLookupType\022\t\n\005FLOAT\020\000\022\010\n\004"
+    "INT8\020\001\022\t\n\005INT16\020\002\022\016\n\nINT8_LUT16\020\003\"Z\n\022Qua"
+    "ntizationScheme\022\013\n\007PRODUCT\020\000\022\013\n\007STACKED\020"
+    "\001\022\024\n\020PRODUCT_AND_BIAS\020\002\022\024\n\020PRODUCT_AND_P"
+    "ACK\020\003B \n\036SamplingFractionOrExpectedSize\""
+    "x\n\017MinHasherConfig\022\021\n\tconfig_id\030\001 \001(\005\022\024\n"
+    "\014num_sketches\030\002 \001(\005\022\022\n\nnum_hashes\030\003 \001(\005\022"
+    "\r\n\005seeds\030\004 \003(\003\022\031\n\021num_bits_per_hash\030\005 \001("
+    "\005\"a\n\027BitSamplingHasherConfig\022\023\n\010num_bits"
+    "\030\001 \001(\005:\0013\022\032\n\013use_entropy\030\002 \001(\010:\005falseJ\004\010"
+    "\003\020\004R\017chunked_hamming\"\352\001\n\017PcaHasherConfig"
+    "\022!\n\022rotate_projections\030\001 \001(\010:\005false\022\034\n\021s"
+    "ampling_fraction\030\002 \001(\002:\0011\022\030\n\rsampling_se"
+    "ed\030\003 \001(\005:\0011\022\027\n\017max_sample_size\030\004 \001(\005\022 \n\021"
+    "learn_projections\030\005 \001(\010:\005false\022\035\n\021max_nu"
+    "m_iteration\030\006 \001(\005:\00240\022\"\n\023iteration_toler"
+    "ance\030\007 \001(\002:\0051e-05\"\355\001\n\017BncHasherConfig\022\034\n"
+    "\021compression_ratio\030\001 \001(\002:\0010\022\021\n\005gamma\030\002 \001"
+    "(\002:\00210\022\032\n\rlearning_rate\030\003 \001(\002:\0030.1\022\027\n\nba"
+    "tch_size\030\004 \001(\005:\003128\022!\n\025num_phase1_iterat"
+    "ions\030\005 \001(\005:\00250\022\"\n\025num_phase2_iterations\030"
+    "\006 \001(\005:\003100\022\030\n\rsampling_seed\030\007 \001(\005:\0011\022\023\n\010"
+    "num_cpus\030\010 \001(\005:\0011\"\207\001\n\027StackedQuantizersC"
+    "onfig\022\035\n\022min_num_iterations\030\001 \001(\005:\0013\022\036\n\022"
+    "max_num_iterations\030\002 \001(\005:\00210\022-\n\036relative"
+    "_improvement_threshold\030\003 \001(\002:\0050.001"
+};
+static const ::_pbi::DescriptorTable* const descriptor_table_scann_2fproto_2fhash_2eproto_deps[2] =
+    {
+        &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
+        &::descriptor_table_scann_2fproto_2fprojection_2eproto,
+};
+static ::absl::once_flag descriptor_table_scann_2fproto_2fhash_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_scann_2fproto_2fhash_2eproto = {
+    false,
+    false,
+    3355,
+    descriptor_table_protodef_scann_2fproto_2fhash_2eproto,
+    "scann/proto/hash.proto",
+    &descriptor_table_scann_2fproto_2fhash_2eproto_once,
+    descriptor_table_scann_2fproto_2fhash_2eproto_deps,
+    2,
+    8,
+    schemas,
+    file_default_instances,
+    TableStruct_scann_2fproto_2fhash_2eproto::offsets,
+    file_level_metadata_scann_2fproto_2fhash_2eproto,
+    file_level_enum_descriptors_scann_2fproto_2fhash_2eproto,
+    file_level_service_descriptors_scann_2fproto_2fhash_2eproto,
 };
 
-const char descriptor_table_protodef_scann_2fproto_2fhash_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\026scann/proto/hash.proto\022\016research_scann"
-  "\032\"scann/proto/distance_measure.proto\032\034sc"
-  "ann/proto/projection.proto\"\245\004\n\nHashConfi"
-  "g\022\020\n\010num_bits\030\001 \001(\005\0224\n\nprojection\030\002 \001(\0132"
-  " .research_scann.ProjectionConfig\022F\n\016thr"
-  "eshold_type\030\003 \001(\0162(.research_scann.HashC"
-  "onfig.ThresholdType:\004SIGN\022\033\n\023parameters_"
-  "filename\030\004 \001(\t\022\?\n\017asymmetric_hash\030\005 \001(\0132"
-  "&.research_scann.AsymmetricHasherConfig\022"
-  "1\n\010min_hash\030\006 \001(\0132\037.research_scann.MinHa"
-  "sherConfig\0221\n\010pca_hash\030\007 \001(\0132\037.research_"
-  "scann.PcaHasherConfig\022B\n\021bit_sampling_ha"
-  "sh\030\t \001(\0132\'.research_scann.BitSamplingHas"
-  "herConfig\0221\n\010bnc_hash\030\n \001(\0132\037.research_s"
-  "cann.BncHasherConfig\"L\n\rThresholdType\022\013\n"
-  "\007UNKNOWN\020\000\022\010\n\004SIGN\020\001\022\010\n\004MEAN\020\002\022\n\n\006MEDIAN"
-  "\020\003\022\016\n\nSINUSOIDAL\020\004\"\302\016\n\026AsymmetricHasherC"
-  "onfig\0224\n\nprojection\030\001 \001(\0132 .research_sca"
-  "nn.ProjectionConfig\022#\n\026num_clusters_per_"
-  "block\030\002 \001(\005:\003256\022M\n\013lookup_type\030\024 \001(\01621."
-  "research_scann.AsymmetricHasherConfig.Lo"
-  "okupType:\005FLOAT\022\032\n\017clustering_seed\030\t \001(\005"
-  ":\0011\022(\n\031use_residual_quantization\030\026 \001(\010:\005"
-  "false\0223\n$use_normalized_residual_quantiz"
-  "ation\030  \001(\010:\005false\022$\n\027noise_shaping_thre"
-  "shold\030\034 \001(\001:\003nan\022*\n\033use_norm_biasing_cor"
-  "rection\030\037 \001(\010:\005false\022\036\n\017use_global_topn\030"
-  "! \001(\010:\005false\022q\n\"fixed_point_lut_conversi"
-  "on_options\030\031 \001(\0132E.research_scann.Asymme"
-  "tricHasherConfig.FixedPointLUTConversion"
-  "Options\022\036\n\021sampling_fraction\030\n \001(\002:\0011H\000\022"
-  "\036\n\024expected_sample_size\030\035 \001(\005H\000\022\030\n\rsampl"
-  "ing_seed\030\013 \001(\005:\0011\022D\n\025quantization_distan"
-  "ce\030\022 \001(\0132%.research_scann.DistanceMeasur"
-  "eConfig\022%\n\031max_clustering_iterations\030\004 \001"
-  "(\005:\00210\022/\n clustering_convergence_toleran"
-  "ce\030\005 \001(\002:\0051e-05\022\030\n\020centers_filename\030\006 \001("
-  "\t\022\024\n\014num_machines\030\033 \001(\005\022.\n\037use_per_leaf_"
-  "partition_training\030\021 \001(\010:\005false\022\031\n\021mr_jo"
-  "bname_prefix\030\014 \001(\t\022\014\n\004cell\030\r \001(\t\022\021\n\006ram_"
-  "gb\030\016 \001(\005:\0014\022\023\n\010num_cpus\030\017 \001(\005:\0011\022_\n\023quan"
-  "tization_scheme\030\027 \001(\01629.research_scann.A"
-  "symmetricHasherConfig.QuantizationScheme"
-  ":\007PRODUCT\022J\n\031stacked_quantizers_config\030\030"
-  " \001(\0132\'.research_scann.StackedQuantizersC"
-  "onfig\022\037\n\023min_number_machines\030\007 \001(\005B\002\030\001\022#"
-  "\n\017max_sample_size\030\003 \001(\005:\n2147483647\022,\n\031u"
-  "se_noise_shaped_training\030\036 \001(\010:\005falseB\002\030"
-  "\001\0229\n*partition_level_confidence_interval"
-  "_stdevs\030\032 \001(\002:\0010B\002\030\001\022\037\n\020min_cluster_size"
-  "\030\023 \001(\002:\0011B\002\030\001\022-\n\032use_single_machine_trai"
-  "ner\030\010 \001(\010:\005falseB\002\030\001\032\214\002\n\036FixedPointLUTCo"
-  "nversionOptions\022\222\001\n\036float_to_int_convers"
-  "ion_method\030\001 \001(\0162`.research_scann.Asymme"
-  "tricHasherConfig.FixedPointLUTConversion"
-  "Options.FloatToIntConversionMethod:\010TRUN"
-  "CATE\022\036\n\023multiplier_quantile\030\002 \001(\002:\0011\"5\n\032"
-  "FloatToIntConversionMethod\022\014\n\010TRUNCATE\020\000"
-  "\022\t\n\005ROUND\020\001\"<\n\nLookupType\022\t\n\005FLOAT\020\000\022\010\n\004"
-  "INT8\020\001\022\t\n\005INT16\020\002\022\016\n\nINT8_LUT16\020\003\"Z\n\022Qua"
-  "ntizationScheme\022\013\n\007PRODUCT\020\000\022\013\n\007STACKED\020"
-  "\001\022\024\n\020PRODUCT_AND_BIAS\020\002\022\024\n\020PRODUCT_AND_P"
-  "ACK\020\003B \n\036SamplingFractionOrExpectedSize\""
-  "x\n\017MinHasherConfig\022\021\n\tconfig_id\030\001 \001(\005\022\024\n"
-  "\014num_sketches\030\002 \001(\005\022\022\n\nnum_hashes\030\003 \001(\005\022"
-  "\r\n\005seeds\030\004 \003(\003\022\031\n\021num_bits_per_hash\030\005 \001("
-  "\005\"a\n\027BitSamplingHasherConfig\022\023\n\010num_bits"
-  "\030\001 \001(\005:\0013\022\032\n\013use_entropy\030\002 \001(\010:\005falseJ\004\010"
-  "\003\020\004R\017chunked_hamming\"\352\001\n\017PcaHasherConfig"
-  "\022!\n\022rotate_projections\030\001 \001(\010:\005false\022\034\n\021s"
-  "ampling_fraction\030\002 \001(\002:\0011\022\030\n\rsampling_se"
-  "ed\030\003 \001(\005:\0011\022\027\n\017max_sample_size\030\004 \001(\005\022 \n\021"
-  "learn_projections\030\005 \001(\010:\005false\022\035\n\021max_nu"
-  "m_iteration\030\006 \001(\005:\00240\022\"\n\023iteration_toler"
-  "ance\030\007 \001(\002:\0051e-05\"\355\001\n\017BncHasherConfig\022\034\n"
-  "\021compression_ratio\030\001 \001(\002:\0010\022\021\n\005gamma\030\002 \001"
-  "(\002:\00210\022\032\n\rlearning_rate\030\003 \001(\002:\0030.1\022\027\n\nba"
-  "tch_size\030\004 \001(\005:\003128\022!\n\025num_phase1_iterat"
-  "ions\030\005 \001(\005:\00250\022\"\n\025num_phase2_iterations\030"
-  "\006 \001(\005:\003100\022\030\n\rsampling_seed\030\007 \001(\005:\0011\022\023\n\010"
-  "num_cpus\030\010 \001(\005:\0011\"\207\001\n\027StackedQuantizersC"
-  "onfig\022\035\n\022min_num_iterations\030\001 \001(\005:\0013\022\036\n\022"
-  "max_num_iterations\030\002 \001(\005:\00210\022-\n\036relative"
-  "_improvement_threshold\030\003 \001(\002:\0050.001"
-  ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_scann_2fproto_2fhash_2eproto_deps[2] = {
-  &::descriptor_table_scann_2fproto_2fdistance_5fmeasure_2eproto,
-  &::descriptor_table_scann_2fproto_2fprojection_2eproto,
-};
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_scann_2fproto_2fhash_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_scann_2fproto_2fhash_2eproto = {
-  false, false, 3355, descriptor_table_protodef_scann_2fproto_2fhash_2eproto, "scann/proto/hash.proto", 
-  &descriptor_table_scann_2fproto_2fhash_2eproto_once, descriptor_table_scann_2fproto_2fhash_2eproto_deps, 2, 8,
-  schemas, file_default_instances, TableStruct_scann_2fproto_2fhash_2eproto::offsets,
-  file_level_metadata_scann_2fproto_2fhash_2eproto, file_level_enum_descriptors_scann_2fproto_2fhash_2eproto, file_level_service_descriptors_scann_2fproto_2fhash_2eproto,
-};
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_scann_2fproto_2fhash_2eproto_getter() {
+// This function exists to be marked as weak.
+// It can significantly speed up compilation by breaking up LLVM's SCC
+// in the .pb.cc translation units. Large translation units see a
+// reduction of more than 35% of walltime for optimized builds. Without
+// the weak attribute all the messages in the file, including all the
+// vtables and everything they use become part of the same SCC through
+// a cycle like:
+// GetMetadata -> descriptor table -> default instances ->
+//   vtables -> GetMetadata
+// By adding a weak function here we break the connection from the
+// individual vtables back into the descriptor table.
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_scann_2fproto_2fhash_2eproto_getter() {
   return &descriptor_table_scann_2fproto_2fhash_2eproto;
 }
-
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fhash_2eproto(&descriptor_table_scann_2fproto_2fhash_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
+static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_scann_2fproto_2fhash_2eproto(&descriptor_table_scann_2fproto_2fhash_2eproto);
 namespace research_scann {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* HashConfig_ThresholdType_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
+const ::google::protobuf::EnumDescriptor* HashConfig_ThresholdType_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fhash_2eproto[0];
 }
+PROTOBUF_CONSTINIT const uint32_t HashConfig_ThresholdType_internal_data_[] = {
+    327680u, 0u, };
 bool HashConfig_ThresholdType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 4;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr HashConfig_ThresholdType HashConfig::UNKNOWN;
 constexpr HashConfig_ThresholdType HashConfig::SIGN;
 constexpr HashConfig_ThresholdType HashConfig::MEAN;
@@ -509,45 +618,41 @@ constexpr HashConfig_ThresholdType HashConfig::SINUSOIDAL;
 constexpr HashConfig_ThresholdType HashConfig::ThresholdType_MIN;
 constexpr HashConfig_ThresholdType HashConfig::ThresholdType_MAX;
 constexpr int HashConfig::ThresholdType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::google::protobuf::EnumDescriptor* AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fhash_2eproto[1];
 }
+PROTOBUF_CONSTINIT const uint32_t AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod_internal_data_[] = {
+    131072u, 0u, };
 bool AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 1;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod AsymmetricHasherConfig_FixedPointLUTConversionOptions::TRUNCATE;
 constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod AsymmetricHasherConfig_FixedPointLUTConversionOptions::ROUND;
 constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod AsymmetricHasherConfig_FixedPointLUTConversionOptions::FloatToIntConversionMethod_MIN;
 constexpr AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod AsymmetricHasherConfig_FixedPointLUTConversionOptions::FloatToIntConversionMethod_MAX;
 constexpr int AsymmetricHasherConfig_FixedPointLUTConversionOptions::FloatToIntConversionMethod_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AsymmetricHasherConfig_LookupType_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::google::protobuf::EnumDescriptor* AsymmetricHasherConfig_LookupType_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fhash_2eproto[2];
 }
+PROTOBUF_CONSTINIT const uint32_t AsymmetricHasherConfig_LookupType_internal_data_[] = {
+    262144u, 0u, };
 bool AsymmetricHasherConfig_LookupType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 3;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr AsymmetricHasherConfig_LookupType AsymmetricHasherConfig::FLOAT;
 constexpr AsymmetricHasherConfig_LookupType AsymmetricHasherConfig::INT8;
 constexpr AsymmetricHasherConfig_LookupType AsymmetricHasherConfig::INT16;
@@ -555,24 +660,21 @@ constexpr AsymmetricHasherConfig_LookupType AsymmetricHasherConfig::INT8_LUT16;
 constexpr AsymmetricHasherConfig_LookupType AsymmetricHasherConfig::LookupType_MIN;
 constexpr AsymmetricHasherConfig_LookupType AsymmetricHasherConfig::LookupType_MAX;
 constexpr int AsymmetricHasherConfig::LookupType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AsymmetricHasherConfig_QuantizationScheme_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::google::protobuf::EnumDescriptor* AsymmetricHasherConfig_QuantizationScheme_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_scann_2fproto_2fhash_2eproto);
   return file_level_enum_descriptors_scann_2fproto_2fhash_2eproto[3];
 }
+PROTOBUF_CONSTINIT const uint32_t AsymmetricHasherConfig_QuantizationScheme_internal_data_[] = {
+    262144u, 0u, };
 bool AsymmetricHasherConfig_QuantizationScheme_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return true;
-    default:
-      return false;
-  }
+  return 0 <= value && value <= 3;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr AsymmetricHasherConfig_QuantizationScheme AsymmetricHasherConfig::PRODUCT;
 constexpr AsymmetricHasherConfig_QuantizationScheme AsymmetricHasherConfig::STACKED;
 constexpr AsymmetricHasherConfig_QuantizationScheme AsymmetricHasherConfig::PRODUCT_AND_BIAS;
@@ -580,13 +682,16 @@ constexpr AsymmetricHasherConfig_QuantizationScheme AsymmetricHasherConfig::PROD
 constexpr AsymmetricHasherConfig_QuantizationScheme AsymmetricHasherConfig::QuantizationScheme_MIN;
 constexpr AsymmetricHasherConfig_QuantizationScheme AsymmetricHasherConfig::QuantizationScheme_MAX;
 constexpr int AsymmetricHasherConfig::QuantizationScheme_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class HashConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<HashConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<HashConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(HashConfig, _impl_._has_bits_);
   static void set_has_num_bits(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
@@ -622,420 +727,392 @@ class HashConfig::_Internal {
   }
 };
 
-const ::research_scann::ProjectionConfig&
-HashConfig::_Internal::projection(const HashConfig* msg) {
-  return *msg->projection_;
+const ::research_scann::ProjectionConfig& HashConfig::_Internal::projection(const HashConfig* msg) {
+  return *msg->_impl_.projection_;
 }
-const ::research_scann::AsymmetricHasherConfig&
-HashConfig::_Internal::asymmetric_hash(const HashConfig* msg) {
-  return *msg->asymmetric_hash_;
+const ::research_scann::AsymmetricHasherConfig& HashConfig::_Internal::asymmetric_hash(const HashConfig* msg) {
+  return *msg->_impl_.asymmetric_hash_;
 }
-const ::research_scann::MinHasherConfig&
-HashConfig::_Internal::min_hash(const HashConfig* msg) {
-  return *msg->min_hash_;
+const ::research_scann::MinHasherConfig& HashConfig::_Internal::min_hash(const HashConfig* msg) {
+  return *msg->_impl_.min_hash_;
 }
-const ::research_scann::PcaHasherConfig&
-HashConfig::_Internal::pca_hash(const HashConfig* msg) {
-  return *msg->pca_hash_;
+const ::research_scann::PcaHasherConfig& HashConfig::_Internal::pca_hash(const HashConfig* msg) {
+  return *msg->_impl_.pca_hash_;
 }
-const ::research_scann::BitSamplingHasherConfig&
-HashConfig::_Internal::bit_sampling_hash(const HashConfig* msg) {
-  return *msg->bit_sampling_hash_;
+const ::research_scann::BitSamplingHasherConfig& HashConfig::_Internal::bit_sampling_hash(const HashConfig* msg) {
+  return *msg->_impl_.bit_sampling_hash_;
 }
-const ::research_scann::BncHasherConfig&
-HashConfig::_Internal::bnc_hash(const HashConfig* msg) {
-  return *msg->bnc_hash_;
+const ::research_scann::BncHasherConfig& HashConfig::_Internal::bnc_hash(const HashConfig* msg) {
+  return *msg->_impl_.bnc_hash_;
 }
 void HashConfig::clear_projection() {
-  if (projection_ != nullptr) projection_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.projection_ != nullptr) _impl_.projection_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
-HashConfig::HashConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+HashConfig::HashConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.HashConfig)
 }
-HashConfig::HashConfig(const HashConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  parameters_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_parameters_filename()) {
-    parameters_filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_parameters_filename(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_projection()) {
-    projection_ = new ::research_scann::ProjectionConfig(*from.projection_);
-  } else {
-    projection_ = nullptr;
-  }
-  if (from._internal_has_asymmetric_hash()) {
-    asymmetric_hash_ = new ::research_scann::AsymmetricHasherConfig(*from.asymmetric_hash_);
-  } else {
-    asymmetric_hash_ = nullptr;
-  }
-  if (from._internal_has_min_hash()) {
-    min_hash_ = new ::research_scann::MinHasherConfig(*from.min_hash_);
-  } else {
-    min_hash_ = nullptr;
-  }
-  if (from._internal_has_pca_hash()) {
-    pca_hash_ = new ::research_scann::PcaHasherConfig(*from.pca_hash_);
-  } else {
-    pca_hash_ = nullptr;
-  }
-  if (from._internal_has_bit_sampling_hash()) {
-    bit_sampling_hash_ = new ::research_scann::BitSamplingHasherConfig(*from.bit_sampling_hash_);
-  } else {
-    bit_sampling_hash_ = nullptr;
-  }
-  if (from._internal_has_bnc_hash()) {
-    bnc_hash_ = new ::research_scann::BncHasherConfig(*from.bnc_hash_);
-  } else {
-    bnc_hash_ = nullptr;
-  }
-  ::memcpy(&num_bits_, &from.num_bits_,
-    static_cast<size_t>(reinterpret_cast<char*>(&threshold_type_) -
-    reinterpret_cast<char*>(&num_bits_)) + sizeof(threshold_type_));
+inline PROTOBUF_NDEBUG_INLINE HashConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        parameters_filename_(arena, from.parameters_filename_) {}
+
+HashConfig::HashConfig(
+    ::google::protobuf::Arena* arena,
+    const HashConfig& from)
+    : ::google::protobuf::Message(arena) {
+  HashConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.projection_ = (cached_has_bits & 0x00000002u)
+                ? CreateMaybeMessage<::research_scann::ProjectionConfig>(arena, *from._impl_.projection_)
+                : nullptr;
+  _impl_.asymmetric_hash_ = (cached_has_bits & 0x00000004u)
+                ? CreateMaybeMessage<::research_scann::AsymmetricHasherConfig>(arena, *from._impl_.asymmetric_hash_)
+                : nullptr;
+  _impl_.min_hash_ = (cached_has_bits & 0x00000008u)
+                ? CreateMaybeMessage<::research_scann::MinHasherConfig>(arena, *from._impl_.min_hash_)
+                : nullptr;
+  _impl_.pca_hash_ = (cached_has_bits & 0x00000010u)
+                ? CreateMaybeMessage<::research_scann::PcaHasherConfig>(arena, *from._impl_.pca_hash_)
+                : nullptr;
+  _impl_.bit_sampling_hash_ = (cached_has_bits & 0x00000020u)
+                ? CreateMaybeMessage<::research_scann::BitSamplingHasherConfig>(arena, *from._impl_.bit_sampling_hash_)
+                : nullptr;
+  _impl_.bnc_hash_ = (cached_has_bits & 0x00000040u)
+                ? CreateMaybeMessage<::research_scann::BncHasherConfig>(arena, *from._impl_.bnc_hash_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, num_bits_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, num_bits_),
+           offsetof(Impl_, threshold_type_) -
+               offsetof(Impl_, num_bits_) +
+               sizeof(Impl_::threshold_type_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.HashConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE HashConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        parameters_filename_(arena),
+        threshold_type_{static_cast< ::research_scann::HashConfig_ThresholdType >(1)} {}
 
-inline void HashConfig::SharedCtor() {
-parameters_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&projection_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_bits_) -
-    reinterpret_cast<char*>(&projection_)) + sizeof(num_bits_));
-threshold_type_ = 1;
+inline void HashConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, projection_),
+           0,
+           offsetof(Impl_, num_bits_) -
+               offsetof(Impl_, projection_) +
+               sizeof(Impl_::num_bits_));
 }
-
 HashConfig::~HashConfig() {
   // @@protoc_insertion_point(destructor:research_scann.HashConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void HashConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  parameters_filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete projection_;
-  if (this != internal_default_instance()) delete asymmetric_hash_;
-  if (this != internal_default_instance()) delete min_hash_;
-  if (this != internal_default_instance()) delete pca_hash_;
-  if (this != internal_default_instance()) delete bit_sampling_hash_;
-  if (this != internal_default_instance()) delete bnc_hash_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.parameters_filename_.Destroy();
+  delete _impl_.projection_;
+  delete _impl_.asymmetric_hash_;
+  delete _impl_.min_hash_;
+  delete _impl_.pca_hash_;
+  delete _impl_.bit_sampling_hash_;
+  delete _impl_.bnc_hash_;
+  _impl_.~Impl_();
 }
 
-void HashConfig::ArenaDtor(void* object) {
-  HashConfig* _this = reinterpret_cast< HashConfig* >(object);
-  (void)_this;
-}
-void HashConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void HashConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void HashConfig::Clear() {
+PROTOBUF_NOINLINE void HashConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.HashConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      parameters_filename_.ClearNonDefaultToEmpty();
+      _impl_.parameters_filename_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(projection_ != nullptr);
-      projection_->Clear();
+      ABSL_DCHECK(_impl_.projection_ != nullptr);
+      _impl_.projection_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(asymmetric_hash_ != nullptr);
-      asymmetric_hash_->Clear();
+      ABSL_DCHECK(_impl_.asymmetric_hash_ != nullptr);
+      _impl_.asymmetric_hash_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(min_hash_ != nullptr);
-      min_hash_->Clear();
+      ABSL_DCHECK(_impl_.min_hash_ != nullptr);
+      _impl_.min_hash_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(pca_hash_ != nullptr);
-      pca_hash_->Clear();
+      ABSL_DCHECK(_impl_.pca_hash_ != nullptr);
+      _impl_.pca_hash_->Clear();
     }
     if (cached_has_bits & 0x00000020u) {
-      GOOGLE_DCHECK(bit_sampling_hash_ != nullptr);
-      bit_sampling_hash_->Clear();
+      ABSL_DCHECK(_impl_.bit_sampling_hash_ != nullptr);
+      _impl_.bit_sampling_hash_->Clear();
     }
     if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(bnc_hash_ != nullptr);
-      bnc_hash_->Clear();
+      ABSL_DCHECK(_impl_.bnc_hash_ != nullptr);
+      _impl_.bnc_hash_->Clear();
     }
   }
-  num_bits_ = 0;
-  threshold_type_ = 1;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_.num_bits_ = 0;
+  _impl_.threshold_type_ = 1;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* HashConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 num_bits = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_num_bits(&has_bits);
-          num_bits_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.ProjectionConfig projection = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_projection(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.HashConfig.ThresholdType threshold_type = 3 [default = SIGN];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::HashConfig_ThresholdType_IsValid(val))) {
-            _internal_set_threshold_type(static_cast<::research_scann::HashConfig_ThresholdType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional string parameters_filename = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          auto str = _internal_mutable_parameters_filename();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.HashConfig.parameters_filename");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.AsymmetricHasherConfig asymmetric_hash = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_asymmetric_hash(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.MinHasherConfig min_hash = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ctx->ParseMessage(_internal_mutable_min_hash(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.PcaHasherConfig pca_hash = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr = ctx->ParseMessage(_internal_mutable_pca_hash(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.BitSamplingHasherConfig bit_sampling_hash = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
-          ptr = ctx->ParseMessage(_internal_mutable_bit_sampling_hash(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.BncHasherConfig bnc_hash = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
-          ptr = ctx->ParseMessage(_internal_mutable_bnc_hash(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* HashConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* HashConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.HashConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<4, 9, 7, 61, 2> HashConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(HashConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    10, 120,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294966400,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    9,  // num_field_entries
+    7,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_HashConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional int32 num_bits = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(HashConfig, _impl_.num_bits_), 7>(),
+     {8, 7, 0, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.num_bits_)}},
+    // optional .research_scann.ProjectionConfig projection = 2;
+    {::_pbi::TcParser::FastMtS1,
+     {18, 1, 0, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.projection_)}},
+    // optional .research_scann.HashConfig.ThresholdType threshold_type = 3 [default = SIGN];
+    {::_pbi::TcParser::FastEr0S1,
+     {24, 8, 4, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.threshold_type_)}},
+    // optional string parameters_filename = 4;
+    {::_pbi::TcParser::FastSS1,
+     {34, 0, 0, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.parameters_filename_)}},
+    // optional .research_scann.AsymmetricHasherConfig asymmetric_hash = 5;
+    {::_pbi::TcParser::FastMtS1,
+     {42, 2, 2, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.asymmetric_hash_)}},
+    // optional .research_scann.MinHasherConfig min_hash = 6;
+    {::_pbi::TcParser::FastMtS1,
+     {50, 3, 3, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.min_hash_)}},
+    // optional .research_scann.PcaHasherConfig pca_hash = 7;
+    {::_pbi::TcParser::FastMtS1,
+     {58, 4, 4, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.pca_hash_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.BitSamplingHasherConfig bit_sampling_hash = 9;
+    {::_pbi::TcParser::FastMtS1,
+     {74, 5, 5, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.bit_sampling_hash_)}},
+    // optional .research_scann.BncHasherConfig bnc_hash = 10;
+    {::_pbi::TcParser::FastMtS1,
+     {82, 6, 6, PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.bnc_hash_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 num_bits = 1;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.num_bits_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional .research_scann.ProjectionConfig projection = 2;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.projection_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.HashConfig.ThresholdType threshold_type = 3 [default = SIGN];
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.threshold_type_), _Internal::kHasBitsOffset + 8, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+    // optional string parameters_filename = 4;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.parameters_filename_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional .research_scann.AsymmetricHasherConfig asymmetric_hash = 5;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.asymmetric_hash_), _Internal::kHasBitsOffset + 2, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.MinHasherConfig min_hash = 6;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.min_hash_), _Internal::kHasBitsOffset + 3, 3,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.PcaHasherConfig pca_hash = 7;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.pca_hash_), _Internal::kHasBitsOffset + 4, 4,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.BitSamplingHasherConfig bit_sampling_hash = 9;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.bit_sampling_hash_), _Internal::kHasBitsOffset + 5, 5,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.BncHasherConfig bnc_hash = 10;
+    {PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.bnc_hash_), _Internal::kHasBitsOffset + 6, 6,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::ProjectionConfig>()},
+    {0, 5},
+    {::_pbi::TcParser::GetTable<::research_scann::AsymmetricHasherConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::MinHasherConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::PcaHasherConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::BitSamplingHasherConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::BncHasherConfig>()},
+  }}, {{
+    "\31\0\0\0\23\0\0\0\0\0\0\0\0\0\0\0"
+    "research_scann.HashConfig"
+    "parameters_filename"
+  }},
+};
+
+::uint8_t* HashConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.HashConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 num_bits = 1;
   if (cached_has_bits & 0x00000080u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_num_bits(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_num_bits(), target);
   }
 
   // optional .research_scann.ProjectionConfig projection = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::projection(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        2, _Internal::projection(this),
+        _Internal::projection(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.HashConfig.ThresholdType threshold_type = 3 [default = SIGN];
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      3, this->_internal_threshold_type(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        3, this->_internal_threshold_type(), target);
   }
 
   // optional string parameters_filename = 4;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_parameters_filename().data(), static_cast<int>(this->_internal_parameters_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.HashConfig.parameters_filename");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_parameters_filename(), target);
+    const std::string& _s = this->_internal_parameters_filename();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.HashConfig.parameters_filename");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
   // optional .research_scann.AsymmetricHasherConfig asymmetric_hash = 5;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::asymmetric_hash(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        5, _Internal::asymmetric_hash(this),
+        _Internal::asymmetric_hash(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.MinHasherConfig min_hash = 6;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        6, _Internal::min_hash(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        6, _Internal::min_hash(this),
+        _Internal::min_hash(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.PcaHasherConfig pca_hash = 7;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        7, _Internal::pca_hash(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        7, _Internal::pca_hash(this),
+        _Internal::pca_hash(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.BitSamplingHasherConfig bit_sampling_hash = 9;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        9, _Internal::bit_sampling_hash(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        9, _Internal::bit_sampling_hash(this),
+        _Internal::bit_sampling_hash(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.BncHasherConfig bnc_hash = 10;
   if (cached_has_bits & 0x00000040u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        10, _Internal::bnc_hash(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        10, _Internal::bnc_hash(this),
+        _Internal::bnc_hash(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.HashConfig)
   return target;
 }
 
-size_t HashConfig::ByteSizeLong() const {
+::size_t HashConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.HashConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string parameters_filename = 4;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_parameters_filename());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_parameters_filename());
     }
 
     // optional .research_scann.ProjectionConfig projection = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *projection_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.projection_);
     }
 
     // optional .research_scann.AsymmetricHasherConfig asymmetric_hash = 5;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *asymmetric_hash_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.asymmetric_hash_);
     }
 
     // optional .research_scann.MinHasherConfig min_hash = 6;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *min_hash_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.min_hash_);
     }
 
     // optional .research_scann.PcaHasherConfig pca_hash = 7;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *pca_hash_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.pca_hash_);
     }
 
     // optional .research_scann.BitSamplingHasherConfig bit_sampling_hash = 9;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *bit_sampling_hash_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.bit_sampling_hash_);
     }
 
     // optional .research_scann.BncHasherConfig bnc_hash = 10;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *bnc_hash_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.bnc_hash_);
     }
 
     // optional int32 num_bits = 1;
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_bits());
     }
 
@@ -1043,69 +1120,66 @@ size_t HashConfig::ByteSizeLong() const {
   // optional .research_scann.HashConfig.ThresholdType threshold_type = 3 [default = SIGN];
   if (cached_has_bits & 0x00000100u) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_threshold_type());
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_threshold_type());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HashConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    HashConfig::MergeImpl
+const ::google::protobuf::Message::ClassData HashConfig::_class_data_ = {
+    HashConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HashConfig::GetClassData() const { return &_class_data_; }
-
-void HashConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<HashConfig *>(to)->MergeFrom(
-      static_cast<const HashConfig &>(from));
+const ::google::protobuf::Message::ClassData* HashConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void HashConfig::MergeFrom(const HashConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.HashConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void HashConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<HashConfig*>(&to_msg);
+  auto& from = static_cast<const HashConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.HashConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_parameters_filename(from._internal_parameters_filename());
+      _this->_internal_set_parameters_filename(from._internal_parameters_filename());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_projection()->::research_scann::ProjectionConfig::MergeFrom(from._internal_projection());
+      _this->_internal_mutable_projection()->::research_scann::ProjectionConfig::MergeFrom(
+          from._internal_projection());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_asymmetric_hash()->::research_scann::AsymmetricHasherConfig::MergeFrom(from._internal_asymmetric_hash());
+      _this->_internal_mutable_asymmetric_hash()->::research_scann::AsymmetricHasherConfig::MergeFrom(
+          from._internal_asymmetric_hash());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_min_hash()->::research_scann::MinHasherConfig::MergeFrom(from._internal_min_hash());
+      _this->_internal_mutable_min_hash()->::research_scann::MinHasherConfig::MergeFrom(
+          from._internal_min_hash());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_pca_hash()->::research_scann::PcaHasherConfig::MergeFrom(from._internal_pca_hash());
+      _this->_internal_mutable_pca_hash()->::research_scann::PcaHasherConfig::MergeFrom(
+          from._internal_pca_hash());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_mutable_bit_sampling_hash()->::research_scann::BitSamplingHasherConfig::MergeFrom(from._internal_bit_sampling_hash());
+      _this->_internal_mutable_bit_sampling_hash()->::research_scann::BitSamplingHasherConfig::MergeFrom(
+          from._internal_bit_sampling_hash());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_mutable_bnc_hash()->::research_scann::BncHasherConfig::MergeFrom(from._internal_bnc_hash());
+      _this->_internal_mutable_bnc_hash()->::research_scann::BncHasherConfig::MergeFrom(
+          from._internal_bnc_hash());
     }
     if (cached_has_bits & 0x00000080u) {
-      num_bits_ = from.num_bits_;
+      _this->_impl_.num_bits_ = from._impl_.num_bits_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00000100u) {
-    _internal_set_threshold_type(from._internal_threshold_type());
+    _this->_internal_set_threshold_type(from._internal_threshold_type());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HashConfig::CopyFrom(const HashConfig& from) {
@@ -1115,45 +1189,46 @@ void HashConfig::CopyFrom(const HashConfig& from) {
   MergeFrom(from);
 }
 
-bool HashConfig::IsInitialized() const {
-  if (_internal_has_projection()) {
-    if (!projection_->IsInitialized()) return false;
+PROTOBUF_NOINLINE bool HashConfig::IsInitialized() const {
+  if ((_impl_._has_bits_[0] & 0x00000002u) != 0) {
+    if (!_impl_.projection_->IsInitialized()) return false;
   }
-  if (_internal_has_asymmetric_hash()) {
-    if (!asymmetric_hash_->IsInitialized()) return false;
+  if ((_impl_._has_bits_[0] & 0x00000004u) != 0) {
+    if (!_impl_.asymmetric_hash_->IsInitialized()) return false;
   }
   return true;
 }
 
-void HashConfig::InternalSwap(HashConfig* other) {
+::_pbi::CachedSize* HashConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void HashConfig::InternalSwap(HashConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &parameters_filename_, GetArenaForAllocation(),
-      &other->parameters_filename_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HashConfig, num_bits_)
-      + sizeof(HashConfig::num_bits_)
-      - PROTOBUF_FIELD_OFFSET(HashConfig, projection_)>(
-          reinterpret_cast<char*>(&projection_),
-          reinterpret_cast<char*>(&other->projection_));
-  swap(threshold_type_, other->threshold_type_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.parameters_filename_, &other->_impl_.parameters_filename_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.threshold_type_)
+      + sizeof(HashConfig::_impl_.threshold_type_)
+      - PROTOBUF_FIELD_OFFSET(HashConfig, _impl_.projection_)>(
+          reinterpret_cast<char*>(&_impl_.projection_),
+          reinterpret_cast<char*>(&other->_impl_.projection_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata HashConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata HashConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[0]);
 }
-
 // ===================================================================
 
 class AsymmetricHasherConfig_FixedPointLUTConversionOptions::_Internal {
  public:
-  using HasBits = decltype(std::declval<AsymmetricHasherConfig_FixedPointLUTConversionOptions>()._has_bits_);
+  using HasBits = decltype(std::declval<AsymmetricHasherConfig_FixedPointLUTConversionOptions>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_._has_bits_);
   static void set_has_float_to_int_conversion_method(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1162,206 +1237,178 @@ class AsymmetricHasherConfig_FixedPointLUTConversionOptions::_Internal {
   }
 };
 
-AsymmetricHasherConfig_FixedPointLUTConversionOptions::AsymmetricHasherConfig_FixedPointLUTConversionOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+AsymmetricHasherConfig_FixedPointLUTConversionOptions::AsymmetricHasherConfig_FixedPointLUTConversionOptions(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
 }
-AsymmetricHasherConfig_FixedPointLUTConversionOptions::AsymmetricHasherConfig_FixedPointLUTConversionOptions(const AsymmetricHasherConfig_FixedPointLUTConversionOptions& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&float_to_int_conversion_method_, &from.float_to_int_conversion_method_,
-    static_cast<size_t>(reinterpret_cast<char*>(&multiplier_quantile_) -
-    reinterpret_cast<char*>(&float_to_int_conversion_method_)) + sizeof(multiplier_quantile_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
+AsymmetricHasherConfig_FixedPointLUTConversionOptions::AsymmetricHasherConfig_FixedPointLUTConversionOptions(
+    ::google::protobuf::Arena* arena, const AsymmetricHasherConfig_FixedPointLUTConversionOptions& from)
+    : AsymmetricHasherConfig_FixedPointLUTConversionOptions(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE AsymmetricHasherConfig_FixedPointLUTConversionOptions::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        multiplier_quantile_{1} {}
 
-inline void AsymmetricHasherConfig_FixedPointLUTConversionOptions::SharedCtor() {
-float_to_int_conversion_method_ = 0;
-multiplier_quantile_ = 1;
+inline void AsymmetricHasherConfig_FixedPointLUTConversionOptions::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.float_to_int_conversion_method_ = {};
 }
-
 AsymmetricHasherConfig_FixedPointLUTConversionOptions::~AsymmetricHasherConfig_FixedPointLUTConversionOptions() {
   // @@protoc_insertion_point(destructor:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void AsymmetricHasherConfig_FixedPointLUTConversionOptions::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::ArenaDtor(void* object) {
-  AsymmetricHasherConfig_FixedPointLUTConversionOptions* _this = reinterpret_cast< AsymmetricHasherConfig_FixedPointLUTConversionOptions* >(object);
-  (void)_this;
-}
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::Clear() {
+PROTOBUF_NOINLINE void AsymmetricHasherConfig_FixedPointLUTConversionOptions::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    float_to_int_conversion_method_ = 0;
-    multiplier_quantile_ = 1;
+    _impl_.float_to_int_conversion_method_ = 0;
+    _impl_.multiplier_quantile_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* AsymmetricHasherConfig_FixedPointLUTConversionOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions.FloatToIntConversionMethod float_to_int_conversion_method = 1 [default = TRUNCATE];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod_IsValid(val))) {
-            _internal_set_float_to_int_conversion_method(static_cast<::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions_FloatToIntConversionMethod>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional float multiplier_quantile = 2 [default = 1];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_multiplier_quantile(&has_bits);
-          multiplier_quantile_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* AsymmetricHasherConfig_FixedPointLUTConversionOptions::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AsymmetricHasherConfig_FixedPointLUTConversionOptions::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> AsymmetricHasherConfig_FixedPointLUTConversionOptions::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_AsymmetricHasherConfig_FixedPointLUTConversionOptions_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional float multiplier_quantile = 2 [default = 1];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 1, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.multiplier_quantile_)}},
+    // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions.FloatToIntConversionMethod float_to_int_conversion_method = 1 [default = TRUNCATE];
+    {::_pbi::TcParser::FastEr0S1,
+     {8, 0, 1, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.float_to_int_conversion_method_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions.FloatToIntConversionMethod float_to_int_conversion_method = 1 [default = TRUNCATE];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.float_to_int_conversion_method_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+    // optional float multiplier_quantile = 2 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.multiplier_quantile_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+  }}, {{
+    {0, 2},
+  }}, {{
+  }},
+};
+
+::uint8_t* AsymmetricHasherConfig_FixedPointLUTConversionOptions::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions.FloatToIntConversionMethod float_to_int_conversion_method = 1 [default = TRUNCATE];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_float_to_int_conversion_method(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_float_to_int_conversion_method(), target);
   }
 
   // optional float multiplier_quantile = 2 [default = 1];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_multiplier_quantile(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_multiplier_quantile(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
   return target;
 }
 
-size_t AsymmetricHasherConfig_FixedPointLUTConversionOptions::ByteSizeLong() const {
+::size_t AsymmetricHasherConfig_FixedPointLUTConversionOptions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions.FloatToIntConversionMethod float_to_int_conversion_method = 1 [default = TRUNCATE];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_float_to_int_conversion_method());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_float_to_int_conversion_method());
     }
 
     // optional float multiplier_quantile = 2 [default = 1];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AsymmetricHasherConfig_FixedPointLUTConversionOptions::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeImpl
+const ::google::protobuf::Message::ClassData AsymmetricHasherConfig_FixedPointLUTConversionOptions::_class_data_ = {
+    AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AsymmetricHasherConfig_FixedPointLUTConversionOptions::GetClassData() const { return &_class_data_; }
-
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<AsymmetricHasherConfig_FixedPointLUTConversionOptions *>(to)->MergeFrom(
-      static_cast<const AsymmetricHasherConfig_FixedPointLUTConversionOptions &>(from));
+const ::google::protobuf::Message::ClassData* AsymmetricHasherConfig_FixedPointLUTConversionOptions::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeFrom(const AsymmetricHasherConfig_FixedPointLUTConversionOptions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<AsymmetricHasherConfig_FixedPointLUTConversionOptions*>(&to_msg);
+  auto& from = static_cast<const AsymmetricHasherConfig_FixedPointLUTConversionOptions&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      float_to_int_conversion_method_ = from.float_to_int_conversion_method_;
+      _this->_impl_.float_to_int_conversion_method_ = from._impl_.float_to_int_conversion_method_;
     }
     if (cached_has_bits & 0x00000002u) {
-      multiplier_quantile_ = from.multiplier_quantile_;
+      _this->_impl_.multiplier_quantile_ = from._impl_.multiplier_quantile_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void AsymmetricHasherConfig_FixedPointLUTConversionOptions::CopyFrom(const AsymmetricHasherConfig_FixedPointLUTConversionOptions& from) {
@@ -1371,29 +1418,39 @@ void AsymmetricHasherConfig_FixedPointLUTConversionOptions::CopyFrom(const Asymm
   MergeFrom(from);
 }
 
-bool AsymmetricHasherConfig_FixedPointLUTConversionOptions::IsInitialized() const {
+PROTOBUF_NOINLINE bool AsymmetricHasherConfig_FixedPointLUTConversionOptions::IsInitialized() const {
   return true;
 }
 
-void AsymmetricHasherConfig_FixedPointLUTConversionOptions::InternalSwap(AsymmetricHasherConfig_FixedPointLUTConversionOptions* other) {
+::_pbi::CachedSize* AsymmetricHasherConfig_FixedPointLUTConversionOptions::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void AsymmetricHasherConfig_FixedPointLUTConversionOptions::InternalSwap(AsymmetricHasherConfig_FixedPointLUTConversionOptions* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(float_to_int_conversion_method_, other->float_to_int_conversion_method_);
-  swap(multiplier_quantile_, other->multiplier_quantile_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.multiplier_quantile_)
+      + sizeof(AsymmetricHasherConfig_FixedPointLUTConversionOptions::_impl_.multiplier_quantile_)
+      - PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig_FixedPointLUTConversionOptions, _impl_.float_to_int_conversion_method_)>(
+          reinterpret_cast<char*>(&_impl_.float_to_int_conversion_method_),
+          reinterpret_cast<char*>(&other->_impl_.float_to_int_conversion_method_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata AsymmetricHasherConfig_FixedPointLUTConversionOptions::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata AsymmetricHasherConfig_FixedPointLUTConversionOptions::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[1]);
 }
-
 // ===================================================================
 
 class AsymmetricHasherConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<AsymmetricHasherConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<AsymmetricHasherConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_._has_bits_);
+  static constexpr ::int32_t kOneofCaseOffset =
+    PROTOBUF_FIELD_OFFSET(::research_scann::AsymmetricHasherConfig, _impl_._oneof_case_);
   static const ::research_scann::ProjectionConfig& projection(const AsymmetricHasherConfig* msg);
   static void set_has_projection(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
@@ -1487,152 +1544,138 @@ class AsymmetricHasherConfig::_Internal {
   }
 };
 
-const ::research_scann::ProjectionConfig&
-AsymmetricHasherConfig::_Internal::projection(const AsymmetricHasherConfig* msg) {
-  return *msg->projection_;
+const ::research_scann::ProjectionConfig& AsymmetricHasherConfig::_Internal::projection(const AsymmetricHasherConfig* msg) {
+  return *msg->_impl_.projection_;
 }
-const ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions&
-AsymmetricHasherConfig::_Internal::fixed_point_lut_conversion_options(const AsymmetricHasherConfig* msg) {
-  return *msg->fixed_point_lut_conversion_options_;
+const ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions& AsymmetricHasherConfig::_Internal::fixed_point_lut_conversion_options(const AsymmetricHasherConfig* msg) {
+  return *msg->_impl_.fixed_point_lut_conversion_options_;
 }
-const ::research_scann::DistanceMeasureConfig&
-AsymmetricHasherConfig::_Internal::quantization_distance(const AsymmetricHasherConfig* msg) {
-  return *msg->quantization_distance_;
+const ::research_scann::DistanceMeasureConfig& AsymmetricHasherConfig::_Internal::quantization_distance(const AsymmetricHasherConfig* msg) {
+  return *msg->_impl_.quantization_distance_;
 }
-const ::research_scann::StackedQuantizersConfig&
-AsymmetricHasherConfig::_Internal::stacked_quantizers_config(const AsymmetricHasherConfig* msg) {
-  return *msg->stacked_quantizers_config_;
+const ::research_scann::StackedQuantizersConfig& AsymmetricHasherConfig::_Internal::stacked_quantizers_config(const AsymmetricHasherConfig* msg) {
+  return *msg->_impl_.stacked_quantizers_config_;
 }
 void AsymmetricHasherConfig::clear_projection() {
-  if (projection_ != nullptr) projection_->Clear();
-  _has_bits_[0] &= ~0x00000008u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.projection_ != nullptr) _impl_.projection_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 void AsymmetricHasherConfig::clear_quantization_distance() {
-  if (quantization_distance_ != nullptr) quantization_distance_->Clear();
-  _has_bits_[0] &= ~0x00000010u;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.quantization_distance_ != nullptr) _impl_.quantization_distance_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
-AsymmetricHasherConfig::AsymmetricHasherConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+AsymmetricHasherConfig::AsymmetricHasherConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.AsymmetricHasherConfig)
 }
-AsymmetricHasherConfig::AsymmetricHasherConfig(const AsymmetricHasherConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  centers_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_centers_filename()) {
-    centers_filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_centers_filename(), 
-      GetArenaForAllocation());
-  }
-  mr_jobname_prefix_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_mr_jobname_prefix()) {
-    mr_jobname_prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mr_jobname_prefix(), 
-      GetArenaForAllocation());
-  }
-  cell_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_cell()) {
-    cell_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_cell(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_projection()) {
-    projection_ = new ::research_scann::ProjectionConfig(*from.projection_);
-  } else {
-    projection_ = nullptr;
-  }
-  if (from._internal_has_quantization_distance()) {
-    quantization_distance_ = new ::research_scann::DistanceMeasureConfig(*from.quantization_distance_);
-  } else {
-    quantization_distance_ = nullptr;
-  }
-  if (from._internal_has_stacked_quantizers_config()) {
-    stacked_quantizers_config_ = new ::research_scann::StackedQuantizersConfig(*from.stacked_quantizers_config_);
-  } else {
-    stacked_quantizers_config_ = nullptr;
-  }
-  if (from._internal_has_fixed_point_lut_conversion_options()) {
-    fixed_point_lut_conversion_options_ = new ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions(*from.fixed_point_lut_conversion_options_);
-  } else {
-    fixed_point_lut_conversion_options_ = nullptr;
-  }
-  ::memcpy(&min_number_machines_, &from.min_number_machines_,
-    static_cast<size_t>(reinterpret_cast<char*>(&noise_shaping_threshold_) -
-    reinterpret_cast<char*>(&min_number_machines_)) + sizeof(noise_shaping_threshold_));
-  clear_has_SamplingFractionOrExpectedSize();
-  switch (from.SamplingFractionOrExpectedSize_case()) {
-    case kSamplingFraction: {
-      _internal_set_sampling_fraction(from._internal_sampling_fraction());
+inline PROTOBUF_NDEBUG_INLINE AsymmetricHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        centers_filename_(arena, from.centers_filename_),
+        mr_jobname_prefix_(arena, from.mr_jobname_prefix_),
+        cell_(arena, from.cell_),
+        SamplingFractionOrExpectedSize_{},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+AsymmetricHasherConfig::AsymmetricHasherConfig(
+    ::google::protobuf::Arena* arena,
+    const AsymmetricHasherConfig& from)
+    : ::google::protobuf::Message(arena) {
+  AsymmetricHasherConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.projection_ = (cached_has_bits & 0x00000008u)
+                ? CreateMaybeMessage<::research_scann::ProjectionConfig>(arena, *from._impl_.projection_)
+                : nullptr;
+  _impl_.quantization_distance_ = (cached_has_bits & 0x00000010u)
+                ? CreateMaybeMessage<::research_scann::DistanceMeasureConfig>(arena, *from._impl_.quantization_distance_)
+                : nullptr;
+  _impl_.stacked_quantizers_config_ = (cached_has_bits & 0x00000020u)
+                ? CreateMaybeMessage<::research_scann::StackedQuantizersConfig>(arena, *from._impl_.stacked_quantizers_config_)
+                : nullptr;
+  _impl_.fixed_point_lut_conversion_options_ = (cached_has_bits & 0x00000040u)
+                ? CreateMaybeMessage<::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions>(arena, *from._impl_.fixed_point_lut_conversion_options_)
+                : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, min_number_machines_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, min_number_machines_),
+           offsetof(Impl_, noise_shaping_threshold_) -
+               offsetof(Impl_, min_number_machines_) +
+               sizeof(Impl_::noise_shaping_threshold_));
+  switch (SamplingFractionOrExpectedSize_case()) {
+    case SAMPLINGFRACTIONOREXPECTEDSIZE_NOT_SET:
       break;
-    }
-    case kExpectedSampleSize: {
-      _internal_set_expected_sample_size(from._internal_expected_sample_size());
-      break;
-    }
-    case SAMPLINGFRACTIONOREXPECTEDSIZE_NOT_SET: {
-      break;
-    }
+      case kSamplingFraction:
+        _impl_.SamplingFractionOrExpectedSize_.sampling_fraction_ = from._impl_.SamplingFractionOrExpectedSize_.sampling_fraction_;
+        break;
+      case kExpectedSampleSize:
+        _impl_.SamplingFractionOrExpectedSize_.expected_sample_size_ = from._impl_.SamplingFractionOrExpectedSize_.expected_sample_size_;
+        break;
   }
+
   // @@protoc_insertion_point(copy_constructor:research_scann.AsymmetricHasherConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE AsymmetricHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        centers_filename_(arena),
+        mr_jobname_prefix_(arena),
+        cell_(arena),
+        min_cluster_size_{1},
+        num_clusters_per_block_{256},
+        max_sample_size_{2147483647},
+        max_clustering_iterations_{10},
+        clustering_convergence_tolerance_{1e-05f},
+        clustering_seed_{1},
+        sampling_seed_{1},
+        ram_gb_{4},
+        num_cpus_{1},
+        noise_shaping_threshold_{std::numeric_limits<double>::quiet_NaN()},
+        SamplingFractionOrExpectedSize_{},
+        _oneof_case_{} {}
 
-inline void AsymmetricHasherConfig::SharedCtor() {
-centers_filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-mr_jobname_prefix_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-cell_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&projection_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&use_global_topn_) -
-    reinterpret_cast<char*>(&projection_)) + sizeof(use_global_topn_));
-min_cluster_size_ = 1;
-num_clusters_per_block_ = 256;
-max_sample_size_ = 2147483647;
-max_clustering_iterations_ = 10;
-clustering_convergence_tolerance_ = 1e-05f;
-clustering_seed_ = 1;
-sampling_seed_ = 1;
-ram_gb_ = 4;
-num_cpus_ = 1;
-noise_shaping_threshold_ = std::numeric_limits<double>::quiet_NaN();
-clear_has_SamplingFractionOrExpectedSize();
+inline void AsymmetricHasherConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, projection_),
+           0,
+           offsetof(Impl_, use_global_topn_) -
+               offsetof(Impl_, projection_) +
+               sizeof(Impl_::use_global_topn_));
 }
-
 AsymmetricHasherConfig::~AsymmetricHasherConfig() {
   // @@protoc_insertion_point(destructor:research_scann.AsymmetricHasherConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void AsymmetricHasherConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  centers_filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  mr_jobname_prefix_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  cell_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete projection_;
-  if (this != internal_default_instance()) delete quantization_distance_;
-  if (this != internal_default_instance()) delete stacked_quantizers_config_;
-  if (this != internal_default_instance()) delete fixed_point_lut_conversion_options_;
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.centers_filename_.Destroy();
+  _impl_.mr_jobname_prefix_.Destroy();
+  _impl_.cell_.Destroy();
+  delete _impl_.projection_;
+  delete _impl_.quantization_distance_;
+  delete _impl_.stacked_quantizers_config_;
+  delete _impl_.fixed_point_lut_conversion_options_;
   if (has_SamplingFractionOrExpectedSize()) {
     clear_SamplingFractionOrExpectedSize();
   }
-}
-
-void AsymmetricHasherConfig::ArenaDtor(void* object) {
-  AsymmetricHasherConfig* _this = reinterpret_cast< AsymmetricHasherConfig* >(object);
-  (void)_this;
-}
-void AsymmetricHasherConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void AsymmetricHasherConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_.~Impl_();
 }
 
 void AsymmetricHasherConfig::clear_SamplingFractionOrExpectedSize() {
 // @@protoc_insertion_point(one_of_clear_start:research_scann.AsymmetricHasherConfig)
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   switch (SamplingFractionOrExpectedSize_case()) {
     case kSamplingFraction: {
       // No need to clear
@@ -1646,648 +1689,589 @@ void AsymmetricHasherConfig::clear_SamplingFractionOrExpectedSize() {
       break;
     }
   }
-  _oneof_case_[0] = SAMPLINGFRACTIONOREXPECTEDSIZE_NOT_SET;
+  _impl_._oneof_case_[0] = SAMPLINGFRACTIONOREXPECTEDSIZE_NOT_SET;
 }
 
 
-void AsymmetricHasherConfig::Clear() {
+PROTOBUF_NOINLINE void AsymmetricHasherConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.AsymmetricHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      centers_filename_.ClearNonDefaultToEmpty();
+      _impl_.centers_filename_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      mr_jobname_prefix_.ClearNonDefaultToEmpty();
+      _impl_.mr_jobname_prefix_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      cell_.ClearNonDefaultToEmpty();
+      _impl_.cell_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(projection_ != nullptr);
-      projection_->Clear();
+      ABSL_DCHECK(_impl_.projection_ != nullptr);
+      _impl_.projection_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(quantization_distance_ != nullptr);
-      quantization_distance_->Clear();
+      ABSL_DCHECK(_impl_.quantization_distance_ != nullptr);
+      _impl_.quantization_distance_->Clear();
     }
     if (cached_has_bits & 0x00000020u) {
-      GOOGLE_DCHECK(stacked_quantizers_config_ != nullptr);
-      stacked_quantizers_config_->Clear();
+      ABSL_DCHECK(_impl_.stacked_quantizers_config_ != nullptr);
+      _impl_.stacked_quantizers_config_->Clear();
     }
     if (cached_has_bits & 0x00000040u) {
-      GOOGLE_DCHECK(fixed_point_lut_conversion_options_ != nullptr);
-      fixed_point_lut_conversion_options_->Clear();
+      ABSL_DCHECK(_impl_.fixed_point_lut_conversion_options_ != nullptr);
+      _impl_.fixed_point_lut_conversion_options_->Clear();
     }
   }
-  min_number_machines_ = 0;
+  _impl_.min_number_machines_ = 0;
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&use_per_leaf_partition_training_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&use_residual_quantization_) -
-        reinterpret_cast<char*>(&use_per_leaf_partition_training_)) + sizeof(use_residual_quantization_));
+    ::memset(&_impl_.use_per_leaf_partition_training_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.use_residual_quantization_) -
+        reinterpret_cast<char*>(&_impl_.use_per_leaf_partition_training_)) + sizeof(_impl_.use_residual_quantization_));
   }
   if (cached_has_bits & 0x00ff0000u) {
-    ::memset(&use_normalized_residual_quantization_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&use_global_topn_) -
-        reinterpret_cast<char*>(&use_normalized_residual_quantization_)) + sizeof(use_global_topn_));
-    min_cluster_size_ = 1;
-    num_clusters_per_block_ = 256;
-    max_sample_size_ = 2147483647;
-    max_clustering_iterations_ = 10;
-    clustering_convergence_tolerance_ = 1e-05f;
+    ::memset(&_impl_.use_normalized_residual_quantization_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.use_global_topn_) -
+        reinterpret_cast<char*>(&_impl_.use_normalized_residual_quantization_)) + sizeof(_impl_.use_global_topn_));
+    _impl_.min_cluster_size_ = 1;
+    _impl_.num_clusters_per_block_ = 256;
+    _impl_.max_sample_size_ = 2147483647;
+    _impl_.max_clustering_iterations_ = 10;
+    _impl_.clustering_convergence_tolerance_ = 1e-05f;
   }
   if (cached_has_bits & 0x1f000000u) {
-    clustering_seed_ = 1;
-    sampling_seed_ = 1;
-    ram_gb_ = 4;
-    num_cpus_ = 1;
-    noise_shaping_threshold_ = std::numeric_limits<double>::quiet_NaN();
+    _impl_.clustering_seed_ = 1;
+    _impl_.sampling_seed_ = 1;
+    _impl_.ram_gb_ = 4;
+    _impl_.num_cpus_ = 1;
+    _impl_.noise_shaping_threshold_ = std::numeric_limits<double>::quiet_NaN();
   }
   clear_SamplingFractionOrExpectedSize();
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* AsymmetricHasherConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .research_scann.ProjectionConfig projection = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_projection(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_clusters_per_block = 2 [default = 256];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_num_clusters_per_block(&has_bits);
-          num_clusters_per_block_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_sample_size = 3 [default = 2147483647];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_max_sample_size(&has_bits);
-          max_sample_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_clustering_iterations = 4 [default = 10];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_max_clustering_iterations(&has_bits);
-          max_clustering_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float clustering_convergence_tolerance = 5 [default = 1e-05];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
-          _Internal::set_has_clustering_convergence_tolerance(&has_bits);
-          clustering_convergence_tolerance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional string centers_filename = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          auto str = _internal_mutable_centers_filename();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.AsymmetricHasherConfig.centers_filename");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 min_number_machines = 7 [deprecated = true];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_min_number_machines(&has_bits);
-          min_number_machines_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_single_machine_trainer = 8 [default = false, deprecated = true];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          _Internal::set_has_use_single_machine_trainer(&has_bits);
-          use_single_machine_trainer_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 clustering_seed = 9 [default = 1];
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
-          _Internal::set_has_clustering_seed(&has_bits);
-          clustering_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // float sampling_fraction = 10 [default = 1];
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 85)) {
-          _internal_set_sampling_fraction(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 sampling_seed = 11 [default = 1];
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
-          _Internal::set_has_sampling_seed(&has_bits);
-          sampling_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string mr_jobname_prefix = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
-          auto str = _internal_mutable_mr_jobname_prefix();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.AsymmetricHasherConfig.mr_jobname_prefix");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string cell = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
-          auto str = _internal_mutable_cell();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "research_scann.AsymmetricHasherConfig.cell");
-          #endif  // !NDEBUG
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 ram_gb = 14 [default = 4];
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 112)) {
-          _Internal::set_has_ram_gb(&has_bits);
-          ram_gb_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_cpus = 15 [default = 1];
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 120)) {
-          _Internal::set_has_num_cpus(&has_bits);
-          num_cpus_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_per_leaf_partition_training = 17 [default = false];
-      case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
-          _Internal::set_has_use_per_leaf_partition_training(&has_bits);
-          use_per_leaf_partition_training_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.DistanceMeasureConfig quantization_distance = 18;
-      case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 146)) {
-          ptr = ctx->ParseMessage(_internal_mutable_quantization_distance(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float min_cluster_size = 19 [default = 1, deprecated = true];
-      case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 157)) {
-          _Internal::set_has_min_cluster_size(&has_bits);
-          min_cluster_size_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.AsymmetricHasherConfig.LookupType lookup_type = 20 [default = FLOAT];
-      case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::AsymmetricHasherConfig_LookupType_IsValid(val))) {
-            _internal_set_lookup_type(static_cast<::research_scann::AsymmetricHasherConfig_LookupType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(20, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_residual_quantization = 22 [default = false];
-      case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
-          _Internal::set_has_use_residual_quantization(&has_bits);
-          use_residual_quantization_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 23 [default = PRODUCT];
-      case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::research_scann::AsymmetricHasherConfig_QuantizationScheme_IsValid(val))) {
-            _internal_set_quantization_scheme(static_cast<::research_scann::AsymmetricHasherConfig_QuantizationScheme>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(23, val, mutable_unknown_fields());
-          }
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.StackedQuantizersConfig stacked_quantizers_config = 24;
-      case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 194)) {
-          ptr = ctx->ParseMessage(_internal_mutable_stacked_quantizers_config(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions fixed_point_lut_conversion_options = 25;
-      case 25:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 202)) {
-          ptr = ctx->ParseMessage(_internal_mutable_fixed_point_lut_conversion_options(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float partition_level_confidence_interval_stdevs = 26 [default = 0, deprecated = true];
-      case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 213)) {
-          _Internal::set_has_partition_level_confidence_interval_stdevs(&has_bits);
-          partition_level_confidence_interval_stdevs_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_machines = 27;
-      case 27:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 216)) {
-          _Internal::set_has_num_machines(&has_bits);
-          num_machines_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional double noise_shaping_threshold = 28 [default = nan];
-      case 28:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 225)) {
-          _Internal::set_has_noise_shaping_threshold(&has_bits);
-          noise_shaping_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-          ptr += sizeof(double);
-        } else goto handle_unusual;
-        continue;
-      // int32 expected_sample_size = 29;
-      case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
-          _internal_set_expected_sample_size(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_noise_shaped_training = 30 [default = false, deprecated = true];
-      case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 240)) {
-          _Internal::set_has_use_noise_shaped_training(&has_bits);
-          use_noise_shaped_training_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_norm_biasing_correction = 31 [default = false];
-      case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 248)) {
-          _Internal::set_has_use_norm_biasing_correction(&has_bits);
-          use_norm_biasing_correction_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_normalized_residual_quantization = 32 [default = false];
-      case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 0)) {
-          _Internal::set_has_use_normalized_residual_quantization(&has_bits);
-          use_normalized_residual_quantization_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_global_topn = 33 [default = false];
-      case 33:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_use_global_topn(&has_bits);
-          use_global_topn_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* AsymmetricHasherConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AsymmetricHasherConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.AsymmetricHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<5, 31, 6, 107, 7> AsymmetricHasherConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    33, 248,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    1081344,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    31,  // num_field_entries
+    6,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_AsymmetricHasherConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional .research_scann.ProjectionConfig projection = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 3, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.projection_)}},
+    // optional int32 num_clusters_per_block = 2 [default = 256];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.num_clusters_per_block_), 20>(),
+     {16, 20, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.num_clusters_per_block_)}},
+    // optional int32 max_sample_size = 3 [default = 2147483647];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.max_sample_size_), 21>(),
+     {24, 21, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.max_sample_size_)}},
+    // optional int32 max_clustering_iterations = 4 [default = 10];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.max_clustering_iterations_), 22>(),
+     {32, 22, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.max_clustering_iterations_)}},
+    // optional float clustering_convergence_tolerance = 5 [default = 1e-05];
+    {::_pbi::TcParser::FastF32S1,
+     {45, 23, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.clustering_convergence_tolerance_)}},
+    // optional string centers_filename = 6;
+    {::_pbi::TcParser::FastSS1,
+     {50, 0, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.centers_filename_)}},
+    // optional int32 min_number_machines = 7 [deprecated = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.min_number_machines_), 7>(),
+     {56, 7, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.min_number_machines_)}},
+    // optional bool use_single_machine_trainer = 8 [default = false, deprecated = true];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(AsymmetricHasherConfig, _impl_.use_single_machine_trainer_), 10>(),
+     {64, 10, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_single_machine_trainer_)}},
+    // optional int32 clustering_seed = 9 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.clustering_seed_), 24>(),
+     {72, 24, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.clustering_seed_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional int32 sampling_seed = 11 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.sampling_seed_), 25>(),
+     {88, 25, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.sampling_seed_)}},
+    // optional string mr_jobname_prefix = 12;
+    {::_pbi::TcParser::FastSS1,
+     {98, 1, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.mr_jobname_prefix_)}},
+    // optional string cell = 13;
+    {::_pbi::TcParser::FastSS1,
+     {106, 2, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.cell_)}},
+    // optional int32 ram_gb = 14 [default = 4];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.ram_gb_), 26>(),
+     {112, 26, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.ram_gb_)}},
+    // optional int32 num_cpus = 15 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AsymmetricHasherConfig, _impl_.num_cpus_), 27>(),
+     {120, 27, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.num_cpus_)}},
+    // optional bool use_normalized_residual_quantization = 32 [default = false];
+    {::_pbi::TcParser::FastV8S2,
+     {640, 16, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_normalized_residual_quantization_)}},
+    // optional bool use_per_leaf_partition_training = 17 [default = false];
+    {::_pbi::TcParser::FastV8S2,
+     {392, 8, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_per_leaf_partition_training_)}},
+    // optional .research_scann.DistanceMeasureConfig quantization_distance = 18;
+    {::_pbi::TcParser::FastMtS2,
+     {402, 4, 1, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.quantization_distance_)}},
+    // optional float min_cluster_size = 19 [default = 1, deprecated = true];
+    {::_pbi::TcParser::FastF32S2,
+     {413, 19, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.min_cluster_size_)}},
+    // optional .research_scann.AsymmetricHasherConfig.LookupType lookup_type = 20 [default = FLOAT];
+    {::_pbi::TcParser::FastEr0S2,
+     {416, 11, 3, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.lookup_type_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional bool use_residual_quantization = 22 [default = false];
+    {::_pbi::TcParser::FastV8S2,
+     {432, 15, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_residual_quantization_)}},
+    // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 23 [default = PRODUCT];
+    {::_pbi::TcParser::FastEr0S2,
+     {440, 12, 3, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.quantization_scheme_)}},
+    // optional .research_scann.StackedQuantizersConfig stacked_quantizers_config = 24;
+    {::_pbi::TcParser::FastMtS2,
+     {450, 5, 4, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.stacked_quantizers_config_)}},
+    // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions fixed_point_lut_conversion_options = 25;
+    {::_pbi::TcParser::FastMtS2,
+     {458, 6, 5, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.fixed_point_lut_conversion_options_)}},
+    // optional float partition_level_confidence_interval_stdevs = 26 [default = 0, deprecated = true];
+    {::_pbi::TcParser::FastF32S2,
+     {469, 13, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.partition_level_confidence_interval_stdevs_)}},
+    // optional int32 num_machines = 27;
+    {::_pbi::TcParser::FastV32S2,
+     {472, 14, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.num_machines_)}},
+    // optional double noise_shaping_threshold = 28 [default = nan];
+    {::_pbi::TcParser::FastF64S2,
+     {481, 28, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.noise_shaping_threshold_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional bool use_noise_shaped_training = 30 [default = false, deprecated = true];
+    {::_pbi::TcParser::FastV8S2,
+     {496, 9, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_noise_shaped_training_)}},
+    // optional bool use_norm_biasing_correction = 31 [default = false];
+    {::_pbi::TcParser::FastV8S2,
+     {504, 17, 0, PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_norm_biasing_correction_)}},
+  }}, {{
+    33, 0, 1,
+    65534, 30,
+    65535, 65535
+  }}, {{
+    // optional .research_scann.ProjectionConfig projection = 1;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.projection_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional int32 num_clusters_per_block = 2 [default = 256];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.num_clusters_per_block_), _Internal::kHasBitsOffset + 20, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 max_sample_size = 3 [default = 2147483647];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.max_sample_size_), _Internal::kHasBitsOffset + 21, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 max_clustering_iterations = 4 [default = 10];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.max_clustering_iterations_), _Internal::kHasBitsOffset + 22, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float clustering_convergence_tolerance = 5 [default = 1e-05];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.clustering_convergence_tolerance_), _Internal::kHasBitsOffset + 23, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional string centers_filename = 6;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.centers_filename_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional int32 min_number_machines = 7 [deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.min_number_machines_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional bool use_single_machine_trainer = 8 [default = false, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_single_machine_trainer_), _Internal::kHasBitsOffset + 10, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional int32 clustering_seed = 9 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.clustering_seed_), _Internal::kHasBitsOffset + 24, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // float sampling_fraction = 10 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.SamplingFractionOrExpectedSize_.sampling_fraction_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kFloat)},
+    // optional int32 sampling_seed = 11 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.sampling_seed_), _Internal::kHasBitsOffset + 25, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional string mr_jobname_prefix = 12;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.mr_jobname_prefix_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional string cell = 13;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.cell_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kRawString | ::_fl::kRepAString)},
+    // optional int32 ram_gb = 14 [default = 4];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.ram_gb_), _Internal::kHasBitsOffset + 26, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_cpus = 15 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.num_cpus_), _Internal::kHasBitsOffset + 27, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional bool use_per_leaf_partition_training = 17 [default = false];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_per_leaf_partition_training_), _Internal::kHasBitsOffset + 8, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional .research_scann.DistanceMeasureConfig quantization_distance = 18;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.quantization_distance_), _Internal::kHasBitsOffset + 4, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional float min_cluster_size = 19 [default = 1, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.min_cluster_size_), _Internal::kHasBitsOffset + 19, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional .research_scann.AsymmetricHasherConfig.LookupType lookup_type = 20 [default = FLOAT];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.lookup_type_), _Internal::kHasBitsOffset + 11, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+    // optional bool use_residual_quantization = 22 [default = false];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_residual_quantization_), _Internal::kHasBitsOffset + 15, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 23 [default = PRODUCT];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.quantization_scheme_), _Internal::kHasBitsOffset + 12, 3,
+    (0 | ::_fl::kFcOptional | ::_fl::kEnumRange)},
+    // optional .research_scann.StackedQuantizersConfig stacked_quantizers_config = 24;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.stacked_quantizers_config_), _Internal::kHasBitsOffset + 5, 4,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions fixed_point_lut_conversion_options = 25;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.fixed_point_lut_conversion_options_), _Internal::kHasBitsOffset + 6, 5,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // optional float partition_level_confidence_interval_stdevs = 26 [default = 0, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.partition_level_confidence_interval_stdevs_), _Internal::kHasBitsOffset + 13, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional int32 num_machines = 27;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.num_machines_), _Internal::kHasBitsOffset + 14, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional double noise_shaping_threshold = 28 [default = nan];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.noise_shaping_threshold_), _Internal::kHasBitsOffset + 28, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kDouble)},
+    // int32 expected_sample_size = 29;
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.SamplingFractionOrExpectedSize_.expected_sample_size_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kInt32)},
+    // optional bool use_noise_shaped_training = 30 [default = false, deprecated = true];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_noise_shaped_training_), _Internal::kHasBitsOffset + 9, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool use_norm_biasing_correction = 31 [default = false];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_norm_biasing_correction_), _Internal::kHasBitsOffset + 17, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool use_normalized_residual_quantization = 32 [default = false];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_normalized_residual_quantization_), _Internal::kHasBitsOffset + 16, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional bool use_global_topn = 33 [default = false];
+    {PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.use_global_topn_), _Internal::kHasBitsOffset + 18, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::research_scann::ProjectionConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::DistanceMeasureConfig>()},
+    {0, 4},
+    {0, 4},
+    {::_pbi::TcParser::GetTable<::research_scann::StackedQuantizersConfig>()},
+    {::_pbi::TcParser::GetTable<::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions>()},
+  }}, {{
+    "\45\0\0\0\0\0\20\0\0\0\0\0\21\4\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+    "research_scann.AsymmetricHasherConfig"
+    "centers_filename"
+    "mr_jobname_prefix"
+    "cell"
+  }},
+};
+
+::uint8_t* AsymmetricHasherConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.AsymmetricHasherConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .research_scann.ProjectionConfig projection = 1;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::projection(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        1, _Internal::projection(this),
+        _Internal::projection(this).GetCachedSize(), target, stream);
   }
 
   // optional int32 num_clusters_per_block = 2 [default = 256];
   if (cached_has_bits & 0x00100000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_num_clusters_per_block(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_num_clusters_per_block(), target);
   }
 
   // optional int32 max_sample_size = 3 [default = 2147483647];
   if (cached_has_bits & 0x00200000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_max_sample_size(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_max_sample_size(), target);
   }
 
   // optional int32 max_clustering_iterations = 4 [default = 10];
   if (cached_has_bits & 0x00400000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_max_clustering_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<4>(
+            stream, this->_internal_max_clustering_iterations(), target);
   }
 
   // optional float clustering_convergence_tolerance = 5 [default = 1e-05];
   if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_clustering_convergence_tolerance(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        5, this->_internal_clustering_convergence_tolerance(), target);
   }
 
   // optional string centers_filename = 6;
   if (cached_has_bits & 0x00000001u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_centers_filename().data(), static_cast<int>(this->_internal_centers_filename().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.AsymmetricHasherConfig.centers_filename");
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_centers_filename(), target);
+    const std::string& _s = this->_internal_centers_filename();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.AsymmetricHasherConfig.centers_filename");
+    target = stream->WriteStringMaybeAliased(6, _s, target);
   }
 
   // optional int32 min_number_machines = 7 [deprecated = true];
   if (cached_has_bits & 0x00000080u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_min_number_machines(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<7>(
+            stream, this->_internal_min_number_machines(), target);
   }
 
   // optional bool use_single_machine_trainer = 8 [default = false, deprecated = true];
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_use_single_machine_trainer(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        8, this->_internal_use_single_machine_trainer(), target);
   }
 
   // optional int32 clustering_seed = 9 [default = 1];
   if (cached_has_bits & 0x01000000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(9, this->_internal_clustering_seed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<9>(
+            stream, this->_internal_clustering_seed(), target);
   }
 
   // float sampling_fraction = 10 [default = 1];
-  if (_internal_has_sampling_fraction()) {
+  if (SamplingFractionOrExpectedSize_case() == kSamplingFraction) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(10, this->_internal_sampling_fraction(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        10, this->_internal_sampling_fraction(), target);
   }
 
   // optional int32 sampling_seed = 11 [default = 1];
   if (cached_has_bits & 0x02000000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(11, this->_internal_sampling_seed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<11>(
+            stream, this->_internal_sampling_seed(), target);
   }
 
   // optional string mr_jobname_prefix = 12;
   if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_mr_jobname_prefix().data(), static_cast<int>(this->_internal_mr_jobname_prefix().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.AsymmetricHasherConfig.mr_jobname_prefix");
-    target = stream->WriteStringMaybeAliased(
-        12, this->_internal_mr_jobname_prefix(), target);
+    const std::string& _s = this->_internal_mr_jobname_prefix();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.AsymmetricHasherConfig.mr_jobname_prefix");
+    target = stream->WriteStringMaybeAliased(12, _s, target);
   }
 
   // optional string cell = 13;
   if (cached_has_bits & 0x00000004u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_cell().data(), static_cast<int>(this->_internal_cell().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "research_scann.AsymmetricHasherConfig.cell");
-    target = stream->WriteStringMaybeAliased(
-        13, this->_internal_cell(), target);
+    const std::string& _s = this->_internal_cell();
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                "research_scann.AsymmetricHasherConfig.cell");
+    target = stream->WriteStringMaybeAliased(13, _s, target);
   }
 
   // optional int32 ram_gb = 14 [default = 4];
   if (cached_has_bits & 0x04000000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(14, this->_internal_ram_gb(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<14>(
+            stream, this->_internal_ram_gb(), target);
   }
 
   // optional int32 num_cpus = 15 [default = 1];
   if (cached_has_bits & 0x08000000u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(15, this->_internal_num_cpus(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<15>(
+            stream, this->_internal_num_cpus(), target);
   }
 
   // optional bool use_per_leaf_partition_training = 17 [default = false];
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(17, this->_internal_use_per_leaf_partition_training(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        17, this->_internal_use_per_leaf_partition_training(), target);
   }
 
   // optional .research_scann.DistanceMeasureConfig quantization_distance = 18;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        18, _Internal::quantization_distance(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        18, _Internal::quantization_distance(this),
+        _Internal::quantization_distance(this).GetCachedSize(), target, stream);
   }
 
   // optional float min_cluster_size = 19 [default = 1, deprecated = true];
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(19, this->_internal_min_cluster_size(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        19, this->_internal_min_cluster_size(), target);
   }
 
   // optional .research_scann.AsymmetricHasherConfig.LookupType lookup_type = 20 [default = FLOAT];
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      20, this->_internal_lookup_type(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        20, this->_internal_lookup_type(), target);
   }
 
   // optional bool use_residual_quantization = 22 [default = false];
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(22, this->_internal_use_residual_quantization(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        22, this->_internal_use_residual_quantization(), target);
   }
 
   // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 23 [default = PRODUCT];
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      23, this->_internal_quantization_scheme(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        23, this->_internal_quantization_scheme(), target);
   }
 
   // optional .research_scann.StackedQuantizersConfig stacked_quantizers_config = 24;
   if (cached_has_bits & 0x00000020u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        24, _Internal::stacked_quantizers_config(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        24, _Internal::stacked_quantizers_config(this),
+        _Internal::stacked_quantizers_config(this).GetCachedSize(), target, stream);
   }
 
   // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions fixed_point_lut_conversion_options = 25;
   if (cached_has_bits & 0x00000040u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        25, _Internal::fixed_point_lut_conversion_options(this), target, stream);
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        25, _Internal::fixed_point_lut_conversion_options(this),
+        _Internal::fixed_point_lut_conversion_options(this).GetCachedSize(), target, stream);
   }
 
   // optional float partition_level_confidence_interval_stdevs = 26 [default = 0, deprecated = true];
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(26, this->_internal_partition_level_confidence_interval_stdevs(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        26, this->_internal_partition_level_confidence_interval_stdevs(), target);
   }
 
   // optional int32 num_machines = 27;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(27, this->_internal_num_machines(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        27, this->_internal_num_machines(), target);
   }
 
   // optional double noise_shaping_threshold = 28 [default = nan];
   if (cached_has_bits & 0x10000000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(28, this->_internal_noise_shaping_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        28, this->_internal_noise_shaping_threshold(), target);
   }
 
   // int32 expected_sample_size = 29;
-  if (_internal_has_expected_sample_size()) {
+  if (SamplingFractionOrExpectedSize_case() == kExpectedSampleSize) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(29, this->_internal_expected_sample_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        29, this->_internal_expected_sample_size(), target);
   }
 
   // optional bool use_noise_shaped_training = 30 [default = false, deprecated = true];
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(30, this->_internal_use_noise_shaped_training(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        30, this->_internal_use_noise_shaped_training(), target);
   }
 
   // optional bool use_norm_biasing_correction = 31 [default = false];
   if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(31, this->_internal_use_norm_biasing_correction(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        31, this->_internal_use_norm_biasing_correction(), target);
   }
 
   // optional bool use_normalized_residual_quantization = 32 [default = false];
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(32, this->_internal_use_normalized_residual_quantization(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        32, this->_internal_use_normalized_residual_quantization(), target);
   }
 
   // optional bool use_global_topn = 33 [default = false];
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(33, this->_internal_use_global_topn(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        33, this->_internal_use_global_topn(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.AsymmetricHasherConfig)
   return target;
 }
 
-size_t AsymmetricHasherConfig::ByteSizeLong() const {
+::size_t AsymmetricHasherConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.AsymmetricHasherConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string centers_filename = 6;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_centers_filename());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_centers_filename());
     }
 
     // optional string mr_jobname_prefix = 12;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_mr_jobname_prefix());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_mr_jobname_prefix());
     }
 
     // optional string cell = 13;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_cell());
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_cell());
     }
 
     // optional .research_scann.ProjectionConfig projection = 1;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *projection_);
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.projection_);
     }
 
     // optional .research_scann.DistanceMeasureConfig quantization_distance = 18;
     if (cached_has_bits & 0x00000010u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *quantization_distance_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.quantization_distance_);
     }
 
     // optional .research_scann.StackedQuantizersConfig stacked_quantizers_config = 24;
     if (cached_has_bits & 0x00000020u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *stacked_quantizers_config_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.stacked_quantizers_config_);
     }
 
     // optional .research_scann.AsymmetricHasherConfig.FixedPointLUTConversionOptions fixed_point_lut_conversion_options = 25;
     if (cached_has_bits & 0x00000040u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *fixed_point_lut_conversion_options_);
+      total_size +=
+          2 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.fixed_point_lut_conversion_options_);
     }
 
     // optional int32 min_number_machines = 7 [deprecated = true];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_min_number_machines());
     }
 
@@ -2295,291 +2279,277 @@ size_t AsymmetricHasherConfig::ByteSizeLong() const {
   if (cached_has_bits & 0x0000ff00u) {
     // optional bool use_per_leaf_partition_training = 17 [default = false];
     if (cached_has_bits & 0x00000100u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool use_noise_shaped_training = 30 [default = false, deprecated = true];
     if (cached_has_bits & 0x00000200u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool use_single_machine_trainer = 8 [default = false, deprecated = true];
     if (cached_has_bits & 0x00000400u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional .research_scann.AsymmetricHasherConfig.LookupType lookup_type = 20 [default = FLOAT];
     if (cached_has_bits & 0x00000800u) {
       total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_lookup_type());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_lookup_type());
     }
 
     // optional .research_scann.AsymmetricHasherConfig.QuantizationScheme quantization_scheme = 23 [default = PRODUCT];
     if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_quantization_scheme());
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_quantization_scheme());
     }
 
     // optional float partition_level_confidence_interval_stdevs = 26 [default = 0, deprecated = true];
     if (cached_has_bits & 0x00002000u) {
-      total_size += 2 + 4;
+      total_size += 6;
     }
 
     // optional int32 num_machines = 27;
     if (cached_has_bits & 0x00004000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_num_machines());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_num_machines());
     }
 
     // optional bool use_residual_quantization = 22 [default = false];
     if (cached_has_bits & 0x00008000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
   }
   if (cached_has_bits & 0x00ff0000u) {
     // optional bool use_normalized_residual_quantization = 32 [default = false];
     if (cached_has_bits & 0x00010000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool use_norm_biasing_correction = 31 [default = false];
     if (cached_has_bits & 0x00020000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional bool use_global_topn = 33 [default = false];
     if (cached_has_bits & 0x00040000u) {
-      total_size += 2 + 1;
+      total_size += 3;
     }
 
     // optional float min_cluster_size = 19 [default = 1, deprecated = true];
     if (cached_has_bits & 0x00080000u) {
-      total_size += 2 + 4;
+      total_size += 6;
     }
 
     // optional int32 num_clusters_per_block = 2 [default = 256];
     if (cached_has_bits & 0x00100000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_clusters_per_block());
     }
 
     // optional int32 max_sample_size = 3 [default = 2147483647];
     if (cached_has_bits & 0x00200000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_sample_size());
     }
 
     // optional int32 max_clustering_iterations = 4 [default = 10];
     if (cached_has_bits & 0x00400000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_clustering_iterations());
     }
 
     // optional float clustering_convergence_tolerance = 5 [default = 1e-05];
     if (cached_has_bits & 0x00800000u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
   if (cached_has_bits & 0x1f000000u) {
     // optional int32 clustering_seed = 9 [default = 1];
     if (cached_has_bits & 0x01000000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_clustering_seed());
     }
 
     // optional int32 sampling_seed = 11 [default = 1];
     if (cached_has_bits & 0x02000000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_sampling_seed());
     }
 
     // optional int32 ram_gb = 14 [default = 4];
     if (cached_has_bits & 0x04000000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_ram_gb());
     }
 
     // optional int32 num_cpus = 15 [default = 1];
     if (cached_has_bits & 0x08000000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_cpus());
     }
 
     // optional double noise_shaping_threshold = 28 [default = nan];
     if (cached_has_bits & 0x10000000u) {
-      total_size += 2 + 8;
+      total_size += 10;
     }
 
   }
   switch (SamplingFractionOrExpectedSize_case()) {
     // float sampling_fraction = 10 [default = 1];
     case kSamplingFraction: {
-      total_size += 1 + 4;
+      total_size += 5;
       break;
     }
     // int32 expected_sample_size = 29;
     case kExpectedSampleSize: {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_expected_sample_size());
+      total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                      this->_internal_expected_sample_size());
       break;
     }
     case SAMPLINGFRACTIONOREXPECTEDSIZE_NOT_SET: {
       break;
     }
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AsymmetricHasherConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    AsymmetricHasherConfig::MergeImpl
+const ::google::protobuf::Message::ClassData AsymmetricHasherConfig::_class_data_ = {
+    AsymmetricHasherConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AsymmetricHasherConfig::GetClassData() const { return &_class_data_; }
-
-void AsymmetricHasherConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<AsymmetricHasherConfig *>(to)->MergeFrom(
-      static_cast<const AsymmetricHasherConfig &>(from));
+const ::google::protobuf::Message::ClassData* AsymmetricHasherConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void AsymmetricHasherConfig::MergeFrom(const AsymmetricHasherConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.AsymmetricHasherConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void AsymmetricHasherConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<AsymmetricHasherConfig*>(&to_msg);
+  auto& from = static_cast<const AsymmetricHasherConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.AsymmetricHasherConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_centers_filename(from._internal_centers_filename());
+      _this->_internal_set_centers_filename(from._internal_centers_filename());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_mr_jobname_prefix(from._internal_mr_jobname_prefix());
+      _this->_internal_set_mr_jobname_prefix(from._internal_mr_jobname_prefix());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_cell(from._internal_cell());
+      _this->_internal_set_cell(from._internal_cell());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_projection()->::research_scann::ProjectionConfig::MergeFrom(from._internal_projection());
+      _this->_internal_mutable_projection()->::research_scann::ProjectionConfig::MergeFrom(
+          from._internal_projection());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_quantization_distance()->::research_scann::DistanceMeasureConfig::MergeFrom(from._internal_quantization_distance());
+      _this->_internal_mutable_quantization_distance()->::research_scann::DistanceMeasureConfig::MergeFrom(
+          from._internal_quantization_distance());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_mutable_stacked_quantizers_config()->::research_scann::StackedQuantizersConfig::MergeFrom(from._internal_stacked_quantizers_config());
+      _this->_internal_mutable_stacked_quantizers_config()->::research_scann::StackedQuantizersConfig::MergeFrom(
+          from._internal_stacked_quantizers_config());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_mutable_fixed_point_lut_conversion_options()->::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeFrom(from._internal_fixed_point_lut_conversion_options());
+      _this->_internal_mutable_fixed_point_lut_conversion_options()->::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions::MergeFrom(
+          from._internal_fixed_point_lut_conversion_options());
     }
     if (cached_has_bits & 0x00000080u) {
-      min_number_machines_ = from.min_number_machines_;
+      _this->_impl_.min_number_machines_ = from._impl_.min_number_machines_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      use_per_leaf_partition_training_ = from.use_per_leaf_partition_training_;
+      _this->_impl_.use_per_leaf_partition_training_ = from._impl_.use_per_leaf_partition_training_;
     }
     if (cached_has_bits & 0x00000200u) {
-      use_noise_shaped_training_ = from.use_noise_shaped_training_;
+      _this->_impl_.use_noise_shaped_training_ = from._impl_.use_noise_shaped_training_;
     }
     if (cached_has_bits & 0x00000400u) {
-      use_single_machine_trainer_ = from.use_single_machine_trainer_;
+      _this->_impl_.use_single_machine_trainer_ = from._impl_.use_single_machine_trainer_;
     }
     if (cached_has_bits & 0x00000800u) {
-      lookup_type_ = from.lookup_type_;
+      _this->_impl_.lookup_type_ = from._impl_.lookup_type_;
     }
     if (cached_has_bits & 0x00001000u) {
-      quantization_scheme_ = from.quantization_scheme_;
+      _this->_impl_.quantization_scheme_ = from._impl_.quantization_scheme_;
     }
     if (cached_has_bits & 0x00002000u) {
-      partition_level_confidence_interval_stdevs_ = from.partition_level_confidence_interval_stdevs_;
+      _this->_impl_.partition_level_confidence_interval_stdevs_ = from._impl_.partition_level_confidence_interval_stdevs_;
     }
     if (cached_has_bits & 0x00004000u) {
-      num_machines_ = from.num_machines_;
+      _this->_impl_.num_machines_ = from._impl_.num_machines_;
     }
     if (cached_has_bits & 0x00008000u) {
-      use_residual_quantization_ = from.use_residual_quantization_;
+      _this->_impl_.use_residual_quantization_ = from._impl_.use_residual_quantization_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      use_normalized_residual_quantization_ = from.use_normalized_residual_quantization_;
+      _this->_impl_.use_normalized_residual_quantization_ = from._impl_.use_normalized_residual_quantization_;
     }
     if (cached_has_bits & 0x00020000u) {
-      use_norm_biasing_correction_ = from.use_norm_biasing_correction_;
+      _this->_impl_.use_norm_biasing_correction_ = from._impl_.use_norm_biasing_correction_;
     }
     if (cached_has_bits & 0x00040000u) {
-      use_global_topn_ = from.use_global_topn_;
+      _this->_impl_.use_global_topn_ = from._impl_.use_global_topn_;
     }
     if (cached_has_bits & 0x00080000u) {
-      min_cluster_size_ = from.min_cluster_size_;
+      _this->_impl_.min_cluster_size_ = from._impl_.min_cluster_size_;
     }
     if (cached_has_bits & 0x00100000u) {
-      num_clusters_per_block_ = from.num_clusters_per_block_;
+      _this->_impl_.num_clusters_per_block_ = from._impl_.num_clusters_per_block_;
     }
     if (cached_has_bits & 0x00200000u) {
-      max_sample_size_ = from.max_sample_size_;
+      _this->_impl_.max_sample_size_ = from._impl_.max_sample_size_;
     }
     if (cached_has_bits & 0x00400000u) {
-      max_clustering_iterations_ = from.max_clustering_iterations_;
+      _this->_impl_.max_clustering_iterations_ = from._impl_.max_clustering_iterations_;
     }
     if (cached_has_bits & 0x00800000u) {
-      clustering_convergence_tolerance_ = from.clustering_convergence_tolerance_;
+      _this->_impl_.clustering_convergence_tolerance_ = from._impl_.clustering_convergence_tolerance_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x1f000000u) {
     if (cached_has_bits & 0x01000000u) {
-      clustering_seed_ = from.clustering_seed_;
+      _this->_impl_.clustering_seed_ = from._impl_.clustering_seed_;
     }
     if (cached_has_bits & 0x02000000u) {
-      sampling_seed_ = from.sampling_seed_;
+      _this->_impl_.sampling_seed_ = from._impl_.sampling_seed_;
     }
     if (cached_has_bits & 0x04000000u) {
-      ram_gb_ = from.ram_gb_;
+      _this->_impl_.ram_gb_ = from._impl_.ram_gb_;
     }
     if (cached_has_bits & 0x08000000u) {
-      num_cpus_ = from.num_cpus_;
+      _this->_impl_.num_cpus_ = from._impl_.num_cpus_;
     }
     if (cached_has_bits & 0x10000000u) {
-      noise_shaping_threshold_ = from.noise_shaping_threshold_;
+      _this->_impl_.noise_shaping_threshold_ = from._impl_.noise_shaping_threshold_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   switch (from.SamplingFractionOrExpectedSize_case()) {
     case kSamplingFraction: {
-      _internal_set_sampling_fraction(from._internal_sampling_fraction());
+      _this->_internal_set_sampling_fraction(from._internal_sampling_fraction());
       break;
     }
     case kExpectedSampleSize: {
-      _internal_set_expected_sample_size(from._internal_expected_sample_size());
+      _this->_internal_set_expected_sample_size(from._internal_expected_sample_size());
       break;
     }
     case SAMPLINGFRACTIONOREXPECTEDSIZE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void AsymmetricHasherConfig::CopyFrom(const AsymmetricHasherConfig& from) {
@@ -2589,63 +2559,47 @@ void AsymmetricHasherConfig::CopyFrom(const AsymmetricHasherConfig& from) {
   MergeFrom(from);
 }
 
-bool AsymmetricHasherConfig::IsInitialized() const {
-  if (_internal_has_projection()) {
-    if (!projection_->IsInitialized()) return false;
+PROTOBUF_NOINLINE bool AsymmetricHasherConfig::IsInitialized() const {
+  if ((_impl_._has_bits_[0] & 0x00000008u) != 0) {
+    if (!_impl_.projection_->IsInitialized()) return false;
   }
   return true;
 }
 
-void AsymmetricHasherConfig::InternalSwap(AsymmetricHasherConfig* other) {
+::_pbi::CachedSize* AsymmetricHasherConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void AsymmetricHasherConfig::InternalSwap(AsymmetricHasherConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &centers_filename_, GetArenaForAllocation(),
-      &other->centers_filename_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &mr_jobname_prefix_, GetArenaForAllocation(),
-      &other->mr_jobname_prefix_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &cell_, GetArenaForAllocation(),
-      &other->cell_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, use_global_topn_)
-      + sizeof(AsymmetricHasherConfig::use_global_topn_)
-      - PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, projection_)>(
-          reinterpret_cast<char*>(&projection_),
-          reinterpret_cast<char*>(&other->projection_));
-  swap(min_cluster_size_, other->min_cluster_size_);
-  swap(num_clusters_per_block_, other->num_clusters_per_block_);
-  swap(max_sample_size_, other->max_sample_size_);
-  swap(max_clustering_iterations_, other->max_clustering_iterations_);
-  swap(clustering_convergence_tolerance_, other->clustering_convergence_tolerance_);
-  swap(clustering_seed_, other->clustering_seed_);
-  swap(sampling_seed_, other->sampling_seed_);
-  swap(ram_gb_, other->ram_gb_);
-  swap(num_cpus_, other->num_cpus_);
-  swap(noise_shaping_threshold_, other->noise_shaping_threshold_);
-  swap(SamplingFractionOrExpectedSize_, other->SamplingFractionOrExpectedSize_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.centers_filename_, &other->_impl_.centers_filename_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.mr_jobname_prefix_, &other->_impl_.mr_jobname_prefix_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.cell_, &other->_impl_.cell_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.noise_shaping_threshold_)
+      + sizeof(AsymmetricHasherConfig::_impl_.noise_shaping_threshold_)
+      - PROTOBUF_FIELD_OFFSET(AsymmetricHasherConfig, _impl_.projection_)>(
+          reinterpret_cast<char*>(&_impl_.projection_),
+          reinterpret_cast<char*>(&other->_impl_.projection_));
+  swap(_impl_.SamplingFractionOrExpectedSize_, other->_impl_.SamplingFractionOrExpectedSize_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata AsymmetricHasherConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata AsymmetricHasherConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[2]);
 }
-
 // ===================================================================
 
 class MinHasherConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<MinHasherConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<MinHasherConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_._has_bits_);
   static void set_has_config_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2660,289 +2614,278 @@ class MinHasherConfig::_Internal {
   }
 };
 
-MinHasherConfig::MinHasherConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  seeds_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+MinHasherConfig::MinHasherConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.MinHasherConfig)
 }
-MinHasherConfig::MinHasherConfig(const MinHasherConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      seeds_(from.seeds_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&config_id_, &from.config_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&num_bits_per_hash_) -
-    reinterpret_cast<char*>(&config_id_)) + sizeof(num_bits_per_hash_));
+inline PROTOBUF_NDEBUG_INLINE MinHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        seeds_{visibility, arena, from.seeds_} {}
+
+MinHasherConfig::MinHasherConfig(
+    ::google::protobuf::Arena* arena,
+    const MinHasherConfig& from)
+    : ::google::protobuf::Message(arena) {
+  MinHasherConfig* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, config_id_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, config_id_),
+           offsetof(Impl_, num_bits_per_hash_) -
+               offsetof(Impl_, config_id_) +
+               sizeof(Impl_::num_bits_per_hash_));
+
   // @@protoc_insertion_point(copy_constructor:research_scann.MinHasherConfig)
 }
+inline PROTOBUF_NDEBUG_INLINE MinHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        seeds_{visibility, arena} {}
 
-inline void MinHasherConfig::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&config_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&num_bits_per_hash_) -
-    reinterpret_cast<char*>(&config_id_)) + sizeof(num_bits_per_hash_));
+inline void MinHasherConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, config_id_),
+           0,
+           offsetof(Impl_, num_bits_per_hash_) -
+               offsetof(Impl_, config_id_) +
+               sizeof(Impl_::num_bits_per_hash_));
 }
-
 MinHasherConfig::~MinHasherConfig() {
   // @@protoc_insertion_point(destructor:research_scann.MinHasherConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void MinHasherConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void MinHasherConfig::ArenaDtor(void* object) {
-  MinHasherConfig* _this = reinterpret_cast< MinHasherConfig* >(object);
-  (void)_this;
-}
-void MinHasherConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void MinHasherConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void MinHasherConfig::Clear() {
+PROTOBUF_NOINLINE void MinHasherConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.MinHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  seeds_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.seeds_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&config_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&num_bits_per_hash_) -
-        reinterpret_cast<char*>(&config_id_)) + sizeof(num_bits_per_hash_));
+    ::memset(&_impl_.config_id_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.num_bits_per_hash_) -
+        reinterpret_cast<char*>(&_impl_.config_id_)) + sizeof(_impl_.num_bits_per_hash_));
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* MinHasherConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 config_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_config_id(&has_bits);
-          config_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_sketches = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_num_sketches(&has_bits);
-          num_sketches_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_hashes = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_num_hashes(&has_bits);
-          num_hashes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated int64 seeds = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            _internal_add_seeds(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<32>(ptr));
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_seeds(), ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_bits_per_hash = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_num_bits_per_hash(&has_bits);
-          num_bits_per_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* MinHasherConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* MinHasherConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.MinHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 5, 0, 0, 2> MinHasherConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    5, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967264,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    5,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_MinHasherConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional int32 config_id = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MinHasherConfig, _impl_.config_id_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.config_id_)}},
+    // optional int32 num_sketches = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MinHasherConfig, _impl_.num_sketches_), 1>(),
+     {16, 1, 0, PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_sketches_)}},
+    // optional int32 num_hashes = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MinHasherConfig, _impl_.num_hashes_), 2>(),
+     {24, 2, 0, PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_hashes_)}},
+    // repeated int64 seeds = 4;
+    {::_pbi::TcParser::FastV64R1,
+     {32, 63, 0, PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.seeds_)}},
+    // optional int32 num_bits_per_hash = 5;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MinHasherConfig, _impl_.num_bits_per_hash_), 3>(),
+     {40, 3, 0, PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_bits_per_hash_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 config_id = 1;
+    {PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.config_id_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_sketches = 2;
+    {PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_sketches_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_hashes = 3;
+    {PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_hashes_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // repeated int64 seeds = 4;
+    {PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.seeds_), -1, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kInt64)},
+    // optional int32 num_bits_per_hash = 5;
+    {PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_bits_per_hash_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* MinHasherConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.MinHasherConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 config_id = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_config_id(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_config_id(), target);
   }
 
   // optional int32 num_sketches = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_num_sketches(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_num_sketches(), target);
   }
 
   // optional int32 num_hashes = 3;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_num_hashes(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_num_hashes(), target);
   }
 
   // repeated int64 seeds = 4;
-  for (int i = 0, n = this->_internal_seeds_size(); i < n; i++) {
+  for (int i = 0, n = this->_internal_seeds_size(); i < n; ++i) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_seeds(i), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        4, this->_internal_seeds().Get(i), target);
   }
 
   // optional int32 num_bits_per_hash = 5;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_num_bits_per_hash(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<5>(
+            stream, this->_internal_num_bits_per_hash(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.MinHasherConfig)
   return target;
 }
 
-size_t MinHasherConfig::ByteSizeLong() const {
+::size_t MinHasherConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.MinHasherConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // repeated int64 seeds = 4;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      Int64Size(this->seeds_);
-    total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_seeds_size());
-    total_size += data_size;
+    std::size_t data_size = ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_seeds())
+    ;
+    std::size_t tag_size = std::size_t{1} *
+        ::_pbi::FromIntSize(this->_internal_seeds_size());
+    ;
+    total_size += tag_size + data_size;
   }
-
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int32 config_id = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_config_id());
     }
 
     // optional int32 num_sketches = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_sketches());
     }
 
     // optional int32 num_hashes = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_hashes());
     }
 
     // optional int32 num_bits_per_hash = 5;
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_bits_per_hash());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MinHasherConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    MinHasherConfig::MergeImpl
+const ::google::protobuf::Message::ClassData MinHasherConfig::_class_data_ = {
+    MinHasherConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MinHasherConfig::GetClassData() const { return &_class_data_; }
-
-void MinHasherConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<MinHasherConfig *>(to)->MergeFrom(
-      static_cast<const MinHasherConfig &>(from));
+const ::google::protobuf::Message::ClassData* MinHasherConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void MinHasherConfig::MergeFrom(const MinHasherConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.MinHasherConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void MinHasherConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<MinHasherConfig*>(&to_msg);
+  auto& from = static_cast<const MinHasherConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.MinHasherConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  seeds_.MergeFrom(from.seeds_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_internal_mutable_seeds()->MergeFrom(from._internal_seeds());
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      config_id_ = from.config_id_;
+      _this->_impl_.config_id_ = from._impl_.config_id_;
     }
     if (cached_has_bits & 0x00000002u) {
-      num_sketches_ = from.num_sketches_;
+      _this->_impl_.num_sketches_ = from._impl_.num_sketches_;
     }
     if (cached_has_bits & 0x00000004u) {
-      num_hashes_ = from.num_hashes_;
+      _this->_impl_.num_hashes_ = from._impl_.num_hashes_;
     }
     if (cached_has_bits & 0x00000008u) {
-      num_bits_per_hash_ = from.num_bits_per_hash_;
+      _this->_impl_.num_bits_per_hash_ = from._impl_.num_bits_per_hash_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MinHasherConfig::CopyFrom(const MinHasherConfig& from) {
@@ -2952,34 +2895,38 @@ void MinHasherConfig::CopyFrom(const MinHasherConfig& from) {
   MergeFrom(from);
 }
 
-bool MinHasherConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool MinHasherConfig::IsInitialized() const {
   return true;
 }
 
-void MinHasherConfig::InternalSwap(MinHasherConfig* other) {
+::_pbi::CachedSize* MinHasherConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void MinHasherConfig::InternalSwap(MinHasherConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  seeds_.InternalSwap(&other->seeds_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MinHasherConfig, num_bits_per_hash_)
-      + sizeof(MinHasherConfig::num_bits_per_hash_)
-      - PROTOBUF_FIELD_OFFSET(MinHasherConfig, config_id_)>(
-          reinterpret_cast<char*>(&config_id_),
-          reinterpret_cast<char*>(&other->config_id_));
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.seeds_.InternalSwap(&other->_impl_.seeds_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.num_bits_per_hash_)
+      + sizeof(MinHasherConfig::_impl_.num_bits_per_hash_)
+      - PROTOBUF_FIELD_OFFSET(MinHasherConfig, _impl_.config_id_)>(
+          reinterpret_cast<char*>(&_impl_.config_id_),
+          reinterpret_cast<char*>(&other->_impl_.config_id_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata MinHasherConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata MinHasherConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[3]);
 }
-
 // ===================================================================
 
 class BitSamplingHasherConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<BitSamplingHasherConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<BitSamplingHasherConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_._has_bits_);
   static void set_has_num_bits(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -2988,202 +2935,178 @@ class BitSamplingHasherConfig::_Internal {
   }
 };
 
-BitSamplingHasherConfig::BitSamplingHasherConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+BitSamplingHasherConfig::BitSamplingHasherConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.BitSamplingHasherConfig)
 }
-BitSamplingHasherConfig::BitSamplingHasherConfig(const BitSamplingHasherConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&use_entropy_, &from.use_entropy_,
-    static_cast<size_t>(reinterpret_cast<char*>(&num_bits_) -
-    reinterpret_cast<char*>(&use_entropy_)) + sizeof(num_bits_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.BitSamplingHasherConfig)
+BitSamplingHasherConfig::BitSamplingHasherConfig(
+    ::google::protobuf::Arena* arena, const BitSamplingHasherConfig& from)
+    : BitSamplingHasherConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE BitSamplingHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        num_bits_{3} {}
 
-inline void BitSamplingHasherConfig::SharedCtor() {
-use_entropy_ = false;
-num_bits_ = 3;
+inline void BitSamplingHasherConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.use_entropy_ = {};
 }
-
 BitSamplingHasherConfig::~BitSamplingHasherConfig() {
   // @@protoc_insertion_point(destructor:research_scann.BitSamplingHasherConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void BitSamplingHasherConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void BitSamplingHasherConfig::ArenaDtor(void* object) {
-  BitSamplingHasherConfig* _this = reinterpret_cast< BitSamplingHasherConfig* >(object);
-  (void)_this;
-}
-void BitSamplingHasherConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void BitSamplingHasherConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void BitSamplingHasherConfig::Clear() {
+PROTOBUF_NOINLINE void BitSamplingHasherConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.BitSamplingHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    use_entropy_ = false;
-    num_bits_ = 3;
+    _impl_.use_entropy_ = false;
+    _impl_.num_bits_ = 3;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* BitSamplingHasherConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 num_bits = 1 [default = 3];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_num_bits(&has_bits);
-          num_bits_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool use_entropy = 2 [default = false];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_use_entropy(&has_bits);
-          use_entropy_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* BitSamplingHasherConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* BitSamplingHasherConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.BitSamplingHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> BitSamplingHasherConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_BitSamplingHasherConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional bool use_entropy = 2 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(BitSamplingHasherConfig, _impl_.use_entropy_), 0>(),
+     {16, 0, 0, PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_.use_entropy_)}},
+    // optional int32 num_bits = 1 [default = 3];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BitSamplingHasherConfig, _impl_.num_bits_), 1>(),
+     {8, 1, 0, PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_.num_bits_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 num_bits = 1 [default = 3];
+    {PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_.num_bits_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional bool use_entropy = 2 [default = false];
+    {PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_.use_entropy_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* BitSamplingHasherConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.BitSamplingHasherConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 num_bits = 1 [default = 3];
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_num_bits(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_num_bits(), target);
   }
 
   // optional bool use_entropy = 2 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_use_entropy(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_use_entropy(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.BitSamplingHasherConfig)
   return target;
 }
 
-size_t BitSamplingHasherConfig::ByteSizeLong() const {
+::size_t BitSamplingHasherConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.BitSamplingHasherConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bool use_entropy = 2 [default = false];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional int32 num_bits = 1 [default = 3];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_bits());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BitSamplingHasherConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    BitSamplingHasherConfig::MergeImpl
+const ::google::protobuf::Message::ClassData BitSamplingHasherConfig::_class_data_ = {
+    BitSamplingHasherConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BitSamplingHasherConfig::GetClassData() const { return &_class_data_; }
-
-void BitSamplingHasherConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<BitSamplingHasherConfig *>(to)->MergeFrom(
-      static_cast<const BitSamplingHasherConfig &>(from));
+const ::google::protobuf::Message::ClassData* BitSamplingHasherConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void BitSamplingHasherConfig::MergeFrom(const BitSamplingHasherConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.BitSamplingHasherConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void BitSamplingHasherConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<BitSamplingHasherConfig*>(&to_msg);
+  auto& from = static_cast<const BitSamplingHasherConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.BitSamplingHasherConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      use_entropy_ = from.use_entropy_;
+      _this->_impl_.use_entropy_ = from._impl_.use_entropy_;
     }
     if (cached_has_bits & 0x00000002u) {
-      num_bits_ = from.num_bits_;
+      _this->_impl_.num_bits_ = from._impl_.num_bits_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void BitSamplingHasherConfig::CopyFrom(const BitSamplingHasherConfig& from) {
@@ -3193,29 +3116,37 @@ void BitSamplingHasherConfig::CopyFrom(const BitSamplingHasherConfig& from) {
   MergeFrom(from);
 }
 
-bool BitSamplingHasherConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool BitSamplingHasherConfig::IsInitialized() const {
   return true;
 }
 
-void BitSamplingHasherConfig::InternalSwap(BitSamplingHasherConfig* other) {
+::_pbi::CachedSize* BitSamplingHasherConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void BitSamplingHasherConfig::InternalSwap(BitSamplingHasherConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(use_entropy_, other->use_entropy_);
-  swap(num_bits_, other->num_bits_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_.num_bits_)
+      + sizeof(BitSamplingHasherConfig::_impl_.num_bits_)
+      - PROTOBUF_FIELD_OFFSET(BitSamplingHasherConfig, _impl_.use_entropy_)>(
+          reinterpret_cast<char*>(&_impl_.use_entropy_),
+          reinterpret_cast<char*>(&other->_impl_.use_entropy_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata BitSamplingHasherConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata BitSamplingHasherConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[4]);
 }
-
 // ===================================================================
 
 class PcaHasherConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<PcaHasherConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<PcaHasherConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_._has_bits_);
   static void set_has_rotate_projections(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3239,327 +3170,299 @@ class PcaHasherConfig::_Internal {
   }
 };
 
-PcaHasherConfig::PcaHasherConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+PcaHasherConfig::PcaHasherConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.PcaHasherConfig)
 }
-PcaHasherConfig::PcaHasherConfig(const PcaHasherConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&rotate_projections_, &from.rotate_projections_,
-    static_cast<size_t>(reinterpret_cast<char*>(&iteration_tolerance_) -
-    reinterpret_cast<char*>(&rotate_projections_)) + sizeof(iteration_tolerance_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.PcaHasherConfig)
+PcaHasherConfig::PcaHasherConfig(
+    ::google::protobuf::Arena* arena, const PcaHasherConfig& from)
+    : PcaHasherConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE PcaHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        sampling_fraction_{1},
+        sampling_seed_{1},
+        max_num_iteration_{40},
+        iteration_tolerance_{1e-05f} {}
 
-inline void PcaHasherConfig::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&rotate_projections_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&max_sample_size_) -
-    reinterpret_cast<char*>(&rotate_projections_)) + sizeof(max_sample_size_));
-sampling_fraction_ = 1;
-sampling_seed_ = 1;
-max_num_iteration_ = 40;
-iteration_tolerance_ = 1e-05f;
+inline void PcaHasherConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, rotate_projections_),
+           0,
+           offsetof(Impl_, max_sample_size_) -
+               offsetof(Impl_, rotate_projections_) +
+               sizeof(Impl_::max_sample_size_));
 }
-
 PcaHasherConfig::~PcaHasherConfig() {
   // @@protoc_insertion_point(destructor:research_scann.PcaHasherConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void PcaHasherConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void PcaHasherConfig::ArenaDtor(void* object) {
-  PcaHasherConfig* _this = reinterpret_cast< PcaHasherConfig* >(object);
-  (void)_this;
-}
-void PcaHasherConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void PcaHasherConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void PcaHasherConfig::Clear() {
+PROTOBUF_NOINLINE void PcaHasherConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.PcaHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    ::memset(&rotate_projections_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&max_sample_size_) -
-        reinterpret_cast<char*>(&rotate_projections_)) + sizeof(max_sample_size_));
-    sampling_fraction_ = 1;
-    sampling_seed_ = 1;
-    max_num_iteration_ = 40;
-    iteration_tolerance_ = 1e-05f;
+    ::memset(&_impl_.rotate_projections_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.max_sample_size_) -
+        reinterpret_cast<char*>(&_impl_.rotate_projections_)) + sizeof(_impl_.max_sample_size_));
+    _impl_.sampling_fraction_ = 1;
+    _impl_.sampling_seed_ = 1;
+    _impl_.max_num_iteration_ = 40;
+    _impl_.iteration_tolerance_ = 1e-05f;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* PcaHasherConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional bool rotate_projections = 1 [default = false];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_rotate_projections(&has_bits);
-          rotate_projections_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float sampling_fraction = 2 [default = 1];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_sampling_fraction(&has_bits);
-          sampling_fraction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 sampling_seed = 3 [default = 1];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          _Internal::set_has_sampling_seed(&has_bits);
-          sampling_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_sample_size = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_max_sample_size(&has_bits);
-          max_sample_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional bool learn_projections = 5 [default = false];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_learn_projections(&has_bits);
-          learn_projections_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_num_iteration = 6 [default = 40];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          _Internal::set_has_max_num_iteration(&has_bits);
-          max_num_iteration_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float iteration_tolerance = 7 [default = 1e-05];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 61)) {
-          _Internal::set_has_iteration_tolerance(&has_bits);
-          iteration_tolerance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* PcaHasherConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* PcaHasherConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.PcaHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 7, 0, 0, 2> PcaHasherConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    7, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967168,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    7,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_PcaHasherConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional bool rotate_projections = 1 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(PcaHasherConfig, _impl_.rotate_projections_), 0>(),
+     {8, 0, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.rotate_projections_)}},
+    // optional float sampling_fraction = 2 [default = 1];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 3, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.sampling_fraction_)}},
+    // optional int32 sampling_seed = 3 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PcaHasherConfig, _impl_.sampling_seed_), 4>(),
+     {24, 4, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.sampling_seed_)}},
+    // optional int32 max_sample_size = 4;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PcaHasherConfig, _impl_.max_sample_size_), 2>(),
+     {32, 2, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.max_sample_size_)}},
+    // optional bool learn_projections = 5 [default = false];
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(PcaHasherConfig, _impl_.learn_projections_), 1>(),
+     {40, 1, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.learn_projections_)}},
+    // optional int32 max_num_iteration = 6 [default = 40];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(PcaHasherConfig, _impl_.max_num_iteration_), 5>(),
+     {48, 5, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.max_num_iteration_)}},
+    // optional float iteration_tolerance = 7 [default = 1e-05];
+    {::_pbi::TcParser::FastF32S1,
+     {61, 6, 0, PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.iteration_tolerance_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional bool rotate_projections = 1 [default = false];
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.rotate_projections_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional float sampling_fraction = 2 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.sampling_fraction_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional int32 sampling_seed = 3 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.sampling_seed_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 max_sample_size = 4;
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.max_sample_size_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional bool learn_projections = 5 [default = false];
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.learn_projections_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kBool)},
+    // optional int32 max_num_iteration = 6 [default = 40];
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.max_num_iteration_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float iteration_tolerance = 7 [default = 1e-05];
+    {PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.iteration_tolerance_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* PcaHasherConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.PcaHasherConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool rotate_projections = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_rotate_projections(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_rotate_projections(), target);
   }
 
   // optional float sampling_fraction = 2 [default = 1];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_sampling_fraction(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_sampling_fraction(), target);
   }
 
   // optional int32 sampling_seed = 3 [default = 1];
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_sampling_seed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_sampling_seed(), target);
   }
 
   // optional int32 max_sample_size = 4;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_max_sample_size(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<4>(
+            stream, this->_internal_max_sample_size(), target);
   }
 
   // optional bool learn_projections = 5 [default = false];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_learn_projections(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_learn_projections(), target);
   }
 
   // optional int32 max_num_iteration = 6 [default = 40];
   if (cached_has_bits & 0x00000020u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_max_num_iteration(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<6>(
+            stream, this->_internal_max_num_iteration(), target);
   }
 
   // optional float iteration_tolerance = 7 [default = 1e-05];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(7, this->_internal_iteration_tolerance(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        7, this->_internal_iteration_tolerance(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.PcaHasherConfig)
   return target;
 }
 
-size_t PcaHasherConfig::ByteSizeLong() const {
+::size_t PcaHasherConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.PcaHasherConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     // optional bool rotate_projections = 1 [default = false];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional bool learn_projections = 5 [default = false];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 1;
+      total_size += 2;
     }
 
     // optional int32 max_sample_size = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_sample_size());
     }
 
     // optional float sampling_fraction = 2 [default = 1];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional int32 sampling_seed = 3 [default = 1];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_sampling_seed());
     }
 
     // optional int32 max_num_iteration = 6 [default = 40];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_num_iteration());
     }
 
     // optional float iteration_tolerance = 7 [default = 1e-05];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PcaHasherConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    PcaHasherConfig::MergeImpl
+const ::google::protobuf::Message::ClassData PcaHasherConfig::_class_data_ = {
+    PcaHasherConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PcaHasherConfig::GetClassData() const { return &_class_data_; }
-
-void PcaHasherConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<PcaHasherConfig *>(to)->MergeFrom(
-      static_cast<const PcaHasherConfig &>(from));
+const ::google::protobuf::Message::ClassData* PcaHasherConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void PcaHasherConfig::MergeFrom(const PcaHasherConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.PcaHasherConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void PcaHasherConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<PcaHasherConfig*>(&to_msg);
+  auto& from = static_cast<const PcaHasherConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.PcaHasherConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      rotate_projections_ = from.rotate_projections_;
+      _this->_impl_.rotate_projections_ = from._impl_.rotate_projections_;
     }
     if (cached_has_bits & 0x00000002u) {
-      learn_projections_ = from.learn_projections_;
+      _this->_impl_.learn_projections_ = from._impl_.learn_projections_;
     }
     if (cached_has_bits & 0x00000004u) {
-      max_sample_size_ = from.max_sample_size_;
+      _this->_impl_.max_sample_size_ = from._impl_.max_sample_size_;
     }
     if (cached_has_bits & 0x00000008u) {
-      sampling_fraction_ = from.sampling_fraction_;
+      _this->_impl_.sampling_fraction_ = from._impl_.sampling_fraction_;
     }
     if (cached_has_bits & 0x00000010u) {
-      sampling_seed_ = from.sampling_seed_;
+      _this->_impl_.sampling_seed_ = from._impl_.sampling_seed_;
     }
     if (cached_has_bits & 0x00000020u) {
-      max_num_iteration_ = from.max_num_iteration_;
+      _this->_impl_.max_num_iteration_ = from._impl_.max_num_iteration_;
     }
     if (cached_has_bits & 0x00000040u) {
-      iteration_tolerance_ = from.iteration_tolerance_;
+      _this->_impl_.iteration_tolerance_ = from._impl_.iteration_tolerance_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void PcaHasherConfig::CopyFrom(const PcaHasherConfig& from) {
@@ -3569,37 +3472,37 @@ void PcaHasherConfig::CopyFrom(const PcaHasherConfig& from) {
   MergeFrom(from);
 }
 
-bool PcaHasherConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool PcaHasherConfig::IsInitialized() const {
   return true;
 }
 
-void PcaHasherConfig::InternalSwap(PcaHasherConfig* other) {
+::_pbi::CachedSize* PcaHasherConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void PcaHasherConfig::InternalSwap(PcaHasherConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PcaHasherConfig, max_sample_size_)
-      + sizeof(PcaHasherConfig::max_sample_size_)
-      - PROTOBUF_FIELD_OFFSET(PcaHasherConfig, rotate_projections_)>(
-          reinterpret_cast<char*>(&rotate_projections_),
-          reinterpret_cast<char*>(&other->rotate_projections_));
-  swap(sampling_fraction_, other->sampling_fraction_);
-  swap(sampling_seed_, other->sampling_seed_);
-  swap(max_num_iteration_, other->max_num_iteration_);
-  swap(iteration_tolerance_, other->iteration_tolerance_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.iteration_tolerance_)
+      + sizeof(PcaHasherConfig::_impl_.iteration_tolerance_)
+      - PROTOBUF_FIELD_OFFSET(PcaHasherConfig, _impl_.rotate_projections_)>(
+          reinterpret_cast<char*>(&_impl_.rotate_projections_),
+          reinterpret_cast<char*>(&other->_impl_.rotate_projections_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata PcaHasherConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata PcaHasherConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[5]);
 }
-
 // ===================================================================
 
 class BncHasherConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<BncHasherConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<BncHasherConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_._has_bits_);
   static void set_has_compression_ratio(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3626,354 +3529,320 @@ class BncHasherConfig::_Internal {
   }
 };
 
-BncHasherConfig::BncHasherConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+BncHasherConfig::BncHasherConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.BncHasherConfig)
 }
-BncHasherConfig::BncHasherConfig(const BncHasherConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&compression_ratio_, &from.compression_ratio_,
-    static_cast<size_t>(reinterpret_cast<char*>(&sampling_seed_) -
-    reinterpret_cast<char*>(&compression_ratio_)) + sizeof(sampling_seed_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.BncHasherConfig)
+BncHasherConfig::BncHasherConfig(
+    ::google::protobuf::Arena* arena, const BncHasherConfig& from)
+    : BncHasherConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE BncHasherConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        num_cpus_{1},
+        gamma_{10},
+        learning_rate_{0.1f},
+        batch_size_{128},
+        num_phase1_iterations_{50},
+        num_phase2_iterations_{100},
+        sampling_seed_{1} {}
 
-inline void BncHasherConfig::SharedCtor() {
-compression_ratio_ = 0;
-num_cpus_ = 1;
-gamma_ = 10;
-learning_rate_ = 0.1f;
-batch_size_ = 128;
-num_phase1_iterations_ = 50;
-num_phase2_iterations_ = 100;
-sampling_seed_ = 1;
+inline void BncHasherConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.compression_ratio_ = {};
 }
-
 BncHasherConfig::~BncHasherConfig() {
   // @@protoc_insertion_point(destructor:research_scann.BncHasherConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void BncHasherConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void BncHasherConfig::ArenaDtor(void* object) {
-  BncHasherConfig* _this = reinterpret_cast< BncHasherConfig* >(object);
-  (void)_this;
-}
-void BncHasherConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void BncHasherConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void BncHasherConfig::Clear() {
+PROTOBUF_NOINLINE void BncHasherConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.BncHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    compression_ratio_ = 0;
-    num_cpus_ = 1;
-    gamma_ = 10;
-    learning_rate_ = 0.1f;
-    batch_size_ = 128;
-    num_phase1_iterations_ = 50;
-    num_phase2_iterations_ = 100;
-    sampling_seed_ = 1;
+    _impl_.compression_ratio_ = 0;
+    _impl_.num_cpus_ = 1;
+    _impl_.gamma_ = 10;
+    _impl_.learning_rate_ = 0.1f;
+    _impl_.batch_size_ = 128;
+    _impl_.num_phase1_iterations_ = 50;
+    _impl_.num_phase2_iterations_ = 100;
+    _impl_.sampling_seed_ = 1;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* BncHasherConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional float compression_ratio = 1 [default = 0];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
-          _Internal::set_has_compression_ratio(&has_bits);
-          compression_ratio_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional float gamma = 2 [default = 10];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          _Internal::set_has_gamma(&has_bits);
-          gamma_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional float learning_rate = 3 [default = 0.1];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
-          _Internal::set_has_learning_rate(&has_bits);
-          learning_rate_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 batch_size = 4 [default = 128];
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_batch_size(&has_bits);
-          batch_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_phase1_iterations = 5 [default = 50];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_num_phase1_iterations(&has_bits);
-          num_phase1_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_phase2_iterations = 6 [default = 100];
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          _Internal::set_has_num_phase2_iterations(&has_bits);
-          num_phase2_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 sampling_seed = 7 [default = 1];
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          _Internal::set_has_sampling_seed(&has_bits);
-          sampling_seed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 num_cpus = 8 [default = 1];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          _Internal::set_has_num_cpus(&has_bits);
-          num_cpus_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* BncHasherConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* BncHasherConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.BncHasherConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 8, 0, 0, 2> BncHasherConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    8, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967040,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    8,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_BncHasherConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // optional int32 num_cpus = 8 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BncHasherConfig, _impl_.num_cpus_), 1>(),
+     {64, 1, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.num_cpus_)}},
+    // optional float compression_ratio = 1 [default = 0];
+    {::_pbi::TcParser::FastF32S1,
+     {13, 0, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.compression_ratio_)}},
+    // optional float gamma = 2 [default = 10];
+    {::_pbi::TcParser::FastF32S1,
+     {21, 2, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.gamma_)}},
+    // optional float learning_rate = 3 [default = 0.1];
+    {::_pbi::TcParser::FastF32S1,
+     {29, 3, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.learning_rate_)}},
+    // optional int32 batch_size = 4 [default = 128];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BncHasherConfig, _impl_.batch_size_), 4>(),
+     {32, 4, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.batch_size_)}},
+    // optional int32 num_phase1_iterations = 5 [default = 50];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BncHasherConfig, _impl_.num_phase1_iterations_), 5>(),
+     {40, 5, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.num_phase1_iterations_)}},
+    // optional int32 num_phase2_iterations = 6 [default = 100];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BncHasherConfig, _impl_.num_phase2_iterations_), 6>(),
+     {48, 6, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.num_phase2_iterations_)}},
+    // optional int32 sampling_seed = 7 [default = 1];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BncHasherConfig, _impl_.sampling_seed_), 7>(),
+     {56, 7, 0, PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.sampling_seed_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional float compression_ratio = 1 [default = 0];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.compression_ratio_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional float gamma = 2 [default = 10];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.gamma_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional float learning_rate = 3 [default = 0.1];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.learning_rate_), _Internal::kHasBitsOffset + 3, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+    // optional int32 batch_size = 4 [default = 128];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.batch_size_), _Internal::kHasBitsOffset + 4, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_phase1_iterations = 5 [default = 50];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.num_phase1_iterations_), _Internal::kHasBitsOffset + 5, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_phase2_iterations = 6 [default = 100];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.num_phase2_iterations_), _Internal::kHasBitsOffset + 6, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 sampling_seed = 7 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.sampling_seed_), _Internal::kHasBitsOffset + 7, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 num_cpus = 8 [default = 1];
+    {PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.num_cpus_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* BncHasherConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.BncHasherConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional float compression_ratio = 1 [default = 0];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_compression_ratio(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        1, this->_internal_compression_ratio(), target);
   }
 
   // optional float gamma = 2 [default = 10];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_gamma(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        2, this->_internal_gamma(), target);
   }
 
   // optional float learning_rate = 3 [default = 0.1];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_learning_rate(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        3, this->_internal_learning_rate(), target);
   }
 
   // optional int32 batch_size = 4 [default = 128];
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_batch_size(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<4>(
+            stream, this->_internal_batch_size(), target);
   }
 
   // optional int32 num_phase1_iterations = 5 [default = 50];
   if (cached_has_bits & 0x00000020u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_num_phase1_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<5>(
+            stream, this->_internal_num_phase1_iterations(), target);
   }
 
   // optional int32 num_phase2_iterations = 6 [default = 100];
   if (cached_has_bits & 0x00000040u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_num_phase2_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<6>(
+            stream, this->_internal_num_phase2_iterations(), target);
   }
 
   // optional int32 sampling_seed = 7 [default = 1];
   if (cached_has_bits & 0x00000080u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_sampling_seed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<7>(
+            stream, this->_internal_sampling_seed(), target);
   }
 
   // optional int32 num_cpus = 8 [default = 1];
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(8, this->_internal_num_cpus(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<8>(
+            stream, this->_internal_num_cpus(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.BncHasherConfig)
   return target;
 }
 
-size_t BncHasherConfig::ByteSizeLong() const {
+::size_t BncHasherConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.BncHasherConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional float compression_ratio = 1 [default = 0];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional int32 num_cpus = 8 [default = 1];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_cpus());
     }
 
     // optional float gamma = 2 [default = 10];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional float learning_rate = 3 [default = 0.1];
     if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional int32 batch_size = 4 [default = 128];
     if (cached_has_bits & 0x00000010u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_batch_size());
     }
 
     // optional int32 num_phase1_iterations = 5 [default = 50];
     if (cached_has_bits & 0x00000020u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_phase1_iterations());
     }
 
     // optional int32 num_phase2_iterations = 6 [default = 100];
     if (cached_has_bits & 0x00000040u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_num_phase2_iterations());
     }
 
     // optional int32 sampling_seed = 7 [default = 1];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_sampling_seed());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BncHasherConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    BncHasherConfig::MergeImpl
+const ::google::protobuf::Message::ClassData BncHasherConfig::_class_data_ = {
+    BncHasherConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BncHasherConfig::GetClassData() const { return &_class_data_; }
-
-void BncHasherConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<BncHasherConfig *>(to)->MergeFrom(
-      static_cast<const BncHasherConfig &>(from));
+const ::google::protobuf::Message::ClassData* BncHasherConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void BncHasherConfig::MergeFrom(const BncHasherConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.BncHasherConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void BncHasherConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<BncHasherConfig*>(&to_msg);
+  auto& from = static_cast<const BncHasherConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.BncHasherConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      compression_ratio_ = from.compression_ratio_;
+      _this->_impl_.compression_ratio_ = from._impl_.compression_ratio_;
     }
     if (cached_has_bits & 0x00000002u) {
-      num_cpus_ = from.num_cpus_;
+      _this->_impl_.num_cpus_ = from._impl_.num_cpus_;
     }
     if (cached_has_bits & 0x00000004u) {
-      gamma_ = from.gamma_;
+      _this->_impl_.gamma_ = from._impl_.gamma_;
     }
     if (cached_has_bits & 0x00000008u) {
-      learning_rate_ = from.learning_rate_;
+      _this->_impl_.learning_rate_ = from._impl_.learning_rate_;
     }
     if (cached_has_bits & 0x00000010u) {
-      batch_size_ = from.batch_size_;
+      _this->_impl_.batch_size_ = from._impl_.batch_size_;
     }
     if (cached_has_bits & 0x00000020u) {
-      num_phase1_iterations_ = from.num_phase1_iterations_;
+      _this->_impl_.num_phase1_iterations_ = from._impl_.num_phase1_iterations_;
     }
     if (cached_has_bits & 0x00000040u) {
-      num_phase2_iterations_ = from.num_phase2_iterations_;
+      _this->_impl_.num_phase2_iterations_ = from._impl_.num_phase2_iterations_;
     }
     if (cached_has_bits & 0x00000080u) {
-      sampling_seed_ = from.sampling_seed_;
+      _this->_impl_.sampling_seed_ = from._impl_.sampling_seed_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void BncHasherConfig::CopyFrom(const BncHasherConfig& from) {
@@ -3983,35 +3852,37 @@ void BncHasherConfig::CopyFrom(const BncHasherConfig& from) {
   MergeFrom(from);
 }
 
-bool BncHasherConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool BncHasherConfig::IsInitialized() const {
   return true;
 }
 
-void BncHasherConfig::InternalSwap(BncHasherConfig* other) {
+::_pbi::CachedSize* BncHasherConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void BncHasherConfig::InternalSwap(BncHasherConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(compression_ratio_, other->compression_ratio_);
-  swap(num_cpus_, other->num_cpus_);
-  swap(gamma_, other->gamma_);
-  swap(learning_rate_, other->learning_rate_);
-  swap(batch_size_, other->batch_size_);
-  swap(num_phase1_iterations_, other->num_phase1_iterations_);
-  swap(num_phase2_iterations_, other->num_phase2_iterations_);
-  swap(sampling_seed_, other->sampling_seed_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.sampling_seed_)
+      + sizeof(BncHasherConfig::_impl_.sampling_seed_)
+      - PROTOBUF_FIELD_OFFSET(BncHasherConfig, _impl_.compression_ratio_)>(
+          reinterpret_cast<char*>(&_impl_.compression_ratio_),
+          reinterpret_cast<char*>(&other->_impl_.compression_ratio_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata BncHasherConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata BncHasherConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[6]);
 }
-
 // ===================================================================
 
 class StackedQuantizersConfig::_Internal {
  public:
-  using HasBits = decltype(std::declval<StackedQuantizersConfig>()._has_bits_);
+  using HasBits = decltype(std::declval<StackedQuantizersConfig>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_._has_bits_);
   static void set_has_min_num_iterations(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -4023,228 +3894,203 @@ class StackedQuantizersConfig::_Internal {
   }
 };
 
-StackedQuantizersConfig::StackedQuantizersConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+StackedQuantizersConfig::StackedQuantizersConfig(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:research_scann.StackedQuantizersConfig)
 }
-StackedQuantizersConfig::StackedQuantizersConfig(const StackedQuantizersConfig& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&relative_improvement_threshold_, &from.relative_improvement_threshold_,
-    static_cast<size_t>(reinterpret_cast<char*>(&max_num_iterations_) -
-    reinterpret_cast<char*>(&relative_improvement_threshold_)) + sizeof(max_num_iterations_));
-  // @@protoc_insertion_point(copy_constructor:research_scann.StackedQuantizersConfig)
+StackedQuantizersConfig::StackedQuantizersConfig(
+    ::google::protobuf::Arena* arena, const StackedQuantizersConfig& from)
+    : StackedQuantizersConfig(arena) {
+  MergeFrom(from);
 }
+inline PROTOBUF_NDEBUG_INLINE StackedQuantizersConfig::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        relative_improvement_threshold_{0.001f},
+        min_num_iterations_{3},
+        max_num_iterations_{10} {}
 
-inline void StackedQuantizersConfig::SharedCtor() {
-relative_improvement_threshold_ = 0.001f;
-min_num_iterations_ = 3;
-max_num_iterations_ = 10;
+inline void StackedQuantizersConfig::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
 }
-
 StackedQuantizersConfig::~StackedQuantizersConfig() {
   // @@protoc_insertion_point(destructor:research_scann.StackedQuantizersConfig)
-  if (GetArenaForAllocation() != nullptr) return;
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
-
 inline void StackedQuantizersConfig::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
 }
 
-void StackedQuantizersConfig::ArenaDtor(void* object) {
-  StackedQuantizersConfig* _this = reinterpret_cast< StackedQuantizersConfig* >(object);
-  (void)_this;
-}
-void StackedQuantizersConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void StackedQuantizersConfig::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void StackedQuantizersConfig::Clear() {
+PROTOBUF_NOINLINE void StackedQuantizersConfig::Clear() {
 // @@protoc_insertion_point(message_clear_start:research_scann.StackedQuantizersConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    relative_improvement_threshold_ = 0.001f;
-    min_num_iterations_ = 3;
-    max_num_iterations_ = 10;
+    _impl_.relative_improvement_threshold_ = 0.001f;
+    _impl_.min_num_iterations_ = 3;
+    _impl_.max_num_iterations_ = 10;
   }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-const char* StackedQuantizersConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 min_num_iterations = 1 [default = 3];
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_min_num_iterations(&has_bits);
-          min_num_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional int32 max_num_iterations = 2 [default = 10];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          _Internal::set_has_max_num_iterations(&has_bits);
-          max_num_iterations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional float relative_improvement_threshold = 3 [default = 0.001];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
-          _Internal::set_has_relative_improvement_threshold(&has_bits);
-          relative_improvement_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  _has_bits_.Or(has_bits);
+const char* StackedQuantizersConfig::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
   return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* StackedQuantizersConfig::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:research_scann.StackedQuantizersConfig)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 3, 0, 0, 2> StackedQuantizersConfig::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_._has_bits_),
+    0, // no _extensions_
+    3, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_StackedQuantizersConfig_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // optional int32 min_num_iterations = 1 [default = 3];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(StackedQuantizersConfig, _impl_.min_num_iterations_), 1>(),
+     {8, 1, 0, PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.min_num_iterations_)}},
+    // optional int32 max_num_iterations = 2 [default = 10];
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(StackedQuantizersConfig, _impl_.max_num_iterations_), 2>(),
+     {16, 2, 0, PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.max_num_iterations_)}},
+    // optional float relative_improvement_threshold = 3 [default = 0.001];
+    {::_pbi::TcParser::FastF32S1,
+     {29, 0, 0, PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.relative_improvement_threshold_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // optional int32 min_num_iterations = 1 [default = 3];
+    {PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.min_num_iterations_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional int32 max_num_iterations = 2 [default = 10];
+    {PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.max_num_iterations_), _Internal::kHasBitsOffset + 2, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kInt32)},
+    // optional float relative_improvement_threshold = 3 [default = 0.001];
+    {PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.relative_improvement_threshold_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kFloat)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+::uint8_t* StackedQuantizersConfig::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:research_scann.StackedQuantizersConfig)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 min_num_iterations = 1 [default = 3];
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_min_num_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_min_num_iterations(), target);
   }
 
   // optional int32 max_num_iterations = 2 [default = 10];
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_max_num_iterations(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_max_num_iterations(), target);
   }
 
   // optional float relative_improvement_threshold = 3 [default = 0.001];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_relative_improvement_threshold(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        3, this->_internal_relative_improvement_threshold(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:research_scann.StackedQuantizersConfig)
   return target;
 }
 
-size_t StackedQuantizersConfig::ByteSizeLong() const {
+::size_t StackedQuantizersConfig::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:research_scann.StackedQuantizersConfig)
-  size_t total_size = 0;
+  ::size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional float relative_improvement_threshold = 3 [default = 0.001];
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 4;
+      total_size += 5;
     }
 
     // optional int32 min_num_iterations = 1 [default = 3];
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_min_num_iterations());
     }
 
     // optional int32 max_num_iterations = 2 [default = 10];
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
           this->_internal_max_num_iterations());
     }
 
   }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData StackedQuantizersConfig::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    StackedQuantizersConfig::MergeImpl
+const ::google::protobuf::Message::ClassData StackedQuantizersConfig::_class_data_ = {
+    StackedQuantizersConfig::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*StackedQuantizersConfig::GetClassData() const { return &_class_data_; }
-
-void StackedQuantizersConfig::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<StackedQuantizersConfig *>(to)->MergeFrom(
-      static_cast<const StackedQuantizersConfig &>(from));
+const ::google::protobuf::Message::ClassData* StackedQuantizersConfig::GetClassData() const {
+  return &_class_data_;
 }
 
-
-void StackedQuantizersConfig::MergeFrom(const StackedQuantizersConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:research_scann.StackedQuantizersConfig)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void StackedQuantizersConfig::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<StackedQuantizersConfig*>(&to_msg);
+  auto& from = static_cast<const StackedQuantizersConfig&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:research_scann.StackedQuantizersConfig)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      relative_improvement_threshold_ = from.relative_improvement_threshold_;
+      _this->_impl_.relative_improvement_threshold_ = from._impl_.relative_improvement_threshold_;
     }
     if (cached_has_bits & 0x00000002u) {
-      min_num_iterations_ = from.min_num_iterations_;
+      _this->_impl_.min_num_iterations_ = from._impl_.min_num_iterations_;
     }
     if (cached_has_bits & 0x00000004u) {
-      max_num_iterations_ = from.max_num_iterations_;
+      _this->_impl_.max_num_iterations_ = from._impl_.max_num_iterations_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void StackedQuantizersConfig::CopyFrom(const StackedQuantizersConfig& from) {
@@ -4254,53 +4100,35 @@ void StackedQuantizersConfig::CopyFrom(const StackedQuantizersConfig& from) {
   MergeFrom(from);
 }
 
-bool StackedQuantizersConfig::IsInitialized() const {
+PROTOBUF_NOINLINE bool StackedQuantizersConfig::IsInitialized() const {
   return true;
 }
 
-void StackedQuantizersConfig::InternalSwap(StackedQuantizersConfig* other) {
+::_pbi::CachedSize* StackedQuantizersConfig::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void StackedQuantizersConfig::InternalSwap(StackedQuantizersConfig* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(relative_improvement_threshold_, other->relative_improvement_threshold_);
-  swap(min_num_iterations_, other->min_num_iterations_);
-  swap(max_num_iterations_, other->max_num_iterations_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.max_num_iterations_)
+      + sizeof(StackedQuantizersConfig::_impl_.max_num_iterations_)
+      - PROTOBUF_FIELD_OFFSET(StackedQuantizersConfig, _impl_.relative_improvement_threshold_)>(
+          reinterpret_cast<char*>(&_impl_.relative_improvement_threshold_),
+          reinterpret_cast<char*>(&other->_impl_.relative_improvement_threshold_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata StackedQuantizersConfig::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+::google::protobuf::Metadata StackedQuantizersConfig::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_scann_2fproto_2fhash_2eproto_getter, &descriptor_table_scann_2fproto_2fhash_2eproto_once,
       file_level_metadata_scann_2fproto_2fhash_2eproto[7]);
 }
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace research_scann
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::research_scann::HashConfig* Arena::CreateMaybeMessage< ::research_scann::HashConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::HashConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions* Arena::CreateMaybeMessage< ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::AsymmetricHasherConfig_FixedPointLUTConversionOptions >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::AsymmetricHasherConfig* Arena::CreateMaybeMessage< ::research_scann::AsymmetricHasherConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::AsymmetricHasherConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::MinHasherConfig* Arena::CreateMaybeMessage< ::research_scann::MinHasherConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::MinHasherConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::BitSamplingHasherConfig* Arena::CreateMaybeMessage< ::research_scann::BitSamplingHasherConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::BitSamplingHasherConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::PcaHasherConfig* Arena::CreateMaybeMessage< ::research_scann::PcaHasherConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::PcaHasherConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::BncHasherConfig* Arena::CreateMaybeMessage< ::research_scann::BncHasherConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::BncHasherConfig >(arena);
-}
-template<> PROTOBUF_NOINLINE ::research_scann::StackedQuantizersConfig* Arena::CreateMaybeMessage< ::research_scann::StackedQuantizersConfig >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::research_scann::StackedQuantizersConfig >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
-
+namespace google {
+namespace protobuf {
+}  // namespace protobuf
+}  // namespace google
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
+#include "google/protobuf/port_undef.inc"
