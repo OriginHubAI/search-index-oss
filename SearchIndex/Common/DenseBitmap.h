@@ -135,6 +135,9 @@ public:
             std::memory_order_relaxed);
     }
 
+    /// @brief set bit value at `from begin_id to end_id` to 1 in the bitmap
+    void batch_set(const size_t begin_id, const size_t end_id);
+
     /// @brief set bit value at `id` to 0 in the bitmap
     /// @note this function will throw if `id` is out of range
     inline void unset(size_t id)

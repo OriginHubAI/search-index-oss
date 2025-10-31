@@ -81,6 +81,51 @@ bool DenseBitmap::any() const
     return false;
 }
 
+void DenseBitmap::batch_set(const size_t begin_id, const size_t end_id)
+{
+    SI_THROW_IF_NOT_FMT(
+        begin_id <= end_id && end_id <= size,
+        ErrorCode::LOGICAL_ERROR,
+        "begin_id %zu, end_id %zu, size %zu",
+        begin_id,
+        end_id,
+        size);
+
+    const size_t begin_byte = begin_id / 8;
+    const size_t end_byte = end_id / 8;
+    const size_t begin_offset = begin_id % 8;
+    const size_t end_offset = end_id % 8;
+
+    if (begin_byte == end_byte)
+    {
+        const uint8_t mask = ((1 << (end_offset - begin_offset)) - 1) << begin_offset;
+        bitmap[begin_byte] |= mask;
+    }
+    else
+    {
+        // process first byte
+        bitmap[begin_byte] |= (0xFF << begin_offset);
+
+        size_t middle_bytes = end_byte - begin_byte - 1;
+        size_t remain_begin_byte = begin_byte + (middle_bytes / sizeof(simde__m128i) * sizeof(simde__m128i));
+        if (middle_bytes >= sizeof(simde__m128i)) {
+            const size_t simd_chunks = middle_bytes / sizeof(simde__m128i);
+            for (size_t i = 0; i < simd_chunks; ++i) {
+                simde_mm_storeu_si128(reinterpret_cast<simde__m128i*>(&bitmap[begin_byte + 1 + i * sizeof(simde__m128i)]), simde_mm_set1_epi8(-1));
+            }
+            middle_bytes %= 16;
+        }
+        /// process remain bytes
+        for (size_t i = 0; i < middle_bytes; ++i) {
+            bitmap[remain_begin_byte + 1 + i] = 0xFF;
+        }
+
+        // process end bytes
+        bitmap[end_byte] |= ((1 << end_offset) - 1);
+    }
+}
+
+
 DenseBitmapPtr
 DenseBitmap::intersectDenseBitmaps(DenseBitmapPtr left, DenseBitmapPtr right)
 {
@@ -124,3 +169,4 @@ DenseBitmap::intersectDenseBitmaps(DenseBitmapPtr left, DenseBitmapPtr right)
 }
 
 }
+ 
