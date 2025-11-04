@@ -18,6 +18,9 @@
 
 #pragma once
 
+#include <optional>
+#include <unordered_map>
+#include <vector>
 #include <SearchIndex/Config.h>
 #include <SearchIndex/LocalDiskFileStore.h>
 #include <SearchIndex/VectorIndex.h>
@@ -184,8 +187,59 @@ createFlatAdaptiveVectorIndex(
         name, index_type, metric, data_dim, max_points, params);
 }
 
-/// MyScale valid index parameters
-extern const std::string MYSCALE_VALID_INDEX_PARAMETER;
+/// Parameter specification structure
+struct ParameterSpec
+{
+    enum class ParameterType
+    {
+        INT,
+        FLOAT,
+        STRING
+    };
+
+    ParameterType type;
+    bool case_sensitive;
+    std::optional<std::pair<float, float>> range;           // Valid value range for INT or FLOAT
+    std::vector<std::string> candidates;                    // Valid candidate values for STRING
+
+    ParameterSpec(ParameterType t, bool case_sens, std::optional<std::pair<float, float>> r, std::vector<std::string> cands)
+        : type(t), case_sensitive(case_sens), range(r), candidates(std::move(cands)) {}
+
+    // Factory methods for convenience
+    static ParameterSpec makeInt(int min, int max)
+    {
+        return ParameterSpec(ParameterType::INT, false, std::make_pair(static_cast<float>(min), static_cast<float>(max)), {});
+    }
+
+    static ParameterSpec makeFloat(float min, float max)
+    {
+        return ParameterSpec(ParameterType::FLOAT, false, std::make_pair(min, max), {});
+    }
+
+    static ParameterSpec makeString(std::vector<std::string> candidates, bool case_sensitive = false)
+    {
+        return ParameterSpec(ParameterType::STRING, case_sensitive, std::nullopt, std::move(candidates));
+    }
+};
+
+/// Build parameters map: parameter_name -> ParameterSpec
+using BuildParametersMap = std::unordered_map<std::string, ParameterSpec>;
+
+/// Search parameters map: parameter_name -> ParameterSpec
+using SearchParametersMap = std::unordered_map<std::string, ParameterSpec>;
+
+/// Index parameter set containing both build and search parameters
+struct IndexParameterSet
+{
+    BuildParametersMap build_params;
+    SearchParametersMap search_params;
+};
+
+/// Valid index parameters map: index_type -> IndexParameterSet
+using ValidIndexParametersMap = std::unordered_map<std::string, IndexParameterSet>;
+
+/// MyScale Valid Index Parameters MAP
+extern const ValidIndexParametersMap MYSCALE_VALID_INDEX_PARAMETERS_MAP;
 
 std::string getDefaultIndexType(const DataType &search_type);
 IndexType getVectorIndexType(std::string type, const DataType &search_type);
