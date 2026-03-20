@@ -19,33 +19,175 @@
 #include <SearchIndex/VectorSearch.h>
 #include "SearchIndexCommon.h"
 
-#define FLOAT_VECTOR_METRIC_TYPE_PARAMETER  R"("metric_type": {"type": "string", "case_sensitive": "false", "range":[], "candidates":["L2", "Cosine", "IP"]})"
-#define BINARY_VECTOR_METRIC_TYPE_PARAMETER R"("metric_type": {"type": "string", "case_sensitive": "false", "range":[], "candidates":["Hamming", "Jaccard"]})"
-
-#define VECTOR_INDEX_IVF_BASE_PARAMETER     R"("ncentroids": {"type": "int", "case_sensitive": "false", "range":[1, 1048576], "candidates":[]}, "nprobe": {"type": "int", "case_sensitive": "false", "range":[1,1048576], "candidates":[]})"
-#define VECTOR_INDEX_HNSW_BASE_PARAMETER    R"("m": {"type": "int", "case_sensitive": "false", "range":[8, 128], "candidates":[]}, "ef_c": {"type": "int", "case_sensitive": "false", "range":[16, 1024], "candidates":[]}, "ef_s": {"type": "int", "case_sensitive": "false", "range":[16,1024], "candidates":[]})"
-
-#define VECTOR_SEARCH_ALPHA_PARAMETER   R"("alpha": {"type": "float", "case_sensitive": "false", "range":[1,4], "candidates":[]})"
-#define VECTOR_INDEX_IVF_M_PARAMETER    R"("M": {"type": "int", "case_sensitive": "false", "range":[0, 2147483647], "candidates":[]})"
-#define PQ_BIT_SIZE_PARAMETER   R"("bit_size": {"type": "int", "case_sensitive": "false", "range":[2, 12], "candidates":[] })"
-#define SQ_BIT_SIZE_PARAMETER   R"("bit_size": {"type": "string", "case_sensitive": "true", "range":[], "candidates":["4bit","6bit","8bit","8bit_uniform", "8bit_direct", "4bit_uniform", "QT_fp16"]})"
-
 namespace Search
 {
 
-/// MyScale Valid Index Parameters
-const std::string MYSCALE_VALID_INDEX_PARAMETER = "{"
-        R"("SCANN": {)"     FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "," VECTOR_SEARCH_ALPHA_PARAMETER "},"
-        R"("FLAT": {)"      FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "},"
-        R"("IVFFLAT": {)"   FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "," VECTOR_INDEX_IVF_BASE_PARAMETER "},"
-        R"("IVFPQ": {)"     FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "," VECTOR_INDEX_IVF_BASE_PARAMETER "," VECTOR_INDEX_IVF_M_PARAMETER "," PQ_BIT_SIZE_PARAMETER "},"
-        R"("IVFSQ": {)"     FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "," VECTOR_INDEX_IVF_BASE_PARAMETER "," SQ_BIT_SIZE_PARAMETER "},"
-        R"("HNSWFLAT": {)"  FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "," VECTOR_INDEX_HNSW_BASE_PARAMETER "},"
-        R"("HNSWSQ": {)"    FLOAT_VECTOR_METRIC_TYPE_PARAMETER  "," VECTOR_INDEX_HNSW_BASE_PARAMETER "," SQ_BIT_SIZE_PARAMETER "},"
-        R"("BINARYFLAT": {)" BINARY_VECTOR_METRIC_TYPE_PARAMETER "},"
-        R"("BINARYIVF": {)"  BINARY_VECTOR_METRIC_TYPE_PARAMETER "," VECTOR_INDEX_IVF_BASE_PARAMETER "," VECTOR_INDEX_IVF_M_PARAMETER "},"
-        R"("BINARYHNSW": {)" BINARY_VECTOR_METRIC_TYPE_PARAMETER "," VECTOR_INDEX_HNSW_BASE_PARAMETER "}"
-    "}";
+namespace ParameterSets
+{
+    // Float vector metric types
+    inline const ParameterSpec FLOAT_METRIC_TYPE = ParameterSpec::makeString({"L2", "Cosine", "IP"}, false);
+
+    // Binary vector metric types
+    inline const ParameterSpec BINARY_METRIC_TYPE = ParameterSpec::makeString({"Hamming", "Jaccard"}, false);
+
+    // IVF base parameters
+    inline const ParameterSpec NCENTROIDS = ParameterSpec::makeInt(1, 1048576);
+    inline const ParameterSpec NPROBE = ParameterSpec::makeInt(1, 1048576);
+
+    // HNSW base parameters
+    inline const ParameterSpec M = ParameterSpec::makeInt(8, 128);
+    inline const ParameterSpec EF_C = ParameterSpec::makeInt(16, 1024);
+    inline const ParameterSpec EF_S = ParameterSpec::makeInt(16, 1024);
+
+    // Alpha parameter for search
+    inline const ParameterSpec ALPHA = ParameterSpec::makeFloat(1.0, 4.0);
+
+    // M parameter for IVF
+    inline const ParameterSpec IVF_M = ParameterSpec::makeInt(0, 2147483647);
+
+    // PQ bit size
+    inline const ParameterSpec PQ_BIT_SIZE = ParameterSpec::makeInt(2, 12);
+
+    // SQ bit size (string type with specific candidates)
+    inline const ParameterSpec SQ_BIT_SIZE = ParameterSpec::makeString(
+        {"4bit", "6bit", "8bit", "8bit_uniform", "8bit_direct", "4bit_uniform", "QT_fp16"}, true);
+}
+
+/// MyScale Valid Index Parameters MAP
+inline const ValidIndexParametersMap MYSCALE_VALID_INDEX_PARAMETERS_MAP = {
+
+    // SCANN index
+    {"SCANN",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE}},
+      // Search parameters
+      {{"alpha", ParameterSets::ALPHA}}}},
+
+    // FLAT index
+    {"FLAT",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE}},
+      // Search parameters
+      {}}},
+
+    // IVFFLAT index
+    {"IVFFLAT",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"ncentroids", ParameterSets::NCENTROIDS}},
+      // Search parameters
+      {{"nprobe", ParameterSets::NPROBE}}}},
+
+    // IVFPQ index
+    {"IVFPQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"ncentroids", ParameterSets::NCENTROIDS},
+       {"M", ParameterSets::IVF_M},
+       {"bit_size", ParameterSets::PQ_BIT_SIZE}},
+      // Search parameters
+      {{"nprobe", ParameterSets::NPROBE}}}},
+
+    // IVFFASTPQ index
+    {"IVFFASTPQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"ncentroids", ParameterSets::NCENTROIDS},
+       {"M", ParameterSets::IVF_M},
+       {"bit_size", ParameterSets::PQ_BIT_SIZE}},
+      // Search parameters
+      {{"nprobe", ParameterSets::NPROBE}}}},
+
+    // IVFSQ index
+    {"IVFSQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"ncentroids", ParameterSets::NCENTROIDS},
+       {"bit_size", ParameterSets::SQ_BIT_SIZE}},
+      // Search parameters
+      {{"nprobe", ParameterSets::NPROBE}}}},
+
+    // HNSWFLAT index
+    {"HNSWFLAT",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+
+    // HNSWFASTFLAT index
+    {"HNSWFASTFLAT",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+
+    // HNSWSQ index
+    {"HNSWSQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C},
+       {"bit_size", ParameterSets::SQ_BIT_SIZE}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+
+    // HNSWFASTSQ index
+    {"HNSWFASTSQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C},
+       {"bit_size", ParameterSets::SQ_BIT_SIZE}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+
+    // HNSWPQ index
+    {"HNSWPQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C},
+       {"bit_size", ParameterSets::PQ_BIT_SIZE}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+
+    // HNSWFASTPQ index
+    {"HNSWFASTPQ",
+     {// Build parameters
+      {{"metric_type", ParameterSets::FLOAT_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C},
+       {"bit_size", ParameterSets::PQ_BIT_SIZE}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+
+    // Binary vector indices
+    {"BINARYFLAT",
+     {// Build parameters
+      {{"metric_type", ParameterSets::BINARY_METRIC_TYPE}},
+      // Search parameters
+      {}}},
+
+    {"BINARYIVF",
+     {// Build parameters
+      {{"metric_type", ParameterSets::BINARY_METRIC_TYPE},
+       {"ncentroids", ParameterSets::NCENTROIDS},
+       {"M", ParameterSets::IVF_M}},
+      // Search parameters
+      {{"nprobe", ParameterSets::NPROBE}}}},
+
+    {"BINARYHNSW",
+     {// Build parameters
+      {{"metric_type", ParameterSets::BINARY_METRIC_TYPE},
+       {"m", ParameterSets::M},
+       {"ef_c", ParameterSets::EF_C}},
+      // Search parameters
+      {{"ef_s", ParameterSets::EF_S}}}},
+};
 
 std::string getDefaultIndexType(const DataType &search_type)
 {
